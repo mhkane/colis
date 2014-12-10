@@ -1,0 +1,39 @@
+body
+{
+background-image : url("globe.jpg");
+background-attachment: fixed;
+background-repeat: no repeat;
+}
+div
+{
+	background-image: url("/img/cream_dust_trans.png");
+	
+}
+p
+{
+	color:blue;
+	font-size: 1.3em
+}
+h1
+{
+	color:orange;
+	font-size: 1.8em;
+	font-family: Courrier;
+	text-align:center;
+}
+/* is it worth it */
+.company-name
+{
+	color: purple;
+}
+div  p
+{
+	font-style: italic;
+	color: green;
+}
+.contact-info
+{
+	font-weight: bold;
+	color: red;
+	font-style: normal;
+}
