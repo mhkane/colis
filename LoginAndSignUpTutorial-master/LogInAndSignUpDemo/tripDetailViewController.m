@@ -15,11 +15,14 @@
 @implementation tripDetailViewController
 
 -(void)viewWillAppear:(BOOL)animated{
-    self.tripDetails.text = [NSString stringWithFormat:@"%@ has %@",[[self.trip valueForKey:@"traveler"] valueForKey:@"username"],[self.trip valueForKey:@"text"]];
+    [super viewWillAppear:animated];
+    NSLog(@"%@",self.tripDetails.text);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"%@",self.tripDetails.text);
+
     // Do any additional setup after loading the view from its nib.
 }
 

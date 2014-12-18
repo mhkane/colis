@@ -7,6 +7,7 @@
 //
 
 #import "deliverersViewController.h"
+#import "tripDetailViewController.h"
 
 @interface deliverersViewController ()
 
@@ -101,6 +102,7 @@
 
 - (void)objectsDidLoad:(NSError *)error {
     [super objectsDidLoad:error];
+    
     
     // This method is called every time objects are loaded from Parse via the PFQuery
 }
@@ -212,7 +214,25 @@
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    if([indexPath row]<[self.objects count]){
+    tripDetailViewController *travelInfo = [[tripDetailViewController alloc] init];
+        PFObject *trip = [self.objects objectAtIndex:[indexPath row]
+                          ];
+        PFUser *user = [trip valueForKey:@"traveler"];
+        NSString *idd = [user objectId];
+        PFUser *trueUser = [PFQuery getUserObjectWithId:idd];
+        NSString *username = [trueUser username];
+        NSString *from = [trip valueForKey:@"fromLocation"];
+        NSString *to = [trip valueForKey:@"toLocation"];
+        NSDate *date = [trip valueForKey:@"departureDate"];
+        NSDateFormatter *df2 = [[NSDateFormatter alloc] init];
+        [df2 setDateFormat:@"EEE,d MMM yyyy"];
+        NSString *dateString = [df2 stringFromDate:date];
+        NSString *message = [NSString stringWithFormat:@"%@ has a travel from %@ to %@ on %@",username,from,to,dateString];
+        NSLog(@"%@",message);
+        travelInfo.tripDetails.text=message;
+        [self presentViewController:travelInfo animated:false completion:nil];
+    }
 }
 
 @end

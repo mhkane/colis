@@ -9,8 +9,9 @@
 #import "AppDelegate.h"
 #import "DemoTableViewController.h"
 #import "SubclassConfigViewController.h"
-#import "tripViewController.h"]
+#import "tripViewController.h"
 #import "deliveryRequestViewController.h"
+#import "deliverersViewController.h"
 #import "orderViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 
@@ -45,7 +46,7 @@
     [application registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
     
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[SubclassConfigViewController alloc] init]];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[deliverersViewController alloc] init]];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
