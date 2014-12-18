@@ -11,6 +11,8 @@
 		143C2CDF182058B900DFCD05 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 143C2CDE182058B900DFCD05 /* FacebookSDK.framework */; };
 		3802070C1A280C300087CF76 /* tripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3802070A1A280C300087CF76 /* tripViewController.m */; };
 		3802070D1A280C300087CF76 /* tripViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3802070B1A280C300087CF76 /* tripViewController.xib */; };
+		38274F131A435745007F2474 /* tripDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38274F111A435745007F2474 /* tripDetailViewController.m */; };
+		38274F141A435745007F2474 /* tripDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38274F121A435745007F2474 /* tripDetailViewController.xib */; };
 		3854FEF21A2B6B900062A818 /* deliverersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3854FEF01A2B6B900062A818 /* deliverersViewController.m */; };
 		3854FEF31A2B6B900062A818 /* deliverersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3854FEF11A2B6B900062A818 /* deliverersViewController.xib */; };
 		3854FEF71A2BAA7B0062A818 /* deliveryRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3854FEF51A2BAA7B0062A818 /* deliveryRequestViewController.m */; };
@@ -75,6 +77,9 @@
 		380207091A280C300087CF76 /* tripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tripViewController.h; sourceTree = "<group>"; };
 		3802070A1A280C300087CF76 /* tripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tripViewController.m; sourceTree = "<group>"; };
 		3802070B1A280C300087CF76 /* tripViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = tripViewController.xib; sourceTree = "<group>"; };
+		38274F101A435745007F2474 /* tripDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tripDetailViewController.h; sourceTree = "<group>"; };
+		38274F111A435745007F2474 /* tripDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tripDetailViewController.m; sourceTree = "<group>"; };
+		38274F121A435745007F2474 /* tripDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = tripDetailViewController.xib; sourceTree = "<group>"; };
 		3854FEEF1A2B6B900062A818 /* deliverersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deliverersViewController.h; sourceTree = "<group>"; };
 		3854FEF01A2B6B900062A818 /* deliverersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = deliverersViewController.m; sourceTree = "<group>"; };
 		3854FEF11A2B6B900062A818 /* deliverersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = deliverersViewController.xib; sourceTree = "<group>"; };
@@ -271,6 +276,9 @@
 				3854FEF01A2B6B900062A818 /* deliverersViewController.m */,
 				3854FEF11A2B6B900062A818 /* deliverersViewController.xib */,
 				3802070A1A280C300087CF76 /* tripViewController.m */,
+				38274F101A435745007F2474 /* tripDetailViewController.h */,
+				38274F111A435745007F2474 /* tripDetailViewController.m */,
+				38274F121A435745007F2474 /* tripDetailViewController.xib */,
 				3802070B1A280C300087CF76 /* tripViewController.xib */,
 				74366EDD158AB49300A17D8A /* DemoTableViewController.h */,
 				74366EDE158AB49300A17D8A /* DemoTableViewController.m */,
@@ -393,6 +401,7 @@
 				747F007815951A58000F601E /* Facebook.png in Resources */,
 				747F007915951A58000F601E /* FacebookDown.png in Resources */,
 				389B6B761A4214E500B9F6D8 /* ProfileViewController.xib in Resources */,
+				38274F141A435745007F2474 /* tripDetailViewController.xib in Resources */,
 				3854FEF81A2BAA7B0062A818 /* deliveryRequestViewController.xib in Resources */,
 				747F007A15951A58000F601E /* LoginFieldBG.png in Resources */,
 				38BF5FBD1A2B37C0000ABA60 /* orderViewController.xib in Resources */,
@@ -426,6 +435,7 @@
 				3854FEF21A2B6B900062A818 /* deliverersViewController.m in Sources */,
 				74366EB7158AAE1000A17D8A /* AppDelegate.m in Sources */,
 				38BF5FBC1A2B37C0000ABA60 /* orderViewController.m in Sources */,
+				38274F131A435745007F2474 /* tripDetailViewController.m in Sources */,
 				74366EDF158AB49300A17D8A /* DemoTableViewController.m in Sources */,
 				74366EE7158AC82C00A17D8A /* DefaultSettingsViewController.m in Sources */,
 				74366EF4158AF2D300A17D8A /* PropertyConfigViewController.m in Sources */,
