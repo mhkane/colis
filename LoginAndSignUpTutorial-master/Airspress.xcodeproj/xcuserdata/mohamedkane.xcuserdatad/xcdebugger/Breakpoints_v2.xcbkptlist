@@ -9,29 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LogInAndSignUpDemo/orderViewController.m"
-            timestampString = "440573104.799639"
+            filePath = "searchViewController.m"
+            timestampString = "440728689.878696"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "-didReceiveMemoryWarning"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LogInAndSignUpDemo/SubclassConfigViewController.m"
-            timestampString = "440574615.117272"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
-            landmarkName = "-logInViewController:didLogInUser:"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "-searchBar:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

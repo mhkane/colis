@@ -12,5 +12,5 @@
 @property (weak,nonatomic) NSString *message;
 @property (weak, nonatomic) IBOutlet UITextView *tripDetails;
 @property (weak, nonatomic) IBOutlet UIImageView *travelerPicture;
-
+-(id)initWithMessage:(NSString *)message;
 @end

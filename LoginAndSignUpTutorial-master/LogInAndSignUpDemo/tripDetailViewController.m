@@ -7,6 +7,8 @@
 //
 
 #import "tripDetailViewController.h"
+#import "deliveryRequestViewController.h"
+#import "orderViewController.h"
 
 @interface tripDetailViewController ()
 
@@ -14,16 +16,29 @@
 
 @implementation tripDetailViewController
 
+-(id)initWithMessage:(NSString *) message{
+    self=[super init];
+    self.message=message;
+    self.tripDetails.text=message;
+    self.tripDetails.attributedText=[[NSAttributedString alloc] initWithString:message];
+    return self;
+    
+}
+
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    NSLog(@"%@",self.tripDetails.text);
+    NSLog(@"Here is my message %@",self.message);
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"%@",self.tripDetails.text);
+    NSLog(@"Here is my text %@",self.tripDetails.text);
+    self.tripDetails.text=self.message;
 
     // Do any additional setup after loading the view from its nib.
+}
+- (IBAction)order:(id)sender {
+    [self presentViewController:[[orderViewController alloc]init] animated:false completion:nil];
 }
 
 - (void)didReceiveMemoryWarning {

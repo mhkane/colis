@@ -21,7 +21,7 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yTB-oe-fe3">
                     <rect key="frame" x="8" y="17" width="304" height="192"/>
                 </imageView>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RlW-Wa-ZTN">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="f" translatesAutoresizingMaskIntoConstraints="NO" id="RlW-Wa-ZTN">
                     <rect key="frame" x="8" y="226" width="304" height="128"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -32,12 +32,15 @@
                     <state key="normal" title="Order">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="order:" destination="-1" eventType="touchUpInside" id="fFx-ln-Fkl"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-            <point key="canvasLocation" x="223" y="368"/>
+            <point key="canvasLocation" x="59" y="339"/>
         </view>
     </objects>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

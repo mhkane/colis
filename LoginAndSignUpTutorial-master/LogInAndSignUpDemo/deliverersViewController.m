@@ -40,8 +40,11 @@
     return self;
 }
 -(PFQuery*)queryForTable{
+    if(!self.query){
     PFQuery *queryForTrip = [PFQuery queryWithClassName:@"trip"];
-    return queryForTrip;
+        return queryForTrip;}
+    else{
+        return self.query;}
 }
 
 - (void)didReceiveMemoryWarning {
@@ -230,7 +233,7 @@
         NSString *dateString = [df2 stringFromDate:date];
         NSString *message = [NSString stringWithFormat:@"%@ has a travel from %@ to %@ on %@",username,from,to,dateString];
         NSLog(@"%@",message);
-        travelInfo.tripDetails.text=message;
+        travelInfo.message=message;
         [self presentViewController:travelInfo animated:false completion:nil];
     }
 }

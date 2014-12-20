@@ -13,6 +13,9 @@
 #import "deliveryRequestViewController.h"
 #import "deliverersViewController.h"
 #import "orderViewController.h"
+#import "tripDetailViewController.h"
+#import "searchViewController.h"
+
 #import <FacebookSDK/FacebookSDK.h>
 
 @implementation AppDelegate
@@ -45,8 +48,9 @@
                                                                              categories:nil];
     [application registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
+   
     
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[deliverersViewController alloc] init]];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[searchViewController alloc] init]];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

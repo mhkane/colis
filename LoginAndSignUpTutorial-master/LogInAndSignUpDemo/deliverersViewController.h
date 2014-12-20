@@ -9,5 +9,6 @@
 #import <Parse/Parse.h>
 
 @interface deliverersViewController : PFQueryTableViewController
+@property(weak,nonatomic) PFQuery *query;
 
 @end
