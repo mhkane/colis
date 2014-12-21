@@ -48,9 +48,16 @@
                                                                              categories:nil];
     [application registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
+    UITabBarController *tabBar = [[UITabBarController alloc] init];
+    tripViewController *trip = [[tripViewController alloc] init];
+    orderViewController *order = [[orderViewController alloc] init];
+    [[order tabBarItem] setTitle:@"order"];
+    [[trip tabBarItem] setTitle:@"trip"];
+    [tabBar setViewControllers:@[order,trip]];
    
     
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[searchViewController alloc] init]];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:tabBar];
+                                      
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
