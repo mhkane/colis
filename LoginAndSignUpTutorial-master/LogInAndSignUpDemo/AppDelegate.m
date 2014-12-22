@@ -24,7 +24,7 @@
 #pragma mark - UIApplicationDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+   
     
     // ****************************************************************************
     // Fill in with your Parse and Twitter credentials. Don't forget to add your
@@ -41,6 +41,7 @@
     [PFACL setDefaultACL:defaultACL withAccessForCurrentUser:YES];
     
     // Register for Push Notitications
+    
     UIUserNotificationType userNotificationTypes = (UIUserNotificationTypeAlert |
                                                     UIUserNotificationTypeBadge |
                                                     UIUserNotificationTypeSound);
@@ -48,16 +49,20 @@
                                                                              categories:nil];
     [application registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
-    UITabBarController *tabBar = [[UITabBarController alloc] init];
+    UITabBarController *menu = [[UITabBarController alloc] init];
+    deliveryRequestViewController *delivery = [[deliveryRequestViewController alloc]init];
     tripViewController *trip = [[tripViewController alloc] init];
     orderViewController *order = [[orderViewController alloc] init];
+    deliverersViewController *travelers = [[deliverersViewController alloc]init];
+    [[travelers tabBarItem] setTitle:@"travelers"];
     [[order tabBarItem] setTitle:@"order"];
     [[trip tabBarItem] setTitle:@"trip"];
-    [tabBar setViewControllers:@[order,trip]];
-   
-    
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:tabBar];
-                                      
+    [[delivery tabBarItem] setTitle:@"delivery"];
+    NSArray *views = @[delivery,trip,order];
+    [menu setViewControllers:views];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    SubclassConfigViewController *login =[[SubclassConfigViewController alloc]init];
+    self.window.rootViewController = menu;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

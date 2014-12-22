@@ -10,7 +10,7 @@
 
 @interface tripViewController : UIViewController
 @property NSArray *options;
-- (NSArray *)locationsFromJSONFile:(NSURL *)url;
+//- (NSArray *)locationsFromJSONFile:(NSURL *)url;
 @property (weak, nonatomic) IBOutlet UITextField *fromTextField;
 @property (weak, nonatomic) IBOutlet UITextField *toTextField;
 @property (weak, nonatomic) IBOutlet UIButton *registerButton;

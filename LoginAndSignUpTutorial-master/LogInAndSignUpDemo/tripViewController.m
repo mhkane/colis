@@ -17,12 +17,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    NSURL *city = [NSURL URLWithString:@"https://gist.githubusercontent.com/tdreyno/4278655/raw/airports.json"];
+   /* NSURL *city = [NSURL URLWithString:@"https://gist.githubusercontent.com/tdreyno/4278655/raw/airports.json"];
     tripViewController *trip = [[tripViewController alloc] init];
     NSArray *cityList = [trip locationsFromJSONFile:city];
     NSLog(@" Here is the count %d",[cityList count]);
     
-    NSLog([cityList description]);
+    NSLog([cityList description]);*/
     
 }
 - (IBAction)registerTrip:(id)sender {
@@ -43,8 +43,8 @@
                           
 }
 - (IBAction)addNewTrip:(id)sender {
-    tripViewController *new = [[tripViewController alloc] init];
-    [self presentViewController:new animated:false completion:nil];
+    self.toTextField.text=@"";
+    self.fromTextField.text=@"";
 }
 - (NSArray *)locationsFromJSONFile:(NSURL *)url {
     // Create a NSURLRequest with the given URL

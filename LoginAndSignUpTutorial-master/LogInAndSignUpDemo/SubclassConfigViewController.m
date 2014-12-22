@@ -100,9 +100,15 @@
     deliverersViewController *deliverer = [[deliverersViewController alloc] init
                                            ] ;
     deliveryRequestViewController *delivery = [[deliveryRequestViewController alloc]init];
+   
     tripViewController *trip = [[tripViewController alloc] init];
     orderViewController *order = [[orderViewController alloc] init];
-    NSArray *views = @[deliverer,delivery,trip,order];
+    deliverersViewController *travelers = [[deliverersViewController alloc]init];
+    UINavigationController *tripNav = [[UINavigationController alloc] initWithRootViewController:trip];
+    [[travelers tabBarItem] setTitle:@"travelers"];
+    [[order tabBarItem] setTitle:@"order"];
+    [[trip tabBarItem] setTitle:@"trip"];
+    NSArray *views = @[travelers,delivery,tripNav,order];
     [menu setViewControllers:views];
     [self presentViewController:menu animated:false completion:nil];
     [self _loadData];
