@@ -62,7 +62,8 @@
     [menu setViewControllers:views];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     SubclassConfigViewController *login =[[SubclassConfigViewController alloc]init];
-    self.window.rootViewController = menu;
+    self.window.rootViewController = login;
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
@@ -70,6 +71,7 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     // Store the deviceToken in the current installation and save it to Parse.
     PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    NSLog(@"Registered for push");
     [currentInstallation setDeviceTokenFromData:deviceToken];
     [currentInstallation saveInBackground];
 }

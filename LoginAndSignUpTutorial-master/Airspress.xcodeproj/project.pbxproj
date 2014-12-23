@@ -520,7 +520,7 @@
 		74366EBB158AAE1000A17D8A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mohamed Kane (PKJ8VAR74K)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -535,7 +535,7 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = Airspress;
-				PROVISIONING_PROFILE = "e533b8f3-a4c2-44e1-997f-4fe75d96f806";
+				PROVISIONING_PROFILE = "473b5690-975f-4efe-9a33-1e581983401d";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -543,7 +543,8 @@
 		74366EBC158AAE1000A17D8A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mohamed Kane (PKJ8VAR74K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mohamed Kane (PKJ8VAR74K)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -558,7 +559,7 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = Airspress;
-				PROVISIONING_PROFILE = "e533b8f3-a4c2-44e1-997f-4fe75d96f806";
+				PROVISIONING_PROFILE = "473b5690-975f-4efe-9a33-1e581983401d";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
