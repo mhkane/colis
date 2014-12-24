@@ -21,11 +21,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    if ([PFUser currentUser]) {
-        self.welcomeLabel.text = [NSString stringWithFormat:NSLocalizedString(@"Welcome %@!", nil), [[PFUser currentUser] username]];
-    } else {
-        self.welcomeLabel.text = NSLocalizedString(@"Not logged in", nil);
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
