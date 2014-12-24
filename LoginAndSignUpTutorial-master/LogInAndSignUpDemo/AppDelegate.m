@@ -16,6 +16,7 @@
 #import "tripDetailViewController.h"
 #import "searchViewController.h"
 #import "AirspressLoginViewController.h"
+#import "AirspressTabBarController.h"
 
 #import <FacebookSDK/FacebookSDK.h>
 
@@ -50,20 +51,23 @@
                                                                              categories:nil];
     [application registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
-    UITabBarController *menu = [[UITabBarController alloc] init];
+    AirspressTabBarController *menu = [[AirspressTabBarController alloc] init];
     deliveryRequestViewController *delivery = [[deliveryRequestViewController alloc]init];
     tripViewController *trip = [[tripViewController alloc] init];
     orderViewController *order = [[orderViewController alloc] init];
     deliverersViewController *travelers = [[deliverersViewController alloc]init];
     [[travelers tabBarItem] setTitle:@"travelers"];
     [[order tabBarItem] setTitle:@"order"];
-    [[trip tabBarItem] setTitle:@"trip"];
+    [[trip tabBarItem] setTitle:@""];
     [[delivery tabBarItem] setTitle:@"delivery"];
+    [[delivery tabBarItem] setImage:[UIImage imageNamed:@"air6.png"]];
+    [[order tabBarItem] setImage:[UIImage imageNamed:@"shopping2.png"]];
+
     NSArray *views = @[delivery,trip,order];
     [menu setViewControllers:views];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     SubclassConfigViewController *login =[[SubclassConfigViewController alloc]init];
-    self.window.rootViewController = login;
+    self.window.rootViewController = menu;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
