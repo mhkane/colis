@@ -13,6 +13,7 @@
 #import "orderViewController.h"
 #import "deliverersViewController.h"
 #import "deliveryRequestViewController.h"
+#import "AirspressLoginViewController.h"
 
 @implementation SubclassConfigViewController
 
@@ -29,10 +30,10 @@
     // Check if user is logged in
     if (![PFUser currentUser]) {        
         // Customize the Log In View Controller
-        MyLogInViewController *logInViewController = [[MyLogInViewController alloc] init];
+        AirspressLoginViewController *logInViewController = [[AirspressLoginViewController alloc] init];
         logInViewController.delegate = self;
         logInViewController.facebookPermissions = @[@"friends_about_me"];
-        logInViewController.fields = PFLogInFieldsUsernameAndPassword | PFLogInFieldsTwitter | PFLogInFieldsFacebook | PFLogInFieldsSignUpButton | PFLogInFieldsDismissButton;
+        logInViewController.fields = PFLogInFieldsUsernameAndPassword | PFLogInFieldsTwitter | PFLogInFieldsFacebook | PFLogInFieldsSignUpButton ;
         
         // Customize the Sign Up View Controller
         MySignUpViewController *signUpViewController = [[MySignUpViewController alloc] init];

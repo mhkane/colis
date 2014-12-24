@@ -15,6 +15,7 @@
 #import "orderViewController.h"
 #import "tripDetailViewController.h"
 #import "searchViewController.h"
+#import "AirspressLoginViewController.h"
 
 #import <FacebookSDK/FacebookSDK.h>
 
@@ -63,7 +64,6 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     SubclassConfigViewController *login =[[SubclassConfigViewController alloc]init];
     self.window.rootViewController = login;
-    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
