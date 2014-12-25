@@ -11,6 +11,7 @@
                 <outlet property="addTripButton" destination="XO7-X3-X8k" id="cAE-p7-UKt"/>
                 <outlet property="fromTextField" destination="Nc0-Zm-3Vv" id="RkV-vb-l6G"/>
                 <outlet property="registerButton" destination="5YC-ua-AZL" id="vfa-jA-5yl"/>
+                <outlet property="tapGesture" destination="dgM-dR-dyE" id="5ti-nz-QiS"/>
                 <outlet property="toTextField" destination="RHe-cJ-sLh" id="soH-76-vKB"/>
                 <outlet property="tripDate" destination="lkI-6M-Hn6" id="saL-vG-rcj"/>
                 <outlet property="view" destination="a1H-uj-fLp" id="C5b-FV-kFd"/>
@@ -75,10 +76,19 @@
                 </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="dgM-dR-dyE" appends="YES" id="gd7-pS-EMV"/>
+            </connections>
             <point key="canvasLocation" x="243" y="70"/>
         </view>
+        <tapGestureRecognizer id="dgM-dR-dyE">
+            <connections>
+                <action selector="tapSomewhere:" destination="-1" id="WBv-ib-6X9"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="logo.png" width="396" height="313"/>

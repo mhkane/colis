@@ -13,6 +13,10 @@
 @end
 
 @implementation tripViewController
+- (IBAction)tapSomewhere:(id)sender {
+    [self.toTextField resignFirstResponder];
+    [self.fromTextField resignFirstResponder];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -23,6 +27,10 @@
     NSLog(@" Here is the count %d",[cityList count]);
     
     NSLog([cityList description]);*/
+   self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                            action:@selector(didTapAnywhere:)];
+    self.toTextField.delegate =self;
+    self.fromTextField.delegate=self;
     
 }
 - (IBAction)registerTrip:(id)sender {
@@ -77,7 +85,14 @@
     // Return the array of Location objects
     return locations;
 }
-
+-(void)didTapAnywhere: (UITapGestureRecognizer*) recognizer {
+    [self.toTextField resignFirstResponder];
+    [self.fromTextField resignFirstResponder];
+}
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
