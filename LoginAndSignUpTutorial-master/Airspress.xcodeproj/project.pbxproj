@@ -17,6 +17,7 @@
 		3854FEF31A2B6B900062A818 /* deliverersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3854FEF11A2B6B900062A818 /* deliverersViewController.xib */; };
 		3854FEF71A2BAA7B0062A818 /* deliveryRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3854FEF51A2BAA7B0062A818 /* deliveryRequestViewController.m */; };
 		3854FEF81A2BAA7B0062A818 /* deliveryRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3854FEF61A2BAA7B0062A818 /* deliveryRequestViewController.xib */; };
+		38851AC01A4BC78500F201DD /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 38851ABF1A4BC78500F201DD /* plus.png */; };
 		389B6B751A4214E500B9F6D8 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 389B6B731A4214E500B9F6D8 /* ProfileViewController.m */; };
 		389B6B761A4214E500B9F6D8 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 389B6B741A4214E500B9F6D8 /* ProfileViewController.xib */; };
 		389B6B7A1A4214F600B9F6D8 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 389B6B781A4214F600B9F6D8 /* EditProfileViewController.m */; };
@@ -29,6 +30,8 @@
 		389D59751A4B522000E26258 /* add139.png in Resources */ = {isa = PBXBuildFile; fileRef = 389D59741A4B522000E26258 /* add139.png */; };
 		389D59781A4B53EA00E26258 /* AirspressTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 389D59761A4B53EA00E26258 /* AirspressTabBarController.m */; };
 		389D597A1A4B76D300E26258 /* user160.png in Resources */ = {isa = PBXBuildFile; fileRef = 389D59791A4B76D300E26258 /* user160.png */; };
+		389D597C1A4B90D400E26258 /* user16.png in Resources */ = {isa = PBXBuildFile; fileRef = 389D597B1A4B90D400E26258 /* user16.png */; };
+		389D597E1A4B912600E26258 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 389D597D1A4B912600E26258 /* user.png */; };
 		38BF5FBC1A2B37C0000ABA60 /* orderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38BF5FBA1A2B37C0000ABA60 /* orderViewController.m */; };
 		38BF5FBD1A2B37C0000ABA60 /* orderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38BF5FBB1A2B37C0000ABA60 /* orderViewController.xib */; };
 		38C445AF1A4A714F0074A741 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C445AE1A4A714F0074A741 /* logo.png */; };
@@ -96,6 +99,7 @@
 		3854FEF41A2BAA7B0062A818 /* deliveryRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deliveryRequestViewController.h; sourceTree = "<group>"; };
 		3854FEF51A2BAA7B0062A818 /* deliveryRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = deliveryRequestViewController.m; sourceTree = "<group>"; };
 		3854FEF61A2BAA7B0062A818 /* deliveryRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = deliveryRequestViewController.xib; sourceTree = "<group>"; };
+		38851ABF1A4BC78500F201DD /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
 		389B6B721A4214E500B9F6D8 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileViewController.h; path = ../ProfileViewController.h; sourceTree = "<group>"; };
 		389B6B731A4214E500B9F6D8 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = ../ProfileViewController.m; sourceTree = "<group>"; };
 		389B6B741A4214E500B9F6D8 /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProfileViewController.xib; path = ../ProfileViewController.xib; sourceTree = "<group>"; };
@@ -114,6 +118,8 @@
 		389D59761A4B53EA00E26258 /* AirspressTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AirspressTabBarController.m; path = LogInAndSignUpDemo/AirspressTabBarController.m; sourceTree = "<group>"; };
 		389D59771A4B53EA00E26258 /* AirspressTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AirspressTabBarController.h; path = LogInAndSignUpDemo/AirspressTabBarController.h; sourceTree = "<group>"; };
 		389D59791A4B76D300E26258 /* user160.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user160.png; sourceTree = "<group>"; };
+		389D597B1A4B90D400E26258 /* user16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user16.png; sourceTree = "<group>"; };
+		389D597D1A4B912600E26258 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
 		38BF5FB91A2B37C0000ABA60 /* orderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = orderViewController.h; sourceTree = "<group>"; };
 		38BF5FBA1A2B37C0000ABA60 /* orderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = orderViewController.m; sourceTree = "<group>"; };
 		38BF5FBB1A2B37C0000ABA60 /* orderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = orderViewController.xib; sourceTree = "<group>"; };
@@ -209,6 +215,9 @@
 		741203C415900A3C00820BE9 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				38851ABF1A4BC78500F201DD /* plus.png */,
+				389D597D1A4B912600E26258 /* user.png */,
+				389D597B1A4B90D400E26258 /* user16.png */,
 				389D59791A4B76D300E26258 /* user160.png */,
 				389D59741A4B522000E26258 /* add139.png */,
 				38C445B91A4A7CD30074A741 /* shopping2.png */,
@@ -453,11 +462,14 @@
 				38C445B31A4A71CE0074A741 /* homescreen.png in Resources */,
 				747F007F15951A58000F601E /* SignUpFieldBG.png in Resources */,
 				747F008015951A58000F601E /* Twitter.png in Resources */,
+				389D597E1A4B912600E26258 /* user.png in Resources */,
 				747F008115951A58000F601E /* TwitterDown.png in Resources */,
 				389D597A1A4B76D300E26258 /* user160.png in Resources */,
 				389B6B801A4279E100B9F6D8 /* travelersViewController.xib in Resources */,
 				C4BBB7C216FD2D73003CA3F7 /* Default@2x.png in Resources */,
+				38851AC01A4BC78500F201DD /* plus.png in Resources */,
 				C4BBB7C316FD2D73003CA3F7 /* Default.png in Resources */,
+				389D597C1A4B90D400E26258 /* user16.png in Resources */,
 				389B6B7B1A4214F600B9F6D8 /* EditProfileViewController.xib in Resources */,
 				C4BBB7C416FD2D73003CA3F7 /* Default-568h@2x.png in Resources */,
 				C4FD613617286AC800F61563 /* Icon.png in Resources */,

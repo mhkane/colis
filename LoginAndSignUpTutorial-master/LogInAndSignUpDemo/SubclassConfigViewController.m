@@ -104,12 +104,14 @@
     deliverersViewController *travelers = [[deliverersViewController alloc]init];
     UINavigationController *tripNav = [[UINavigationController alloc] initWithRootViewController:trip];
     [[travelers tabBarItem] setTitle:@"Travels"];
+    [[travelers tabBarItem] setImage:[UIImage imageNamed:@"air6.png"]];
     [[order tabBarItem] setTitle:@"Profile"];
-    [[order tabBarItem] setImage:[UIImage imageNamed:@"user160.png"]];
+    [[order tabBarItem] setImage:[UIImage imageNamed:@"user16.png"]];
+    UINavigationController *travelNav = [[UINavigationController alloc]initWithRootViewController:travelers];
 
     
     [[trip tabBarItem] setTitle:@"trip"];
-    NSArray *views = @[travelers,delivery,tripNav,order];
+    NSArray *views = @[travelNav,delivery,order];
     [menu setViewControllers:views];
     [self presentViewController:menu animated:false completion:nil];
     [self _loadData];

@@ -38,8 +38,8 @@
     
     UIButton *plusButton = [UIButton buttonWithType:UIButtonTypeCustom];
     plusButton.frame = CGRectMake( 94.0f, 0.0f, 131.0f, self.tabBar.bounds.size.height);
-    [plusButton setImage:[UIImage imageNamed:@"add139.png"] forState:UIControlStateNormal];
-    [plusButton setImage:[UIImage imageNamed:@"add139.png"] forState:UIControlStateHighlighted];
+    [plusButton setImage:[UIImage imageNamed:@"plus.png"] forState:UIControlStateNormal];
+    [plusButton setImage:[UIImage imageNamed:@"plus.png"] forState:UIControlStateHighlighted];
     [plusButton addTarget:self action:@selector(plusButtonAction) forControlEvents:UIControlEventTouchUpInside];
     [self.tabBar addSubview:plusButton];
     
@@ -65,7 +65,7 @@
     } else if (buttonIndex == 1) {
         orderViewController *order = [[orderViewController alloc] init];
         UINavigationController *nav = self.selectedViewController;
-        [self.navigationController pushViewController:order animated:false];
+        [nav pushViewController:order animated:false];
     }
 }
 /*

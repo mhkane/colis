@@ -38,7 +38,7 @@
     // Do any additional setup after loading the view from its nib.
 }
 - (IBAction)order:(id)sender {
-    [self presentViewController:[[orderViewController alloc]init] animated:false completion:nil];
+    [self.navigationController pushViewController:[[orderViewController alloc] init] animated:false];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -28,7 +28,7 @@
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qh3-FM-mF0">
-                    <rect key="frame" x="266" y="499" width="39" height="30"/>
+                    <rect key="frame" x="268" y="461" width="39" height="30"/>
                     <state key="normal" title="Order">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
