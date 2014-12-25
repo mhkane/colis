@@ -14,6 +14,7 @@
 #import "deliverersViewController.h"
 #import "deliveryRequestViewController.h"
 #import "AirspressLoginViewController.h"
+#import "AirspressTabBarController.h"
 
 @implementation SubclassConfigViewController
 
@@ -91,8 +92,9 @@
 
 // Sent to the delegate when a PFUser is logged in.
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
+    
     [self dismissViewControllerAnimated:YES completion:NULL];
-    UITabBarController *menu = [[UITabBarController alloc] init];
+    AirspressTabBarController *menu = [[AirspressTabBarController alloc] init];
     deliverersViewController *deliverer = [[deliverersViewController alloc] init
                                            ] ;
     deliveryRequestViewController *delivery = [[deliveryRequestViewController alloc]init];
@@ -101,13 +103,39 @@
     orderViewController *order = [[orderViewController alloc] init];
     deliverersViewController *travelers = [[deliverersViewController alloc]init];
     UINavigationController *tripNav = [[UINavigationController alloc] initWithRootViewController:trip];
-    [[travelers tabBarItem] setTitle:@"travelers"];
-    [[order tabBarItem] setTitle:@"order"];
+    [[travelers tabBarItem] setTitle:@"Travels"];
+    [[order tabBarItem] setTitle:@"Profile"];
+    [[order tabBarItem] setImage:[UIImage imageNamed:@"user160.png"]];
+
+    
     [[trip tabBarItem] setTitle:@"trip"];
     NSArray *views = @[travelers,delivery,tripNav,order];
     [menu setViewControllers:views];
     [self presentViewController:menu animated:false completion:nil];
     [self _loadData];
+    
+    
+    
+   /* AirspressTabBarController *menu = [[AirspressTabBarController alloc] init];
+    //Profile
+    UIViewController *profile =[[UIViewController alloc]init];
+    [[profile tabBarItem] setTitle:@"Profile"];
+    [[profile tabBarItem] setImage:[UIImage imageNamed:@"user160.png"]];
+    UINavigationController *profileNav = [[UINavigationController alloc]initWithRootViewController:profile];
+    
+    //Travelers
+    deliverersViewController *travelers = [[deliverersViewController alloc]init];
+    [[travelers tabBarItem] setTitle:@"Travels"];
+    [[travelers tabBarItem] setImage:[UIImage imageNamed:@"air6.png"]];
+    UINavigationController *travelersNav = [[UINavigationController alloc] initWithRootViewController:travelers];
+    
+    //NavRoot
+    UIViewController *navRoot = [[UIViewController alloc]init];
+    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:navRoot];
+    NSArray *views = @[travelersNav,nav,profileNav];
+    [menu setViewControllers:views];
+    [self presentViewController:menu animated:false completion:nil];
+    [self _loadData];*/
     
 }
 
