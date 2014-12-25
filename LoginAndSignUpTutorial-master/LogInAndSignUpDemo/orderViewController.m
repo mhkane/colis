@@ -19,7 +19,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self.paymentMethod setDelegate:self];
+    [self.itemName setDelegate:self];
+    [self.placeName setDelegate:self];
+    [self.city setDelegate:self];
+    [self.country setDelegate:self];
+    [self.paymentMethod setDelegate:self];
   
+}
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+- (IBAction)tapSomewhere:(id)sender {
+    [self.itemName resignFirstResponder];
+    [self.placeName resignFirstResponder];
+    [self.city resignFirstResponder];
+    [self.country resignFirstResponder];
+    [self.paymentMethod resignFirstResponder];
 }
 
 -(int)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{

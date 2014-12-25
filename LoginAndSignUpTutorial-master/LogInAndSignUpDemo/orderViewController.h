@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface orderViewController : UIViewController <UIPickerViewDelegate,UIPickerViewDataSource>
+@interface orderViewController : UIViewController <UITextFieldDelegate, UIPickerViewDelegate,UIPickerViewDataSource>
+@property (weak, nonatomic) IBOutlet UITextField *itemName;
+@property (weak, nonatomic) IBOutlet UITextField *placeName;
+@property (weak, nonatomic) IBOutlet UITextField *city;
+@property (weak, nonatomic) IBOutlet UITextField *country;
 @property (weak, nonatomic) IBOutlet UIPickerView *paymentMethod;
-@property (weak, nonatomic) IBOutlet UITextField *productName;
-@property (weak, nonatomic) IBOutlet UITextField *urlString;
-@property (weak, nonatomic) IBOutlet UITextField *productLocation;
+
+
 
 @end
