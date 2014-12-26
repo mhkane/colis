@@ -1,13 +1,47 @@
 /*!
- * Start Bootstrap - Freelancer Bootstrap Theme (http://startbootstrap.com)
- * Code licensed under the Apache License v2.0.
- * For details, see http://www.apache.org/licenses/LICENSE-2.0.
- */
-/* first customization */
 
+ */
+ /* FAQ page */
+ .faq-section{padding-left:25px;}
+ .question-faq h2,.question-faq p,.question-faq a{display:block; padding: 20px;min-width:100%}
+ /* ! END --- FAQ page */
+ /* about page ---- START ! */
+ .container{margin-bottom:10px;}
+ .page_about{position:relative;background-image:none;background-color:#fff;font-size:100%}
+ .page_about h2{font-size:2em}
+ .page_about p{font-size:13px}
+ .sidebar{display:block; margin-top:10px;height:800px;top:0px;border-top:1px solid #e5e5e5; }
+ .about_info{float:left;width:75%;position:relative;vertical-align:baseline;padding-left:15px;padding-top:40px;border-right: 1px solid #e5e5e5}
+ .about_info h2{margin:auto;text-align:center;}
+ .about_panel{float:left; margin-right:-1px; padding:20px; padding-top:40px;border-left: none;position:relative;width:25%;height:257px;}
+ .panel-content li{display:block;margin-left:-60px;}
+ .panel-current-item a{background-color:#f5f5f5;border:1px solid #e8e8e8;border-left:none;}
+ .panel-item a, .panel-current-item a{padding:15px; display:block;padding-bottom:7px; padding-top:7px}
+ .panel-current-item a:hover,.panel-item a:hover{color:#fff;background-color:#e7962e}
+#about_goal{height:100%;overflow:auto;margin-bottom:400px;}
+
+/* Media queries */
+@media only screen and (max-width: 667px){
+.about_info, .about_panel{clear:both;min-width:100%;}
+.navbar-brand>img{height:75px}
+.navbar-default, .navbar-header{height:90px}
+}
+/* END --- Media queries */
+/* ! END--- about_page */
+/* first customization */
+.col-md-7>h3 {font-size: 40px; text-align:center;}
+.social-links.list-unstyled .section-header{font-size:18px;color:#e7962e; font-family:'Museo-500'}
+img.featurette-image.img-responsive {margin-top:100px;}
+#mc_embed_signup_scroll h2{color:#e7962e;line-weight:400;}
+input##mc-embedded-subscribe.button{color:#fff;background-color:#e7962e;}
+.col-md-7 .featurette-heading{color:#e7962e;}
+.col-md-7 .featurette-heading span{color:#fcd68a;}
+.col-md-7 .lead {
+text-align: justify;
+}
 .carousel-caption .btn{margin-top:20px;}
 .footer-section.list-unstyled .section-header {font-family:'Museo-500';font-weight:400;font-size:45px; margin-top: 20px;}
-.container.marketing { margin-top:100px}
+.container.marketing { margin-top:10px}
 footer {
 background: url(../img/globe.jpg) top -60px center fixed;
 background-size: cover;
@@ -21,7 +55,10 @@ background-color:rgba(0,0,0,0)
 footer .social-links  li{
 text-align: right;
 display:inline;
-color:#e7962e
+color:#e7962e;
+}
+ul.social-links.list-unstyled li {
+margin: 0 3px 0 0;
 }
 @media only screen and (max-width: 1000px)
 .newsletter .form-control {
@@ -71,10 +108,45 @@ body {
 	padding-top:40px;
 	
 }
-@media screen and (max-width: 768px) {
-    body { padding-top: 0px; }
-}
+
 /* first customization */
+/* Special touch */
+#slogan{
+margin-top:100px;
+font-family:proxima-nova, 'Museo-500', sans-serif;
+text-align:center;
+background-repeat: no-repeat;
+background-size: cover;
+height: 100%;
+width: 100%;
+color: #61504d;
+-webkit-text-fill-color: transparent;
+background: -webkit-linear-gradient(transparent, transparent), url(../img/globe.jpg) repeat;
+background: -o-linear-gradient(transparent, transparent);
+-webkit-background-clip: text;}
+
+@media only screen and (min-width: 480px){
+#slogan h1  {
+font-size: 3.75em;
+line-height: 60px;
+}}
+@media only screen and (min-width: 540px){
+#slogan h1  {
+font-size: 5em;
+line-height: 70px;
+}}
+@media only screen and (min-width: 680px){
+#slogan h1 {
+font-size: 6.25em;
+line-height: 90px;
+}}
+
+@media only screen and (min-width: 870px){
+#slogan h1{
+font-size: 8.125em;
+line-height: 110px;
+}}
+
 p {
     font-size: 20px;
 }
@@ -93,11 +165,7 @@ a.active {
 }
 
 h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h2 {
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
@@ -223,7 +291,7 @@ header .intro-text .skills {
     text-transform: uppercase;
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     font-weight: 700;
-	min-height:110px
+	min-height:90px
 }
 
 .navbar a:focus {
