@@ -24,6 +24,7 @@
     [self.city setDelegate:self];
     [self.country setDelegate:self];
     [self.paymentMethod setDelegate:self];
+    
   
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
