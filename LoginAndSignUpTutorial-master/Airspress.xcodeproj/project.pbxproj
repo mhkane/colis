@@ -13,8 +13,6 @@
 		3802070D1A280C300087CF76 /* tripViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3802070B1A280C300087CF76 /* tripViewController.xib */; };
 		38274F131A435745007F2474 /* tripDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38274F111A435745007F2474 /* tripDetailViewController.m */; };
 		38274F141A435745007F2474 /* tripDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38274F121A435745007F2474 /* tripDetailViewController.xib */; };
-		383F04C41A50D42000DC8267 /* RatingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383F04C21A50D42000DC8267 /* RatingViewController.m */; };
-		383F04C51A50D42000DC8267 /* RatingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 383F04C31A50D42000DC8267 /* RatingViewController.xib */; };
 		3854FEF21A2B6B900062A818 /* deliverersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3854FEF01A2B6B900062A818 /* deliverersViewController.m */; };
 		3854FEF31A2B6B900062A818 /* deliverersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3854FEF11A2B6B900062A818 /* deliverersViewController.xib */; };
 		3854FEF71A2BAA7B0062A818 /* deliveryRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3854FEF51A2BAA7B0062A818 /* deliveryRequestViewController.m */; };
@@ -95,9 +93,6 @@
 		38274F101A435745007F2474 /* tripDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tripDetailViewController.h; sourceTree = "<group>"; };
 		38274F111A435745007F2474 /* tripDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tripDetailViewController.m; sourceTree = "<group>"; };
 		38274F121A435745007F2474 /* tripDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = tripDetailViewController.xib; sourceTree = "<group>"; };
-		383F04C11A50D42000DC8267 /* RatingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingViewController.h; sourceTree = "<group>"; };
-		383F04C21A50D42000DC8267 /* RatingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RatingViewController.m; sourceTree = "<group>"; };
-		383F04C31A50D42000DC8267 /* RatingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RatingViewController.xib; sourceTree = "<group>"; };
 		3854FEEF1A2B6B900062A818 /* deliverersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deliverersViewController.h; sourceTree = "<group>"; };
 		3854FEF01A2B6B900062A818 /* deliverersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = deliverersViewController.m; sourceTree = "<group>"; };
 		3854FEF11A2B6B900062A818 /* deliverersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = deliverersViewController.xib; sourceTree = "<group>"; };
@@ -253,9 +248,6 @@
 		74366E97158AAE0F00A17D8A = {
 			isa = PBXGroup;
 			children = (
-				383F04C11A50D42000DC8267 /* RatingViewController.h */,
-				383F04C21A50D42000DC8267 /* RatingViewController.m */,
-				383F04C31A50D42000DC8267 /* RatingViewController.xib */,
 				389D59761A4B53EA00E26258 /* AirspressTabBarController.m */,
 				389D59771A4B53EA00E26258 /* AirspressTabBarController.h */,
 				74366EAC158AAE1000A17D8A /* Airspress */,
@@ -463,7 +455,6 @@
 				747F007A15951A58000F601E /* LoginFieldBG.png in Resources */,
 				38BF5FBD1A2B37C0000ABA60 /* orderViewController.xib in Resources */,
 				747F007C15951A58000F601E /* MainBG.png in Resources */,
-				383F04C51A50D42000DC8267 /* RatingViewController.xib in Resources */,
 				38C445AF1A4A714F0074A741 /* logo.png in Resources */,
 				747F007D15951A58000F601E /* SignUp.png in Resources */,
 				3854FEF31A2B6B900062A818 /* deliverersViewController.xib in Resources */,
@@ -506,7 +497,6 @@
 				74366EF4158AF2D300A17D8A /* PropertyConfigViewController.m in Sources */,
 				389D59781A4B53EA00E26258 /* AirspressTabBarController.m in Sources */,
 				389CCB441A4A645F00378D36 /* AirspressLoginViewController.m in Sources */,
-				383F04C41A50D42000DC8267 /* RatingViewController.m in Sources */,
 				74366EFA158B95C800A17D8A /* SubclassConfigViewController.m in Sources */,
 				389B6B751A4214E500B9F6D8 /* ProfileViewController.m in Sources */,
 				389B6B7F1A4279E100B9F6D8 /* travelersViewController.m in Sources */,
