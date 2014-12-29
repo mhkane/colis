@@ -49,7 +49,7 @@
     [plusButton addGestureRecognizer:swipeUpGestureRecognizer];
 }
 -(void)plusButtonAction{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add new trip", @"Add new order", nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add new trip", @"Add new order",@"Add new confirmation" nil];
     [actionSheet showFromTabBar:self.tabBar];
 }
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -66,6 +66,11 @@
         orderViewController *order = [[orderViewController alloc] init];
         UINavigationController *nav = self.selectedViewController;
         [nav pushViewController:order animated:false];
+    }
+    else if(buttonIndex == 2){
+        UIViewController *rating = [[UIViewController alloc] init];
+        UINavigationController *nav = self.selectedViewController;
+        [nav pushViewController:rating animated:false];
     }
 }
 /*
