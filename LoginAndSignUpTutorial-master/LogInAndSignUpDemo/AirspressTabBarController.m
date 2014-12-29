@@ -49,7 +49,7 @@
     [plusButton addGestureRecognizer:swipeUpGestureRecognizer];
 }
 -(void)plusButtonAction{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add new trip", @"Add new order",@"Add new confirmation" nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add new trip", @"Add new order",@"Add new confirmation" ,nil];
     [actionSheet showFromTabBar:self.tabBar];
 }
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
