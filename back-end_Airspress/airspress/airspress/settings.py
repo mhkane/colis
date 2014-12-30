@@ -102,8 +102,8 @@ CONFIG = {
         #unique key for serialization
         'id':1,
         # Facebook is an AuthorizationProviders so it needs that
-        'consumer_key': '1537229933223161',
-        'consumer_secret': '5f199d47d0bd5ea9f7f9a6c379a4d139',
+        'consumer_key': '1##############',
+        'consumer_secret': '5####################',
         
         # But it is also an OAuth 2.0 provider and it needs scope.
         'scope': ['user_about_me', 'email', 'publish_stream'],
