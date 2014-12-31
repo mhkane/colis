@@ -96,10 +96,17 @@ CONFIG = {
            
         'class_': oauth2.Facebook,
         'id':1,
+<<<<<<< HEAD
         # Facebook is an AuthorizationProvider too.
         'consumer_key': '1###############',
         'consumer_secret': '5##########################',
         'redirect_uri':'http://www.falconfake.com:8000/signup/',
+=======
+        # Facebook is an AuthorizationProviders so it needs that
+        'consumer_key': '1##############',
+        'consumer_secret': '5####################',
+        
+>>>>>>> 34ae4f8fc9cb0558cab1293e80947283c2205859
         # But it is also an OAuth 2.0 provider and it needs scope.
         'scope': ['user_about_me', 'email', 'publish_stream'],
     },
