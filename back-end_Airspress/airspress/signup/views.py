@@ -5,14 +5,13 @@ from authomatic import Authomatic
 from authomatic.adapters import DjangoAdapter
 from schemes import User
 from airspress.settings import CONFIG
+from django.http.request import HttpRequest
 
 authomatic = Authomatic(CONFIG, 'a super secret random string about falconpress and his brethren')
 
 def home(request):
-    # Create links  to the Login handler.
-    return HttpResponse('''
-        <p align="center">Login with <a href="login/fb">Facebook</a>.<p>
-    ''')
+    # Create links and OpenID form to the Login handler.
+    return render(request, 'signup/index.html')
 
 def login(request, provider_name):
     # We we need the response object for the adapter.
@@ -25,12 +24,11 @@ def login(request, provider_name):
     # Don't write anything to the response if there is no result!
     if result:
         # If there is result, the login procedure is over and we can write to response.
-        response.write('<a href="..">Home</a>')
+        #response.write('<a href="..">Home</a>')
         
         if result.error:
             # Login procedure finished with an error.
             response.write('<h2>Damn that error: {0}</h2>'.format(result.error.message))
-        
         elif result.user:
             
             # OAuth 2.0 and OAuth 1.0a provide only limited user data on login,
@@ -39,7 +37,7 @@ def login(request, provider_name):
                 result.user.update()
             
             # Recover information for Parse authData
-            response.write(u'<h1>Hi {0}</h1>'.format(result.user.name))
+            #response.write(u'{0}'.format(result.user.name))
             fbID = result.user.id
             # response.write(u'<h2>Your email is: {0}</h2>'.format(result.user.email))
             
@@ -55,8 +53,10 @@ def login(request, provider_name):
                         authData = {"facebook": {"id": fbID, "access_token": access_token,
                          "expiration_date": expiration_date}}
                         account = User.login_auth(authData)
+                        return render(request,'signup/index.html',{'greetings':u'{0}'.format(result.user.name)})
                 else:
                     pass
-                
-    return response            
-            # We can acces other things about user with credentials
+    
+    return response           
+            # If there are credentials (only by AuthorizationProvider),
+            # we can _access user's protected res

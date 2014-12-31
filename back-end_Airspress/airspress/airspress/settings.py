@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '-okq_pdj$l@u%#fe8ghxdutg=&68*j-+q+zoqr*6%(e%)mb_t8'
+SECRET_KEY = 'spb_fb$xf-vyc&*^n_^ur2#mgjk32!#+3cmvs&0mr70h!=_0@2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -29,7 +29,6 @@ ALLOWED_HOSTS = []
 
 # TEMPLATEs directory
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -40,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'signup',
+    'trips',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -61,12 +61,8 @@ WSGI_APPLICATION = 'airspress.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.dummy',
-        'NAME': '',
-        'USER':'',
-        'PASSWORD':'',
-        'HOST':'',
-        'PORT':''
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -75,7 +71,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'America/Montreal'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -90,28 +86,27 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # PARSE APPLICATION KEYS
-APPLICATION_ID = "9################"
-REST_API_KEY = "a###########################"
-MASTER_KEY = "w################################"
+APPLICATION_ID = "#6"
+REST_API_KEY = "a######################################"
+MASTER_KEY = "w#########################"
 #FACEBOOK login CONFIG
 CONFIG = {
           
     'fb': {
            
         'class_': oauth2.Facebook,
-        #unique key for serialization
         'id':1,
-        # Facebook is an AuthorizationProviders so it needs that
-        'consumer_key': '1537229933223161',
-        'consumer_secret': '5f199d47d0bd5ea9f7f9a6c379a4d139',
-        
+        # Facebook is an AuthorizationProvider too.
+        'consumer_key': '1###############',
+        'consumer_secret': '5##########################',
+        'redirect_uri':'http://www.falconfake.com:8000/signup/',
         # But it is also an OAuth 2.0 provider and it needs scope.
         'scope': ['user_about_me', 'email', 'publish_stream'],
     },
     
     'oi': {
            
-        # OpenID provider, we don't need that for now.
+        # OpenID provider dependent on the python-openid package.
         'class_': openid.OpenID,
         'id':2,
     }

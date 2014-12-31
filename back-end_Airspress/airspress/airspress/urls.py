@@ -4,9 +4,10 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'airspress.views.home', name='home'),
+    url(r'^$', 'airspress.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^polls/', include('polls.urls',namespace='polls')),
     url(r'^signup/', include('signup.urls',namespace='signup')),
 )
