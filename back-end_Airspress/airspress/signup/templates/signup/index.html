@@ -5,6 +5,16 @@
 <script src="{% static 'signup/js/bootstrap.min.js' %}"></script>
 
 <div class="container"> 
+{% if greetings %}
+<nav class="board-right"> 
+<ul class="nav nav-pills nav-stacked"> 
+	<li> <a href = "#">Home</a> </li>
+	<li> <a href="#"> Profile</a> </li>
+	<li class='logout-btn'> <a href="http://www.falconfake.com:8000/signup/logout">Logout</a> </li>
+</ul>
+
+</nav>
+{% endif %}
     <hr class="prettyline">
     <br>
     <center>
@@ -15,7 +25,11 @@
     <h3> Request a delivery or Offer a delivery </h3>
 	{% endif %}
     <br>
+	{% if greetings %}
   <button class="btn btn-primary btn-lg" href="#signup" data-toggle="modal" data-target=".bs-modal-sm">Register a trip</button>
+	{% else %}
+	<button class="btn btn-primary btn-lg" href="#signup" data-toggle="modal" data-target=".bs-modal-sm">Sign Up</button>
+	{% endif %}
   </center>
   <br>
     <hr class="prettyline">

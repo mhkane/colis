@@ -3,14 +3,26 @@ from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
 from authomatic import Authomatic
 from authomatic.adapters import DjangoAdapter
-from schemes import User
+from schemes import User, currentUser
 from airspress.settings import CONFIG
-from django.http.request import HttpRequest
 
 authomatic = Authomatic(CONFIG, 'a super secret random string about falconpress and his brethren')
 
 def home(request):
     # Create links and OpenID form to the Login handler.
+    # Recover data from sessions
+    cUser=None
+    try:
+        saken = request.session['lsten']
+        cUser = currentUser(saken)
+    except KeyError:
+        pass
+    
+    if cUser is not None:
+        objID = cUser['objectId']
+        username = cUser['username']
+        if objID:
+            return render(request, 'signup/index.html', {'greetings':username})
     return render(request, 'signup/index.html')
 
 def login(request, provider_name):
@@ -53,10 +65,19 @@ def login(request, provider_name):
                         authData = {"facebook": {"id": fbID, "access_token": access_token,
                          "expiration_date": expiration_date}}
                         account = User.login_auth(authData)
-                        return render(request,'signup/index.html',{'greetings':u'{0}'.format(result.user.name)})
+                        account.username = result.user.name
+                        account.save()
+                        request.session['lsten'] = account.sessionToken
+                        return HttpResponseRedirect(reverse('signup:index'))
                 else:
                     pass
     
     return response           
             # If there are credentials (only by AuthorizationProvider),
             # we can _access user's protected res
+def logout(request):
+    try:
+        request.session.flush()
+    except:
+        pass
+    return HttpResponseRedirect(reverse('signup:index'))

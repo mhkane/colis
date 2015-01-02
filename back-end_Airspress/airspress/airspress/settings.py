@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 from authomatic.providers import oauth2, oauth1, openid
+from django.conf.global_settings import SESSION_ENGINE
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -38,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'south',
     'signup',
     'trips',
 )
@@ -61,9 +63,17 @@ WSGI_APPLICATION = 'airspress.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'airspress',
+        'USER': 'postgres',
+        'PASSWORD': 'Shinsekai',
+        'HOST': '',
+        'PORT':'5432',
     }
+}
+
+SOUTH_DATABASE_ADAPTERS = {
+  'default': 'south.db.postgresql_psycopg2'
 }
 
 # Internationalization
@@ -86,27 +96,21 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # PARSE APPLICATION KEYS
-APPLICATION_ID = "#6"
-REST_API_KEY = "a######################################"
-MASTER_KEY = "w#########################"
+APPLICATION_ID = "9GC4ybpn3PxuHyfCm3JKQZXyC1WBNuiTzhRcTHo6"
+REST_API_KEY = "asSPhJ5AV70NOyohcnRWLqXWtL5OrVNZV68yq6Tu"
+MASTER_KEY = "wzDarFuVlJHUI9vPEKZwfKVnluLYBRazv6KT1fKP"
 #FACEBOOK login CONFIG
+consumer_secret = '5f199d47d0bd5ea9f7f9a6c379a4d139'
+consumer_key = '1537229933223161'
 CONFIG = {
           
     'fb': {
            
         'class_': oauth2.Facebook,
         'id':1,
-<<<<<<< HEAD
         # Facebook is an AuthorizationProvider too.
-        'consumer_key': '1###############',
-        'consumer_secret': '5##########################',
-        'redirect_uri':'http://www.falconfake.com:8000/signup/',
-=======
-        # Facebook is an AuthorizationProviders so it needs that
-        'consumer_key': '1##############',
-        'consumer_secret': '5####################',
-        
->>>>>>> 34ae4f8fc9cb0558cab1293e80947283c2205859
+        'consumer_key': consumer_key,
+        'consumer_secret': consumer_secret ,
         # But it is also an OAuth 2.0 provider and it needs scope.
         'scope': ['user_about_me', 'email', 'publish_stream'],
     },
@@ -118,3 +122,9 @@ CONFIG = {
         'id':2,
     }
 }
+
+#SESSIONS Settings
+SESSION_ENGINE = "django.contrib.sessions.backends.db"
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_AGE = 800
+#SESSION_COOKIE_SECURE = True #Only on Production
