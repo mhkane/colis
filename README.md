@@ -1,4 +1,4 @@
 colis
 =====
 
-Project for ordering and delivering of goods from African countries
+Project for connecting purchasers willing to acquire products outside of their country of residence and travelers who can deliver it to them
