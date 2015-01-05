@@ -15,6 +15,8 @@
 		38274F141A435745007F2474 /* tripDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38274F121A435745007F2474 /* tripDetailViewController.xib */; };
 		383F04C91A52010600DC8267 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383F04C71A52010600DC8267 /* EditProfileViewController.m */; };
 		383F04CA1A52010600DC8267 /* EditProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 383F04C81A52010600DC8267 /* EditProfileViewController.xib */; };
+		383F04CE1A583B8D00DC8267 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383F04CC1A583B8D00DC8267 /* ProfileViewController.m */; };
+		383F04CF1A583B8D00DC8267 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 383F04CD1A583B8D00DC8267 /* ProfileViewController.xib */; };
 		3854FEF21A2B6B900062A818 /* deliverersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3854FEF01A2B6B900062A818 /* deliverersViewController.m */; };
 		3854FEF31A2B6B900062A818 /* deliverersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3854FEF11A2B6B900062A818 /* deliverersViewController.xib */; };
 		3854FEF71A2BAA7B0062A818 /* deliveryRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3854FEF51A2BAA7B0062A818 /* deliveryRequestViewController.m */; };
@@ -96,6 +98,9 @@
 		383F04C61A52010600DC8267 /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
 		383F04C71A52010600DC8267 /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
 		383F04C81A52010600DC8267 /* EditProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileViewController.xib; sourceTree = "<group>"; };
+		383F04CB1A583B8D00DC8267 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileViewController.h; path = LogInAndSignUpDemo/ProfileViewController.h; sourceTree = "<group>"; };
+		383F04CC1A583B8D00DC8267 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = LogInAndSignUpDemo/ProfileViewController.m; sourceTree = "<group>"; };
+		383F04CD1A583B8D00DC8267 /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProfileViewController.xib; path = LogInAndSignUpDemo/ProfileViewController.xib; sourceTree = "<group>"; };
 		3854FEEF1A2B6B900062A818 /* deliverersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deliverersViewController.h; sourceTree = "<group>"; };
 		3854FEF01A2B6B900062A818 /* deliverersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = deliverersViewController.m; sourceTree = "<group>"; };
 		3854FEF11A2B6B900062A818 /* deliverersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = deliverersViewController.xib; sourceTree = "<group>"; };
@@ -248,6 +253,9 @@
 		74366E97158AAE0F00A17D8A = {
 			isa = PBXGroup;
 			children = (
+				383F04CB1A583B8D00DC8267 /* ProfileViewController.h */,
+				383F04CC1A583B8D00DC8267 /* ProfileViewController.m */,
+				383F04CD1A583B8D00DC8267 /* ProfileViewController.xib */,
 				389D59761A4B53EA00E26258 /* AirspressTabBarController.m */,
 				389D59771A4B53EA00E26258 /* AirspressTabBarController.h */,
 				74366EAC158AAE1000A17D8A /* Airspress */,
@@ -439,6 +447,7 @@
 				74366EB1158AAE1000A17D8A /* InfoPlist.strings in Resources */,
 				74366EE8158AC82C00A17D8A /* DefaultSettingsViewController.xib in Resources */,
 				74366EF5158AF2D300A17D8A /* PropertyConfigViewController.xib in Resources */,
+				383F04CF1A583B8D00DC8267 /* ProfileViewController.xib in Resources */,
 				389CCB3C1A43FECA00378D36 /* searchViewController.xib in Resources */,
 				3802070D1A280C300087CF76 /* tripViewController.xib in Resources */,
 				74366EFB158B95C800A17D8A /* SubclassConfigViewController.xib in Resources */,
@@ -498,6 +507,7 @@
 				383F04C91A52010600DC8267 /* EditProfileViewController.m in Sources */,
 				389CCB441A4A645F00378D36 /* AirspressLoginViewController.m in Sources */,
 				74366EFA158B95C800A17D8A /* SubclassConfigViewController.m in Sources */,
+				383F04CE1A583B8D00DC8267 /* ProfileViewController.m in Sources */,
 				389B6B751A4214E500B9F6D8 /* ProfileViewController.m in Sources */,
 				389B6B7F1A4279E100B9F6D8 /* travelersViewController.m in Sources */,
 				74366F03158B973C00A17D8A /* MyLogInViewController.m in Sources */,
