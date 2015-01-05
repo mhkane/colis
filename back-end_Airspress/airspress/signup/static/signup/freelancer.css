@@ -5,8 +5,7 @@
  .faq-section{padding-left:25px;}
  .question-faq h2,.question-faq p,.question-faq a{display:block; padding: 20px;min-width:100%}
  /* ! END --- FAQ page */
- /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
- /* about page ---- ! */
+ /* about page ---- START ! */
  .container{margin-bottom:10px;}
  .page_about{position:relative;background-image:none;background-color:#fff;font-size:100%}
  .page_about h2{font-size:2em}
@@ -20,7 +19,7 @@
  .panel-item a, .panel-current-item a{padding:15px; display:block;padding-bottom:7px; padding-top:7px}
  .panel-current-item a:hover,.panel-item a:hover{color:#fff;background-color:#e7962e}
 #about_goal{height:100%;overflow:auto;margin-bottom:400px;}
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
 /* Media queries */
 @media only screen and (max-width: 667px){
 .about_info, .about_panel{clear:both;min-width:100%;}
@@ -34,7 +33,7 @@
 .social-links.list-unstyled .section-header{font-size:18px;color:#e7962e; font-family:'Museo-500'}
 img.featurette-image.img-responsive {margin-top:100px;}
 #mc_embed_signup_scroll h2{color:#e7962e;line-weight:400;}
-input#mc-embedded-subscribe.button{color:#fff;background-color:#e7962e;}
+input##mc-embedded-subscribe.button{color:#fff;background-color:#e7962e;}
 .col-md-7 .featurette-heading{color:#e7962e;}
 .col-md-7 .featurette-heading span{color:#fcd68a;}
 .col-md-7 .lead {
@@ -76,19 +75,23 @@ height: auto;
 width: 440px;
 }
 .navbar-default {
-  background: linear-gradient(
-        to right,
-        #fff 50%,
-         #e7962e 50%
+  background-image: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        color-stop(0.5, #fff),
+        color-stop(0.5, #e7962e)
     );
 }
 .navbar-default .navbar-nav>li>a{color:#fff}
 .navbar-default:hover .navbar-nav>li>a{color:#777}
 .navbar-default:hover {
-  background-image: linear-gradient(
-        to right,
-		#fff 50%,
-		#fff 50%
+  background-image: -webkit-gradient(
+        linear,
+        left top,
+        right top,
+        color-stop(0.5, #fff),
+        color-stop(0.5, #fff)
     );
 }
 .navbar-header{
@@ -116,10 +119,10 @@ background-repeat: no-repeat;
 background-size: cover;
 height: 100%;
 width: 100%;
-color: #e7962e;
+color: #61504d;
 -webkit-text-fill-color: transparent;
 background: -webkit-linear-gradient(transparent, transparent), url(../img/globe.jpg) repeat;
-background: linear-gradient(to right,rgba(0,0,0,0)), url(../img/globe.jpg) repeat;
+background: -o-linear-gradient(transparent, transparent);
 -webkit-background-clip: text;}
 
 @media only screen and (min-width: 480px){

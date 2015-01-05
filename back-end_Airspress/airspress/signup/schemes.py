@@ -6,9 +6,18 @@ from parse_rest.connection import ParseBatcher
 # Object Alias to differentiate from python objects
 from parse_rest.datatypes import Object as ParseObject
 #We override Django User class
-from parse_rest.user import User
+from parse_rest.user import User as ParseUser
 
-class User(User):
+class User(ParseUser):
     pass
-class Trip(object):
-    pass
+def currentUser(saken):
+    import json,httplib
+    connection = httplib.HTTPSConnection('api.parse.com', 443)
+    connection.connect()
+    connection.request('GET', '/1/users/me', '', {
+       "X-Parse-Application-Id": settings.APPLICATION_ID,
+       "X-Parse-REST-API-Key": settings.REST_API_KEY,
+       "X-Parse-Session-Token": saken
+     })
+    result = json.loads(connection.getresponse().read())
+    return result

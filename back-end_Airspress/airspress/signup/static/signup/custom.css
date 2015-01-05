@@ -1,0 +1,6 @@
+/* This contains additional customisations that are used for
+	the "real" website not the presentation website */
+.fb-signin{background-color:#3B5998; color:#fff}
+div.modal-dialog.modal-sm{height:350px}
+.modal-content{height:90%}
+.board-right{float:right;width:20%;}

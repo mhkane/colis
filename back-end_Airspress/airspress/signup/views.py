@@ -3,16 +3,27 @@ from django.shortcuts import render, get_object_or_404
 from django.core.urlresolvers import reverse
 from authomatic import Authomatic
 from authomatic.adapters import DjangoAdapter
-from schemes import User
+from schemes import User, currentUser
 from airspress.settings import CONFIG
 
 authomatic = Authomatic(CONFIG, 'a super secret random string about falconpress and his brethren')
 
 def home(request):
-    # Create links  to the Login handler.
-    return HttpResponse('''
-        <p align="center">Login with <a href="login/fb">Facebook</a>.<p>
-    ''')
+    # Create links and OpenID form to the Login handler.
+    # Recover data from sessions
+    cUser=None
+    try:
+        saken = request.session['lsten']
+        cUser = currentUser(saken)
+    except KeyError:
+        pass
+    
+    if cUser is not None:
+        objID = cUser['objectId']
+        username = cUser['username']
+        if objID:
+            return render(request, 'signup/index.html', {'greetings':username})
+    return render(request, 'signup/index.html')
 
 def login(request, provider_name):
     # We we need the response object for the adapter.
@@ -25,12 +36,11 @@ def login(request, provider_name):
     # Don't write anything to the response if there is no result!
     if result:
         # If there is result, the login procedure is over and we can write to response.
-        response.write('<a href="..">Home</a>')
+        #response.write('<a href="..">Home</a>')
         
         if result.error:
             # Login procedure finished with an error.
             response.write('<h2>Damn that error: {0}</h2>'.format(result.error.message))
-        
         elif result.user:
             
             # OAuth 2.0 and OAuth 1.0a provide only limited user data on login,
@@ -39,7 +49,7 @@ def login(request, provider_name):
                 result.user.update()
             
             # Recover information for Parse authData
-            response.write(u'<h1>Hi {0}</h1>'.format(result.user.name))
+            #response.write(u'{0}'.format(result.user.name))
             fbID = result.user.id
             # response.write(u'<h2>Your email is: {0}</h2>'.format(result.user.email))
             
@@ -55,8 +65,19 @@ def login(request, provider_name):
                         authData = {"facebook": {"id": fbID, "access_token": access_token,
                          "expiration_date": expiration_date}}
                         account = User.login_auth(authData)
+                        account.username = result.user.name
+                        account.save()
+                        request.session['lsten'] = account.sessionToken
+                        return HttpResponseRedirect(reverse('signup:index'))
                 else:
                     pass
-                
-    return response            
-            # We can acces other things about user with credentials
+    
+    return response           
+            # If there are credentials (only by AuthorizationProvider),
+            # we can _access user's protected res
+def logout(request):
+    try:
+        request.session.flush()
+    except:
+        pass
+    return HttpResponseRedirect(reverse('signup:index'))
