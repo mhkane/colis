@@ -16,7 +16,7 @@ def home(request):
         saken = request.session['lsten']
         cUser = currentUser(saken)
     except KeyError:
-        pass
+        return render(request, 'signup/index.html')
     
     if cUser is not None:
         objID = cUser['objectId']
@@ -26,7 +26,7 @@ def home(request):
     return render(request, 'signup/index.html')
 
 def login(request, provider_name):
-    # We we need the response object for the adapter.
+    # We need the response object for the adapter.
     response = HttpResponse()
     
     # Start the login procedure.
@@ -65,10 +65,12 @@ def login(request, provider_name):
                         authData = {"facebook": {"id": fbID, "access_token": access_token,
                          "expiration_date": expiration_date}}
                         account = User.login_auth(authData)
-                        account.username = result.user.name
+                        explodeName = result.user.name.split(' ', 2) #Build username from FB name
+                        PUsername = '_'.join(explodeName[:2 if len(explodeName)>2 else 1]) #join 2 first component of exploded name
+                        account.username = PUsername
                         account.save()
                         request.session['lsten'] = account.sessionToken
-                        return HttpResponseRedirect(reverse('signup:index'))
+                        return HttpResponseRedirect(reverse('trips:index'))
                 else:
                     pass
     

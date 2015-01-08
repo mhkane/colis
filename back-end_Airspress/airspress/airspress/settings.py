@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'south',
     'signup',
     'trips',
+    'account',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -88,7 +89,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
+DATE_INPUT_FORMATS = ['%m-%d-%Y','%d-%m-%Y','%Y-%m-%d',
+                      ]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
@@ -96,12 +98,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # PARSE APPLICATION KEYS
-APPLICATION_ID = "9GC4ybpn3PxuHyfCm3JKQZXyC1WBNuiTzhRcTHo6"
-REST_API_KEY = "asSPhJ5AV70NOyohcnRWLqXWtL5OrVNZV68yq6Tu"
-MASTER_KEY = "wzDarFuVlJHUI9vPEKZwfKVnluLYBRazv6KT1fKP"
+APPLICATION_ID = "############################"
+REST_API_KEY = "########################################"
+MASTER_KEY = "#####################################"
 #FACEBOOK login CONFIG
-consumer_secret = '5f199d47d0bd5ea9f7f9a6c379a4d139'
-consumer_key = '1537229933223161'
+consumer_secret = '########################'
+consumer_key = '1#############'
 CONFIG = {
           
     'fb': {
@@ -126,5 +128,5 @@ CONFIG = {
 #SESSIONS Settings
 SESSION_ENGINE = "django.contrib.sessions.backends.db"
 SESSION_COOKIE_HTTPONLY = True
-SESSION_COOKIE_AGE = 800
+SESSION_COOKIE_AGE = 1800
 #SESSION_COOKIE_SECURE = True #Only on Production
