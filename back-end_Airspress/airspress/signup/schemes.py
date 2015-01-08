@@ -21,3 +21,16 @@ def currentUser(saken):
      })
     result = json.loads(connection.getresponse().read())
     return result
+def is_logged_in(request):# return the current user if User logged in.
+    try:
+        saken = request.session['lsten']
+        cUser = currentUser(saken)
+    except KeyError:
+        return False
+    if cUser is not None:
+        objID = cUser['objectId']
+        if objID:
+            cUserin = User.Query.get(objectId = objID) # unless we do that we can't operate it as a ParseUser
+            return cUserin
+    
+    return False

@@ -10,4 +10,8 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^polls/', include('polls.urls',namespace='polls')),
     url(r'^signup/', include('signup.urls',namespace='signup')),
+    url(r'^trips/', include('trips.urls',namespace='trips')),
+    url(r'^account/', include('account.urls',namespace='account'))
 )
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+urlpatterns += staticfiles_urlpatterns()
