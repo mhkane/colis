@@ -1,18 +1,18 @@
 //
-//  EditProfileViewController.m
+//  AirspressProfileViewController.m
 //  Airspress
 //
-//  Created by Mohamed Kane on 12/29/14.
+//  Created by Mohamed Kane on 1/5/15.
 //
 //
 
-#import "EditProfileViewController.h"
+#import "AirspressProfileViewController.h"
 
-@interface EditProfileViewController ()
+@interface AirspressProfileViewController ()
 
 @end
 
-@implementation EditProfileViewController
+@implementation AirspressProfileViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -23,7 +23,7 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-- (IBAction)doneButton:(id)sender {
+- (IBAction)editProfile:(id)sender {
 }
 
 /*

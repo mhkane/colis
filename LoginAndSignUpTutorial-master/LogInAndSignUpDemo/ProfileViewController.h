@@ -1,7 +1,7 @@
 // Copyright 2004-present Facebook. All Rights Reserved.
 
 #import <UIKit/UIKit.h>
-@class TMMUser;
+
 
 @interface ProfileViewController : UIViewController <UIActionSheetDelegate, UITextFieldDelegate, UITextViewDelegate>
 

@@ -17,6 +17,8 @@
 		383F04CA1A52010600DC8267 /* EditProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 383F04C81A52010600DC8267 /* EditProfileViewController.xib */; };
 		383F04CE1A583B8D00DC8267 /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383F04CC1A583B8D00DC8267 /* ProfileViewController.m */; };
 		383F04CF1A583B8D00DC8267 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 383F04CD1A583B8D00DC8267 /* ProfileViewController.xib */; };
+		383F04D31A5B0E1000DC8267 /* AirspressProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383F04D11A5B0E1000DC8267 /* AirspressProfileViewController.m */; };
+		383F04D41A5B0E1000DC8267 /* AirspressProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 383F04D21A5B0E1000DC8267 /* AirspressProfileViewController.xib */; };
 		3854FEF21A2B6B900062A818 /* deliverersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3854FEF01A2B6B900062A818 /* deliverersViewController.m */; };
 		3854FEF31A2B6B900062A818 /* deliverersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3854FEF11A2B6B900062A818 /* deliverersViewController.xib */; };
 		3854FEF71A2BAA7B0062A818 /* deliveryRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3854FEF51A2BAA7B0062A818 /* deliveryRequestViewController.m */; };
@@ -101,6 +103,9 @@
 		383F04CB1A583B8D00DC8267 /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProfileViewController.h; path = LogInAndSignUpDemo/ProfileViewController.h; sourceTree = "<group>"; };
 		383F04CC1A583B8D00DC8267 /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProfileViewController.m; path = LogInAndSignUpDemo/ProfileViewController.m; sourceTree = "<group>"; };
 		383F04CD1A583B8D00DC8267 /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProfileViewController.xib; path = LogInAndSignUpDemo/ProfileViewController.xib; sourceTree = "<group>"; };
+		383F04D01A5B0E1000DC8267 /* AirspressProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirspressProfileViewController.h; sourceTree = "<group>"; };
+		383F04D11A5B0E1000DC8267 /* AirspressProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirspressProfileViewController.m; sourceTree = "<group>"; };
+		383F04D21A5B0E1000DC8267 /* AirspressProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AirspressProfileViewController.xib; sourceTree = "<group>"; };
 		3854FEEF1A2B6B900062A818 /* deliverersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deliverersViewController.h; sourceTree = "<group>"; };
 		3854FEF01A2B6B900062A818 /* deliverersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = deliverersViewController.m; sourceTree = "<group>"; };
 		3854FEF11A2B6B900062A818 /* deliverersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = deliverersViewController.xib; sourceTree = "<group>"; };
@@ -256,6 +261,9 @@
 				383F04CB1A583B8D00DC8267 /* ProfileViewController.h */,
 				383F04CC1A583B8D00DC8267 /* ProfileViewController.m */,
 				383F04CD1A583B8D00DC8267 /* ProfileViewController.xib */,
+				383F04D01A5B0E1000DC8267 /* AirspressProfileViewController.h */,
+				383F04D11A5B0E1000DC8267 /* AirspressProfileViewController.m */,
+				383F04D21A5B0E1000DC8267 /* AirspressProfileViewController.xib */,
 				389D59761A4B53EA00E26258 /* AirspressTabBarController.m */,
 				389D59771A4B53EA00E26258 /* AirspressTabBarController.h */,
 				74366EAC158AAE1000A17D8A /* Airspress */,
@@ -455,6 +463,7 @@
 				38C445BA1A4A7CD30074A741 /* shopping2.png in Resources */,
 				747F007715951A58000F601E /* ExitDown.png in Resources */,
 				747F007815951A58000F601E /* Facebook.png in Resources */,
+				383F04D41A5B0E1000DC8267 /* AirspressProfileViewController.xib in Resources */,
 				747F007915951A58000F601E /* FacebookDown.png in Resources */,
 				389B6B761A4214E500B9F6D8 /* ProfileViewController.xib in Resources */,
 				38274F141A435745007F2474 /* tripDetailViewController.xib in Resources */,
@@ -513,6 +522,7 @@
 				74366F03158B973C00A17D8A /* MyLogInViewController.m in Sources */,
 				3854FEF71A2BAA7B0062A818 /* deliveryRequestViewController.m in Sources */,
 				74366F06158B975500A17D8A /* MySignUpViewController.m in Sources */,
+				383F04D31A5B0E1000DC8267 /* AirspressProfileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

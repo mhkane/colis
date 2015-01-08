@@ -50,11 +50,7 @@
 - (IBAction)viewUserStories:(id)sender
 {
     // Not implemented yet. Waiting for Muhammad's view controller.
-    TMMStoriesLayout *layout = [[TMMStoriesLayout alloc] init];
-    TMMMyStoriesViewController *myStories = [[TMMMyStoriesViewController alloc] initWithCollectionViewLayout:layout];
-    [self.navigationController pushViewController:myStories animated:YES];
-        
-    
+   
 }
 
 - (void)viewDidLoad
@@ -65,8 +61,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self pullInfoFromUser];
-    self.navigationItem.title = self.username.text;
+    PFUser *user = [PFUser currentUser];
+    self.navigationItem.title = user.username;
 }
 
 #pragma mark - <UITextFieldDelegate>
