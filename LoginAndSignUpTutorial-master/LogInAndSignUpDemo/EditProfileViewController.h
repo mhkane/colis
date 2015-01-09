@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface EditProfileViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UITextView *biography;
 
 @end

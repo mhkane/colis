@@ -8,6 +8,6 @@
 
 #import <Parse/Parse.h>
 
-@interface AirspressLoginViewController : PFLogInViewController
+@interface AirspressLoginViewController : PFLogInViewController<PFLogInViewControllerDelegate,PFSignUpViewControllerDelegate>
 
 @end

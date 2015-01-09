@@ -7,6 +7,12 @@
 //
 
 #import "AirspressLoginViewController.h"
+#import "AirspressTabBarController.h"
+#import "deliverersViewController.h"
+#import "deliveryRequestViewController.h"
+#import "tripViewController.h"
+#import "orderViewController.h"
+#import "AirspressProfileViewController.h"
 
 @interface AirspressLoginViewController ()
 @property (nonatomic, strong) UIImageView *fieldsBackground;
@@ -76,6 +82,64 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+-(void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user{
+    [self dismissViewControllerAnimated:YES completion:NULL];
+    AirspressTabBarController *menu = [[AirspressTabBarController alloc] init];
+    deliverersViewController *deliverer = [[deliverersViewController alloc] init
+                                           ] ;
+    deliveryRequestViewController *delivery = [[deliveryRequestViewController alloc]init];
+    
+    tripViewController *trip = [[tripViewController alloc] init];
+    orderViewController *order = [[orderViewController alloc] init];
+    deliverersViewController *travelers = [[deliverersViewController alloc]init];
+    UINavigationController *tripNav = [[UINavigationController alloc] initWithRootViewController:trip];
+    AirspressProfileViewController *profile = [[AirspressProfileViewController alloc] init];
+    [[travelers tabBarItem] setTitle:@"Travels"];
+    [[travelers tabBarItem] setImage:[UIImage imageNamed:@"air6.png"]];
+    [[profile tabBarItem] setTitle:@"Profile"];
+    [[profile tabBarItem] setImage:[UIImage imageNamed:@"user16.png"]];
+    UINavigationController *travelNav = [[UINavigationController alloc]initWithRootViewController:travelers];
+    UINavigationController *profileNav = [[UINavigationController alloc] initWithRootViewController:profile];
+    
+    
+    [[trip tabBarItem] setTitle:@"trip"];
+    NSArray *views = @[travelNav,delivery,profileNav];
+    [menu setViewControllers:views];
+    [self presentViewController:menu animated:false completion:nil];
+    [self _loadData];
+    
+    
+}
+- (void)_loadData {
+    // ...
+    FBRequest *request = [FBRequest requestForMe];
+    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            // result is a dictionary with the user's Facebook data
+            PFUser *currentUser = [PFUser currentUser];
+            NSString *currentName = [currentUser valueForKey:@"username"];
+            
+            NSDictionary *userData = (NSDictionary *)result;
+            
+            NSString *facebookID = userData[@"id"];
+            NSString *name = userData[@"name"];
+            NSString *location = userData[@"location"][@"name"];
+            if(![currentName isEqualToString:name]){
+                [currentUser setObject:name forKey:@"username"];
+            }
+            [currentUser saveInBackground];
+            NSString *gender = userData[@"gender"];
+            NSString *birthday = userData[@"birthday"];
+            NSString *relationship = userData[@"relationship_status"];
+            NSLog(@"%@",name);
+            
+            NSURL *pictureURL = [NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID]];
+            
+            // Now add the data to the UI elements
+            // ...
+        }
+    }];
 }
 
 /*
