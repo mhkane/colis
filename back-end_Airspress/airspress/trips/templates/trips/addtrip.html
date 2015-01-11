@@ -1,0 +1,107 @@
+{% extends "trips/account_base.html" %}
+<!-- We include base template for account related pages. And we fill the blocks -->
+{% block title %} Add a trip {% endblock title %}
+<!-- We load the Autocomplete widget by setting onload attribute -->
+{% block onloader %}  {% endblock onloader %}
+<!-- 'greetings' is always the username of the logged-in user  -->
+	{% if greetings %}
+{% block username %} {{ greetings }} {% endblock username %}
+<!-- This block will contain everything that is not on the user sidebar: list of trips or trip details or other user profiles...etc -->
+{% block content %}
+<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h2><i class="fa fa-edit"></i>Trip information</h2>
+				</div>
+				<div class="panel-body">
+					<form class="form-add-trip" method="POST" action="/account/mytrips/add/">
+						{% csrf_token %}
+						<div class="form-group">
+						  <label class="control-label" for="trip">Departure Date</label>
+						  <div class="controls">
+							<div class="input-group col-sm-4">
+							  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+							  <input type="text" name="{{ addForm.depDate.name }}" class="form-control datepicker">
+							</div>
+							{{addForm.depDate.errors}}
+							<span class="help-block col-sm-8">ex. mm-dd-yyyy</span>
+						  </div>
+						</div>
+						<div class="form-group">
+						  <label class="control-label" for="trip">Delivery Date</label>
+						  <div class="controls">
+							<div class="input-group col-sm-4">
+							  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+							  <input type="text"  name="{{ addForm.arrivDate.name }}" class="form-control datepicker">
+							</div>
+							{{addForm.arrivDate.errors}}
+							<span class="help-block col-sm-8">ex. mm-dd-yyyy</span>
+						  </div>
+						</div>						
+						<div class="form-group">
+						  <label class="control-label" for="trip">Flight Number (if applicable)</label>
+						  <div class="controls">
+							<div class="input-group col-sm-4">
+							  <span class="input-group-addon"><i class="glyphicon glyphicon-plane"></i></span>
+							  <input type="text" class="form-control">
+							</div>
+							<span class="help-block col-sm-8">ex. 999</span>
+						  </div>
+						</div>
+						<div class="form-group">
+						  <label class="control-label" for="trip">From</label>
+						  <div class="controls">
+							<div class="input-group col-sm-4">
+							  <span class="input-group-addon"><i class="glyphicon glyphicon-plane"></i></span>
+							  <input type="text" id="location1" name="{{addForm.cityDep.name}}" class="form-control">
+							</div>
+							{{addForm.cityDep.errors}}
+							<span class="help-block col-sm-8">Start typing in and select the city</span>
+						  </div>
+						</div>
+						<div class="form-group">
+						  <label class="control-label" for="trip">To</label>
+						  <div class="controls">
+							<div class="input-group col-sm-4">
+							  <span class="input-group-addon"><i class="glyphicon glyphicon-plane"></i></span>
+							  <input type="text" id="location2" name="{{addForm.cityArr.name}}" class="form-control">
+							</div>
+							{{addForm.cityArr.errors}}
+							<span class="help-block col-sm-8">Start typing in and select the city</span>
+						  </div>
+						</div>
+						<div class="form-group">
+						  <label class="control-label" for="trip"> Available Weight for Buyers(kg)</label>
+						  <div class="controls">
+							<div class="input-group col-sm-4">
+							  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+							  <input type="text" name="{{ requestForm.weightGood.name }}" class="form-control">
+							</div>
+							{{requestForm.weightGood.errors}}
+							<span class="help-block col-sm-8">Write a round amount</span>
+						  </div>
+						</div>
+						<div class="form-group">
+						  <label class="control-label" for="trip">Will you shop for customers ?</label>
+						  <div class="controls">
+							<div class="input-group col-sm-4">
+							  <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
+							  <input type="text" class="form-control">
+							</div>
+							<span class="help-block col-sm-8">Yes or No</span>
+						  </div>
+						</div>
+						
+						<div class="form-actions">
+						  <button type="submit" class="btn btn-primary">Save changes</button>
+						  <button type="reset" class="btn btn-default">Cancel</button>
+						</div>
+					</form>   
+
+				</div>
+			</div>
+		</div><!--/col-->
+</div>
+{% endblock %}
+{% endif %}

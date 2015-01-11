@@ -1,0 +1,110 @@
+{% extends "trips/account_base.html" %}
+<!-- We include base template for account related pages. And we fill the blocks -->
+{% block title %} Trips {% endblock title %}
+<!-- We load the Autocomplete widget by setting onload attribute -->
+{% block onloader %}  {% endblock onloader %}
+<!-- 'greetings' is always the username of the logged-in user  -->
+	{% if greetings %}
+{% block username %} {{ greetings }} {% endblock username %}
+<!-- This block will contain everything that is not on the user sidebar: list of trips or trip details or other user profiles...etc -->
+    {% block content %}
+		 <form id="search_Form" class="row" method="post" action="/trips/search/">
+            {% csrf_token %}	
+			<div class="col-sm-4"> 
+			<label class="form-label">Départs</label>
+			<div class="form-inline">
+			  <fieldset class="form-group">
+				<div class="input-daterange input-group datepicker">
+					  <input type="text" class="input-sm form-control" name="{{ searchForm.depDate1.name}}" id="id_{{ searchForm.depDate1.name }}" /> 
+				       <span class="input-group-addon">to</span>
+								<input type="text" class="input-sm form-control" name="{{ searchForm.depDate2.name}}" />
+						
+				</div>
+			  </fieldset>
+			</div>
+						{{searchForm.depDate1.errors}} {{searchForm.depDate2.errors}}
+			</div>
+			<div class="col-sm-4">
+				<div class="control-group col-md-12">
+				   <label class="control-label">From</label>
+				   <div class="controls">
+					 <input class="col-md-12" id="location1" name="location1" type="text" placeholder="City, State, Country" value=""> 
+					 <input name="{{searchForm.cityDep.name}}" type="hidden" value="">
+					 <input name="location_state" type="hidden" value="">
+					 <input name="location_country" type="hidden" value="">
+					 <input name="location_lat" type="hidden">
+					 <input name="location_lng" type="hidden">
+					</div>
+				</div>
+						{{searchForm.cityDep.errors}}
+			</div>
+			<div class="col-sm-4">
+				<div class="control-group col-md-12">
+				   <label class="control-label">To</label>
+				   <div class="controls">
+				   	
+					 <input class="col-md-12" id="location2" name="location2" type="text" placeholder="City, State, Country" value=""> 
+					 <input name="{{searchForm.cityArr.name}}" type="hidden" value="">
+					 <input name="location_state" type="hidden" value="">
+					 <input name="location_country" type="hidden" value="">
+					 <input name="location_lat" type="hidden">
+					 <input name="location_lng" type="hidden">
+					</div>
+					{{searchForm.cityArr.errors}}
+				</div>
+            <input type="submit" class="btn btn-primary pull-right btn-search" value="Find a traveler" />
+			</div>
+        </form>
+	<div class="row">	
+{% for k, v in tripDict.items %}
+
+		<div class=" col-md-6 col-lg-6">
+			<div class="thumbnail bootsnipp-thumb">
+				<img class="img-circle" data-original="http://bootsnipp.com/img/screenshots/e6b9f1b7682b4e6ae8e7dfbd5f7673907e1c96bf.png" data-src="holder.js/140x140" alt="140x140" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIwAAACMCAYAAACuwEE+AAAFOUlEQVR4Xu3YZ0ujURCG4YkgFuyoiGLBiiJi+f+/QLGBqNjLBwvG3sCyzIGIyeqSwTEks7dfXHGYN/PMtScnZrLZ7LvwRQJFJpABTJFJUZYSAAwQTAkAxhQXxYDBgCkBwJjiohgwGDAlABhTXBQDBgOmBABjiotiwGDAlABgTHFRDBgMmBIAjCkuigGDAVMCgDHFRTFgMGBKADCmuCgGDAZMCQDGFBfFgMGAKQHAmOKiGDAYMCUAGFNcFAMGA6YEAGOKi2LAYMCUAGBMcVEMGAyYEgCMKS6KAYMBUwKAMcVFMWAwYEoAMKa4KAYMBkwJAMYUF8WAwYApAcCY4qIYMBgwJQAYU1wUAwYDpgQAY4qLYsBgwJQAYExxUQwYDJgSAIwpLooBgwFTAoAxxUUxYDBgSgAwprgoBgwGTAkAxhQXxYDBgCkBwJjiohgwGDAlABhTXBQDBgOmBABjiotiwGDAlABgTHFRDBgMmBIAjCkuigGDAVMCgDHFRTFgMGBKoOLBPD4+ytLSUhp6dnZWamtr8wLY2NiQ4+NjGR4eloGBgfS7g4MD2d3dldfXV2lsbJSJiYn0vZivUj+vmNdUypqKBfP+/i7n5+eyubkpz8/PUl9f/xeYbDYrq6ur8vLy8gHm+vpaVlZWpLm5OQHSfyuW6elpyWQy32Zf6ueVEoHlWRUL5vb2VhYXF0UX+fb2lk6WzyeMnh6K4fLyMtXkThg9Xba2tmRkZET6+/tlfn5enp6eZGZmJgHUk6ejoyPVLy8vp1NoampKqqqq3J/X0NBg2VVZ1FYsmLu7u7T47u5u0bed6urqPDCHh4eys7MjLS0tcnFx8QFmbW1Nzs7OZHx8XLq6uj5QTU5OplpF+PDwIE1NTQmbnkJDQ0PyG89rb28vCwSWF1GxYHJD5k6az2By94y6urqEQOHkTphCMIU/n5ycyPr6ejpZ9ASYm5tLGH/reZZllUNtSDB64ugpom8lV1dXsr29XdQJo//j9b6zsLCQTpS+vj4ZHR3N29NXQH/yvHJAYHkN4cDo8Lm3lcIg9JTRi+13dxg9Ufb29tI9Ru89NTU1CZ1ekL87YX76PMuyyqE2HJjCj9X7+/t5J4zeS/Qy3NraKoODg+liq1D0U9L9/X36iK6oOjs75ejoSNra2vI+QX11wnxepOV5//pUVg44vnoN/x0YDUEh6L1G335yf4dRNHqfOT09TZB6e3sTppubGxkbG5Oenp6UnxXMd88r9u8+5Qan4sGUW6DRXw9gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/YeT7AOAcavR1gom/Yeb4/HZAutcoP83oAAAAASUVORK5CYII=" style="width: 140px; height: 140px;">
+				<h2 class="travelUser"> {{v.travelerUser}}</h2>
+				<p> Départ: </br><strong class="fromCity">{{ v.oriLocation }}</strong> : <span class="departDate">{{ v.departDate }}</span><p>
+				<p> Arrivée: </br><strong class="toCity">{{ v.destLocation }}</strong> : <span class="arriDate">N/A</span><p>
+				<!-- forms to select weight -->
+				
+				<div class="caption">
+					<p><a href="http://bootsnipp.com/snippets/featured/bootstrap-30-responsive-pricing-tables" class="btn btn-primary btn-lg btn-block">View</a></p>
+					<p><a href="http://bootsnipp.com/snippets/featured/bootstrap-30-responsive-pricing-tables" class="btn btn-primary btn-lg btn-block">Calculate</a></p>
+					
+				</div>
+			</div>
+		</div>	
+{% endfor %}
+	</div>
+<!-- Modal for viewing trip details-->
+<div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+        <br>
+        <div class="bs-example bs-example-tabs">
+            <ul id="myTab" class="nav nav-tabs">
+              <li class="active"><a href="#signin" data-toggle="tab">Sign In</a></li>
+            </ul>
+        </div>
+      <div class="modal-body">
+        <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade active in" id="signin">
+            <fieldset>
+            <!-- Sign In Button -->
+            <div >
+			<center>
+              <label ></label>
+              <div >
+                <a href="login/fb" class="btn fb-signin btn-lg">Sign In with Facebook</a>
+              </div>
+            </div>
+			<center>
+            </fieldset>
+            
+        </div>
+		</div>
+	  </div>
+	 </div>
+	</div>
+</div>
+{% endblock %}
+{% endif %}
