@@ -18,7 +18,6 @@
 		383F04D31A5B0E1000DC8267 /* AirspressProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383F04D11A5B0E1000DC8267 /* AirspressProfileViewController.m */; };
 		383F04D41A5B0E1000DC8267 /* AirspressProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 383F04D21A5B0E1000DC8267 /* AirspressProfileViewController.xib */; };
 		3854FEF21A2B6B900062A818 /* deliverersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3854FEF01A2B6B900062A818 /* deliverersViewController.m */; };
-		3854FEF31A2B6B900062A818 /* deliverersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3854FEF11A2B6B900062A818 /* deliverersViewController.xib */; };
 		3854FEF71A2BAA7B0062A818 /* deliveryRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3854FEF51A2BAA7B0062A818 /* deliveryRequestViewController.m */; };
 		3854FEF81A2BAA7B0062A818 /* deliveryRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3854FEF61A2BAA7B0062A818 /* deliveryRequestViewController.xib */; };
 		38851AC01A4BC78500F201DD /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 38851ABF1A4BC78500F201DD /* plus.png */; };
@@ -32,6 +31,11 @@
 		389D597A1A4B76D300E26258 /* user160.png in Resources */ = {isa = PBXBuildFile; fileRef = 389D59791A4B76D300E26258 /* user160.png */; };
 		389D597C1A4B90D400E26258 /* user16.png in Resources */ = {isa = PBXBuildFile; fileRef = 389D597B1A4B90D400E26258 /* user16.png */; };
 		389D597E1A4B912600E26258 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 389D597D1A4B912600E26258 /* user.png */; };
+		38B19AD61A61A16200CFDB86 /* plane.png in Resources */ = {isa = PBXBuildFile; fileRef = 38B19AD51A61A16200CFDB86 /* plane.png */; };
+		38B19AD81A61A36700CFDB86 /* cellForTravel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B19AD71A61A36700CFDB86 /* cellForTravel.xib */; };
+		38B19ADC1A61A54D00CFDB86 /* cellForTravelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B19ADA1A61A54D00CFDB86 /* cellForTravelTableViewCell.m */; };
+		38B19ADD1A61A54D00CFDB86 /* cellForTravelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B19ADB1A61A54D00CFDB86 /* cellForTravelTableViewCell.xib */; };
+		38B19AE21A61FEF000CFDB86 /* userProfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 38B19AE11A61FEF000CFDB86 /* userProfile.png */; };
 		38BF5FBC1A2B37C0000ABA60 /* orderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38BF5FBA1A2B37C0000ABA60 /* orderViewController.m */; };
 		38BF5FBD1A2B37C0000ABA60 /* orderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38BF5FBB1A2B37C0000ABA60 /* orderViewController.xib */; };
 		38C445AF1A4A714F0074A741 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C445AE1A4A714F0074A741 /* logo.png */; };
@@ -100,7 +104,6 @@
 		383F04D21A5B0E1000DC8267 /* AirspressProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AirspressProfileViewController.xib; path = ../AirspressProfileViewController.xib; sourceTree = "<group>"; };
 		3854FEEF1A2B6B900062A818 /* deliverersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deliverersViewController.h; sourceTree = "<group>"; };
 		3854FEF01A2B6B900062A818 /* deliverersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = deliverersViewController.m; sourceTree = "<group>"; };
-		3854FEF11A2B6B900062A818 /* deliverersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = deliverersViewController.xib; sourceTree = "<group>"; };
 		3854FEF41A2BAA7B0062A818 /* deliveryRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deliveryRequestViewController.h; sourceTree = "<group>"; };
 		3854FEF51A2BAA7B0062A818 /* deliveryRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = deliveryRequestViewController.m; sourceTree = "<group>"; };
 		3854FEF61A2BAA7B0062A818 /* deliveryRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = deliveryRequestViewController.xib; sourceTree = "<group>"; };
@@ -119,6 +122,12 @@
 		389D59791A4B76D300E26258 /* user160.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user160.png; sourceTree = "<group>"; };
 		389D597B1A4B90D400E26258 /* user16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user16.png; sourceTree = "<group>"; };
 		389D597D1A4B912600E26258 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
+		38B19AD51A61A16200CFDB86 /* plane.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plane.png; sourceTree = "<group>"; };
+		38B19AD71A61A36700CFDB86 /* cellForTravel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cellForTravel.xib; sourceTree = "<group>"; };
+		38B19AD91A61A54D00CFDB86 /* cellForTravelTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cellForTravelTableViewCell.h; sourceTree = "<group>"; };
+		38B19ADA1A61A54D00CFDB86 /* cellForTravelTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cellForTravelTableViewCell.m; sourceTree = "<group>"; };
+		38B19ADB1A61A54D00CFDB86 /* cellForTravelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cellForTravelTableViewCell.xib; sourceTree = "<group>"; };
+		38B19AE11A61FEF000CFDB86 /* userProfile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userProfile.png; sourceTree = "<group>"; };
 		38BF5FB91A2B37C0000ABA60 /* orderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = orderViewController.h; sourceTree = "<group>"; };
 		38BF5FBA1A2B37C0000ABA60 /* orderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = orderViewController.m; sourceTree = "<group>"; };
 		38BF5FBB1A2B37C0000ABA60 /* orderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = orderViewController.xib; sourceTree = "<group>"; };
@@ -215,6 +224,7 @@
 			children = (
 				38851ABF1A4BC78500F201DD /* plus.png */,
 				389D597D1A4B912600E26258 /* user.png */,
+				38B19AE11A61FEF000CFDB86 /* userProfile.png */,
 				389D597B1A4B90D400E26258 /* user16.png */,
 				389D59791A4B76D300E26258 /* user160.png */,
 				389D59741A4B522000E26258 /* add139.png */,
@@ -315,7 +325,11 @@
 				389B6B7E1A4279E100B9F6D8 /* travelersViewController.xib */,
 				3854FEEF1A2B6B900062A818 /* deliverersViewController.h */,
 				3854FEF01A2B6B900062A818 /* deliverersViewController.m */,
-				3854FEF11A2B6B900062A818 /* deliverersViewController.xib */,
+				38B19AD71A61A36700CFDB86 /* cellForTravel.xib */,
+				38B19AD91A61A54D00CFDB86 /* cellForTravelTableViewCell.h */,
+				38B19ADA1A61A54D00CFDB86 /* cellForTravelTableViewCell.m */,
+				38B19ADB1A61A54D00CFDB86 /* cellForTravelTableViewCell.xib */,
+				38B19AD51A61A16200CFDB86 /* plane.png */,
 				3802070A1A280C300087CF76 /* tripViewController.m */,
 				38274F101A435745007F2474 /* tripDetailViewController.h */,
 				38274F111A435745007F2474 /* tripDetailViewController.m */,
@@ -443,18 +457,20 @@
 				747F007715951A58000F601E /* ExitDown.png in Resources */,
 				747F007815951A58000F601E /* Facebook.png in Resources */,
 				383F04D41A5B0E1000DC8267 /* AirspressProfileViewController.xib in Resources */,
+				38B19AE21A61FEF000CFDB86 /* userProfile.png in Resources */,
 				747F007915951A58000F601E /* FacebookDown.png in Resources */,
 				38274F141A435745007F2474 /* tripDetailViewController.xib in Resources */,
 				3854FEF81A2BAA7B0062A818 /* deliveryRequestViewController.xib in Resources */,
 				383F04CA1A52010600DC8267 /* EditProfileViewController.xib in Resources */,
 				38C445B81A4A794C0074A741 /* air6.png in Resources */,
+				38B19AD81A61A36700CFDB86 /* cellForTravel.xib in Resources */,
 				389D59751A4B522000E26258 /* add139.png in Resources */,
 				747F007A15951A58000F601E /* LoginFieldBG.png in Resources */,
 				38BF5FBD1A2B37C0000ABA60 /* orderViewController.xib in Resources */,
 				747F007C15951A58000F601E /* MainBG.png in Resources */,
 				38C445AF1A4A714F0074A741 /* logo.png in Resources */,
 				747F007D15951A58000F601E /* SignUp.png in Resources */,
-				3854FEF31A2B6B900062A818 /* deliverersViewController.xib in Resources */,
+				38B19ADD1A61A54D00CFDB86 /* cellForTravelTableViewCell.xib in Resources */,
 				747F007E15951A58000F601E /* SignUpDown.png in Resources */,
 				38C445B31A4A71CE0074A741 /* homescreen.png in Resources */,
 				747F007F15951A58000F601E /* SignUpFieldBG.png in Resources */,
@@ -465,6 +481,7 @@
 				389B6B801A4279E100B9F6D8 /* travelersViewController.xib in Resources */,
 				C4BBB7C216FD2D73003CA3F7 /* Default@2x.png in Resources */,
 				38851AC01A4BC78500F201DD /* plus.png in Resources */,
+				38B19AD61A61A16200CFDB86 /* plane.png in Resources */,
 				C4BBB7C316FD2D73003CA3F7 /* Default.png in Resources */,
 				389D597C1A4B90D400E26258 /* user16.png in Resources */,
 				C4BBB7C416FD2D73003CA3F7 /* Default-568h@2x.png in Resources */,
@@ -483,6 +500,7 @@
 				389CCB3B1A43FECA00378D36 /* searchViewController.m in Sources */,
 				3802070C1A280C300087CF76 /* tripViewController.m in Sources */,
 				74366EB3158AAE1000A17D8A /* main.m in Sources */,
+				38B19ADC1A61A54D00CFDB86 /* cellForTravelTableViewCell.m in Sources */,
 				3854FEF21A2B6B900062A818 /* deliverersViewController.m in Sources */,
 				74366EB7158AAE1000A17D8A /* AppDelegate.m in Sources */,
 				38BF5FBC1A2B37C0000ABA60 /* orderViewController.m in Sources */,

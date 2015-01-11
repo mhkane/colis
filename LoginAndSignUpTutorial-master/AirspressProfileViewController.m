@@ -18,10 +18,34 @@
     self.username.text = [[PFUser currentUser] username];
     self.userBio.text = [[PFUser currentUser] objectForKey:@"userBio"];
     self.rating.text = [[PFUser currentUser] objectForKey:@"userRating"];
+    PFUser *currentUser = [PFUser currentUser];
+    /*PFFile *imageFile =[currentUser objectForKey:@"profilePicture"];
+    [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        UIImage *image = [[UIImage alloc] init];
+        if(data!=nil){
+            image = [UIImage imageWithData:data];
+        }
+        else{
+            image = [UIImage imageNamed:@"userProfile.png"];
+        }
+        self.profilePicture.image = image;
+    }];*/
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    PFUser *currentUser = [PFUser currentUser];
+    PFFile *imageFile =[currentUser objectForKey:@"profilePicture"];
+    [imageFile getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        UIImage *image = [[UIImage alloc] init];
+        if(data!=nil){
+            image = [UIImage imageWithData:data];
+        }
+        else{
+            image = [UIImage imageNamed:@"userProfile.png"];
+        }
+        self.profilePicture.image = image;
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

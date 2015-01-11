@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
-@interface EditProfileViewController : UIViewController
+@interface EditProfileViewController : UIViewController<UINavigationBarDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *biography;
+@property (weak, nonatomic) IBOutlet UIImageView *profilePic;
 
 @end

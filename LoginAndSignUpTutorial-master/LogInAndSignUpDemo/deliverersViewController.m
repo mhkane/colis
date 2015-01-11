@@ -8,6 +8,7 @@
 
 #import "deliverersViewController.h"
 #import "tripDetailViewController.h"
+#import "cellForTravelTableViewCell.h"
 
 @interface deliverersViewController ()
 
@@ -133,25 +134,36 @@
  }
  */
 
-/*
+
  // Override to customize the look of a cell representing an object. The default is to display
  // a UITableViewCellStyleDefault style cell with the label being the textKey in the object,
  // and the imageView being the imageKey in the object.
  - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
- static NSString *CellIdentifier = @"Cell";
+ static NSString *CellIdentifier = @"cellForTravel";
  
- PFTableViewCell *cell = (PFTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+ cellForTravelTableViewCell *cell = (cellForTravelTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
  if (cell == nil) {
- cell = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+ cell = [[cellForTravelTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
  }
  
  // Configure the cell
- cell.textLabel.text = [object objectForKey:self.textKey];
- cell.imageView.file = [object objectForKey:self.imageKey];
- 
- return cell;
+     PFObject *objectForCell = [self.objects objectAtIndex:indexPath.row];
+     PFUser *user = [objectForCell valueForKey:@"traveler"];
+     NSString *idd = [user objectId];
+     PFUser *trueUser = [PFQuery getUserObjectWithId:idd];
+     NSString *travelerName = [trueUser username];
+     cell.travelerName.text = travelerName;
+     cell.toDestination.text = [objectForCell objectForKey:@"toLocation"];
+     cell.fromDestination.text = [objectForCell objectForKey:@"fromLocation"];
+     NSDate *travelDate = [objectForCell objectForKey:@"arrivalDate"];
+     NSDateFormatter *df2 =[[NSDateFormatter alloc] init];
+     [df2 setDateFormat:@"EEE,d MMM yyyy"];
+     NSString *dateString = [df2 stringFromDate:travelDate];
+     cell.date.text=dateString;
+     cell.imageView.image = [UIImage imageNamed:@"plane.png"];
+     return cell;
  }
- */
+
 
 /*
  // Override if you need to change the ordering of objects in the table.
