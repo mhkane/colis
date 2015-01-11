@@ -15,8 +15,7 @@
 #import "deliveryRequestViewController.h"
 #import "AirspressLoginViewController.h"
 #import "AirspressTabBarController.h"
-#import "ProfileViewController.h"
-
+#import "AirspressProfileViewController.h"
 @implementation SubclassConfigViewController
 
 
@@ -104,16 +103,17 @@
     orderViewController *order = [[orderViewController alloc] init];
     deliverersViewController *travelers = [[deliverersViewController alloc]init];
     UINavigationController *tripNav = [[UINavigationController alloc] initWithRootViewController:trip];
-    ProfileViewController *profile = [[ProfileViewController alloc] init];
+    AirspressProfileViewController *profile = [[AirspressProfileViewController alloc] init];
     [[travelers tabBarItem] setTitle:@"Travels"];
     [[travelers tabBarItem] setImage:[UIImage imageNamed:@"air6.png"]];
     [[profile tabBarItem] setTitle:@"Profile"];
     [[profile tabBarItem] setImage:[UIImage imageNamed:@"user16.png"]];
     UINavigationController *travelNav = [[UINavigationController alloc]initWithRootViewController:travelers];
+    UINavigationController *profileNav = [[UINavigationController alloc] initWithRootViewController:profile];
 
     
     [[trip tabBarItem] setTitle:@"trip"];
-    NSArray *views = @[travelNav,delivery,profile];
+    NSArray *views = @[travelNav,delivery,profileNav];
     [menu setViewControllers:views];
     [self presentViewController:menu animated:false completion:nil];
     [self _loadData];
