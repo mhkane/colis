@@ -7,6 +7,7 @@
 //
 
 #import "EditProfileViewController.h"
+#import "AirspressProfileViewController.h"
 
 @interface EditProfileViewController ()
 
@@ -42,7 +43,7 @@
 - (IBAction)doneButton:(id)sender {
     PFUser *currentUser = [PFUser currentUser];
     [currentUser setObject:self.biography.text forKey:@"userBio"];
-    [currentUser saveInBackground];
+    [currentUser save];
 [[self navigationController] popViewControllerAnimated:YES];
 }
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
@@ -51,8 +52,10 @@
     NSData *image = UIImagePNGRepresentation(originalImage);
     PFFile *profilePic = [PFFile fileWithData:image];
     [currentUser setObject:profilePic forKey:@"profilePicture"];
-    [currentUser saveInBackground];
-    [self.navigationController popViewControllerAnimated:false];
+    [currentUser saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        NSLog(@"Image saved");
+        [picker dismissViewControllerAnimated:YES completion:nil];
+    }];
 }
 - (IBAction)showPhotoLibrary:(id)sender {
     if (([UIImagePickerController isSourceTypeAvailable:
@@ -70,9 +73,7 @@
     mediaUI.allowsEditing = NO;
     
     mediaUI.delegate = self;
-    
-    [self.navigationController presentModalViewController: mediaUI animated: YES];
-    
+    [self.navigationController presentViewController:mediaUI animated:false completion:nil];
 }
 
 
