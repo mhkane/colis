@@ -1,6 +1,6 @@
 {% load staticfiles %}
-<link rel="stylesheet" type="text/css" href="{% static 'signup/bootstrap.min.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'signup/custom.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'signup/css/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom.css' %}" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="{% static 'signup/js/bootstrap.min.js' %}"></script>
 
@@ -10,7 +10,9 @@
 <ul class="nav nav-pills nav-stacked"> 
 	<li> <a href = "#">Home</a> </li>
 	<li> <a href="#"> Profile</a> </li>
+	<li> <a href="/account/mytrips/add">Add a trip</a> </li>
 	<li class='logout-btn'> <a href="http://www.falconfake.com:8000/signup/logout">Logout</a> </li>
+
 </ul>
 
 </nav>

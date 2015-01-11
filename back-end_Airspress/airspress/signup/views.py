@@ -9,7 +9,7 @@ from airspress.settings import CONFIG
 authomatic = Authomatic(CONFIG, 'a super secret random string about falconpress and his brethren')
 
 def home(request):
-    # Create links and OpenID form to the Login handler.
+    # Create links and OpenID form and forward to the Login handler.
     # Recover data from sessions
     cUser=None
     try:

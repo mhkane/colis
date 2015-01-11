@@ -9,4 +9,5 @@ urlpatterns = patterns('',
 ##    url(r'^(?P<poll_id>\d+)/votes/$', views.votes, name='votes'),
     url(r'^$', views.activeTrips, name='index'),
     url(r'^search', views.searchTrips, name='search'),
+    url(ur'^(?P<key>.*)/request/$', views.requestTrip, name='request'),
    )
