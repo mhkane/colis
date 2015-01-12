@@ -17,6 +17,7 @@
 #import "searchViewController.h"
 #import "AirspressLoginViewController.h"
 #import "AirspressTabBarController.h"
+#import "Confirmation2ViewController.h"
 
 #import <FacebookSDK/FacebookSDK.h>
 
@@ -53,7 +54,8 @@
     [application registerForRemoteNotifications];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     SubclassConfigViewController *login =[[SubclassConfigViewController alloc]init];
-    self.window.rootViewController = login;
+    Confirmation2ViewController * c = [[Confirmation2ViewController alloc] init];
+    self.window.rootViewController = c;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

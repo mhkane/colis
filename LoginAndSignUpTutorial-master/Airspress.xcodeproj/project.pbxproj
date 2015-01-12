@@ -38,6 +38,9 @@
 		38B19AE21A61FEF000CFDB86 /* userProfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 38B19AE11A61FEF000CFDB86 /* userProfile.png */; };
 		38BF5FBC1A2B37C0000ABA60 /* orderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38BF5FBA1A2B37C0000ABA60 /* orderViewController.m */; };
 		38BF5FBD1A2B37C0000ABA60 /* orderViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38BF5FBB1A2B37C0000ABA60 /* orderViewController.xib */; };
+		38C0C1EF1A63801100132AF1 /* Confirmation2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C0C1EE1A63801100132AF1 /* Confirmation2ViewController.m */; };
+		38C1D1121A6379670040083A /* JSQFlatButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C1D1111A6379670040083A /* JSQFlatButton.m */; };
+		38C1D1141A637B9D0040083A /* airplane68.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C1D1131A637B9D0040083A /* airplane68.png */; };
 		38C445AF1A4A714F0074A741 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C445AE1A4A714F0074A741 /* logo.png */; };
 		38C445B31A4A71CE0074A741 /* homescreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C445B21A4A71CE0074A741 /* homescreen.png */; };
 		38C445B81A4A794C0074A741 /* air6.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C445B71A4A794C0074A741 /* air6.png */; };
@@ -131,6 +134,11 @@
 		38BF5FB91A2B37C0000ABA60 /* orderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = orderViewController.h; sourceTree = "<group>"; };
 		38BF5FBA1A2B37C0000ABA60 /* orderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = orderViewController.m; sourceTree = "<group>"; };
 		38BF5FBB1A2B37C0000ABA60 /* orderViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = orderViewController.xib; sourceTree = "<group>"; };
+		38C0C1ED1A63801000132AF1 /* Confirmation2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Confirmation2ViewController.h; sourceTree = "<group>"; };
+		38C0C1EE1A63801100132AF1 /* Confirmation2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Confirmation2ViewController.m; sourceTree = "<group>"; };
+		38C1D1101A6379670040083A /* JSQFlatButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSQFlatButton.h; sourceTree = "<group>"; };
+		38C1D1111A6379670040083A /* JSQFlatButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSQFlatButton.m; sourceTree = "<group>"; };
+		38C1D1131A637B9D0040083A /* airplane68.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = airplane68.png; sourceTree = "<group>"; };
 		38C445AE1A4A714F0074A741 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		38C445B21A4A71CE0074A741 /* homescreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homescreen.png; sourceTree = "<group>"; };
 		38C445B71A4A794C0074A741 /* air6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = air6.png; sourceTree = "<group>"; };
@@ -301,6 +309,11 @@
 			isa = PBXGroup;
 			children = (
 				383F04D01A5B0E1000DC8267 /* AirspressProfileViewController.h */,
+				38C0C1ED1A63801000132AF1 /* Confirmation2ViewController.h */,
+				38C0C1EE1A63801100132AF1 /* Confirmation2ViewController.m */,
+				38C1D1131A637B9D0040083A /* airplane68.png */,
+				38C1D1101A6379670040083A /* JSQFlatButton.h */,
+				38C1D1111A6379670040083A /* JSQFlatButton.m */,
 				383F04D11A5B0E1000DC8267 /* AirspressProfileViewController.m */,
 				383F04D21A5B0E1000DC8267 /* AirspressProfileViewController.xib */,
 				389D59761A4B53EA00E26258 /* AirspressTabBarController.m */,
@@ -467,6 +480,7 @@
 				389D59751A4B522000E26258 /* add139.png in Resources */,
 				747F007A15951A58000F601E /* LoginFieldBG.png in Resources */,
 				38BF5FBD1A2B37C0000ABA60 /* orderViewController.xib in Resources */,
+				38C1D1141A637B9D0040083A /* airplane68.png in Resources */,
 				747F007C15951A58000F601E /* MainBG.png in Resources */,
 				38C445AF1A4A714F0074A741 /* logo.png in Resources */,
 				747F007D15951A58000F601E /* SignUp.png in Resources */,
@@ -506,6 +520,7 @@
 				38BF5FBC1A2B37C0000ABA60 /* orderViewController.m in Sources */,
 				38274F131A435745007F2474 /* tripDetailViewController.m in Sources */,
 				74366EDF158AB49300A17D8A /* DemoTableViewController.m in Sources */,
+				38C1D1121A6379670040083A /* JSQFlatButton.m in Sources */,
 				74366EE7158AC82C00A17D8A /* DefaultSettingsViewController.m in Sources */,
 				74366EF4158AF2D300A17D8A /* PropertyConfigViewController.m in Sources */,
 				389D59781A4B53EA00E26258 /* AirspressTabBarController.m in Sources */,
@@ -516,6 +531,7 @@
 				74366F03158B973C00A17D8A /* MyLogInViewController.m in Sources */,
 				3854FEF71A2BAA7B0062A818 /* deliveryRequestViewController.m in Sources */,
 				74366F06158B975500A17D8A /* MySignUpViewController.m in Sources */,
+				38C0C1EF1A63801100132AF1 /* Confirmation2ViewController.m in Sources */,
 				383F04D31A5B0E1000DC8267 /* AirspressProfileViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
