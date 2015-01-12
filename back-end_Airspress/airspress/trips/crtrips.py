@@ -3,11 +3,15 @@ from parse_rest.connection import register
 from airspress import settings
 from django.utils import timezone
 import datetime
+from time import strptime
 register(settings.APPLICATION_ID, settings.REST_API_KEY)#settings.REST_API_KEY
 from parse_rest.datatypes import Object as ParseObject
 from parse_rest.user import User
+from account.actions import request as trequests
+
 class trip(ParseObject):
     pass
+
 def tripFind(request, cUser, searchView):
     '''
     This is basically our search engine for finding trips in our database
@@ -52,12 +56,14 @@ def tripFind(request, cUser, searchView):
         destLocation = ''
         oriLocation = ''
         travelerId = False
+        tripId = ''
         try:
             pub_date = anyTrip.createdAt
             travelerId  = anyTrip.traveler.objectId
-            departDate = anyTrip.departureDate
+            departDate = anyTrip.departureDate.date()
             destLocation = anyTrip.toLocation
             oriLocation = anyTrip.fromLocation
+            tripId = anyTrip.objectId
         except AttributeError:
             pass
         
@@ -68,9 +74,81 @@ def tripFind(request, cUser, searchView):
             else:
                 tripDict['objTrip'+str(k)] = {'pub_date':pub_date, 
                 'travelerUser':travelerUser, 'departDate':departDate, 
-                'destLocation':destLocation, 'oriLocation':oriLocation,}
+                'destLocation':destLocation, 'oriLocation':oriLocation, 'tripId':tripId}
                 #once the context dict created we can use render()
                 print(tripDict)
                 print k+1
 
     return tripDict
+def tripCreate(request, cUser, addView):
+    cityArr = addView.cleaned_data['cityArr']
+    cityDep = addView.cleaned_data['cityDep']
+    depDate = addView.cleaned_data['depDate']
+    arrivDate = addView.cleaned_data['arrivDate']
+    weightGood = addView.cleaned_data['weightGood'] 
+    depDate = datetime.datetime.combine(depDate, datetime.time.min)
+    arrivDate = datetime.datetime.combine(arrivDate, datetime.time.min)
+    print depDate
+    print arrivDate#remove
+    newTrip = trip(departureDate = depDate, arrivalDate = arrivDate, fromLocation = cityDep, 
+                toLocation = cityArr, availCapacity = weightGood, totalCapacity=weightGood)
+    newTrip.traveler = User.Query.get(objectId=cUser.objectId)
+    try:
+        newTrip.save()
+    except KeyError:
+        pass
+    #pub_date = ''
+    #travelerUser = ''
+    departDate = ''
+    destLocation = ''
+    oriLocation = ''
+    availCapacity = ''
+    try:
+        #pub_date = newTrip.createdAt
+        #travelerId  = newTrip.traveler.objectId
+        departDate = newTrip.departureDate
+        destLocation = newTrip.toLocation
+        oriLocation = newTrip.fromLocation
+        availCapacity = newTrip.availCapacity
+    except AttributeError:
+        pass
+    
+    newtripDict = { 'departDate':departDate, 
+                'destLocation':destLocation, 'oriLocation':oriLocation,}
+    return newtripDict
+
+def tripRequest(cUser, reqView, key):
+    tripnow = trip.Query.get(objectId=key)
+    numReq = trequests.Query.filter(Requester=cUser).count()
+    print numReq#remove
+    try:
+        if cUser.objectId == tripnow.traveler.objectId:
+            alert = "Buddy, you can't own the penthouse and lease it to yourself, yeah ? =D !"
+            return alert
+        elif numReq>0:
+            alert = "You can't request more than once ;)"
+            return alert     
+    except AttributeError:
+        pass
+    deliveryCity = tripnow.toLocation
+    weightGood = reqView.cleaned_data['weightGood']
+    moreInfo = reqView.cleaned_data['comments']
+    newRequest = trequests(moreInfo=moreInfo, weightRequested=weightGood, deliveryCity=deliveryCity)
+    newRequest.tripId = tripnow
+    newRequest.Requester = cUser
+    newRequest.save()
+    print newRequest
+    alert = 'Request not submitted. Try again...'
+    if newRequest:
+        alert = 'Request submitted with success. You will be notified as soon as Traveler accept it.'
+ 
+    return alert
+
+def isodate_to_tz_datetime(isodate):
+    """
+    Convert an ISO date string 2011-01-01 into a timezone aware datetime that
+    has the current timezone.
+    """
+    date = datetime.datetime.strptime(isodate, '%m-%d-%Y')
+    current_timezone = timezone.get_current_timezone()
+    return current_timezone.localize(date, is_dst=None)

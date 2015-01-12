@@ -1,0 +1,204 @@
+@import url('font-awesome.min.css');
+/* This contains additional customisations that are used for
+	the "real" website not the presentation website */
+li i{padding-right:2px;}
+a.sidebar-brand{color:#fff}
+.fb-signin{background-color:#3B5998; color:#fff}
+div.modal-dialog.modal-sm{height:350px}
+.modal-content{height:90%}
+.board-right{float:right;width:20%;}
+html,body,.container
+{
+    height:100%;
+}
+ul{list-style-type:none;}
+.btn-search{margin-top:10px}
+.travelUser{text-align:center; }
+.travelUser span{display:block; text-align:center}
+.pull-right{margin-bottom:15px;}
+.errorlist{font-size:9px; margin:0;margin-top:5px;color:red;}
+.twodates{overflow:hidden; padding-left:0;padding-right:0;width:63%;}
+.twodates ul{padding-left:5px;}
+.twodates p{margin-bottom:0;}
+.twodates .col-md-6{padding-right:0;}
+.firstin {
+    margin-right: 0;
+	margin-left:0;
+}
+.price-details{overflow:auto;}
+p.unit-price{text-align:center; padding-top:15%; font-family: Museo-500; font-size:14px; color:green;}
+div.caption{padding-right:5px;}
+.format-add-trip{margin-left:150px;}
+.form-add-trip .form-group {padding-top:30px;}
+.form-req-trip .help-block {margin-bottom:0;}
+.form-req-trip .form-group {padding-top:20px;}
+.form-req-trip>.input-group{ width:30%;}
+form .comment{width:80%;}
+/* Sidebar */
+.fa.fa-times{font: 14px/1 FontAwesome}
+.mini-submenu{
+  display:none;  
+  background-color: rgba(0, 0, 0, 0);  
+  border: 1px solid rgba(0, 0, 0, 0.9);
+  border-radius: 4px;
+  padding: 9px;  
+  /*position: relative;*/
+  width: 42px;
+
+}
+
+.mini-submenu:hover{
+  cursor: pointer;
+}
+
+.mini-submenu .icon-bar {
+  border-radius: 1px;
+  display: block;
+  height: 2px;
+  width: 22px;
+  margin-top: 3px;
+}
+
+.mini-submenu .icon-bar {
+  background-color: #000;
+}
+
+#slide-submenu{
+  background: rgba(0, 0, 0, 0.45);
+  display: inline-block;
+  padding: 0 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+/* ! End-- - Sidebar */
+
+@media (min-width: 768px){
+/*!
+ * This code partly reuse : The Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/* Toggle Styles */
+
+#wrapper {
+    padding-right: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-right: 250px; /* to change sidebar width, hashtag: sidewidth */
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    right: 250px;/* sidewidth */
+    width: 0;
+    height: 100%;
+    margin-right: -250px;/* sidewidth */
+    overflow-y: auto;
+    background: none repeat scroll 0 0 #fff;
+	border-left:1px solid #e7962e;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;/* sidewidth */
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;/* sidewidth */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-right: 250px;/* sidewidth */
+		padding-top:100px;
+    }
+
+    #wrapper.toggled {
+        padding-right: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px; /* sidewidth*/
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+@media (max-width:768px) {
+li span{font-size: 30px;}
+}
+p.errors{margin:0;}

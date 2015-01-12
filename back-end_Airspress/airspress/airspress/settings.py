@@ -42,7 +42,6 @@ INSTALLED_APPS = (
     'south',
     'signup',
     'trips',
-    'account',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -98,12 +97,12 @@ DATE_INPUT_FORMATS = ['%m-%d-%Y','%d-%m-%Y','%Y-%m-%d',
 STATIC_URL = '/static/'
 
 # PARSE APPLICATION KEYS
-APPLICATION_ID = "############################"
-REST_API_KEY = "########################################"
-MASTER_KEY = "#####################################"
+APPLICATION_ID = "9#"
+REST_API_KEY = "a#"
+MASTER_KEY = "w#"
 #FACEBOOK login CONFIG
-consumer_secret = '########################'
-consumer_key = '1#############'
+consumer_secret = '5#'
+consumer_key = '1#'
 CONFIG = {
           
     'fb': {

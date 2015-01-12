@@ -2,9 +2,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from signup.schemes import User, currentUser#ParseUser
-from trips.crtrips import trip, tripFind
+from trips.crtrips import trip, tripFind, tripRequest
 from signup.schemes import is_logged_in
-from trips.forms import searchForm
+from trips.forms import searchForm, requestForm
 #
 #
 #    Current = User.login_auth(auth_data)
@@ -26,12 +26,14 @@ def activeTrips(request):
             destLocation = ''
             oriLocation = ''
             travelerId = False
+            tripId = ''
             try:
                 pub_date = anyTrip.createdAt
                 travelerId  = anyTrip.traveler.objectId
-                departDate = anyTrip.departureDate
+                departDate = anyTrip.departureDate.date()
                 destLocation = anyTrip.toLocation
                 oriLocation = anyTrip.fromLocation
+                tripId = anyTrip.objectId
             except AttributeError:
                 pass
             
@@ -42,7 +44,7 @@ def activeTrips(request):
                 else:
                     tripDict['objTrip'+str(k)] = {'pub_date':pub_date, 
                     'travelerUser':travelerUser, 'departDate':departDate, 
-                    'destLocation':destLocation, 'oriLocation':oriLocation,}
+                    'destLocation':destLocation, 'oriLocation':oriLocation, 'tripId':tripId}
                     #once the context dict created we can use render()
                     print(tripDict)
                     print k
@@ -83,3 +85,22 @@ def searchTrips(request):
         HttpResponseRedirect(reverse('signup:index'))
             
     return HttpResponseRedirect(reverse('trips:index'))
+
+def requestTrip(request, key):
+    alert=''
+    cUser = is_logged_in(request)
+    if cUser:
+        if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
+            reqView = requestForm(request.POST)
+            if reqView.is_valid():
+                alert = tripRequest(cUser, reqView, key)
+                print alert
+        #Preparing search form on page
+            else:
+                print reqView.errors
+            return render(request, 'trips/modals.html', {'key':key,'alert':alert,'greetings':cUser.username, 'requestForm':reqView})             
+        else:
+            reqView = requestForm()
+    else:
+        return HttpResponseRedirect(reverse('signup:index'))
+    return render(request, 'trips/modals.html', {'key':key,'greetings':cUser.username, 'requestForm':reqView})
