@@ -18,6 +18,7 @@
 #import "AirspressLoginViewController.h"
 #import "AirspressTabBarController.h"
 #import "Confirmation2ViewController.h"
+#import "SPGooglePlacesAutocompleteViewController.h"
 
 #import <FacebookSDK/FacebookSDK.h>
 
@@ -56,7 +57,8 @@
     SubclassConfigViewController *login =[[SubclassConfigViewController alloc]init];
     tripViewController *trip = [[tripViewController alloc] init];
     Confirmation2ViewController * c = [[Confirmation2ViewController alloc] init];
-    self.window.rootViewController = trip;
+    SPGooglePlacesAutocompleteViewController *vc = [[SPGooglePlacesAutocompleteViewController alloc] init];
+    self.window.rootViewController = vc;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

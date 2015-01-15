@@ -13,6 +13,15 @@
 @end
 
 @implementation tripViewController
+-(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if(self){
+        searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] init];
+        searchQuery.radius=100.0;
+        shouldBeginEditing=YES;
+    }
+    return self;
+}
 - (IBAction)tapSomewhere:(id)sender {
     [self.toTextField resignFirstResponder];
     [self.fromTextField resignFirstResponder];
@@ -31,6 +40,11 @@
                                                             action:@selector(didTapAnywhere:)];
     self.toTextField.delegate =self;
     self.fromTextField.delegate=self;
+    if(self){
+        searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] init];
+        searchQuery.radius=100.0;
+        shouldBeginEditing=YES;
+    }
     
 }
 - (IBAction)registerTrip:(id)sender {

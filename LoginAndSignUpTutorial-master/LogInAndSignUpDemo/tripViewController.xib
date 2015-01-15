@@ -11,6 +11,7 @@
                 <outlet property="addTripButton" destination="XO7-X3-X8k" id="cAE-p7-UKt"/>
                 <outlet property="fromTextField" destination="Nc0-Zm-3Vv" id="RkV-vb-l6G"/>
                 <outlet property="tapGesture" destination="dgM-dR-dyE" id="5ti-nz-QiS"/>
+                <outlet property="toTextField" destination="4tp-3j-39d" id="nde-6y-51C"/>
                 <outlet property="tripDate" destination="lkI-6M-Hn6" id="saL-vG-rcj"/>
                 <outlet property="view" destination="a1H-uj-fLp" id="C5b-FV-kFd"/>
             </connections>
