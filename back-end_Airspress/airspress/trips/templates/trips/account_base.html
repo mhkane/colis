@@ -9,6 +9,7 @@
     <meta name="author" content="">
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/font-awesome.min.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/bootstrap.min.css' %}" />
+	{% block stylesheet %} {% endblock stylesheet %}
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/datepicker3.css' %}" />
 	<title> {% block title %} Airspress - Home {% endblock %} </title>
@@ -18,7 +19,7 @@
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
-                <a class="navbar-brand" href="#page-top"><img src="img/logo.png" alt="AirSpress" title="Ship for Cheap"> </a>
+                <a class="navbar-brand" href="#page-top"><img src="{% static 'signup/img/logo.png' %}" alt="AirSpress" title="Ship for Cheap"> </a>
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
@@ -35,7 +36,7 @@
                         <a href="#page-top"></a>
                     </li>
                     <li class="page-scroll">
-                        <a href="#">Home</a>
+                        <a href="/trips/">Home</a>
                     </li>
                     <li class="page-scroll">
                         <a href="#">Ressources</a>
@@ -65,7 +66,7 @@
         <div id="sidebar-wrapper" class="list-group">
         <span href="#" class="list-group-item active">
            <a class="sidebar-brand" href="#"> Hi, {% block username %} Anonymous {% endblock %}</a>
-            <span class="pull-right" id="slide-submenu">
+            <span class="pull-right" href="#" id="menu-toggle">
                 <i class="fa fa-times"></i>
             </span>
         </span>
@@ -76,7 +77,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href=" {% block linkProfile %} # {% endblock %} ">Profile</a>
+                    <a href=" {% block linkProfile %} {% url 'account:profile' greetings %} {% endblock %} ">Profile</a>
                 </li>
 				
 				<li class="panel dropdown">
@@ -85,7 +86,7 @@
 							   </a>
 					<ul id="collapseOne" class="panel-collapse collapse">
 						<li><a href="{% url 'account:myTrip' greetings %}">Added Trips</a></li>
-						<li><a href="#">Buyer Requests</a></li>
+						<li><a href="{%  url 'account:otRequest' %}">">Buyer Requests</a></li>
 					</ul>
 				</li>
                 <li>
@@ -93,7 +94,7 @@
                 </li>
 				<li> <a href="/account/mytrips/add">Add a trip</a> </li>
                 <li class='logout-btn'> 
-				   <a href="http://www.falconfake.com:8000/signup/logout">Logout</a>
+				   <a href="/logout">Logout</a>
                 </li>
             </ul>
         </div>
@@ -117,8 +118,10 @@
 			<hr class="prettyline">
         </div>
         <!-- /#page-content-wrapper -->
-	
     </div>
+		<!-- Modal --> <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
+
+					</div><!-- /.modal --> 
 	<footer> </footer>
     <!-- /#wrapper -->
 
@@ -129,6 +132,7 @@
 	<script type="text/javascript" src="{% static 'signup/js/bootstrap.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'signup/js/sidebar.js' %}"></script>
 	<script type="text/javascript" src="{% static 'signup/js/bootstrap-datepicker.js' %}"></script>
+	{% block jscript %} {% endblock jscript %}
     <!-- Menu Toggle Script -->
     <script>
     $("#menu-toggle").click(function(e) {
@@ -137,7 +141,9 @@
     });
     </script>
 	<script> $('.datepicker').datepicker({
-      format: 'mm-dd-yyyy'
+      format: 'mm-dd-yyyy',
+	  autoclose:true,
+	  orientation: 'top'
     });
 	</script>
 	<script type="text/javascript" src="{% static 'signup/js/citySearch.js' %}"></script>

@@ -10,5 +10,9 @@ urlpatterns = patterns('',
     url(r'^mytrips/add/$', views.addTrip, name='addtrip'),
     url(r'^mytrips/requested_trips/$', views.requestedTrips, name='myRequest'),
     url(ur'^(?P<key>.*)/trips/$', views.myTrips, name='myTrip'),
+    url(ur'^(?P<key>.*)/deals/$', views.deals, name='deals'),
+    url(ur'^usersRequest/$', views.otRequests, name='otRequest'),
+    url(ur'^(?P<key>.*)/$', views.profileView, name='profile'),
     #url(r'^search', views.searchTrips, name='search'),
+    
    )

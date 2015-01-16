@@ -4,6 +4,8 @@ from airspress import settings
 from django.utils import timezone
 import datetime
 from time import strptime
+from moneyed.classes import Money
+from decimal import Decimal
 register(settings.APPLICATION_ID, settings.REST_API_KEY)#settings.REST_API_KEY
 from parse_rest.datatypes import Object as ParseObject
 from parse_rest.user import User
@@ -57,6 +59,7 @@ def tripFind(request, cUser, searchView):
         oriLocation = ''
         travelerId = False
         tripId = ''
+        pPicture=''
         try:
             pub_date = anyTrip.createdAt
             travelerId  = anyTrip.traveler.objectId
@@ -64,6 +67,7 @@ def tripFind(request, cUser, searchView):
             destLocation = anyTrip.toLocation
             oriLocation = anyTrip.fromLocation
             tripId = anyTrip.objectId
+            pPicture = User.Query.get(objectId=travelerId).profilePicture.url
         except AttributeError:
             pass
         
@@ -74,7 +78,7 @@ def tripFind(request, cUser, searchView):
             else:
                 tripDict['objTrip'+str(k)] = {'pub_date':pub_date, 
                 'travelerUser':travelerUser, 'departDate':departDate, 
-                'destLocation':destLocation, 'oriLocation':oriLocation, 'tripId':tripId}
+                'destLocation':destLocation, 'oriLocation':oriLocation, 'tripId':tripId, 'pPicture':pPicture,}
                 #once the context dict created we can use render()
                 print(tripDict)
                 print k+1
@@ -85,13 +89,15 @@ def tripCreate(request, cUser, addView):
     cityDep = addView.cleaned_data['cityDep']
     depDate = addView.cleaned_data['depDate']
     arrivDate = addView.cleaned_data['arrivDate']
-    weightGood = addView.cleaned_data['weightGood'] 
+    weightGood = addView.cleaned_data['weightGood']
+    distance = 1000 #must be evaluated with another form field
+    unitPrice = priceCalc(weightGood, distance)
     depDate = datetime.datetime.combine(depDate, datetime.time.min)
     arrivDate = datetime.datetime.combine(arrivDate, datetime.time.min)
     print depDate
     print arrivDate#remove
     newTrip = trip(departureDate = depDate, arrivalDate = arrivDate, fromLocation = cityDep, 
-                toLocation = cityArr, availCapacity = weightGood, totalCapacity=weightGood)
+                toLocation = cityArr, availCapacity = weightGood, totalCapacity=weightGood, unitPriceUsd = unitPrice)
     newTrip.traveler = User.Query.get(objectId=cUser.objectId)
     try:
         newTrip.save()
@@ -102,14 +108,14 @@ def tripCreate(request, cUser, addView):
     departDate = ''
     destLocation = ''
     oriLocation = ''
-    availCapacity = ''
+    #availCapacity = ''
     try:
         #pub_date = newTrip.createdAt
         #travelerId  = newTrip.traveler.objectId
         departDate = newTrip.departureDate
         destLocation = newTrip.toLocation
         oriLocation = newTrip.fromLocation
-        availCapacity = newTrip.availCapacity
+        #availCapacity = newTrip.availCapacity
     except AttributeError:
         pass
     
@@ -118,29 +124,38 @@ def tripCreate(request, cUser, addView):
     return newtripDict
 
 def tripRequest(cUser, reqView, key):
+    alert={}
     tripnow = trip.Query.get(objectId=key)
     numReq = trequests.Query.filter(Requester=cUser).count()
     print numReq#remove
     try:
         if cUser.objectId == tripnow.traveler.objectId:
-            alert = "Buddy, you can't own the penthouse and lease it to yourself, yeah ? =D !"
+            alert['text'] = "Buddy, you can't own the penthouse and lease it to yourself, yeah ? =D !"
+            alert['type'] = "warning"
             return alert
         elif numReq>0:
-            alert = "You can't request more than once ;)"
+            alert['text'] = "You can't request more than once ;)"
+            alert['type'] = "warning"
             return alert     
     except AttributeError:
         pass
-    deliveryCity = tripnow.toLocation
-    weightGood = reqView.cleaned_data['weightGood']
-    moreInfo = reqView.cleaned_data['comments']
-    newRequest = trequests(moreInfo=moreInfo, weightRequested=weightGood, deliveryCity=deliveryCity)
-    newRequest.tripId = tripnow
-    newRequest.Requester = cUser
-    newRequest.save()
-    print newRequest
-    alert = 'Request not submitted. Try again...'
+    try:
+        deliveryCity = tripnow.toLocation
+        weightGood = reqView.cleaned_data['weightGood']
+        moreInfo = reqView.cleaned_data['comments']
+        newRequest = trequests(moreInfo=moreInfo, weightRequested=weightGood, deliveryCity=deliveryCity, accepted=False,
+                        paymentStatus=False, deliveryStatus=False)
+        newRequest.tripId = tripnow
+        newRequest.Requester = cUser
+        newRequest.save()
+        print newRequest
+        alert['text'] = 'Request not submitted. Try again...'
+        alert['type'] = 'warning'
+    except AttributeError:
+        newRequest=''
+        pass
     if newRequest:
-        alert = 'Request submitted with success. You will be notified as soon as Traveler accept it.'
+        alert = {'text':'Request submitted with success. You will be notified as soon as Traveler accept it.','type':'success'}
  
     return alert
 
@@ -152,3 +167,7 @@ def isodate_to_tz_datetime(isodate):
     date = datetime.datetime.strptime(isodate, '%m-%d-%Y')
     current_timezone = timezone.get_current_timezone()
     return current_timezone.localize(date, is_dst=None)
+def priceCalc(weight, distance):
+    price = Decimal(weight) * Decimal(distance)* Decimal(0.1)
+    price = Money(amount=str(price),currency='USD')
+    return str(price.amount)

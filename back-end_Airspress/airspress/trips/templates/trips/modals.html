@@ -2,17 +2,66 @@
     <div class="modal-content">
 <div class='modal-header'>
   <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-  <h3>{% block modal-title %} Make a request {% endblock %}</h3>
+ {% if dealInfo %}
+  <h3> Make a deal</h3>
   </div>
-  {% if alert %}
+  <div class = "table-responsive">
+  <table class="table">
+  <thead>
+  <tr>
+	<th> Requester </th><th> Trip Info</th><th>Traveler</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+	<td> {{dealInfo.reqUser}} </td><td> Requested on: {{dealInfo.pubdate}} </td><td>{{dealInfo.traveler}} </td>
+  </tr>
+  <tr>
+	<td> {{dealInfo.reqEmail}} </td><td> Departure on: {{dealInfo.depDate}} </td><td>{{dealInfo.travelerEmail}} </td>
+  </tr>
+   <tr>
+	<td> </td><td> From: {{dealInfo.cityDep}} </td><td> </td>
+  </tr>
+     <tr>
+	<td> </td><td> To: {{dealInfo.cityArr}} </td><td> </td>
+  </tr>
+  <tr>
+	<td> </td><td> Shipment Weight: {{dealInfo.requestWeight}} Kg </td><td> </td>
+  </tr>
+  {% if not dealInfo.isdeliv %}
+  {% if not dealInfo.istravel %}
+	{% if not dealInfo.ispayed %}
+			 <tr>
+			<td> </td><td> Payment: <a class="btn btn-primary" href="{% url 'payment:paypal_create' rqkey %}">Pay with Paypal</a> </td><td> </td>
+		  </tr>
+	{% else %}
+			 <tr>
+			<td> </td><td> Delivery: <a class="btn btn-primary btn-success" href="{% url 'delivery:confirmation' rqkey %}">Confirm Delivery</a> </td><td> </td>
+		  </tr>
+	{% endif %}
+	{% endif %}
+  {% else %}
+			 <tr>
+			<td> </td><td> <i class="fa fa-success"></i> <a class="alert-success" >Delivered !</a> </td><td> </td>
+		  </tr>		
+  
+  {% endif %}
+  </tbody>
+  </table>
+  </div>
+  {% elif alert %}
+    <h3> Notification</h3>
+  </div>
   <div class="modal-body">
 
-  <div class="alert alert-success">
+  <div class="alert alert-{{ alert.type }}">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <strong>{{ alert }}</strong> 
+    <strong>{{ alert.text }}</strong> 
   </div>
 </div>
-{% else %}
+{% elif requestForm %}
+  <h3>{% block modal-title %} Make a request{% endblock %}</h3>
+  </div>
   {% block content %}
   <form id='modal-form' class="form-req-trip" action="{% url 'trips:request' key %}" method="POST">
   <div class='modal-body'>

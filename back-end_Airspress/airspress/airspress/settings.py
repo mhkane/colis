@@ -27,7 +27,19 @@ DEBUG = True
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
+# MEDIA URL
+'''
+TEMPLATE_CONTEXT_PROCESSORS = (
 
+  "django.core.context_processors.media",
+)
+'''
+STATICFILES_FINDERS = ( 
+                       'django.contrib.staticfiles.finders.FileSystemFinder',
+                       'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+                       )
+#Uploaded Files
+FILE_UPLOAD_DIR = 'c:/'
 # TEMPLATEs directory
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 # Application definition
@@ -42,6 +54,9 @@ INSTALLED_APPS = (
     'south',
     'signup',
     'trips',
+    'account',
+    'paypalrestsdk',
+    'asp_payment',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -90,19 +105,23 @@ USE_L10N = True
 USE_TZ = True
 DATE_INPUT_FORMATS = ['%m-%d-%Y','%d-%m-%Y','%Y-%m-%d',
                       ]
-
+# mEDIA FILES User-uploaded ones
+MEDIA_URL = '/media/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
-
+#Paypal Credentials
+PAYPAL_MODE='sandbox' #or 'live'
+PAYPAL_ID = 'AasK0xBGMLG8RARnY-SwXrdw_hCADnC2qCYjoPaNHDWIJSrcPvF0J10eyT4t'
+PAYPAL_SECRET ='EJqwBRDBF932t3jOO--kd23etAlxcFS-3Tys717xJkW7s1CPdU34ThvQo4bv'
 # PARSE APPLICATION KEYS
-APPLICATION_ID = "9#"
-REST_API_KEY = "a#"
-MASTER_KEY = "w#"
+APPLICATION_ID = "9GC4ybpn3PxuHyfCm3JKQZXyC1WBNuiTzhRcTHo6"
+REST_API_KEY = "asSPhJ5AV70NOyohcnRWLqXWtL5OrVNZV68yq6Tu"
+MASTER_KEY = "wzDarFuVlJHUI9vPEKZwfKVnluLYBRazv6KT1fKP"
 #FACEBOOK login CONFIG
-consumer_secret = '5#'
-consumer_key = '1#'
+consumer_secret = '5f199d47d0bd5ea9f7f9a6c379a4d139'
+consumer_key = '1537229933223161'
 CONFIG = {
           
     'fb': {

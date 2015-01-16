@@ -10,10 +10,13 @@ from trips.forms import searchForm, requestForm
 #    Current = User.login_auth(auth_data)
 #Tripy = trip(departureDate=  , fromLocation= , text=  , toLocation= )
 #Tripy.traveler = CurrentUser
-
+def fbPicture(request):
+    pPicture = request.session['pPicture']
+    return pPicture
 def activeTrips(request):
     cUser = is_logged_in(request)
     if cUser:
+        pPicture = request.session['pPicture']
         allTrips = trip.Query.all()
         page_one = allTrips.limit(10)
         k = 0
@@ -27,6 +30,7 @@ def activeTrips(request):
             oriLocation = ''
             travelerId = False
             tripId = ''
+            pPicture = ''
             try:
                 pub_date = anyTrip.createdAt
                 travelerId  = anyTrip.traveler.objectId
@@ -34,6 +38,7 @@ def activeTrips(request):
                 destLocation = anyTrip.toLocation
                 oriLocation = anyTrip.fromLocation
                 tripId = anyTrip.objectId
+                pPicture = User.Query.get(objectId=travelerId).profilePicture.url 
             except AttributeError:
                 pass
             
@@ -44,7 +49,7 @@ def activeTrips(request):
                 else:
                     tripDict['objTrip'+str(k)] = {'pub_date':pub_date, 
                     'travelerUser':travelerUser, 'departDate':departDate, 
-                    'destLocation':destLocation, 'oriLocation':oriLocation, 'tripId':tripId}
+                    'destLocation':destLocation, 'oriLocation':oriLocation, 'tripId':tripId, 'pPicture':pPicture}
                     #once the context dict created we can use render()
                     print(tripDict)
                     print k
@@ -59,7 +64,7 @@ def activeTrips(request):
         else:
             searchView = searchForm()
             
-        return render(request, 'trips/voyage.html', {'tripDict':tripDict,'greetings':cUser.username, 'searchForm':searchView})
+        return render(request, 'trips/voyage.html', {'tripDict':tripDict,'greetings':cUser.username, 'searchForm':searchView, 'pPicture':pPicture})
     return HttpResponseRedirect(reverse('signup:index'))
 
 def searchTrips(request):
@@ -70,6 +75,7 @@ def searchTrips(request):
     tripDict={}
     cUser = is_logged_in(request)
     if cUser:
+        pPicture = fbPicture(request)
         if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
             searchView = searchForm(request.POST)
             if searchView.is_valid():
@@ -78,7 +84,7 @@ def searchTrips(request):
         #Preparing search form on page
             else:
                 print searchView.errors
-            return render(request, 'trips/voyage.html', {'tripDict':tripDict,'greetings':cUser.username, 'searchForm':searchView})             
+            return render(request, 'trips/voyage.html', {'tripDict':tripDict,'greetings':cUser.username, 'searchForm':searchView,'myPicture':pPicture})             
         else:
             searchView = searchForm()
     else:
@@ -87,9 +93,10 @@ def searchTrips(request):
     return HttpResponseRedirect(reverse('trips:index'))
 
 def requestTrip(request, key):
-    alert=''
+    alert={}
     cUser = is_logged_in(request)
     if cUser:
+        pPicture = fbPicture(request)
         if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
             reqView = requestForm(request.POST)
             if reqView.is_valid():
@@ -98,7 +105,7 @@ def requestTrip(request, key):
         #Preparing search form on page
             else:
                 print reqView.errors
-            return render(request, 'trips/modals.html', {'key':key,'alert':alert,'greetings':cUser.username, 'requestForm':reqView})             
+            return render(request, 'trips/modals.html', {'key':key,'alert':alert,'greetings':cUser.username, 'requestForm':reqView, 'pPicture':pPicture})             
         else:
             reqView = requestForm()
     else:
