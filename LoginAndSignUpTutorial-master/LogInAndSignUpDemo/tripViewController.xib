@@ -9,10 +9,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="tripViewController">
             <connections>
                 <outlet property="addTripButton" destination="XO7-X3-X8k" id="cAE-p7-UKt"/>
-                <outlet property="fromTextField" destination="Nc0-Zm-3Vv" id="RkV-vb-l6G"/>
-                <outlet property="registerButton" destination="5YC-ua-AZL" id="vfa-jA-5yl"/>
                 <outlet property="tapGesture" destination="dgM-dR-dyE" id="5ti-nz-QiS"/>
-                <outlet property="toTextField" destination="RHe-cJ-sLh" id="soH-76-vKB"/>
                 <outlet property="tripDate" destination="lkI-6M-Hn6" id="saL-vG-rcj"/>
                 <outlet property="view" destination="a1H-uj-fLp" id="C5b-FV-kFd"/>
             </connections>
@@ -22,58 +19,33 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="To" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rvn-Vo-lOn">
-                    <rect key="frame" x="67" y="237" width="40" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nc0-Zm-3Vv">
-                    <rect key="frame" x="165" y="175" width="97" height="30"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RHe-cJ-sLh">
-                    <rect key="frame" x="165" y="228" width="97" height="30"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
                 <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="lkI-6M-Hn6">
-                    <rect key="frame" x="0.0" y="270" width="320" height="162"/>
+                    <rect key="frame" x="0.0" y="192" width="320" height="216"/>
                     <date key="date" timeIntervalSinceReferenceDate="438832576.17807901">
                         <!--2014-11-28 01:56:16 +0000-->
                     </date>
                 </datePicker>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="KbO-gE-XQA">
+                    <rect key="frame" x="67" y="69" width="186" height="116"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pick a date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gfw-UL-K4P">
+                    <rect key="frame" x="117" y="40" width="86" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XO7-X3-X8k">
-                    <rect key="frame" x="30" y="464" width="114" height="45"/>
+                    <rect key="frame" x="175" y="452" width="114" height="45"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="114" id="Nln-ag-0lS"/>
                     </constraints>
-                    <state key="normal" title="Add new trip">
+                    <state key="normal" title="Next">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="addNewTrip:" destination="-1" eventType="touchUpInside" id="5Fw-tq-EXf"/>
                     </connections>
                 </button>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="KbO-gE-XQA">
-                    <rect key="frame" x="67" y="75" width="187" height="92"/>
-                </imageView>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5YC-ua-AZL">
-                    <rect key="frame" x="152" y="464" width="140" height="45"/>
-                    <state key="normal" title="Register this trip">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="registerTrip:" destination="-1" eventType="touchUpInside" id="n4E-GI-BGo"/>
-                    </connections>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="From" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FXz-Uk-dH9">
-                    <rect key="frame" x="67" y="179" width="40" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <gestureRecognizers/>
@@ -82,7 +54,7 @@
             <connections>
                 <outletCollection property="gestureRecognizers" destination="dgM-dR-dyE" appends="YES" id="gd7-pS-EMV"/>
             </connections>
-            <point key="canvasLocation" x="243" y="70"/>
+            <point key="canvasLocation" x="243" y="67"/>
         </view>
         <tapGestureRecognizer id="dgM-dR-dyE">
             <connections>

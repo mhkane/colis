@@ -13,6 +13,10 @@
 @end
 
 @implementation tripViewController
+-(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    return self;
+}
 - (IBAction)tapSomewhere:(id)sender {
     [self.toTextField resignFirstResponder];
     [self.fromTextField resignFirstResponder];
@@ -31,7 +35,6 @@
                                                             action:@selector(didTapAnywhere:)];
     self.toTextField.delegate =self;
     self.fromTextField.delegate=self;
-    
 }
 - (IBAction)registerTrip:(id)sender {
     PFObject *trip = [PFObject objectWithClassName:@"trip"];
@@ -50,9 +53,9 @@
     [alert show];
                           
 }
-- (IBAction)addNewTrip:(id)sender {
-    self.toTextField.text=@"";
-    self.fromTextField.text=@"";
+- (IBAction)Next:(id)sender {
+    [self.navigationController pushViewController:[[SPGooglePlacesAutocompleteViewController alloc] init] animated:YES];
+  
 }
 - (NSArray *)locationsFromJSONFile:(NSURL *)url {
     // Create a NSURLRequest with the given URL
