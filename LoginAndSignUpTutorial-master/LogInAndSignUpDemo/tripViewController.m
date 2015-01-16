@@ -15,11 +15,6 @@
 @implementation tripViewController
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if(self){
-        searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] init];
-        searchQuery.radius=100.0;
-        shouldBeginEditing=YES;
-    }
     return self;
 }
 - (IBAction)tapSomewhere:(id)sender {
@@ -40,12 +35,6 @@
                                                             action:@selector(didTapAnywhere:)];
     self.toTextField.delegate =self;
     self.fromTextField.delegate=self;
-    if(self){
-        searchQuery = [[SPGooglePlacesAutocompleteQuery alloc] init];
-        searchQuery.radius=100.0;
-        shouldBeginEditing=YES;
-    }
-    
 }
 - (IBAction)registerTrip:(id)sender {
     PFObject *trip = [PFObject objectWithClassName:@"trip"];
@@ -64,9 +53,9 @@
     [alert show];
                           
 }
-- (IBAction)addNewTrip:(id)sender {
-    self.toTextField.text=@"";
-    self.fromTextField.text=@"";
+- (IBAction)Next:(id)sender {
+    [self.navigationController pushViewController:[[SPGooglePlacesAutocompleteViewController alloc] init] animated:YES];
+  
 }
 - (NSArray *)locationsFromJSONFile:(NSURL *)url {
     // Create a NSURLRequest with the given URL

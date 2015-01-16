@@ -11,6 +11,8 @@
 		143C2CDF182058B900DFCD05 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 143C2CDE182058B900DFCD05 /* FacebookSDK.framework */; };
 		3802070C1A280C300087CF76 /* tripViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3802070A1A280C300087CF76 /* tripViewController.m */; };
 		3802070D1A280C300087CF76 /* tripViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3802070B1A280C300087CF76 /* tripViewController.xib */; };
+		381B15DE1A69B4F300BD678C /* AirspressTravelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 381B15DB1A69B4F300BD678C /* AirspressTravelCell.xib */; };
+		381B15DF1A69B4F300BD678C /* AirspressTravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 381B15DD1A69B4F300BD678C /* AirspressTravelCell.m */; };
 		38274F131A435745007F2474 /* tripDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38274F111A435745007F2474 /* tripDetailViewController.m */; };
 		38274F141A435745007F2474 /* tripDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38274F121A435745007F2474 /* tripDetailViewController.xib */; };
 		383F04C91A52010600DC8267 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383F04C71A52010600DC8267 /* EditProfileViewController.m */; };
@@ -25,8 +27,6 @@
 		386341DD1A64EB1B00FA1335 /* 1421150182_airplane_landing.png in Resources */ = {isa = PBXBuildFile; fileRef = 386341DB1A64EB1B00FA1335 /* 1421150182_airplane_landing.png */; };
 		386341DE1A64EB1B00FA1335 /* 1421150161_airplane_takeoff.png in Resources */ = {isa = PBXBuildFile; fileRef = 386341DC1A64EB1B00FA1335 /* 1421150161_airplane_takeoff.png */; };
 		38851AC01A4BC78500F201DD /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 38851ABF1A4BC78500F201DD /* plus.png */; };
-		389B6B7F1A4279E100B9F6D8 /* travelersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 389B6B7D1A4279E100B9F6D8 /* travelersViewController.m */; };
-		389B6B801A4279E100B9F6D8 /* travelersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 389B6B7E1A4279E100B9F6D8 /* travelersViewController.xib */; };
 		389CCB3B1A43FECA00378D36 /* searchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 389CCB391A43FECA00378D36 /* searchViewController.m */; };
 		389CCB3C1A43FECA00378D36 /* searchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 389CCB3A1A43FECA00378D36 /* searchViewController.xib */; };
 		389CCB441A4A645F00378D36 /* AirspressLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 389CCB431A4A645F00378D36 /* AirspressLoginViewController.m */; };
@@ -36,7 +36,6 @@
 		389D597C1A4B90D400E26258 /* user16.png in Resources */ = {isa = PBXBuildFile; fileRef = 389D597B1A4B90D400E26258 /* user16.png */; };
 		389D597E1A4B912600E26258 /* user.png in Resources */ = {isa = PBXBuildFile; fileRef = 389D597D1A4B912600E26258 /* user.png */; };
 		38B19AD61A61A16200CFDB86 /* plane.png in Resources */ = {isa = PBXBuildFile; fileRef = 38B19AD51A61A16200CFDB86 /* plane.png */; };
-		38B19AD81A61A36700CFDB86 /* cellForTravel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B19AD71A61A36700CFDB86 /* cellForTravel.xib */; };
 		38B19ADC1A61A54D00CFDB86 /* cellForTravelTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38B19ADA1A61A54D00CFDB86 /* cellForTravelTableViewCell.m */; };
 		38B19ADD1A61A54D00CFDB86 /* cellForTravelTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38B19ADB1A61A54D00CFDB86 /* cellForTravelTableViewCell.xib */; };
 		38B19AE21A61FEF000CFDB86 /* userProfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 38B19AE11A61FEF000CFDB86 /* userProfile.png */; };
@@ -119,20 +118,23 @@
 /* Begin PBXFileReference section */
 		143C2CDC18203DBB00DFCD05 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		143C2CDE182058B900DFCD05 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
-		380207091A280C300087CF76 /* tripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tripViewController.h; sourceTree = "<group>"; };
-		3802070A1A280C300087CF76 /* tripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tripViewController.m; sourceTree = "<group>"; };
-		3802070B1A280C300087CF76 /* tripViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = tripViewController.xib; sourceTree = "<group>"; };
-		38274F101A435745007F2474 /* tripDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tripDetailViewController.h; sourceTree = "<group>"; };
-		38274F111A435745007F2474 /* tripDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tripDetailViewController.m; sourceTree = "<group>"; };
-		38274F121A435745007F2474 /* tripDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = tripDetailViewController.xib; sourceTree = "<group>"; };
-		383F04C61A52010600DC8267 /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
-		383F04C71A52010600DC8267 /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
-		383F04C81A52010600DC8267 /* EditProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileViewController.xib; sourceTree = "<group>"; };
-		383F04D01A5B0E1000DC8267 /* AirspressProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AirspressProfileViewController.h; path = ../AirspressProfileViewController.h; sourceTree = "<group>"; };
-		383F04D11A5B0E1000DC8267 /* AirspressProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AirspressProfileViewController.m; path = ../AirspressProfileViewController.m; sourceTree = "<group>"; };
-		383F04D21A5B0E1000DC8267 /* AirspressProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AirspressProfileViewController.xib; path = ../AirspressProfileViewController.xib; sourceTree = "<group>"; };
-		3854FEEF1A2B6B900062A818 /* deliverersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deliverersViewController.h; sourceTree = "<group>"; };
-		3854FEF01A2B6B900062A818 /* deliverersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = deliverersViewController.m; sourceTree = "<group>"; };
+		380207091A280C300087CF76 /* tripViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tripViewController.h; path = ../tripViewController.h; sourceTree = "<group>"; };
+		3802070A1A280C300087CF76 /* tripViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = tripViewController.m; path = ../tripViewController.m; sourceTree = "<group>"; };
+		3802070B1A280C300087CF76 /* tripViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = tripViewController.xib; path = ../tripViewController.xib; sourceTree = "<group>"; };
+		381B15DB1A69B4F300BD678C /* AirspressTravelCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AirspressTravelCell.xib; sourceTree = "<group>"; };
+		381B15DC1A69B4F300BD678C /* AirspressTravelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirspressTravelCell.h; sourceTree = "<group>"; };
+		381B15DD1A69B4F300BD678C /* AirspressTravelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirspressTravelCell.m; sourceTree = "<group>"; };
+		38274F101A435745007F2474 /* tripDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tripDetailViewController.h; path = ../tripDetailViewController.h; sourceTree = "<group>"; };
+		38274F111A435745007F2474 /* tripDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = tripDetailViewController.m; path = ../tripDetailViewController.m; sourceTree = "<group>"; };
+		38274F121A435745007F2474 /* tripDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = tripDetailViewController.xib; path = ../tripDetailViewController.xib; sourceTree = "<group>"; };
+		383F04C61A52010600DC8267 /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EditProfileViewController.h; path = ../EditProfileViewController.h; sourceTree = "<group>"; };
+		383F04C71A52010600DC8267 /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EditProfileViewController.m; path = ../EditProfileViewController.m; sourceTree = "<group>"; };
+		383F04C81A52010600DC8267 /* EditProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EditProfileViewController.xib; path = ../EditProfileViewController.xib; sourceTree = "<group>"; };
+		383F04D01A5B0E1000DC8267 /* AirspressProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AirspressProfileViewController.h; path = ../../AirspressProfileViewController.h; sourceTree = "<group>"; };
+		383F04D11A5B0E1000DC8267 /* AirspressProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AirspressProfileViewController.m; path = ../../AirspressProfileViewController.m; sourceTree = "<group>"; };
+		383F04D21A5B0E1000DC8267 /* AirspressProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AirspressProfileViewController.xib; path = ../../AirspressProfileViewController.xib; sourceTree = "<group>"; };
+		3854FEEF1A2B6B900062A818 /* deliverersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = deliverersViewController.h; path = ../deliverersViewController.h; sourceTree = "<group>"; };
+		3854FEF01A2B6B900062A818 /* deliverersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = deliverersViewController.m; path = ../deliverersViewController.m; sourceTree = "<group>"; };
 		3854FEF41A2BAA7B0062A818 /* deliveryRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deliveryRequestViewController.h; sourceTree = "<group>"; };
 		3854FEF51A2BAA7B0062A818 /* deliveryRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = deliveryRequestViewController.m; sourceTree = "<group>"; };
 		3854FEF61A2BAA7B0062A818 /* deliveryRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = deliveryRequestViewController.xib; sourceTree = "<group>"; };
@@ -141,9 +143,6 @@
 		386341DB1A64EB1B00FA1335 /* 1421150182_airplane_landing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1421150182_airplane_landing.png; sourceTree = "<group>"; };
 		386341DC1A64EB1B00FA1335 /* 1421150161_airplane_takeoff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1421150161_airplane_takeoff.png; sourceTree = "<group>"; };
 		38851ABF1A4BC78500F201DD /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
-		389B6B7C1A4279E000B9F6D8 /* travelersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = travelersViewController.h; sourceTree = "<group>"; };
-		389B6B7D1A4279E100B9F6D8 /* travelersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = travelersViewController.m; sourceTree = "<group>"; };
-		389B6B7E1A4279E100B9F6D8 /* travelersViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = travelersViewController.xib; sourceTree = "<group>"; };
 		389CCB381A43FECA00378D36 /* searchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = searchViewController.h; path = ../searchViewController.h; sourceTree = "<group>"; };
 		389CCB391A43FECA00378D36 /* searchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = searchViewController.m; path = ../searchViewController.m; sourceTree = "<group>"; };
 		389CCB3A1A43FECA00378D36 /* searchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = searchViewController.xib; path = ../searchViewController.xib; sourceTree = "<group>"; };
@@ -156,7 +155,6 @@
 		389D597B1A4B90D400E26258 /* user16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user16.png; sourceTree = "<group>"; };
 		389D597D1A4B912600E26258 /* user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = user.png; sourceTree = "<group>"; };
 		38B19AD51A61A16200CFDB86 /* plane.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plane.png; sourceTree = "<group>"; };
-		38B19AD71A61A36700CFDB86 /* cellForTravel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cellForTravel.xib; sourceTree = "<group>"; };
 		38B19AD91A61A54D00CFDB86 /* cellForTravelTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cellForTravelTableViewCell.h; sourceTree = "<group>"; };
 		38B19ADA1A61A54D00CFDB86 /* cellForTravelTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = cellForTravelTableViewCell.m; sourceTree = "<group>"; };
 		38B19ADB1A61A54D00CFDB86 /* cellForTravelTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cellForTravelTableViewCell.xib; sourceTree = "<group>"; };
@@ -189,17 +187,17 @@
 		38C445B21A4A71CE0074A741 /* homescreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homescreen.png; sourceTree = "<group>"; };
 		38C445B71A4A794C0074A741 /* air6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = air6.png; sourceTree = "<group>"; };
 		38C445B91A4A7CD30074A741 /* shopping2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopping2.png; sourceTree = "<group>"; };
-		38F34AE51A676C3900548329 /* SPGooglePlacesAutocompletePlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesAutocompletePlace.h; sourceTree = "<group>"; };
-		38F34AE61A676C3900548329 /* SPGooglePlacesAutocompletePlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGooglePlacesAutocompletePlace.m; sourceTree = "<group>"; };
-		38F34AE71A676C3900548329 /* SPGooglePlacesAutocompleteQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesAutocompleteQuery.h; sourceTree = "<group>"; };
-		38F34AE81A676C3900548329 /* SPGooglePlacesAutocompleteQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGooglePlacesAutocompleteQuery.m; sourceTree = "<group>"; };
-		38F34AE91A676C3900548329 /* SPGooglePlacesAutocompleteUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesAutocompleteUtilities.h; sourceTree = "<group>"; };
-		38F34AEA1A676C3900548329 /* SPGooglePlacesAutocompleteUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGooglePlacesAutocompleteUtilities.m; sourceTree = "<group>"; };
-		38F34AEB1A676C3900548329 /* SPGooglePlacesPlaceDetailQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesPlaceDetailQuery.h; sourceTree = "<group>"; };
-		38F34AEC1A676C3900548329 /* SPGooglePlacesPlaceDetailQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGooglePlacesPlaceDetailQuery.m; sourceTree = "<group>"; };
-		38F34AF11A677A6500548329 /* SPGooglePlacesAutocompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesAutocompleteViewController.h; sourceTree = "<group>"; };
-		38F34AF21A677A6500548329 /* SPGooglePlacesAutocompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGooglePlacesAutocompleteViewController.m; sourceTree = "<group>"; };
-		38F34AF31A677A6500548329 /* SPGooglePlacesAutocompleteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SPGooglePlacesAutocompleteViewController.xib; sourceTree = "<group>"; };
+		38F34AE51A676C3900548329 /* SPGooglePlacesAutocompletePlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPGooglePlacesAutocompletePlace.h; path = ../SPGooglePlacesAutocompletePlace.h; sourceTree = "<group>"; };
+		38F34AE61A676C3900548329 /* SPGooglePlacesAutocompletePlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPGooglePlacesAutocompletePlace.m; path = ../SPGooglePlacesAutocompletePlace.m; sourceTree = "<group>"; };
+		38F34AE71A676C3900548329 /* SPGooglePlacesAutocompleteQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPGooglePlacesAutocompleteQuery.h; path = ../SPGooglePlacesAutocompleteQuery.h; sourceTree = "<group>"; };
+		38F34AE81A676C3900548329 /* SPGooglePlacesAutocompleteQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPGooglePlacesAutocompleteQuery.m; path = ../SPGooglePlacesAutocompleteQuery.m; sourceTree = "<group>"; };
+		38F34AE91A676C3900548329 /* SPGooglePlacesAutocompleteUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPGooglePlacesAutocompleteUtilities.h; path = ../SPGooglePlacesAutocompleteUtilities.h; sourceTree = "<group>"; };
+		38F34AEA1A676C3900548329 /* SPGooglePlacesAutocompleteUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPGooglePlacesAutocompleteUtilities.m; path = ../SPGooglePlacesAutocompleteUtilities.m; sourceTree = "<group>"; };
+		38F34AEB1A676C3900548329 /* SPGooglePlacesPlaceDetailQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPGooglePlacesPlaceDetailQuery.h; path = ../SPGooglePlacesPlaceDetailQuery.h; sourceTree = "<group>"; };
+		38F34AEC1A676C3900548329 /* SPGooglePlacesPlaceDetailQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPGooglePlacesPlaceDetailQuery.m; path = ../SPGooglePlacesPlaceDetailQuery.m; sourceTree = "<group>"; };
+		38F34AF11A677A6500548329 /* SPGooglePlacesAutocompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPGooglePlacesAutocompleteViewController.h; path = ../SPGooglePlacesAutocompleteViewController.h; sourceTree = "<group>"; };
+		38F34AF21A677A6500548329 /* SPGooglePlacesAutocompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPGooglePlacesAutocompleteViewController.m; path = ../SPGooglePlacesAutocompleteViewController.m; sourceTree = "<group>"; };
+		38F34AF31A677A6500548329 /* SPGooglePlacesAutocompleteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SPGooglePlacesAutocompleteViewController.xib; path = ../SPGooglePlacesAutocompleteViewController.xib; sourceTree = "<group>"; };
 		74366EA2158AAE0F00A17D8A /* Airspress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Airspress.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74366EA6158AAE0F00A17D8A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		74366EA8158AAE0F00A17D8A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -284,6 +282,62 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		38F34AF61A678A5200548329 /* Order */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Order;
+			sourceTree = "<group>";
+		};
+		38F34AF71A678A5200548329 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				381B15DB1A69B4F300BD678C /* AirspressTravelCell.xib */,
+				381B15DC1A69B4F300BD678C /* AirspressTravelCell.h */,
+				381B15DD1A69B4F300BD678C /* AirspressTravelCell.m */,
+				3854FEEF1A2B6B900062A818 /* deliverersViewController.h */,
+				3854FEF01A2B6B900062A818 /* deliverersViewController.m */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		38F34AF81A678A5200548329 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				383F04D01A5B0E1000DC8267 /* AirspressProfileViewController.h */,
+				383F04D11A5B0E1000DC8267 /* AirspressProfileViewController.m */,
+				383F04D21A5B0E1000DC8267 /* AirspressProfileViewController.xib */,
+				383F04C61A52010600DC8267 /* EditProfileViewController.h */,
+				383F04C71A52010600DC8267 /* EditProfileViewController.m */,
+				383F04C81A52010600DC8267 /* EditProfileViewController.xib */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		38F34AF91A678A5200548329 /* Trip */ = {
+			isa = PBXGroup;
+			children = (
+				380207091A280C300087CF76 /* tripViewController.h */,
+				3802070A1A280C300087CF76 /* tripViewController.m */,
+				38274F101A435745007F2474 /* tripDetailViewController.h */,
+				38274F111A435745007F2474 /* tripDetailViewController.m */,
+				38274F121A435745007F2474 /* tripDetailViewController.xib */,
+				3802070B1A280C300087CF76 /* tripViewController.xib */,
+				38F34AF11A677A6500548329 /* SPGooglePlacesAutocompleteViewController.h */,
+				38F34AF21A677A6500548329 /* SPGooglePlacesAutocompleteViewController.m */,
+				38F34AF31A677A6500548329 /* SPGooglePlacesAutocompleteViewController.xib */,
+				38F34AE51A676C3900548329 /* SPGooglePlacesAutocompletePlace.h */,
+				38F34AE61A676C3900548329 /* SPGooglePlacesAutocompletePlace.m */,
+				38F34AE71A676C3900548329 /* SPGooglePlacesAutocompleteQuery.h */,
+				38F34AE81A676C3900548329 /* SPGooglePlacesAutocompleteQuery.m */,
+				38F34AE91A676C3900548329 /* SPGooglePlacesAutocompleteUtilities.h */,
+				38F34AEA1A676C3900548329 /* SPGooglePlacesAutocompleteUtilities.m */,
+				38F34AEB1A676C3900548329 /* SPGooglePlacesPlaceDetailQuery.h */,
+				38F34AEC1A676C3900548329 /* SPGooglePlacesPlaceDetailQuery.m */,
+			);
+			path = Trip;
+			sourceTree = "<group>";
+		};
 		741203C415900A3C00820BE9 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -385,57 +439,32 @@
 		74366EAC158AAE1000A17D8A /* Airspress */ = {
 			isa = PBXGroup;
 			children = (
-				383F04D01A5B0E1000DC8267 /* AirspressProfileViewController.h */,
+				38F34AF61A678A5200548329 /* Order */,
+				38F34AF71A678A5200548329 /* Home */,
+				38F34AF81A678A5200548329 /* Profile */,
+				38F34AF91A678A5200548329 /* Trip */,
 				38C0C1ED1A63801000132AF1 /* Confirmation2ViewController.h */,
 				38C0C1EE1A63801100132AF1 /* Confirmation2ViewController.m */,
-				38F34AF11A677A6500548329 /* SPGooglePlacesAutocompleteViewController.h */,
-				38F34AF21A677A6500548329 /* SPGooglePlacesAutocompleteViewController.m */,
-				38F34AF31A677A6500548329 /* SPGooglePlacesAutocompleteViewController.xib */,
-				38F34AE51A676C3900548329 /* SPGooglePlacesAutocompletePlace.h */,
-				38F34AE61A676C3900548329 /* SPGooglePlacesAutocompletePlace.m */,
-				38F34AE71A676C3900548329 /* SPGooglePlacesAutocompleteQuery.h */,
-				38F34AE81A676C3900548329 /* SPGooglePlacesAutocompleteQuery.m */,
-				38F34AE91A676C3900548329 /* SPGooglePlacesAutocompleteUtilities.h */,
-				38F34AEA1A676C3900548329 /* SPGooglePlacesAutocompleteUtilities.m */,
-				38F34AEB1A676C3900548329 /* SPGooglePlacesPlaceDetailQuery.h */,
-				38F34AEC1A676C3900548329 /* SPGooglePlacesPlaceDetailQuery.m */,
 				38C1D1131A637B9D0040083A /* airplane68.png */,
 				38C1D1101A6379670040083A /* JSQFlatButton.h */,
 				38C1D1111A6379670040083A /* JSQFlatButton.m */,
-				383F04D11A5B0E1000DC8267 /* AirspressProfileViewController.m */,
-				383F04D21A5B0E1000DC8267 /* AirspressProfileViewController.xib */,
 				389D59761A4B53EA00E26258 /* AirspressTabBarController.m */,
 				389D59771A4B53EA00E26258 /* AirspressTabBarController.h */,
 				389CCB381A43FECA00378D36 /* searchViewController.h */,
 				389CCB391A43FECA00378D36 /* searchViewController.m */,
 				389CCB3A1A43FECA00378D36 /* searchViewController.xib */,
-				383F04C61A52010600DC8267 /* EditProfileViewController.h */,
-				383F04C71A52010600DC8267 /* EditProfileViewController.m */,
-				383F04C81A52010600DC8267 /* EditProfileViewController.xib */,
 				74366EB5158AAE1000A17D8A /* AppDelegate.h */,
 				74366EB6158AAE1000A17D8A /* AppDelegate.m */,
 				3854FEF41A2BAA7B0062A818 /* deliveryRequestViewController.h */,
 				3854FEF51A2BAA7B0062A818 /* deliveryRequestViewController.m */,
 				3854FEF61A2BAA7B0062A818 /* deliveryRequestViewController.xib */,
-				380207091A280C300087CF76 /* tripViewController.h */,
 				38BF5FB91A2B37C0000ABA60 /* orderViewController.h */,
 				38BF5FBA1A2B37C0000ABA60 /* orderViewController.m */,
 				38BF5FBB1A2B37C0000ABA60 /* orderViewController.xib */,
-				389B6B7C1A4279E000B9F6D8 /* travelersViewController.h */,
-				389B6B7D1A4279E100B9F6D8 /* travelersViewController.m */,
-				389B6B7E1A4279E100B9F6D8 /* travelersViewController.xib */,
-				3854FEEF1A2B6B900062A818 /* deliverersViewController.h */,
-				3854FEF01A2B6B900062A818 /* deliverersViewController.m */,
-				38B19AD71A61A36700CFDB86 /* cellForTravel.xib */,
 				38B19AD91A61A54D00CFDB86 /* cellForTravelTableViewCell.h */,
 				38B19ADA1A61A54D00CFDB86 /* cellForTravelTableViewCell.m */,
 				38B19ADB1A61A54D00CFDB86 /* cellForTravelTableViewCell.xib */,
 				38B19AD51A61A16200CFDB86 /* plane.png */,
-				3802070A1A280C300087CF76 /* tripViewController.m */,
-				38274F101A435745007F2474 /* tripDetailViewController.h */,
-				38274F111A435745007F2474 /* tripDetailViewController.m */,
-				38274F121A435745007F2474 /* tripDetailViewController.xib */,
-				3802070B1A280C300087CF76 /* tripViewController.xib */,
 				74366EDD158AB49300A17D8A /* DemoTableViewController.h */,
 				74366EDE158AB49300A17D8A /* DemoTableViewController.m */,
 				74366EEF158AF29000A17D8A /* Default Settings */,
@@ -571,7 +600,6 @@
 				383F04CA1A52010600DC8267 /* EditProfileViewController.xib in Resources */,
 				38C0C2761A64E5F100132AF1 /* button-read-big@2x.png in Resources */,
 				38C445B81A4A794C0074A741 /* air6.png in Resources */,
-				38B19AD81A61A36700CFDB86 /* cellForTravel.xib in Resources */,
 				389D59751A4B522000E26258 /* add139.png in Resources */,
 				38C0C2741A64E5F100132AF1 /* button-back@2x.png in Resources */,
 				38C0C2771A64E5F100132AF1 /* icon-read-big.png in Resources */,
@@ -590,12 +618,12 @@
 				386341DD1A64EB1B00FA1335 /* 1421150182_airplane_landing.png in Resources */,
 				38C445B31A4A71CE0074A741 /* homescreen.png in Resources */,
 				747F007F15951A58000F601E /* SignUpFieldBG.png in Resources */,
+				381B15DE1A69B4F300BD678C /* AirspressTravelCell.xib in Resources */,
 				747F008015951A58000F601E /* Twitter.png in Resources */,
 				389D597E1A4B912600E26258 /* user.png in Resources */,
 				38C0C27E1A64E5F100132AF1 /* icon-share@2x.png in Resources */,
 				747F008115951A58000F601E /* TwitterDown.png in Resources */,
 				389D597A1A4B76D300E26258 /* user160.png in Resources */,
-				389B6B801A4279E100B9F6D8 /* travelersViewController.xib in Resources */,
 				C4BBB7C216FD2D73003CA3F7 /* Default@2x.png in Resources */,
 				38C0C27C1A64E5F100132AF1 /* icon-share-big@2x.png in Resources */,
 				38F34AF51A677A6500548329 /* SPGooglePlacesAutocompleteViewController.xib in Resources */,
@@ -631,6 +659,7 @@
 				74366EDF158AB49300A17D8A /* DemoTableViewController.m in Sources */,
 				38C1D1121A6379670040083A /* JSQFlatButton.m in Sources */,
 				74366EE7158AC82C00A17D8A /* DefaultSettingsViewController.m in Sources */,
+				381B15DF1A69B4F300BD678C /* AirspressTravelCell.m in Sources */,
 				38F34AEF1A676C3900548329 /* SPGooglePlacesAutocompleteUtilities.m in Sources */,
 				38F34AED1A676C3900548329 /* SPGooglePlacesAutocompletePlace.m in Sources */,
 				74366EF4158AF2D300A17D8A /* PropertyConfigViewController.m in Sources */,
@@ -639,7 +668,6 @@
 				38F34AF01A676C3900548329 /* SPGooglePlacesPlaceDetailQuery.m in Sources */,
 				389CCB441A4A645F00378D36 /* AirspressLoginViewController.m in Sources */,
 				74366EFA158B95C800A17D8A /* SubclassConfigViewController.m in Sources */,
-				389B6B7F1A4279E100B9F6D8 /* travelersViewController.m in Sources */,
 				74366F03158B973C00A17D8A /* MyLogInViewController.m in Sources */,
 				38F34AF41A677A6500548329 /* SPGooglePlacesAutocompleteViewController.m in Sources */,
 				3854FEF71A2BAA7B0062A818 /* deliveryRequestViewController.m in Sources */,

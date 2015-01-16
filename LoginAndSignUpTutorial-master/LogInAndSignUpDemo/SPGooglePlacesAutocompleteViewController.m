@@ -116,6 +116,7 @@
         } else {
             NSLog(@"%@",[places description]);
             [self.searchDisplayController.searchResultsTableView reloadData];
+            searchResultPlaces=places;
         }
     }];
 }

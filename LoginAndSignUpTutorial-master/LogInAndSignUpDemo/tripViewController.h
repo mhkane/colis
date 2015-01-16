@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import  "SPGooglePlacesAutocompleteQuery.h"
-#import "SPGooglePlacesAutocompletePlace.h"
-@interface tripViewController : UIViewController <UITextFieldDelegate,UIGestureRecognizerDelegate,UITableViewDelegate,UITableViewDataSource>{
+#import "SPGooglePlacesAutocompleteViewController.h"
+@interface tripViewController : UIViewController <UITextFieldDelegate,UIGestureRecognizerDelegate>{
     NSArray *searchResultPlaces;
     SPGooglePlacesAutocompleteQuery *searchQuery;
     BOOL shouldBeginEditing;
