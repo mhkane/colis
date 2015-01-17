@@ -61,25 +61,42 @@
     NSString *travelerName = [trueUser username];
     switch(indexPath.row){
         case 0:
-            cell.titleLabel=@"Traveler";
+            cell.titleLabel.text=@"Traveler";
             cell.detailTextLabel.text=travelerName;
             cell.icon.image = [UIImage imageNamed:@"traveler"];
             break;
         case 1:
-            cell.titleLabel=@"Travelling from";
+            cell.titleLabel.text=@"Travelling from";
             cell.detailTextLabel.text=[tripForView objectForKey:@"fromLocation"];
-            cell
+            cell.icon.image=[UIImage imageNamed:@"fromIcon"];
+            break;
+        case 2:
+            cell.titleLabel.text=@"Travelling to";
+            cell.detailTextLabel.text=[tripForView objectForKey:@"toLocation"];
+            cell.icon.image=[UIImage imageNamed:@"toIcon"];
+            break;
+        case 3:
+            cell.titleLabel.text=@"Arrival Date";
+            NSDate *travelDate = [self.tripObject objectForKey:@"arrivalDate"];
+            NSDateFormatter *df2 =[[NSDateFormatter alloc] init];
+            NSString *dateString = [df2 stringFromDate:travelDate];
+            [df2 setDateFormat:@"EEE,d MMM yyyy"];
+            cell.detailTextLabel.text=[tripForView objectForKey:@"toLocation"];
+            cell.icon.image=[UIImage imageNamed:@"toIcon"];
+            cell.detailTextLabel.text=dateString;
+            break;
+        /*case 4:
+            cell.titleLabel.text=@"Space (in Kg)";
+            cell.detailTextLabel.text= [tripForView objectForKey:@"availCapacity"];
+            cell.icon.image=[UIImage imageNamed:@"suitcase"];
+            break;
+        case 5:
+            cell.titleLabel.text=@"Email";
+            cell.detailTextLabel.text= [trueUser objectForKey:@"email"];
+            cell.icon.image=[UIImage imageNamed:@"email"];
+            break;*/
+
     }
-    
-    
-    cell.nameLabel.text=travelerName;
-    cell.fromLabel.text = [NSString stringWithFormat:@" %@ to %@" ,[objectForCell objectForKey:@"fromLocation"],[objectForCell objectForKey:@"toLocation"]];
-    NSDate *travelDate = [objectForCell objectForKey:@"arrivalDate"];
-    NSDateFormatter *df2 =[[NSDateFormatter alloc] init];
-    [df2 setDateFormat:@"EEE,d MMM yyyy"];
-    NSString *dateString = [df2 stringFromDate:travelDate];
-    cell.dateLabel.text=dateString;
-    cell.thumbnailImageView.image = [UIImage imageNamed:@"plane.png"];
     return cell;
     
 }

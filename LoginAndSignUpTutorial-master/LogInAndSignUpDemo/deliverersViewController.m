@@ -7,9 +7,9 @@
 //
 
 #import "deliverersViewController.h"
-#import "tripDetailViewController.h"
 #import "cellForTravelTableViewCell.h"
 #import "AirspressTravelCell.h"
+#import "TripDetailTableViewController.h"
 
 @interface deliverersViewController ()
 
@@ -234,7 +234,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if([indexPath row]<[self.objects count]){
-    tripDetailViewController *travelInfo = [[tripDetailViewController alloc] init];
+    TripDetailTableViewController *travelInfo = [[TripDetailTableViewController alloc] init];
         PFObject *trip = [self.objects objectAtIndex:[indexPath row]
                           ];
         PFUser *user = [trip valueForKey:@"traveler"];
@@ -249,7 +249,7 @@
         NSString *dateString = [df2 stringFromDate:date];
         NSString *message = [NSString stringWithFormat:@"%@ has a travel from %@ to %@ on %@",username,from,to,dateString];
         NSLog(@"%@",message);
-        travelInfo.message=message;
+        travelInfo.tripObject=trip;
         [self.navigationController pushViewController:travelInfo animated:false];
     }
 }

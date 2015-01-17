@@ -13,7 +13,6 @@
 #import "deliveryRequestViewController.h"
 #import "deliverersViewController.h"
 #import "orderViewController.h"
-#import "tripDetailViewController.h"
 #import "searchViewController.h"
 #import "AirspressLoginViewController.h"
 #import "AirspressTabBarController.h"
