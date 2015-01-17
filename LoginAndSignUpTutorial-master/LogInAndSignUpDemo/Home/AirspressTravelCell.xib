@@ -23,13 +23,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Stop #" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ypl-Bc-2zw">
-                        <rect key="frame" x="81" y="42" width="99" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TTG-jJ-VPW">
-                        <rect key="frame" x="215" y="42" width="97" height="21"/>
+                        <rect key="frame" x="81" y="43" width="231" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -47,9 +41,8 @@
                 <outlet property="fromLabel" destination="ypl-Bc-2zw" id="2Tc-i6-VCu"/>
                 <outlet property="nameLabel" destination="C65-DT-cH6" id="vQv-h1-KpG"/>
                 <outlet property="thumbnailImageView" destination="XOp-U0-x6m" id="pZG-4d-x0c"/>
-                <outlet property="toLabel" destination="TTG-jJ-VPW" id="Eha-tR-CcJ"/>
             </connections>
-            <point key="canvasLocation" x="472" y="268"/>
+            <point key="canvasLocation" x="402" y="262"/>
         </tableViewCell>
     </objects>
 </document>

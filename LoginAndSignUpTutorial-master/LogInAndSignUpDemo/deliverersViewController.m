@@ -140,7 +140,7 @@
  // a UITableViewCellStyleDefault style cell with the label being the textKey in the object,
  // and the imageView being the imageKey in the object.
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 78;
+    return 84;
 }
  - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
  static NSString *CellIdentifier = @"AirspressTravelCell";
@@ -158,8 +158,7 @@
      PFUser *trueUser = [PFQuery getUserObjectWithId:idd];
      NSString *travelerName = [trueUser username];
      cell.nameLabel.text=travelerName;
-     cell.fromLabel.text = [NSString stringWithFormat:@" %@ to" ,[objectForCell objectForKey:@"fromLocation"]];
-     cell.toLabel.text = [objectForCell objectForKey:@"toLocation"];
+     cell.fromLabel.text = [NSString stringWithFormat:@" %@ to %@" ,[objectForCell objectForKey:@"fromLocation"],[objectForCell objectForKey:@"toLocation"]];
      NSDate *travelDate = [objectForCell objectForKey:@"arrivalDate"];
      NSDateFormatter *df2 =[[NSDateFormatter alloc] init];
      [df2 setDateFormat:@"EEE,d MMM yyyy"];
