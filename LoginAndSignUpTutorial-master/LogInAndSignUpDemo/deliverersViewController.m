@@ -158,14 +158,13 @@
      PFUser *trueUser = [PFQuery getUserObjectWithId:idd];
      NSString *travelerName = [trueUser username];
      cell.nameLabel.text=travelerName;
-     /*cell.travelerName.text = travelerName;
-     cell.toDestination.text = [objectForCell objectForKey:@"toLocation"];
-     cell.fromDestination.text = [objectForCell objectForKey:@"fromLocation"];
+     cell.fromLabel.text = [NSString stringWithFormat:@" %@ to" ,[objectForCell objectForKey:@"fromLocation"]];
+     cell.toLabel.text = [objectForCell objectForKey:@"toLocation"];
      NSDate *travelDate = [objectForCell objectForKey:@"arrivalDate"];
      NSDateFormatter *df2 =[[NSDateFormatter alloc] init];
      [df2 setDateFormat:@"EEE,d MMM yyyy"];
      NSString *dateString = [df2 stringFromDate:travelDate];
-     cell.date.text=dateString;*/
+     cell.dateLabel.text=dateString;
      cell.thumbnailImageView.image = [UIImage imageNamed:@"plane.png"];
      return cell;
  }

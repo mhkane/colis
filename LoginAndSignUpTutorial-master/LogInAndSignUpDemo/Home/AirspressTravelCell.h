@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface AirspressTravelCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (nonatomic, weak) IBOutlet UILabel *nameLabel;
 @property (nonatomic, weak) IBOutlet UILabel *toLabel;
 @property (nonatomic, weak) IBOutlet UIImageView *thumbnailImageView;
+@property (weak, nonatomic) IBOutlet UILabel *fromLabel;
 @end
