@@ -9,6 +9,7 @@
 #import "deliverersViewController.h"
 #import "tripDetailViewController.h"
 #import "cellForTravelTableViewCell.h"
+#import "AirspressTravelCell.h"
 
 @interface deliverersViewController ()
 
@@ -138,29 +139,34 @@
  // Override to customize the look of a cell representing an object. The default is to display
  // a UITableViewCellStyleDefault style cell with the label being the textKey in the object,
  // and the imageView being the imageKey in the object.
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 78;
+}
  - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
- static NSString *CellIdentifier = @"cellForTravel";
+ static NSString *CellIdentifier = @"AirspressTravelCell";
  
- cellForTravelTableViewCell *cell = (cellForTravelTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
- if (cell == nil) {
- cell = [[cellForTravelTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
- }
- 
+ AirspressTravelCell *cell = (AirspressTravelCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+     if (cell == nil)
+     {
+         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:self options:nil];
+         cell = [nib objectAtIndex:0];
+     }
  // Configure the cell
      PFObject *objectForCell = [self.objects objectAtIndex:indexPath.row];
      PFUser *user = [objectForCell valueForKey:@"traveler"];
      NSString *idd = [user objectId];
      PFUser *trueUser = [PFQuery getUserObjectWithId:idd];
      NSString *travelerName = [trueUser username];
-     cell.travelerName.text = travelerName;
+     cell.nameLabel.text=travelerName;
+     /*cell.travelerName.text = travelerName;
      cell.toDestination.text = [objectForCell objectForKey:@"toLocation"];
      cell.fromDestination.text = [objectForCell objectForKey:@"fromLocation"];
      NSDate *travelDate = [objectForCell objectForKey:@"arrivalDate"];
      NSDateFormatter *df2 =[[NSDateFormatter alloc] init];
      [df2 setDateFormat:@"EEE,d MMM yyyy"];
      NSString *dateString = [df2 stringFromDate:travelDate];
-     cell.date.text=dateString;
-     cell.imageView.image = [UIImage imageNamed:@"plane.png"];
+     cell.date.text=dateString;*/
+     cell.thumbnailImageView.image = [UIImage imageNamed:@"plane.png"];
      return cell;
  }
 

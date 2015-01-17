@@ -58,7 +58,7 @@
     tripViewController *trip = [[tripViewController alloc] init];
     Confirmation2ViewController * c = [[Confirmation2ViewController alloc] init];
     SPGooglePlacesAutocompleteViewController *vc = [[SPGooglePlacesAutocompleteViewController alloc] init];
-    self.window.rootViewController = vc;
+    self.window.rootViewController = login;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
