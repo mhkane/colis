@@ -1,0 +1,10 @@
+PODS:
+  - TGFoursquareLocationDetail (1.0.1)
+
+DEPENDENCIES:
+  - TGFoursquareLocationDetail
+
+SPEC CHECKSUMS:
+  TGFoursquareLocationDetail: 20ec8f105f613c68bafa00a2564f81ec8fd1efe1
+
+COCOAPODS: 0.35.0
