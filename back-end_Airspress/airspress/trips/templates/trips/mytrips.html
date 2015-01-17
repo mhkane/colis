@@ -11,7 +11,7 @@
 <div class="row">
 		<div class="col-lg-12">
 		<div class="table-responsive">
-<table class="table table-striped table-bordered table-hover">
+<table class="table table-bordered table-hover">
     <thead>
 	{% if not reqTrips %}
     <tr class="success">
@@ -22,9 +22,20 @@
 	<th>To</th>
 	<th>Available Capacity</th>
 	<th> Total Capacity<th>
-	<th class="active"> Details <th>
+	<!-- <th class="active"> Details <th> -->
     </tr>
-	{% else %}
+	{% elif otRequest %}
+    <tr class="success">
+    <th>Requester</th>
+    <th>Publication Date</th>
+    <th>Departure Date</th>
+    <th>From</th>
+	<th>To</th>
+	<th>Requested Capacity</th>
+	<th> Traveler Capacity<th>
+	<th class="active"> Details <th>
+    </tr>	
+	{% elif reqTrips %}
     <tr class="success">
     <th>Traveler</th>
     <th>Publication Date</th>
@@ -32,7 +43,8 @@
     <th>From</th>
 	<th>To</th>
 	<th>Requested Capacity</th>
-	<th> Traveler Capacity<th>
+	<th> Traveler Capacity</th>
+	<th class="active"> Details </th>
     </tr>	
 	{% endif %}
     </thead>
@@ -45,8 +57,8 @@
     <td>{{ v.depDate }}</td>
     <td>{{ v.cityDep }}</td>
     <td>{{ v.cityArr }}</td>
-	<td>{{ v.availCap }}</td>
-	<td>{{ v.totalCap }}</td>
+	<td>{{ v.availCap }} Kg</td>
+	<td>{{ v.totalCap }} Kg</td>
     </tr>
 	{% endfor %}
 	{% elif reqTrips %}
@@ -57,9 +69,22 @@
     <td>{{ v.depDate }}</td>
     <td>{{ v.cityDep }}</td>
     <td>{{ v.cityArr }}</td>
-	<td>{{ v.requestWeight }}</td>
-	<td>{{ v.availCap }}</td>
-	<td> </td>
+	<td>{{ v.requestWeight }} Kg</td>
+	<td>{{ v.availCap }} Kg</td>
+	<td> <a class="btn btn-primary modal-trigger" data-target="#modal" href="{% url 'account:deals' v.reqIdo %}"> {{ v.optionBtno }}</a></td>
+    </tr>
+	{% endfor %}
+	{% elif otRequest %}
+	{% for k, v in otRequest.items %}
+    <tr>
+	<td>{{ v.requester }}</td>
+    <td>{{ v.pubdate }}</td>
+    <td>{{ v.depDate }}</td>
+    <td>{{ v.cityDep }}</td>
+    <td>{{ v.cityArr }}</td>
+	<td>{{ v.requestWeight }} Kg</td>
+	<td>{{ v.availCap }} Kg</td>
+	<td> <a class="btn btn-primary modal-trigger" data-target="#modal" href="{% url 'account:deals' v.reqId %}"> {{ v.optionBtn }}</a></td>
     </tr>
 	{% endfor %}	
 	{% endif %}

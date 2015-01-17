@@ -5,6 +5,7 @@ from authomatic import Authomatic
 from authomatic.adapters import DjangoAdapter
 from schemes import User, currentUser
 from airspress.settings import CONFIG
+from signup.schemes import getFbpic
 
 authomatic = Authomatic(CONFIG, 'a super secret random string about falconpress and his brethren')
 
@@ -12,6 +13,7 @@ def home(request):
     # Create links and OpenID form and forward to the Login handler.
     # Recover data from sessions
     cUser=None
+    pPicture=''
     try:
         saken = request.session['lsten']
         cUser = currentUser(saken)
@@ -22,7 +24,12 @@ def home(request):
         objID = cUser['objectId']
         username = cUser['username']
         if objID:
-            return render(request, 'signup/index.html', {'greetings':username})
+            cUser = User.Query.get(objectId=objID)
+            try:
+                pPicture = cUser.profilePicture.url
+            except AttributeError:
+                pass
+            return render(request, 'signup/index.html', {'greetings':username, 'pPicture':pPicture})
     return render(request, 'signup/index.html')
 
 def login(request, provider_name):
@@ -65,16 +72,19 @@ def login(request, provider_name):
                         authData = {"facebook": {"id": fbID, "access_token": access_token,
                          "expiration_date": expiration_date}}
                         account = User.login_auth(authData)
+                        profilePicture = 'http://graph.facebook.com/'+fbID+'/picture?type=large'
                         explodeName = result.user.name.split(' ', 2) #Build username from FB name
                         PUsername = '_'.join(explodeName[:2 if len(explodeName)>2 else 1]) #join 2 first component of exploded name
                         account.username = PUsername
                         account.save()
+                        b = getFbpic(account, fbId=fbID)
+                        request.session['pPicture']= profilePicture
                         request.session['lsten'] = account.sessionToken
                         return HttpResponseRedirect(reverse('trips:index'))
                 else:
-                    pass
+                    alert={'text':'Sign-in process has been aborted, try again please.'}
     
-    return response           
+    return response          
             # If there are credentials (only by AuthorizationProvider),
             # we can _access user's protected res
 def logout(request):

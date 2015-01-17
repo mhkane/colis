@@ -13,6 +13,14 @@ class addForm(forms.Form):
     cityDep = forms.CharField()
     cityArr = forms.CharField()
     weightGood = forms.IntegerField()
+    distance = forms.IntegerField(required=False)
 class requestForm(forms.Form):
     weightGood = forms.IntegerField()
     comments = forms.CharField()
+
+class editproForm(forms.Form):
+    paypalMail = forms.EmailField()
+    userBio = forms.CharField()
+    timeZone = forms.CharField()
+    profilePic = forms.FileField(label='Select a picture', help_text ='max. 2mb' )
+    

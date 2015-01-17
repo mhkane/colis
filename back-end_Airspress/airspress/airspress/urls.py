@@ -9,9 +9,10 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^polls/', include('polls.urls',namespace='polls')),
-    url(r'^signup/', include('signup.urls',namespace='signup')),
+    url(r'^', include('signup.urls',namespace='signup')),
     url(r'^trips/', include('trips.urls',namespace='trips')),
-    url(r'^account/', include('account.urls',namespace='account'))
-)
+    url(r'^account/', include('account.urls',namespace='account')),
+    url(r'^payment/', include('asp_payment.urls',namespace='payment')),
+    )
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns += staticfiles_urlpatterns()

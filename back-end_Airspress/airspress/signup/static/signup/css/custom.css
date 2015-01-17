@@ -1,6 +1,16 @@
 @import url('font-awesome.min.css');
 /* This contains additional customisations that are used for
 	the "real" website not the presentation website */
+	
+body{background-color: rgba(0,0,0,0.03);}
+/* logo */
+.container .navbar-header .navbar-brand {padding-top:9px;}
+.container{height:50px}
+.navbar-brand img{height:90px;}
+.navBAR .navbar-header{height:50px}
+/* END -- logo */
+.slogan{text-align:center;}
+table {background-color:#fff}
 li i{padding-right:2px;}
 a.sidebar-brand{color:#fff}
 .fb-signin{background-color:#3B5998; color:#fff}
@@ -16,7 +26,7 @@ ul{list-style-type:none;}
 .travelUser{text-align:center; }
 .travelUser span{display:block; text-align:center}
 .pull-right{margin-bottom:15px;}
-.errorlist{font-size:9px; margin:0;margin-top:5px;color:red;}
+.errorlist{font-size:9px; margin:0;margin-top:1px;color:red;padding:0;}
 .twodates{overflow:hidden; padding-left:0;padding-right:0;width:63%;}
 .twodates ul{padding-left:5px;}
 .twodates p{margin-bottom:0;}
@@ -29,12 +39,29 @@ ul{list-style-type:none;}
 p.unit-price{text-align:center; padding-top:15%; font-family: Museo-500; font-size:14px; color:green;}
 div.caption{padding-right:5px;}
 .format-add-trip{margin-left:150px;}
+.form-add-trip .row{padding-left:10px}
+.form-add-trip .row .form-group {margin-bottom:0}
+.form-add-trip .form-group .input-group.add-trip-dates{width:80%}
 .form-add-trip .form-group {padding-top:30px;}
 .form-req-trip .help-block {margin-bottom:0;}
 .form-req-trip .form-group {padding-top:20px;}
 .form-req-trip>.input-group{ width:30%;}
 form .comment{width:80%;}
-/* Sidebar */
+.form-add-trip .form-group .input-group{width:50%;}
+.form-add-trip .fa {font-size:14px;}
+/* Navbar */
+ul.nav.navbar-nav.navbar-right {
+padding-left: 100px;
+}
+.navbar-inverse {
+background-image: -webkit-linear-gradient(top, #3c3c3c 0%, #222 100%);
+background-image: linear-gradient(to bottom, #3c3c3c 0%, #222 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3c3c3c', endColorstr='#ff222222', GradientType=0);
+filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+background-repeat: repeat-x;
+}
+/* Navbar END */
+/* Sidebar STYLING*/
 .fa.fa-times{font: 14px/1 FontAwesome}
 .mini-submenu{
   display:none;  
@@ -72,6 +99,44 @@ form .comment{width:80%;}
 }
 /* ! End-- - Sidebar */
 
+							/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* User Profile STYLING */
+.table-user-information > tbody > tr {
+    border-top: 1px solid rgb(221, 221, 221);
+}
+
+.table-user-information > tbody > tr:first-child {
+    border-top: 0;
+}
+
+
+.table-user-information > tbody > tr > td {
+    border-top: 0;
+}
+.toppad
+{margin-top:20px;
+}
+/* User Profile END ! */
+
+/* buttons */
+.btn-primary {
+border-width: 1px 1px 3px;
+-moz-box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+-webkit-box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+color: #fff;
+border-style: solid;
+border-top-style: solid;
+border-right-style: solid;
+border-bottom-style: solid;
+border-left-style: solid;
+background-color: #D27905;
+border-bottom-color: rgb(244, 170, 35);
+}
+/* buttons END */
+
+/* media queries */
 @media (min-width: 768px){
 /*!
  * This code partly reuse : The Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
@@ -201,4 +266,6 @@ form .comment{width:80%;}
 @media (max-width:768px) {
 li span{font-size: 30px;}
 }
+/* media queries END ! */
+/* media queries END ! */
 p.errors{margin:0;}
