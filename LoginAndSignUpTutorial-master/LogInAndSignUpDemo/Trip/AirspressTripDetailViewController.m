@@ -6,76 +6,91 @@
 //  Copyright (c) 2015 Mohamed Kane. All rights reserved.
 //
 
-#import "FoxtrotRouteTableViewController.h"
-#import "FoxtrotMapViewController.h"
-#import "FoxtrotRouteTableViewCell.h"
-#import "GoogleMapsViewController.h"
+#import "AirspressTripDetailViewController.h"
 
-
-@interface FoxtrotRouteTableViewController ()
-
+@interface AirspressTripDetailViewController ()
+@property NSMutableArray *trueDetails;
+@property NSMutableArray *titles;
 @end
 
-@implementation FoxtrotRouteTableViewController
+@implementation AirspressTripDetailViewController
 
--(void)viewWillAppear:(BOOL)animated{
+-(void)initializeWithData{
+    self.trueDetails = [[NSMutableArray alloc] init];
+    self.titles = [[NSMutableArray alloc] init];
+    NSString *tripDetails = @"Trip details";
+    NSDateFormatter *df2 =[[NSDateFormatter alloc] init];
+    [df2 setDateFormat:@"EEE,d MMM yyyy"];
+    NSString *toLocation = [self.tripObject objectForKey:@"toLocation"];
+    NSString *fromLocation = [self.tripObject objectForKey:@"fromLocation"];
+    NSDate *departureDate = [self.tripObject objectForKey:@"departureDate"];
+    NSString *departureDateString = [df2 stringFromDate:departureDate];
+    NSDate *arrivalDate = [self.tripObject objectForKey:@"arrivalDate"];
+    NSString *arrivalDateString = [df2 stringFromDate:arrivalDate];
+    NSString *availCapacity = [self.tripObject objectForKey:@"availCapacity"];
+    PFUser *user = [self.tripObject valueForKey:@"traveler"];
+    NSString *idd = [user objectId];
+    PFUser *trueUser = [PFQuery getUserObjectWithId:idd];
+    NSString *travelerName = [trueUser username];
+    NSString *email = [trueUser email];
+    NSString *telephone = [trueUser objectForKey:@"additional"];
+    if(tripDetails){
+        [self.trueDetails addObject:tripDetails];
+        [self.titles addObject:@""];
+    }
+    if(departureDateString){
+        [self.trueDetails addObject:departureDateString];
+        [self.titles addObject:@"Departure Date"];
+    }
+    if(arrivalDateString){
+        [self.trueDetails addObject:arrivalDateString];
+        [self.titles addObject:@"Arrival Date"];
+    }
+    if(fromLocation){
+        [self.trueDetails addObject:fromLocation];
+        [self.titles addObject:@"Travelling from"];
+    }
+    if(toLocation){
+        [self.trueDetails addObject:toLocation];
+        [self.titles addObject:@"Travelling to"];
+    }
+    if(availCapacity){
+        [self.trueDetails addObject:availCapacity];
+        [self.titles addObject:@"Available Capacity (in Kg)"];
+    }
+    if(travelerName){
+        [self.trueDetails addObject:travelerName];
+        [self.titles addObject:@"Traveler's name"];
+    }
+    if(email){
+        [self.trueDetails addObject:email];
+        [self.titles addObject:@"Email"];
+    }
+    if(telephone){
+        [self.trueDetails addObject:telephone];
+        [self.titles addObject:@"Telephone"];
+    }
+
 }
+-(void)viewWillAppear:(BOOL)animated{
+    // NSArray *labelTitle = @[@"",@"Departure Date",@"Arrival Date",@"Travelling from",@"Travelling to",@"Available Space (in Kg)",@"Traveler Name", @"Email",@"Telephone"];
+   }
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self initializeWithData];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    UIBarButtonItem *showMap = [[UIBarButtonItem alloc] initWithTitle:@"Show on a Map" style:UIBarButtonItemStylePlain target:self action:@selector(showMap)];
+    UIBarButtonItem *showMap = [[UIBarButtonItem alloc] initWithTitle:@"Order" style:UIBarButtonItemStylePlain target:self action:@selector(showMap)];
     self.navigationItem.rightBarButtonItem=showMap;
-    self.navigationItem.title=@"Your itinerary";
-    _manager = [[FoxtrotAPICallManager alloc] init];
-    _manager.delegate=self;
-    NSString *urlString = @"https://gist.githubusercontent.com/pcoughran/26f998592c4f9210751d/raw/7f660226b4e16e25422375f44813d8fa5b40df5b/gistfile1.json";
-    [_manager fetchRouteWithString:urlString];
+    self.navigationItem.title=@"Trip information";
 }
 
 -(void)showMap{
-    NSMutableArray *routePoint = _routePoints;
-    GoogleMapsViewController *detailViewController = [[GoogleMapsViewController alloc] initWithAnnotations:routePoint];
-    // Pass the selected object to the new view controller.
-    [self.navigationController pushViewController:detailViewController animated:false];
-}
-- (void)didReceiveRoute:(FoxtrotRoute *)route{
-    _routePoints = route.routePoints;
-}
--(NSString *)giveRequestForRouteWithRoute:(NSMutableArray *) routePoints{
-    NSString *directionBaseURL = @"https://maps.googleapis.com/maps/api/directions/json?origin=";
-    FoxtrotRoutePoint *origin = [_routePoints firstObject];
-    NSString *originString = [NSString stringWithFormat:@"%f,%f",origin.lat,origin.lng];
-    NSMutableString *url = [[NSMutableString alloc]initWithString:[directionBaseURL stringByAppendingString:originString]];
-    [url appendString:@"&destination="];
-    if([routePoints count]>2){
-        NSString *destinationString = [NSString stringWithFormat:@"%f,%f",origin.lat,origin.lng];
-        int count = [routePoints count];
-        FoxtrotRoutePoint *destination = [routePoints objectAtIndex:count-2];
-    }
-    else if([routePoints count]==2){
-        NSString *destinationString = [NSString stringWithFormat:@"%f,%f",origin.lat,origin.lng];
-        FoxtrotRoutePoint *destination = [routePoints objectAtIndex:1];
-    }
-    else if([routePoints count]==1){
-        NSString *destinationString = [NSString stringWithFormat:@"%f,%f",origin.lat,origin.lng];
-        int count = [routePoints objectAtIndex:1];
-    }
-    return @"";
-}
--(void)askForDirectionsWithRoutePoints:(NSMutableArray *)routePoints{
-   /* FoxtrotRoutePoint *origin = [_routePoints firstObject];
-    NSString *originString = [NSString stringWithFormat:@"%f,%f",origin.lat,origin.lng];
-    NSMutableString *url = [baseURLString stringByAppendingString:originString];
-    [url appendString:@"&destination"];
-    int count = [_routePoints count];*/
-}
-- (void)fetchingRouteFailedWithError:(NSError *)error{
-    UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:[NSString stringWithFormat:@"%@",[error description]] delegate:self cancelButtonTitle:@"Okay" otherButtonTitles: nil];
-    [errorAlert show];
+    NSLog(@"Touched");
+  
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -90,34 +105,34 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return [_routePoints count];
+    return [self.titles count];
     [self.tableView reloadData];
 }
 
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *simpleTableIdentifier = @"FoxtrotRouteTableViewCell";
-    
-    FoxtrotRouteTableViewCell *cell = (FoxtrotRouteTableViewCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
-    if (cell == nil)
-    {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:simpleTableIdentifier owner:self options:nil];
-        cell = [nib objectAtIndex:0];
+    static NSString *simpleTableIdentifier = @"AirspressTripDetailCell";
+    AirspressTripDetailCell *cell = (AirspressTripDetailCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    if(indexPath.row<[self.titles count]){
+        if (cell == nil)
+        {
+            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:simpleTableIdentifier owner:self options:nil];
+            cell = [nib objectAtIndex:0];
+        }
+        if(indexPath.row==0){
+            cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"takeoff3.jpg"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];}
+        cell.detailLabel.text = [self.trueDetails objectAtIndex:indexPath.row];
+        cell.nameLabel.text=[self.titles objectAtIndex:indexPath.row];
     }
-    FoxtrotRoutePoint *routePoint = [_routePoints objectAtIndex:indexPath.row];
-    routePoint.index=indexPath.row;
-    
-    cell.nameLabel.text = routePoint.stop_name;
-    /*cell.thumbnailImageView.image = [UIImage imageNamed:[thumbnails objectAtIndex:indexPath.row]];*/
-    
-    cell.prepTimeLabel.text =[NSString stringWithFormat:@"%ld",(long)indexPath.row];
-    cell.thumbnailImageView.image = [UIImage imageNamed:@"mapIcon"];
-    
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 78;
+    if(indexPath.row==0){
+        return 240;
+    }
+    return 54;
 }
 
 
@@ -162,13 +177,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Navigation logic may go here, for example:
     // Create the next view controller.
-    FoxtrotRoutePoint *routePoint = [_routePoints objectAtIndex:indexPath.row];
-    GoogleMapsViewController *detailViewController = [[GoogleMapsViewController alloc] initWithAnnotations:@[routePoint]];
-    
-    // Pass the selected object to the new view controller.
-    self.tabBarController.tabBar.hidden=YES;
-    [self.navigationController pushViewController:detailViewController animated:false];
-    
 
 }
 

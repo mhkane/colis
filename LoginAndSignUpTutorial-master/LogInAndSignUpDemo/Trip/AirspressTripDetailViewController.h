@@ -7,25 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FoxtrotAPICaller.h"
-#import "FoxtrotAPICallManagerDelegate.h"
-#import "FoxtrotAPICallManager.h"
-#import "FoxtrotRoutePoint.h"
-#import <AFNetworking.h>
-#import <AFHTTPRequestOperation.h>
-#import "GoogleMapsViewController.h"
+#import "AirspressTripDetailCell.h"
 
 
 
 
-@interface FoxtrotRouteTableViewController : UITableViewController <UITableViewDataSource,UITableViewDelegate,FoxtrotAPICallManagerDelegate>{
-    NSMutableArray *_routePoints;
-    FoxtrotAPICallManager *_manager;
-}
-@property NSString *customerID;
-@property NSString *driverID;
-
-
-
-
+@interface AirspressTripDetailViewController : UITableViewController <UITableViewDataSource,UITableViewDelegate>
+@property (strong,nonatomic) PFObject *tripObject;
 @end

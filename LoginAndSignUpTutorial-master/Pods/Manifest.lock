@@ -1,10 +1,13 @@
 PODS:
   - TGFoursquareLocationDetail (1.0.1)
+  - UIImageView-Letters (1.0)
 
 DEPENDENCIES:
   - TGFoursquareLocationDetail
+  - UIImageView-Letters
 
 SPEC CHECKSUMS:
   TGFoursquareLocationDetail: 20ec8f105f613c68bafa00a2564f81ec8fd1efe1
+  UIImageView-Letters: 9f21bca067a6cf8651e104c3b1c9253bc98c9071
 
 COCOAPODS: 0.35.0

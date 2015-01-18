@@ -9,7 +9,6 @@
 #import "AirspressTravelCell.h"
 
 @implementation AirspressTravelCell
-@synthesize toLabel;
 @synthesize nameLabel;
 @synthesize thumbnailImageView;
 - (void)awakeFromNib {

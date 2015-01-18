@@ -6,10 +6,10 @@
 //  Copyright (c) 2015 Mohamed Kane. All rights reserved.
 //
 
-#import "FoxtrotRouteTableViewCell.h"
+#import "AirspressTripDetailCell.h"
 
-@implementation FoxtrotRouteTableViewCell
-@synthesize prepTimeLabel;
+@implementation AirspressTripDetailCell
+@synthesize detailLabel;
 @synthesize nameLabel;
 @synthesize thumbnailImageView;
 - (void)awakeFromNib {

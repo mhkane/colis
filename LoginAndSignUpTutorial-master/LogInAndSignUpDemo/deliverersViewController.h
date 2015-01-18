@@ -7,6 +7,8 @@
 //
 
 #import <Parse/Parse.h>
+#import "AirspressTripDetailViewController.h"
+
 
 @interface deliverersViewController : PFQueryTableViewController
 @property(weak,nonatomic) PFQuery *query;

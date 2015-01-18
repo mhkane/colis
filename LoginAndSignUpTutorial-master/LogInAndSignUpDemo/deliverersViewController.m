@@ -9,7 +9,6 @@
 #import "deliverersViewController.h"
 #import "cellForTravelTableViewCell.h"
 #import "AirspressTravelCell.h"
-#import "TripDetailTableViewController.h"
 
 @interface deliverersViewController ()
 
@@ -234,7 +233,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if([indexPath row]<[self.objects count]){
-    TripDetailTableViewController *travelInfo = [[TripDetailTableViewController alloc] init];
+    AirspressTripDetailViewController *travelInfo = [[AirspressTripDetailViewController alloc] init];
         PFObject *trip = [self.objects objectAtIndex:[indexPath row]
                           ];
         PFUser *user = [trip valueForKey:@"traveler"];

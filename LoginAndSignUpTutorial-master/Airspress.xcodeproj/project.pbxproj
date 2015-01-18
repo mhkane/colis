@@ -20,10 +20,15 @@
 		3854FEF21A2B6B900062A818 /* deliverersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3854FEF01A2B6B900062A818 /* deliverersViewController.m */; };
 		3854FEF71A2BAA7B0062A818 /* deliveryRequestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3854FEF51A2BAA7B0062A818 /* deliveryRequestViewController.m */; };
 		3854FEF81A2BAA7B0062A818 /* deliveryRequestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3854FEF61A2BAA7B0062A818 /* deliveryRequestViewController.xib */; };
-		3856D7AD1A6A1F9F00F01F1D /* TripDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3856D7AC1A6A1F9F00F01F1D /* TripDetailTableViewController.m */; };
-		3856D7AF1A6A218300F01F1D /* tripDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3856D7AE1A6A218300F01F1D /* tripDetailCell.xib */; };
-		3856D7B21A6A22F500F01F1D /* tripDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3856D7B11A6A22F500F01F1D /* tripDetailCell.m */; };
 		3856D7B41A6A281800F01F1D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3856D7B31A6A281800F01F1D /* Images.xcassets */; };
+		3856D7C01A6AEFF200F01F1D /* AirspressTripDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3856D7BB1A6AEFF200F01F1D /* AirspressTripDetailViewController.m */; };
+		3856D7C11A6AEFF200F01F1D /* AirspressTripDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3856D7BC1A6AEFF200F01F1D /* AirspressTripDetailCell.xib */; };
+		3856D7C21A6AEFF200F01F1D /* AirspressTripDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3856D7BD1A6AEFF200F01F1D /* AirspressTripDetailViewController.xib */; };
+		3856D7C31A6AEFF200F01F1D /* AirspressTripDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3856D7BF1A6AEFF200F01F1D /* AirspressTripDetailCell.m */; };
+		3856D7C71A6B00DD00F01F1D /* takeoff.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3856D7C41A6B00DD00F01F1D /* takeoff.jpg */; };
+		3856D7C81A6B00DD00F01F1D /* takeoff1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3856D7C51A6B00DD00F01F1D /* takeoff1.jpg */; };
+		3856D7C91A6B00DD00F01F1D /* takeoff2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3856D7C61A6B00DD00F01F1D /* takeoff2.jpg */; };
+		3856D7CB1A6B019200F01F1D /* takeoff3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3856D7CA1A6B019100F01F1D /* takeoff3.jpg */; };
 		386341D91A64EA0C00FA1335 /* airplane_takeoff.png in Resources */ = {isa = PBXBuildFile; fileRef = 386341D71A64EA0C00FA1335 /* airplane_takeoff.png */; };
 		386341DA1A64EA0C00FA1335 /* airplane_landing.png in Resources */ = {isa = PBXBuildFile; fileRef = 386341D81A64EA0C00FA1335 /* airplane_landing.png */; };
 		386341DD1A64EB1B00FA1335 /* 1421150182_airplane_landing.png in Resources */ = {isa = PBXBuildFile; fileRef = 386341DB1A64EB1B00FA1335 /* 1421150182_airplane_landing.png */; };
@@ -139,12 +144,17 @@
 		3854FEF41A2BAA7B0062A818 /* deliveryRequestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = deliveryRequestViewController.h; sourceTree = "<group>"; };
 		3854FEF51A2BAA7B0062A818 /* deliveryRequestViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = deliveryRequestViewController.m; sourceTree = "<group>"; };
 		3854FEF61A2BAA7B0062A818 /* deliveryRequestViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = deliveryRequestViewController.xib; sourceTree = "<group>"; };
-		3856D7AB1A6A1F9F00F01F1D /* TripDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TripDetailTableViewController.h; sourceTree = "<group>"; };
-		3856D7AC1A6A1F9F00F01F1D /* TripDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TripDetailTableViewController.m; sourceTree = "<group>"; };
-		3856D7AE1A6A218300F01F1D /* tripDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = tripDetailCell.xib; sourceTree = "<group>"; };
-		3856D7B01A6A22F500F01F1D /* tripDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tripDetailCell.h; sourceTree = "<group>"; };
-		3856D7B11A6A22F500F01F1D /* tripDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tripDetailCell.m; sourceTree = "<group>"; };
 		3856D7B31A6A281800F01F1D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		3856D7BA1A6AEFF200F01F1D /* AirspressTripDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AirspressTripDetailViewController.h; path = ../Trip/AirspressTripDetailViewController.h; sourceTree = "<group>"; };
+		3856D7BB1A6AEFF200F01F1D /* AirspressTripDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AirspressTripDetailViewController.m; path = ../Trip/AirspressTripDetailViewController.m; sourceTree = "<group>"; };
+		3856D7BC1A6AEFF200F01F1D /* AirspressTripDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AirspressTripDetailCell.xib; path = ../Trip/AirspressTripDetailCell.xib; sourceTree = "<group>"; };
+		3856D7BD1A6AEFF200F01F1D /* AirspressTripDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AirspressTripDetailViewController.xib; path = ../Trip/AirspressTripDetailViewController.xib; sourceTree = "<group>"; };
+		3856D7BE1A6AEFF200F01F1D /* AirspressTripDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AirspressTripDetailCell.h; path = ../Trip/AirspressTripDetailCell.h; sourceTree = "<group>"; };
+		3856D7BF1A6AEFF200F01F1D /* AirspressTripDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AirspressTripDetailCell.m; path = ../Trip/AirspressTripDetailCell.m; sourceTree = "<group>"; };
+		3856D7C41A6B00DD00F01F1D /* takeoff.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = takeoff.jpg; sourceTree = "<group>"; };
+		3856D7C51A6B00DD00F01F1D /* takeoff1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = takeoff1.jpg; sourceTree = "<group>"; };
+		3856D7C61A6B00DD00F01F1D /* takeoff2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = takeoff2.jpg; sourceTree = "<group>"; };
+		3856D7CA1A6B019100F01F1D /* takeoff3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = takeoff3.jpg; sourceTree = "<group>"; };
 		386341D71A64EA0C00FA1335 /* airplane_takeoff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = airplane_takeoff.png; sourceTree = "<group>"; };
 		386341D81A64EA0C00FA1335 /* airplane_landing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = airplane_landing.png; sourceTree = "<group>"; };
 		386341DB1A64EB1B00FA1335 /* 1421150182_airplane_landing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1421150182_airplane_landing.png; sourceTree = "<group>"; };
@@ -303,6 +313,12 @@
 			isa = PBXGroup;
 			children = (
 				381B15DB1A69B4F300BD678C /* AirspressTravelCell.xib */,
+				3856D7BA1A6AEFF200F01F1D /* AirspressTripDetailViewController.h */,
+				3856D7BB1A6AEFF200F01F1D /* AirspressTripDetailViewController.m */,
+				3856D7BC1A6AEFF200F01F1D /* AirspressTripDetailCell.xib */,
+				3856D7BD1A6AEFF200F01F1D /* AirspressTripDetailViewController.xib */,
+				3856D7BE1A6AEFF200F01F1D /* AirspressTripDetailCell.h */,
+				3856D7BF1A6AEFF200F01F1D /* AirspressTripDetailCell.m */,
 				381B15DC1A69B4F300BD678C /* AirspressTravelCell.h */,
 				381B15DD1A69B4F300BD678C /* AirspressTravelCell.m */,
 				3854FEEF1A2B6B900062A818 /* deliverersViewController.h */,
@@ -327,11 +343,6 @@
 		38F34AF91A678A5200548329 /* Trip */ = {
 			isa = PBXGroup;
 			children = (
-				3856D7AB1A6A1F9F00F01F1D /* TripDetailTableViewController.h */,
-				3856D7AC1A6A1F9F00F01F1D /* TripDetailTableViewController.m */,
-				3856D7AE1A6A218300F01F1D /* tripDetailCell.xib */,
-				3856D7B01A6A22F500F01F1D /* tripDetailCell.h */,
-				3856D7B11A6A22F500F01F1D /* tripDetailCell.m */,
 				380207091A280C300087CF76 /* tripViewController.h */,
 				3802070A1A280C300087CF76 /* tripViewController.m */,
 				3802070B1A280C300087CF76 /* tripViewController.xib */,
@@ -362,6 +373,10 @@
 		741203C415900A3C00820BE9 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				3856D7CA1A6B019100F01F1D /* takeoff3.jpg */,
+				3856D7C41A6B00DD00F01F1D /* takeoff.jpg */,
+				3856D7C51A6B00DD00F01F1D /* takeoff1.jpg */,
+				3856D7C61A6B00DD00F01F1D /* takeoff2.jpg */,
 				386341DB1A64EB1B00FA1335 /* 1421150182_airplane_landing.png */,
 				386341DC1A64EB1B00FA1335 /* 1421150161_airplane_takeoff.png */,
 				38C0C2651A64E5F100132AF1 /* button-back.png */,
@@ -603,6 +618,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3856D7C21A6AEFF200F01F1D /* AirspressTripDetailViewController.xib in Resources */,
 				74366EB1158AAE1000A17D8A /* InfoPlist.strings in Resources */,
 				38C0C27B1A64E5F100132AF1 /* icon-share-big.png in Resources */,
 				386341D91A64EA0C00FA1335 /* airplane_takeoff.png in Resources */,
@@ -615,6 +631,7 @@
 				38C0C27F1A64E5F100132AF1 /* mask.png in Resources */,
 				747F007615951A58000F601E /* Exit.png in Resources */,
 				38C445BA1A4A7CD30074A741 /* shopping2.png in Resources */,
+				3856D7CB1A6B019200F01F1D /* takeoff3.jpg in Resources */,
 				747F007715951A58000F601E /* ExitDown.png in Resources */,
 				747F007815951A58000F601E /* Facebook.png in Resources */,
 				383F04D41A5B0E1000DC8267 /* AirspressProfileViewController.xib in Resources */,
@@ -626,7 +643,9 @@
 				383F04CA1A52010600DC8267 /* EditProfileViewController.xib in Resources */,
 				38C0C2761A64E5F100132AF1 /* button-read-big@2x.png in Resources */,
 				38C445B81A4A794C0074A741 /* air6.png in Resources */,
+				3856D7C11A6AEFF200F01F1D /* AirspressTripDetailCell.xib in Resources */,
 				389D59751A4B522000E26258 /* add139.png in Resources */,
+				3856D7C71A6B00DD00F01F1D /* takeoff.jpg in Resources */,
 				38C0C2741A64E5F100132AF1 /* button-back@2x.png in Resources */,
 				38C0C2771A64E5F100132AF1 /* icon-read-big.png in Resources */,
 				747F007A15951A58000F601E /* LoginFieldBG.png in Resources */,
@@ -642,9 +661,9 @@
 				747F007E15951A58000F601E /* SignUpDown.png in Resources */,
 				38C0C27A1A64E5F100132AF1 /* icon-read@2x.png in Resources */,
 				386341DD1A64EB1B00FA1335 /* 1421150182_airplane_landing.png in Resources */,
-				3856D7AF1A6A218300F01F1D /* tripDetailCell.xib in Resources */,
 				38C445B31A4A71CE0074A741 /* homescreen.png in Resources */,
 				747F007F15951A58000F601E /* SignUpFieldBG.png in Resources */,
+				3856D7C81A6B00DD00F01F1D /* takeoff1.jpg in Resources */,
 				381B15DE1A69B4F300BD678C /* AirspressTravelCell.xib in Resources */,
 				747F008015951A58000F601E /* Twitter.png in Resources */,
 				389D597E1A4B912600E26258 /* user.png in Resources */,
@@ -663,6 +682,7 @@
 				389D597C1A4B90D400E26258 /* user16.png in Resources */,
 				C4BBB7C416FD2D73003CA3F7 /* Default-568h@2x.png in Resources */,
 				C4FD613617286AC800F61563 /* Icon.png in Resources */,
+				3856D7C91A6B00DD00F01F1D /* takeoff2.jpg in Resources */,
 				38C0C2791A64E5F100132AF1 /* icon-read.png in Resources */,
 				C4FD613817286ACD00F61563 /* Icon@2x.png in Resources */,
 			);
@@ -713,7 +733,6 @@
 				74366EB3158AAE1000A17D8A /* main.m in Sources */,
 				38B19ADC1A61A54D00CFDB86 /* cellForTravelTableViewCell.m in Sources */,
 				3854FEF21A2B6B900062A818 /* deliverersViewController.m in Sources */,
-				3856D7B21A6A22F500F01F1D /* tripDetailCell.m in Sources */,
 				74366EB7158AAE1000A17D8A /* AppDelegate.m in Sources */,
 				38BF5FBC1A2B37C0000ABA60 /* orderViewController.m in Sources */,
 				74366EDF158AB49300A17D8A /* DemoTableViewController.m in Sources */,
@@ -722,7 +741,7 @@
 				381B15DF1A69B4F300BD678C /* AirspressTravelCell.m in Sources */,
 				38F34AEF1A676C3900548329 /* SPGooglePlacesAutocompleteUtilities.m in Sources */,
 				38F34AED1A676C3900548329 /* SPGooglePlacesAutocompletePlace.m in Sources */,
-				3856D7AD1A6A1F9F00F01F1D /* TripDetailTableViewController.m in Sources */,
+				3856D7C01A6AEFF200F01F1D /* AirspressTripDetailViewController.m in Sources */,
 				74366EF4158AF2D300A17D8A /* PropertyConfigViewController.m in Sources */,
 				389D59781A4B53EA00E26258 /* AirspressTabBarController.m in Sources */,
 				383F04C91A52010600DC8267 /* EditProfileViewController.m in Sources */,
@@ -733,6 +752,7 @@
 				38F34AF41A677A6500548329 /* SPGooglePlacesAutocompleteViewController.m in Sources */,
 				3854FEF71A2BAA7B0062A818 /* deliveryRequestViewController.m in Sources */,
 				38F34AEE1A676C3900548329 /* SPGooglePlacesAutocompleteQuery.m in Sources */,
+				3856D7C31A6AEFF200F01F1D /* AirspressTripDetailCell.m in Sources */,
 				74366F06158B975500A17D8A /* MySignUpViewController.m in Sources */,
 				38C0C1EF1A63801100132AF1 /* Confirmation2ViewController.m in Sources */,
 				383F04D31A5B0E1000DC8267 /* AirspressProfileViewController.m in Sources */,
