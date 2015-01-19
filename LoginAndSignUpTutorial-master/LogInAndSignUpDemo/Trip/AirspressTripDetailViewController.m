@@ -16,6 +16,7 @@
 @implementation AirspressTripDetailViewController
 
 -(void)initializeWithData{
+    if(self){
     self.trueDetails = [[NSMutableArray alloc] init];
     self.titles = [[NSMutableArray alloc] init];
     NSString *tripDetails = @"Trip details";
@@ -27,7 +28,7 @@
     NSString *departureDateString = [df2 stringFromDate:departureDate];
     NSDate *arrivalDate = [self.tripObject objectForKey:@"arrivalDate"];
     NSString *arrivalDateString = [df2 stringFromDate:arrivalDate];
-    NSString *availCapacity = [self.tripObject objectForKey:@"availCapacity"];
+    NSNumber *availCapacity = [self.tripObject objectForKey:@"availCapacity"];
     PFUser *user = [self.tripObject valueForKey:@"traveler"];
     NSString *idd = [user objectId];
     PFUser *trueUser = [PFQuery getUserObjectWithId:idd];
@@ -55,7 +56,11 @@
         [self.titles addObject:@"Travelling to"];
     }
     if(availCapacity){
-        [self.trueDetails addObject:availCapacity];
+        
+        if(availCapacity<[NSNumber numberWithInt:2]){
+            [self.trueDetails addObject:[NSString stringWithFormat:@"%@ Kg",availCapacity]];
+        }
+        [self.trueDetails addObject:[NSString stringWithFormat:@"%@ Kgs",availCapacity]];
         [self.titles addObject:@"Available Capacity (in Kg)"];
     }
     if(travelerName){
@@ -69,15 +74,19 @@
     if(telephone){
         [self.trueDetails addObject:telephone];
         [self.titles addObject:@"Telephone"];
-    }
+    }}
+    
 
 }
 -(void)viewWillAppear:(BOOL)animated{
     // NSArray *labelTitle = @[@"",@"Departure Date",@"Arrival Date",@"Travelling from",@"Travelling to",@"Available Space (in Kg)",@"Traveler Name", @"Email",@"Telephone"];
+    [self initializeWithData];
+   
    }
 - (void)viewDidLoad {
-    [super viewDidLoad];
     [self initializeWithData];
+    [super viewDidLoad];
+   
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -105,6 +114,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 #warning Incomplete method implementation.
     // Return the number of rows in the section.
+    NSLog(@"Count : %d",[self.titles count]);
     return [self.titles count];
     [self.tableView reloadData];
 }
