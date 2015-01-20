@@ -60,6 +60,7 @@
     SPGooglePlacesAutocompleteViewController *vc = [[SPGooglePlacesAutocompleteViewController alloc] init];
     AirspressTripDetailViewController *cont = [[AirspressTripDetailViewController alloc] init];
     AirspressLoginViewController *login2 = [[AirspressLoginViewController alloc]init];
+    login2.fields = PFLogInFieldsUsernameAndPassword| PFLogInFieldsFacebook | PFLogInFieldsSignUpButton ;
     self.window.rootViewController = login2;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];

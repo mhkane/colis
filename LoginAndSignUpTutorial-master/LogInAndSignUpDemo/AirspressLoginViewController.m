@@ -13,6 +13,7 @@
 #import "tripViewController.h"
 #import "orderViewController.h"
 #import "AirspressProfileViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface AirspressLoginViewController ()
 @property (nonatomic, strong) UIImageView *fieldsBackground;
@@ -23,23 +24,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    [self.logInView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"MainBG.png"]]];
-    UIImage *logo = [UIImage imageNamed:@"logo.png"];
-    CGRect rect = CGRectMake(0,0,150,150);
-    UIGraphicsBeginImageContext( rect.size );
-    [logo drawInRect:rect];
-    UIImage *picture1 = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
     
-    NSData *imageData = UIImagePNGRepresentation(picture1);
-    UIImage *img=[UIImage imageWithData:imageData];
-    [self.logInView setLogo:[[UIImageView alloc] initWithImage:img]];
+    [self.logInView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"travel4.png"]]];
+    [self.logInView setLogo:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Logo.png"]]];
     
     // Set buttons appearance
-    //[self.logInView.dismissButton setImage:[UIImage imageNamed:@"Exit.png"] forState:UIControlStateNormal];
-    //[self.logInView.dismissButton setImage:[UIImage imageNamed:@"ExitDown.png"] forState:UIControlStateHighlighted];
-    
+
     [self.logInView.facebookButton setImage:nil forState:UIControlStateNormal];
     [self.logInView.facebookButton setImage:nil forState:UIControlStateHighlighted];
     [self.logInView.facebookButton setBackgroundImage:[UIImage imageNamed:@"FacebookDown.png"] forState:UIControlStateHighlighted];
@@ -54,31 +44,42 @@
     [self.logInView.twitterButton setTitle:@"" forState:UIControlStateNormal];
     [self.logInView.twitterButton setTitle:@"" forState:UIControlStateHighlighted];
     
-    [self.logInView.signUpButton setBackgroundImage:[UIImage imageNamed:@"SignUp.png"] forState:UIControlStateNormal];
-    [self.logInView.signUpButton setBackgroundImage:[UIImage imageNamed:@"SignUpDown.png"] forState:UIControlStateHighlighted];
+    [self.logInView.signUpButton setBackgroundImage:[UIImage imageNamed:@"Signup.png"] forState:UIControlStateNormal];
+    [self.logInView.signUpButton setBackgroundImage:[UIImage imageNamed:@"SignupDown.png"] forState:UIControlStateHighlighted];
     [self.logInView.signUpButton setTitle:@"" forState:UIControlStateNormal];
     [self.logInView.signUpButton setTitle:@"" forState:UIControlStateHighlighted];
     
-
-    
     // Add login field background
-    fieldsBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@""]];
-    [self.logInView insertSubview:fieldsBackground atIndex:1];
+   // fieldsBackground = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"LoginFieldBG.png"]];
     
+    [self.logInView addSubview:self.fieldsBackground];
+    [self.logInView sendSubviewToBack:self.fieldsBackground];
     
     // Remove text shadow
     CALayer *layer = self.logInView.usernameField.layer;
-    layer.shadowOpacity = 0.0;
+    layer.shadowOpacity = 0.0f;
     layer = self.logInView.passwordField.layer;
-    layer.shadowOpacity = 0.0;
+    layer.shadowOpacity = 0.0f;
     
     // Set field text color
     [self.logInView.usernameField setTextColor:[UIColor whiteColor]];
-    [self.logInView.passwordField setTextColor:[UIColor whiteColor]];
-    self.delegate=self;
-    self.signUpController.delegate=self;
+    [self.logInView.passwordField setTextColor:[UIColor blackColor]];
+    self.logInView.usernameField.borderStyle = UITextBorderStyleRoundedRect;
+    self.logInView.passwordField.borderStyle = UITextBorderStyleRoundedRect;
+    
 }
-
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    // Set frame for elements
+    [self.logInView.logo setFrame:CGRectMake(66.5f, 70.0f, 187.0f, 58.5f)];
+    [self.logInView.facebookButton setFrame:CGRectMake(35.0f, 287.0f, 120.0f, 40.0f)];
+    [self.logInView.twitterButton setFrame:CGRectMake(35.0f+130.0f, 287.0f, 120.0f, 40.0f)];
+    [self.logInView.signUpButton setFrame:CGRectMake(35.0f, 385.0f, 250.0f, 40.0f)];
+    [self.logInView.usernameField setFrame:CGRectMake(35.0f, 145.0f, 250.0f, 50.0f)];
+    [self.logInView.passwordField setFrame:CGRectMake(35.0f, 205.0f, 250.0f, 50.0f)];
+    [self.fieldsBackground setFrame:CGRectMake(35.0f, 145.0f, 250.0f, 100.0f)];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
