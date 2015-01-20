@@ -59,7 +59,8 @@
     Confirmation2ViewController * c = [[Confirmation2ViewController alloc] init];
     SPGooglePlacesAutocompleteViewController *vc = [[SPGooglePlacesAutocompleteViewController alloc] init];
     AirspressTripDetailViewController *cont = [[AirspressTripDetailViewController alloc] init];
-    self.window.rootViewController = login;
+    AirspressLoginViewController *login2 = [[AirspressLoginViewController alloc]init];
+    self.window.rootViewController = login2;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
@@ -91,5 +92,6 @@
     [FBAppEvents activateApp];
     [PFUser logOut];
 }
+
 
 @end

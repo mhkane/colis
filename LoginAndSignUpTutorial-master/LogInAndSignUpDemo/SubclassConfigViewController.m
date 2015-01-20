@@ -25,15 +25,14 @@
     [super viewWillAppear:animated];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
+- (void)viewDidLoad {
+     [super viewDidLoad];
     // Check if user is logged in
     if (![PFUser currentUser]) {        
         // Customize the Log In View Controller
         AirspressLoginViewController *logInViewController = [[AirspressLoginViewController alloc] init];
         logInViewController.delegate = self;
-        logInViewController.facebookPermissions = @[@"friends_about_me"];
+        logInViewController.facebookPermissions = @[@"friends_about_me",@"user_about_me"];
         logInViewController.fields = PFLogInFieldsUsernameAndPassword | PFLogInFieldsTwitter | PFLogInFieldsFacebook | PFLogInFieldsSignUpButton ;
         
         // Customize the Sign Up View Controller
