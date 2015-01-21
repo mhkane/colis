@@ -28,8 +28,12 @@
     
     self.delegate=self;
     self.signUpController.delegate=self;
+    
     [self.logInView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"suitcase5.png"]]];
-    [self.logInView setLogo:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Logo.png"]]];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:@"Logo.png"];
+    [imageView setFrame:CGRectMake(1, 1, 1, 1)];
+    [self.logInView setLogo:imageView];
+    [self.logInView.logo setFrame:CGRectMake(1, 1, 1, 10)];
     
     // Set buttons appearance
 
@@ -76,11 +80,10 @@
     
     // Set frame for elements
     [self.logInView.logo setFrame:CGRectMake(66.5f, 70.0f, 187.0f, 58.5f)];
-    [self.logInView.facebookButton setFrame:CGRectMake(35.0f, 287.0f, 120.0f, 40.0f)];
-    [self.logInView.twitterButton setFrame:CGRectMake(35.0f+130.0f, 287.0f, 120.0f, 40.0f)];
-    [self.logInView.signUpButton setFrame:CGRectMake(35.0f, 385.0f, 250.0f, 40.0f)];
-    [self.logInView.usernameField setFrame:CGRectMake(35.0f, 145.0f, 250.0f, 50.0f)];
-    [self.logInView.passwordField setFrame:CGRectMake(35.0f, 205.0f, 250.0f, 50.0f)];
+    [self.logInView.facebookButton setFrame:CGRectMake(100.0f, 400.0f, 120.0f, 40.0f)];
+    [self.logInView.signUpButton setFrame:CGRectMake(35.0f, 490.0f, 250.0f, 40.0f)];
+    [self.logInView.usernameField setFrame:CGRectMake(35.0f, 185.0f, 250.0f, 60.0f)];
+    [self.logInView.passwordField setFrame:CGRectMake(35.0f, 260.0f, 250.0f, 60.0f)];
     [self.fieldsBackground setFrame:CGRectMake(35.0f, 145.0f, 250.0f, 100.0f)];
 }
 - (void)didReceiveMemoryWarning {
