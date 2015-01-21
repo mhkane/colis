@@ -25,9 +25,8 @@
     [super viewWillAppear:animated];
 }
 
-- (void)viewDidLoad {
-     [super viewDidLoad];
-    // Check if user is logged in
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];    // Check if user is logged in
     if (![PFUser currentUser]) {        
         // Customize the Log In View Controller
         AirspressLoginViewController *logInViewController = [[AirspressLoginViewController alloc] init];

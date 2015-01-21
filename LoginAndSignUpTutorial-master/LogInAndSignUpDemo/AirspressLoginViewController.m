@@ -25,7 +25,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.logInView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"travel4.png"]]];
+    
+    self.delegate=self;
+    self.signUpController.delegate=self;
+    [self.logInView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"suitcase5.png"]]];
     [self.logInView setLogo:[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Logo.png"]]];
     
     // Set buttons appearance
@@ -129,16 +132,10 @@
 // Sent to the delegate when a PFUser is logged in.
 - (void)logInViewController:(PFLogInViewController *)logInController didLogInUser:(PFUser *)user {
     
-    [self dismissViewControllerAnimated:YES completion:NULL];
     AirspressTabBarController *menu = [[AirspressTabBarController alloc] init];
-    deliverersViewController *deliverer = [[deliverersViewController alloc] init
-                                           ] ;
     deliveryRequestViewController *delivery = [[deliveryRequestViewController alloc]init];
-    
     tripViewController *trip = [[tripViewController alloc] init];
-    orderViewController *order = [[orderViewController alloc] init];
     deliverersViewController *travelers = [[deliverersViewController alloc]init];
-    UINavigationController *tripNav = [[UINavigationController alloc] initWithRootViewController:trip];
     AirspressProfileViewController *profile = [[AirspressProfileViewController alloc] init];
     [[travelers tabBarItem] setTitle:@"Travels"];
     [[travelers tabBarItem] setImage:[UIImage imageNamed:@"air6.png"]];
