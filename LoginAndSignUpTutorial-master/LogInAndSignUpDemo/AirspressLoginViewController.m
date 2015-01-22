@@ -30,17 +30,15 @@
     self.signUpController.delegate=self;
     
     [self.logInView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"suitcase5.png"]]];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:@"Logo.png"];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Logo"]];
     [imageView setFrame:CGRectMake(1, 1, 1, 1)];
     [self.logInView setLogo:imageView];
-    [self.logInView.logo setFrame:CGRectMake(1, 1, 1, 10)];
     
     // Set buttons appearance
 
     [self.logInView.facebookButton setImage:nil forState:UIControlStateNormal];
     [self.logInView.facebookButton setImage:nil forState:UIControlStateHighlighted];
-    [self.logInView.facebookButton setBackgroundImage:[UIImage imageNamed:@"FacebookDown.png"] forState:UIControlStateHighlighted];
-    [self.logInView.facebookButton setBackgroundImage:[UIImage imageNamed:@"Facebook.png"] forState:UIControlStateNormal];
+    [self.logInView.facebookButton setBackgroundImage:[UIImage imageNamed:@"FBSign"] forState:UIControlStateNormal];
     [self.logInView.facebookButton setTitle:@"" forState:UIControlStateNormal];
     [self.logInView.facebookButton setTitle:@"" forState:UIControlStateHighlighted];
     
@@ -51,8 +49,8 @@
     [self.logInView.twitterButton setTitle:@"" forState:UIControlStateNormal];
     [self.logInView.twitterButton setTitle:@"" forState:UIControlStateHighlighted];
     
-    [self.logInView.signUpButton setBackgroundImage:[UIImage imageNamed:@"Signup.png"] forState:UIControlStateNormal];
-    [self.logInView.signUpButton setBackgroundImage:[UIImage imageNamed:@"SignupDown.png"] forState:UIControlStateHighlighted];
+    [self.logInView.signUpButton setBackgroundImage:[UIImage imageNamed:@"signUp"] forState:UIControlStateNormal];
+    [self.logInView.signUpButton setBackgroundImage:[UIImage imageNamed:@"signUp"] forState:UIControlStateHighlighted];
     [self.logInView.signUpButton setTitle:@"" forState:UIControlStateNormal];
     [self.logInView.signUpButton setTitle:@"" forState:UIControlStateHighlighted];
     
@@ -80,7 +78,7 @@
     
     // Set frame for elements
     [self.logInView.logo setFrame:CGRectMake(66.5f, 70.0f, 187.0f, 58.5f)];
-    [self.logInView.facebookButton setFrame:CGRectMake(100.0f, 400.0f, 120.0f, 40.0f)];
+    [self.logInView.facebookButton setFrame:CGRectMake(63.0f, 400.0f, 210.0f, 40.0f)];
     [self.logInView.signUpButton setFrame:CGRectMake(35.0f, 490.0f, 250.0f, 40.0f)];
     [self.logInView.usernameField setFrame:CGRectMake(35.0f, 185.0f, 250.0f, 60.0f)];
     [self.logInView.passwordField setFrame:CGRectMake(35.0f, 260.0f, 250.0f, 60.0f)];

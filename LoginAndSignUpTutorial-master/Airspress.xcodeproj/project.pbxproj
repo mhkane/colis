@@ -36,6 +36,7 @@
 		3872FF391A6F4B3000CEEDA8 /* suitcase6.png in Resources */ = {isa = PBXBuildFile; fileRef = 3872FF381A6F4B3000CEEDA8 /* suitcase6.png */; };
 		3872FF3B1A6F4B8600CEEDA8 /* suitcase5.png in Resources */ = {isa = PBXBuildFile; fileRef = 3872FF3A1A6F4B8600CEEDA8 /* suitcase5.png */; };
 		3872FF3D1A6F4BD200CEEDA8 /* suits.png in Resources */ = {isa = PBXBuildFile; fileRef = 3872FF3C1A6F4BD200CEEDA8 /* suits.png */; };
+		3872FF411A6F6E7800CEEDA8 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3872FF401A6F6E7800CEEDA8 /* logo.png */; };
 		38851AC01A4BC78500F201DD /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 38851ABF1A4BC78500F201DD /* plus.png */; };
 		389CCB3B1A43FECA00378D36 /* searchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 389CCB391A43FECA00378D36 /* searchViewController.m */; };
 		389CCB3C1A43FECA00378D36 /* searchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 389CCB3A1A43FECA00378D36 /* searchViewController.xib */; };
@@ -74,7 +75,6 @@
 		38C0C2801A64E5F100132AF1 /* mask@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C0C2721A64E5F100132AF1 /* mask@2x.png */; };
 		38C1D1121A6379670040083A /* JSQFlatButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 38C1D1111A6379670040083A /* JSQFlatButton.m */; };
 		38C1D1141A637B9D0040083A /* airplane68.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C1D1131A637B9D0040083A /* airplane68.png */; };
-		38C445AF1A4A714F0074A741 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C445AE1A4A714F0074A741 /* logo.png */; };
 		38C445B31A4A71CE0074A741 /* homescreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C445B21A4A71CE0074A741 /* homescreen.png */; };
 		38C445B81A4A794C0074A741 /* air6.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C445B71A4A794C0074A741 /* air6.png */; };
 		38C445BA1A4A7CD30074A741 /* shopping2.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C445B91A4A7CD30074A741 /* shopping2.png */; };
@@ -169,6 +169,7 @@
 		3872FF381A6F4B3000CEEDA8 /* suitcase6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = suitcase6.png; sourceTree = "<group>"; };
 		3872FF3A1A6F4B8600CEEDA8 /* suitcase5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = suitcase5.png; sourceTree = "<group>"; };
 		3872FF3C1A6F4BD200CEEDA8 /* suits.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = suits.png; sourceTree = "<group>"; };
+		3872FF401A6F6E7800CEEDA8 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		38851ABF1A4BC78500F201DD /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
 		389CCB381A43FECA00378D36 /* searchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = searchViewController.h; path = ../searchViewController.h; sourceTree = "<group>"; };
 		389CCB391A43FECA00378D36 /* searchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = searchViewController.m; path = ../searchViewController.m; sourceTree = "<group>"; };
@@ -214,7 +215,6 @@
 		38C1D1101A6379670040083A /* JSQFlatButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSQFlatButton.h; sourceTree = "<group>"; };
 		38C1D1111A6379670040083A /* JSQFlatButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSQFlatButton.m; sourceTree = "<group>"; };
 		38C1D1131A637B9D0040083A /* airplane68.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = airplane68.png; sourceTree = "<group>"; };
-		38C445AE1A4A714F0074A741 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		38C445B21A4A71CE0074A741 /* homescreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homescreen.png; sourceTree = "<group>"; };
 		38C445B71A4A794C0074A741 /* air6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = air6.png; sourceTree = "<group>"; };
 		38C445B91A4A7CD30074A741 /* shopping2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopping2.png; sourceTree = "<group>"; };
@@ -365,7 +365,6 @@
 				38C445B91A4A7CD30074A741 /* shopping2.png */,
 				38C445B71A4A794C0074A741 /* air6.png */,
 				38C445B21A4A71CE0074A741 /* homescreen.png */,
-				38C445AE1A4A714F0074A741 /* logo.png */,
 				C4FD613517286AC800F61563 /* Icon.png */,
 				C4FD613717286ACD00F61563 /* Icon@2x.png */,
 				C4BBB7C016FD2D73003CA3F7 /* Default.png */,
@@ -437,6 +436,7 @@
 		74366EAC158AAE1000A17D8A /* Airspress */ = {
 			isa = PBXGroup;
 			children = (
+				3872FF401A6F6E7800CEEDA8 /* logo.png */,
 				3872FF381A6F4B3000CEEDA8 /* suitcase6.png */,
 				381B15DB1A69B4F300BD678C /* AirspressTravelCell.xib */,
 				3856D7BA1A6AEFF200F01F1D /* AirspressTripDetailViewController.h */,
@@ -639,6 +639,7 @@
 				3856D7C11A6AEFF200F01F1D /* AirspressTripDetailCell.xib in Resources */,
 				389D59751A4B522000E26258 /* add139.png in Resources */,
 				3856D7C71A6B00DD00F01F1D /* takeoff.jpg in Resources */,
+				3872FF411A6F6E7800CEEDA8 /* logo.png in Resources */,
 				38C0C2741A64E5F100132AF1 /* button-back@2x.png in Resources */,
 				38C0C2771A64E5F100132AF1 /* icon-read-big.png in Resources */,
 				747F007A15951A58000F601E /* LoginFieldBG.png in Resources */,
@@ -648,7 +649,6 @@
 				386341DE1A64EB1B00FA1335 /* 1421150161_airplane_takeoff.png in Resources */,
 				747F007C15951A58000F601E /* MainBG.png in Resources */,
 				38C0C2751A64E5F100132AF1 /* button-read-big.png in Resources */,
-				38C445AF1A4A714F0074A741 /* logo.png in Resources */,
 				747F007D15951A58000F601E /* SignUp.png in Resources */,
 				38B19ADD1A61A54D00CFDB86 /* cellForTravelTableViewCell.xib in Resources */,
 				747F007E15951A58000F601E /* SignUpDown.png in Resources */,
@@ -819,6 +819,7 @@
 			baseConfigurationReference = 74731800FD0DF86888E4B48F /* Pods.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -833,7 +834,7 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = Airspress;
-				PROVISIONING_PROFILE = "473b5690-975f-4efe-9a33-1e581983401d";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -843,7 +844,7 @@
 			baseConfigurationReference = 0297E423BED330F0C20E2788 /* Pods.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mohamed Kane (PKJ8VAR74K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
@@ -858,7 +859,7 @@
 					"-lsqlite3.0",
 				);
 				PRODUCT_NAME = Airspress;
-				PROVISIONING_PROFILE = "473b5690-975f-4efe-9a33-1e581983401d";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
