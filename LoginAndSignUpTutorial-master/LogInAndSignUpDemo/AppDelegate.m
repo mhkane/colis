@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "DemoTableViewController.h"
-#import "SubclassConfigViewController.h"
 #import "tripViewController.h"
 #import "deliveryRequestViewController.h"
 #import "deliverersViewController.h"
@@ -19,7 +18,7 @@
 #import "Confirmation2ViewController.h"
 #import "SPGooglePlacesAutocompleteViewController.h"
 #import "AirspressTripDetailViewController.h"
-
+#import "APLoginViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 
 @implementation AppDelegate
@@ -54,14 +53,15 @@
     [application registerUserNotificationSettings:settings];
     [application registerForRemoteNotifications];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    SubclassConfigViewController *login =[[SubclassConfigViewController alloc]init];
     tripViewController *trip = [[tripViewController alloc] init];
     Confirmation2ViewController * c = [[Confirmation2ViewController alloc] init];
     SPGooglePlacesAutocompleteViewController *vc = [[SPGooglePlacesAutocompleteViewController alloc] init];
     AirspressTripDetailViewController *cont = [[AirspressTripDetailViewController alloc] init];
+    APLoginViewController *l = [[APLoginViewController alloc] initWithNibName:@"APLoginViewController" bundle:[NSBundle mainBundle]];
     AirspressLoginViewController *login2 = [[AirspressLoginViewController alloc]init];
     login2.fields = PFLogInFieldsUsernameAndPassword| PFLogInFieldsFacebook | PFLogInFieldsSignUpButton ;
-    self.window.rootViewController = login2;
+    l.fields =PFLogInFieldsUsernameAndPassword| PFLogInFieldsFacebook | PFLogInFieldsSignUpButton | PFLogInFieldsLogInButton ;
+    self.window.rootViewController = l;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;

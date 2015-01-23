@@ -63,7 +63,7 @@
         </tapGestureRecognizer>
     </objects>
     <resources>
-        <image name="logo.png" width="396" height="313"/>
+        <image name="logo.png" width="124" height="98"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

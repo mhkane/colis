@@ -7,6 +7,7 @@
 //
 
 #import "AirspressTripDetailViewController.h"
+#import "orderViewController.h"
 
 @interface AirspressTripDetailViewController ()
 @property NSMutableArray *trueDetails;
@@ -99,6 +100,9 @@
 
 -(void)showMap{
     NSLog(@"Touched");
+    orderViewController *order = [[orderViewController alloc] init];
+    order.navigationItem.title = @"Your request";
+    [self.navigationController pushViewController:order animated:false];
   
 }
 - (void)didReceiveMemoryWarning {
