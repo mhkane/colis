@@ -10,8 +10,8 @@
 #import "SPGooglePlacesAutocompleteViewController.h"
 #import "SPGooglePlacesAutocompleteQuery.h"
 #import "SPGooglePlacesAutocompleteUtilities.h"
-
-@interface tripViewController : UIViewController <UITextFieldDelegate,UIGestureRecognizerDelegate>{
+#import "APTrip.h"
+@interface tripViewController : UIViewController <UITextFieldDelegate>{
     NSArray *searchResultPlaces;
     SPGooglePlacesAutocompleteQuery *searchQuery;
     BOOL shouldBeginEditing;
@@ -19,7 +19,8 @@
 @property NSArray *options;
 //- (NSArray *)locationsFromJSONFile:(NSURL *)url;
 @property (weak, nonatomic) IBOutlet UIDatePicker *tripDate;
-@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *tapGesture;
+@property (weak, nonatomic) IBOutlet UILabel *nextLabel;
 @property BOOL isDepartureDate;
-
+@property APTrip *tripToRegister;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @end

@@ -8,7 +8,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="tripViewController">
             <connections>
-                <outlet property="tapGesture" destination="dgM-dR-dyE" id="5ti-nz-QiS"/>
+                <outlet property="nextLabel" destination="Zg1-oG-skv" id="Ktg-GU-vIJ"/>
+                <outlet property="titleLabel" destination="gfw-UL-K4P" id="J0F-Vf-iBH"/>
                 <outlet property="tripDate" destination="lkI-6M-Hn6" id="saL-vG-rcj"/>
                 <outlet property="view" destination="a1H-uj-fLp" id="C5b-FV-kFd"/>
             </connections>
@@ -19,22 +20,33 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="KbO-gE-XQA">
-                    <rect key="frame" x="67" y="69" width="186" height="116"/>
+                    <rect key="frame" x="67" y="106" width="186" height="116"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pick a date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gfw-UL-K4P">
-                    <rect key="frame" x="117" y="40" width="86" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pick a depature date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gfw-UL-K4P">
+                    <rect key="frame" x="36" y="77" width="248" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="lkI-6M-Hn6">
-                    <rect key="frame" x="0.0" y="193" width="320" height="216"/>
+                    <rect key="frame" x="0.0" y="225" width="320" height="216"/>
                     <date key="date" timeIntervalSinceReferenceDate="438832576.17807901">
                         <!--2014-11-28 01:56:16 +0000-->
                     </date>
                 </datePicker>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Next" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zg1-oG-skv">
+                    <rect key="frame" x="208" y="471" width="93" height="55"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9h2-g9-Jrg">
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dx2-0x-yj0">
-                    <rect key="frame" x="224" y="436" width="45" height="38"/>
+                    <rect key="frame" x="232" y="449" width="45" height="38"/>
                     <state key="normal" backgroundImage="nextButton">
                         <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
@@ -42,32 +54,13 @@
                         <action selector="nextButton:" destination="-1" eventType="touchUpInside" id="KKE-z6-CXx"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9h2-g9-Jrg">
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Next" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zg1-oG-skv">
-                    <rect key="frame" x="224" y="477" width="80" height="34"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <gestureRecognizers/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-            <connections>
-                <outletCollection property="gestureRecognizers" destination="dgM-dR-dyE" appends="YES" id="gd7-pS-EMV"/>
-            </connections>
             <point key="canvasLocation" x="243" y="67"/>
         </view>
-        <tapGestureRecognizer id="dgM-dR-dyE">
-            <connections>
-                <action selector="tapSomewhere:" destination="-1" id="WBv-ib-6X9"/>
-            </connections>
-        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="logo.png" width="124" height="98"/>

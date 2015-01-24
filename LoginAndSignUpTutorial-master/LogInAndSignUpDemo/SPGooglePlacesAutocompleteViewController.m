@@ -27,7 +27,12 @@
 }
 
 - (void)viewDidLoad {
-    self.searchDisplayController.searchBar.placeholder = @"Search or Address";
+    if(self.isDepartureLecation){
+        self.searchDisplayController.searchBar.placeholder = @"Enter departure city";
+    }
+    else{
+        self.searchDisplayController.searchBar.placeholder = @"Enter arrival city";
+    }
 }
 
 
@@ -92,8 +97,20 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if(self.isDepartureLecation){
     SPGooglePlacesAutocompletePlace *place = [self placeAtIndexPath:indexPath];
-    [place resolveToPlacemark:^(CLPlacemark *placemark, NSString *addressString, NSError *error) {
+        self.tripToRegister.fromLocation = place.name;
+        SPGooglePlacesAutocompleteViewController *toLocation = [[SPGooglePlacesAutocompleteViewController alloc]init];
+        toLocation.isDepartureLecation=false;
+        toLocation.tripToRegister=self.tripToRegister;
+        [self.navigationController pushViewController:toLocation animated:false];
+    }
+    else{
+        SPGooglePlacesAutocompletePlace *place = [self placeAtIndexPath:indexPath];
+        self.tripToRegister.toLocation=place.name;
+    }
+    
+  /*  [place resolveToPlacemark:^(CLPlacemark *placemark, NSString *addressString, NSError *error) {
         if (error) {
             SPPresentAlertViewWithErrorAndTitle(error, @"Could not map selected Place");
         } else if (placemark) {
@@ -102,7 +119,7 @@
             [self dismissSearchControllerWhileStayingActive];
             [self.searchDisplayController.searchResultsTableView deselectRowAtIndexPath:indexPath animated:NO];
         }
-    }];
+    }];*/
 }
 
 #pragma mark -

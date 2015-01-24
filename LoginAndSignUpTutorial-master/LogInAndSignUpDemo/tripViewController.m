@@ -17,14 +17,30 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     return self;
 }
+-(void)viewWillAppear:(BOOL)animated{
+    if(self.isDepartureDate){
+        self.titleLabel.text = @"Pick your departure date";
+        self.nextLabel.text = @"Next";
+    }
+    else{
+        self.titleLabel.text = @"Pick your arrival date";
+        self.nextLabel.text= @"Pick departure city";
+    }
+}
 - (IBAction)nextButton:(id)sender {
     if(self.isDepartureDate){
     tripViewController *newTrip = [[tripViewController alloc] init];
+        self.tripToRegister.departureDate=self.tripDate.date;
+        newTrip.tripToRegister = self.tripToRegister;
         newTrip.isDepartureDate=false;
-        [self.navigationController pushViewController:newTrip animated:false];}
+        [self.navigationController pushViewController:newTrip animated:false];
+    }
+    else{
     SPGooglePlacesAutocompleteViewController * search = [[SPGooglePlacesAutocompleteViewController alloc] init];
-    self.navigationController.navigationBar.hidden=YES;
-    [self.navigationController pushViewController:search animated:false];
+        self.navigationController.navigationBar.hidden=YES;
+        self.tripToRegister.arrivalDate=self.tripDate.date;
+        [self.navigationController pushViewController:search animated:false];
+    }
 
 
 
@@ -40,9 +56,7 @@
     NSLog(@" Here is the count %d",[cityList count]);
     
     NSLog([cityList description]);*/
-   self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                            action:@selector(didTapAnywhere:)]
-    ;}
+   }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];

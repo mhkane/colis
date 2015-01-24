@@ -7,6 +7,7 @@
 //
 
 #import <MapKit/MapKit.h>
+#import "APTrip.h"
 
 @class SPGooglePlacesAutocompleteQuery;
 
@@ -16,6 +17,6 @@
     BOOL shouldBeginEditing;
 }
 @property BOOL isDepartureLecation;
-
+@property APTrip *tripToRegister;
 
 @end

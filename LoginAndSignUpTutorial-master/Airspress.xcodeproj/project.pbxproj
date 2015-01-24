@@ -81,6 +81,7 @@
 		38C445B31A4A71CE0074A741 /* homescreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C445B21A4A71CE0074A741 /* homescreen.png */; };
 		38C445B81A4A794C0074A741 /* air6.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C445B71A4A794C0074A741 /* air6.png */; };
 		38C445BA1A4A7CD30074A741 /* shopping2.png in Resources */ = {isa = PBXBuildFile; fileRef = 38C445B91A4A7CD30074A741 /* shopping2.png */; };
+		38CFD6EF1A745F7E002516C3 /* APTrip.m in Sources */ = {isa = PBXBuildFile; fileRef = 38CFD6EE1A745F7E002516C3 /* APTrip.m */; };
 		38F34AED1A676C3900548329 /* SPGooglePlacesAutocompletePlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F34AE61A676C3900548329 /* SPGooglePlacesAutocompletePlace.m */; };
 		38F34AEE1A676C3900548329 /* SPGooglePlacesAutocompleteQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F34AE81A676C3900548329 /* SPGooglePlacesAutocompleteQuery.m */; };
 		38F34AEF1A676C3900548329 /* SPGooglePlacesAutocompleteUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F34AEA1A676C3900548329 /* SPGooglePlacesAutocompleteUtilities.m */; };
@@ -222,6 +223,8 @@
 		38C445B21A4A71CE0074A741 /* homescreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = homescreen.png; sourceTree = "<group>"; };
 		38C445B71A4A794C0074A741 /* air6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = air6.png; sourceTree = "<group>"; };
 		38C445B91A4A7CD30074A741 /* shopping2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shopping2.png; sourceTree = "<group>"; };
+		38CFD6ED1A745F7E002516C3 /* APTrip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APTrip.h; sourceTree = "<group>"; };
+		38CFD6EE1A745F7E002516C3 /* APTrip.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APTrip.m; sourceTree = "<group>"; };
 		38F34AE51A676C3900548329 /* SPGooglePlacesAutocompletePlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesAutocompletePlace.h; sourceTree = "<group>"; };
 		38F34AE61A676C3900548329 /* SPGooglePlacesAutocompletePlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGooglePlacesAutocompletePlace.m; sourceTree = "<group>"; };
 		38F34AE71A676C3900548329 /* SPGooglePlacesAutocompleteQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesAutocompleteQuery.h; sourceTree = "<group>"; };
@@ -378,6 +381,8 @@
 				3802070B1A280C300087CF76 /* tripViewController.xib */,
 				38F34AF11A677A6500548329 /* SPGooglePlacesAutocompleteViewController.h */,
 				38F34AF21A677A6500548329 /* SPGooglePlacesAutocompleteViewController.m */,
+				38CFD6ED1A745F7E002516C3 /* APTrip.h */,
+				38CFD6EE1A745F7E002516C3 /* APTrip.m */,
 				38F34AF31A677A6500548329 /* SPGooglePlacesAutocompleteViewController.xib */,
 				38F34AE51A676C3900548329 /* SPGooglePlacesAutocompletePlace.h */,
 				38F34AE61A676C3900548329 /* SPGooglePlacesAutocompletePlace.m */,
@@ -770,6 +775,7 @@
 				3856D7C01A6AEFF200F01F1D /* AirspressTripDetailViewController.m in Sources */,
 				74366EF4158AF2D300A17D8A /* PropertyConfigViewController.m in Sources */,
 				389D59781A4B53EA00E26258 /* AirspressTabBarController.m in Sources */,
+				38CFD6EF1A745F7E002516C3 /* APTrip.m in Sources */,
 				383F04C91A52010600DC8267 /* EditProfileViewController.m in Sources */,
 				38F34AF01A676C3900548329 /* SPGooglePlacesPlaceDetailQuery.m in Sources */,
 				389CCB441A4A645F00378D36 /* AirspressLoginViewController.m in Sources */,
