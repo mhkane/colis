@@ -58,6 +58,8 @@
         tripViewController *newTrip = [[tripViewController alloc] init];
         //Very important note : Due to this choice, all the views will be embedded in a Navigation Controller.
         UINavigationController *nav = self.selectedViewController;
+        newTrip.isDepartureDate=true;
+        newTrip.navigationItem.title=@"Pick your departure date";
         [nav pushViewController:newTrip animated:YES];
         NSLog(@"%@",[newTrip description]);
         

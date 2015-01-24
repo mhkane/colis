@@ -17,11 +17,20 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     return self;
 }
-- (IBAction)tapSomewhere:(id)sender {
-    [self.toTextField resignFirstResponder];
-    [self.fromTextField resignFirstResponder];
-}
+- (IBAction)nextButton:(id)sender {
+    if(self.isDepartureDate){
+    tripViewController *newTrip = [[tripViewController alloc] init];
+        newTrip.isDepartureDate=false;
+        [self.navigationController pushViewController:newTrip animated:false];}
+    SPGooglePlacesAutocompleteViewController * search = [[SPGooglePlacesAutocompleteViewController alloc] init];
+    self.navigationController.navigationBar.hidden=YES;
+    [self.navigationController pushViewController:search animated:false];
 
+
+
+   
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -32,66 +41,9 @@
     
     NSLog([cityList description]);*/
    self.tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                            action:@selector(didTapAnywhere:)];
-    self.toTextField.delegate =self;
-    self.fromTextField.delegate=self;
-}
-- (IBAction)registerTrip:(id)sender {
-    PFObject *trip = [PFObject objectWithClassName:@"trip"];
-    [trip setObject:self.fromTextField.text forKey:@"fromLocation"];
-    [trip setObject:self.toTextField.text forKey:@"toLocation"];
-    [trip setObject:self.tripDate.date forKey:@"departureDate"];
-    [trip setObject:[PFUser currentUser] forKey:@"traveler"];
-    NSDateFormatter *df2 = [[NSDateFormatter alloc] init];
-    [df2 setDateFormat:@"EEE,d MMM yyyy"];
-    NSString *dateString = [df2 stringFromDate:self.tripDate.date];
-    NSString *flightString = [NSString stringWithFormat:@"Traveling from %@ to %@ on %@",self.fromTextField.text,self.toTextField.text,dateString];
-    [trip setObject:flightString forKey:@"text"];
-    [trip saveInBackground];
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Flight registered"
-                                                    message:@"Your flight have been registered" delegate:self cancelButtonTitle:@"Dismiss" otherButtonTitles: nil];
-    [alert show];
-                          
-}
-- (IBAction)Next:(id)sender {
-    [self.navigationController pushViewController:[[SPGooglePlacesAutocompleteViewController alloc] init] animated:YES];
-  
-}
-- (NSArray *)locationsFromJSONFile:(NSURL *)url {
-    // Create a NSURLRequest with the given URL
-    NSURLRequest *request = [NSURLRequest requestWithURL:url
-                                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                         timeoutInterval:30.0];
-    
-    // Get the data
-    NSURLResponse *response;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:nil];
-    
-    // Now create a NSDictionary from the JSON data
-    
-    NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    NSArray *jsonList =[NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-    NSMutableSet *city = [[NSMutableSet alloc] init];
-    for(NSDictionary *cityDict in jsonList) {
-        [city addObject:[cityDict objectForKey:@"city"]];
-    }
-    NSLog([city description]);
-    NSDictionary *dict = [jsonList objectAtIndex:4];
-    NSLog([dict description]);
-    NSLog(@" Here is the count for list %d",[jsonList count]);
-    
-    // Create a new array to hold the locations
-    NSMutableArray *locations = [[NSMutableArray alloc] init];
-    
-    // Get an array of dictionaries with the key "locations"
-    //NSArray *array = [jsonDictionary objectForKey:@"city"];
-    // Return the array of Location objects
-    return locations;
-}
--(void)didTapAnywhere: (UITapGestureRecognizer*) recognizer {
-    [self.toTextField resignFirstResponder];
-    [self.fromTextField resignFirstResponder];
-}
+                                                            action:@selector(didTapAnywhere:)]
+    ;}
+
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
     return YES;

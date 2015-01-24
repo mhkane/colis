@@ -15,6 +15,7 @@
 		381B15DF1A69B4F300BD678C /* AirspressTravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 381B15DD1A69B4F300BD678C /* AirspressTravelCell.m */; };
 		382FFBD61A72EF2F00765B76 /* APLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 382FFBD41A72EF2F00765B76 /* APLoginViewController.m */; };
 		382FFBDB1A730B1D00765B76 /* OrderButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 382FFBDA1A730B1D00765B76 /* OrderButton.png */; };
+		382FFBDF1A731D9400765B76 /* nextButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 382FFBDE1A731D9400765B76 /* nextButton.png */; };
 		383F04C91A52010600DC8267 /* EditProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383F04C71A52010600DC8267 /* EditProfileViewController.m */; };
 		383F04CA1A52010600DC8267 /* EditProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 383F04C81A52010600DC8267 /* EditProfileViewController.xib */; };
 		383F04D31A5B0E1000DC8267 /* AirspressProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383F04D11A5B0E1000DC8267 /* AirspressProfileViewController.m */; };
@@ -142,6 +143,7 @@
 		382FFBD31A72EF2F00765B76 /* APLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APLoginViewController.h; sourceTree = "<group>"; };
 		382FFBD41A72EF2F00765B76 /* APLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APLoginViewController.m; sourceTree = "<group>"; };
 		382FFBDA1A730B1D00765B76 /* OrderButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OrderButton.png; sourceTree = "<group>"; };
+		382FFBDE1A731D9400765B76 /* nextButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nextButton.png; sourceTree = "<group>"; };
 		383F04C61A52010600DC8267 /* EditProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditProfileViewController.h; sourceTree = "<group>"; };
 		383F04C71A52010600DC8267 /* EditProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditProfileViewController.m; sourceTree = "<group>"; };
 		383F04C81A52010600DC8267 /* EditProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditProfileViewController.xib; sourceTree = "<group>"; };
@@ -507,6 +509,7 @@
 		74366EAC158AAE1000A17D8A /* Airspress */ = {
 			isa = PBXGroup;
 			children = (
+				382FFBDE1A731D9400765B76 /* nextButton.png */,
 				382FFBDA1A730B1D00765B76 /* OrderButton.png */,
 				38FDC06E1A70C7A5007AB782 /* RegisterTrip */,
 				38FDC06D1A70C797007AB782 /* Order */,
@@ -664,6 +667,7 @@
 				3872FF3D1A6F4BD200CEEDA8 /* suits.png in Resources */,
 				3856D7C11A6AEFF200F01F1D /* AirspressTripDetailCell.xib in Resources */,
 				389D59751A4B522000E26258 /* add139.png in Resources */,
+				382FFBDF1A731D9400765B76 /* nextButton.png in Resources */,
 				3856D7C71A6B00DD00F01F1D /* takeoff.jpg in Resources */,
 				3872FF411A6F6E7800CEEDA8 /* logo.png in Resources */,
 				38C0C2741A64E5F100132AF1 /* button-back@2x.png in Resources */,

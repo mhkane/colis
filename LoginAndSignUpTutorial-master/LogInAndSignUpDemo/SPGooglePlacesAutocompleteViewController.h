@@ -13,9 +13,9 @@
 @interface SPGooglePlacesAutocompleteViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate> {
     NSArray *searchResultPlaces;
     SPGooglePlacesAutocompleteQuery *searchQuery;
-    
     BOOL shouldBeginEditing;
 }
+@property BOOL isDepartureLecation;
 
 
 @end
