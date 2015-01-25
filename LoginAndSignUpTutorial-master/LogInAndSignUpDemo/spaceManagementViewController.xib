@@ -2,13 +2,11 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6254"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="spaceManagementViewController">
             <connections>
-                <outlet property="registerTrip" destination="f8r-t6-1aN" id="p1e-sQ-fxA"/>
-                <outlet property="spaceForm" destination="eBC-oP-LwF" id="ZD0-N7-7IW"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -17,27 +15,21 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view alpha="0.69999999999999973" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a9d-Xv-Kmq">
-                    <rect key="frame" x="124" y="121" width="353" height="357"/>
-                    <subviews>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="eBC-oP-LwF">
-                            <rect key="frame" x="0.0" y="0.0" width="353" height="357"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </tableView>
-                    </subviews>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TSH-B3-eTg">
+                    <rect key="frame" x="168" y="177" width="265" height="246"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="265" id="XfL-gB-fmb"/>
+                        <constraint firstAttribute="height" constant="246" id="gt3-a6-vw9"/>
+                    </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f8r-t6-1aN">
-                    <rect key="frame" x="188" y="499" width="224" height="38"/>
-                    <state key="normal" backgroundImage="registerTrip">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                </button>
             </subviews>
             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="centerY" secondItem="TSH-B3-eTg" secondAttribute="centerY" id="48U-gY-SWG"/>
+                <constraint firstAttribute="centerX" secondItem="TSH-B3-eTg" secondAttribute="centerX" constant="-0.5" id="Oaz-Vu-HVh"/>
+            </constraints>
+            <point key="canvasLocation" x="63" y="154"/>
         </view>
     </objects>
-    <resources>
-        <image name="registerTrip" width="592" height="76"/>
-    </resources>
 </document>

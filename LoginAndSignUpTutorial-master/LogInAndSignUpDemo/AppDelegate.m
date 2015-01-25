@@ -20,6 +20,7 @@
 #import "AirspressTripDetailViewController.h"
 #import "APLoginViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "spaceManagementViewController.h"
 
 @implementation AppDelegate
 
@@ -59,9 +60,10 @@
     AirspressTripDetailViewController *cont = [[AirspressTripDetailViewController alloc] init];
     APLoginViewController *l = [[APLoginViewController alloc] initWithNibName:@"APLoginViewController" bundle:[NSBundle mainBundle]];
     AirspressLoginViewController *login2 = [[AirspressLoginViewController alloc]init];
+    spaceManagementViewController *r = [[spaceManagementViewController alloc] init];
     login2.fields = PFLogInFieldsUsernameAndPassword| PFLogInFieldsFacebook | PFLogInFieldsSignUpButton ;
     l.fields =PFLogInFieldsUsernameAndPassword| PFLogInFieldsFacebook | PFLogInFieldsSignUpButton | PFLogInFieldsLogInButton ;
-    self.window.rootViewController = l;
+    self.window.rootViewController = r;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
