@@ -108,6 +108,9 @@
     else{
         SPGooglePlacesAutocompletePlace *place = [self placeAtIndexPath:indexPath];
         self.tripToRegister.toLocation=place.name;
+        spaceManagementViewController *spaceInfo = [[spaceManagementViewController alloc] init];
+        [self.navigationController pushViewController:spaceInfo animated:false];
+        
     }
     
   /*  [place resolveToPlacemark:^(CLPlacemark *placemark, NSString *addressString, NSError *error) {

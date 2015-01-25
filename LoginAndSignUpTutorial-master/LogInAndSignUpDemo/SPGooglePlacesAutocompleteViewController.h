@@ -8,7 +8,7 @@
 
 #import <MapKit/MapKit.h>
 #import "APTrip.h"
-
+#import "spaceManagementViewController.h"
 @class SPGooglePlacesAutocompleteQuery;
 
 @interface SPGooglePlacesAutocompleteViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, UISearchBarDelegate> {
