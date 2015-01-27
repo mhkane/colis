@@ -13,8 +13,8 @@
 @property NSString *toLocation;
 @property NSDate *departureDate;
 @property NSDate *arrivalDate;
-@property int availCapacity;
-@property int totalCapacity;
-@property int unitPriceUsd;
+@property double availCapacity;
+@property double totalCapacity;
+@property double unitPriceUsd;
 
 @end

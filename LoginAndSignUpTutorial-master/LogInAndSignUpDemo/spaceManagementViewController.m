@@ -7,6 +7,15 @@
 //
 
 #import "spaceManagementViewController.h"
+static NSString *const tripKey = @"trip";
+static NSString *const fromLocationKey = @"fromLocation";
+static NSString *const toLocationKey =@"toLocation";
+static NSString *const departureDateKey=@"departureDate";
+static NSString *const travelerKey = @"traveler";
+static NSString *const arrivalDateKey = @"arrivalDate";
+static NSString *const totalCapacityKey= @"totalCapacity";
+static NSString *const availCapacityKey = @"availCapacity";
+static NSString *const unitPriceKey = @"unitPriceUsd";
 
 @interface spaceManagementViewController ()
 
@@ -53,6 +62,46 @@
 }
 - (IBAction)plusPrice:(id)sender {
     self.pricePerUnit+=1;
+}
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    NSNumber *textNumber = [formatter numberFromString:textField.text];
+    if(textNumber.doubleValue>=0.0){
+        NSLog(@"Good");
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Wrong input format" message:@"Please, make sure that the values your enter are positive" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+        [alert show];
+    }
+    
+}
+- (IBAction)registerTrip:(id)sender {
+    NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+    double totalSpace = [formatter numberFromString:self.totalSpaceField.text].doubleValue;
+    double availableSpace = [formatter numberFromString:self.availableSpaceField.text].doubleValue;
+    double pricePerUnit = [formatter numberFromString:self.priceField.text].doubleValue;
+    bool cond1 = totalSpace>=0.0;
+    bool cond2 = availableSpace>=0.0;
+    bool cond3 = pricePerUnit>=0.0;
+    if(cond1&cond2&cond3){
+        PFObject *tripObject = [PFObject objectWithClassName:tripKey];
+        [tripObject setValue:self.tripToRegister.fromLocation forKey:fromLocationKey];
+        [tripObject setValue:self.tripToRegister.toLocation forKey:toLocationKey];
+        [tripObject setValue:self.tripToRegister.departureDate forKey:departureDateKey];
+        [tripObject setValue:[PFUser currentUser] forKey:travelerKey];
+        [tripObject setValue:self.tripToRegister.arrivalDate forKey:arrivalDateKey];
+        [tripObject setValue:[NSNumber numberWithDouble:availableSpace] forKey:availCapacityKey];
+        [tripObject setValue:[NSNumber numberWithDouble:totalSpace] forKey:totalCapacityKey];
+        [tripObject setValue:[NSNumber numberWithDouble:pricePerUnit] forKey:unitPriceKey];
+        [tripObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Trip Registered" message:@"Congratulations, your flight information have been registered" delegate:self cancelButtonTitle:@"Cool" otherButtonTitles: nil];
+            [alert show];
+        }];
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Wrong input format" message:@"Please, make sure that the values your enter are positive" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+        [alert show];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

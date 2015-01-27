@@ -10,7 +10,7 @@
 #import "FormTableViewCell.h"
 #import "APTrip.h"
 
-@interface spaceManagementViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@interface spaceManagementViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *header;
 
