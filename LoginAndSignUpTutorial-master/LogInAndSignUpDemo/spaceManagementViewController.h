@@ -11,8 +11,16 @@
 #import "APTrip.h"
 
 @interface spaceManagementViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
-@property (weak, nonatomic) IBOutlet UITableView *spaceForm;
-@property (weak, nonatomic) IBOutlet UIButton *registerTrip;
+
+@property (weak, nonatomic) IBOutlet UILabel *header;
+
+@property (weak, nonatomic) IBOutlet UITextField *totalSpaceField;
+@property (weak, nonatomic) IBOutlet UITextField *priceField;
+@property (weak, nonatomic) IBOutlet UITextField *availableSpaceField;
 @property APTrip *tripToRegister;
+@property int totalSpace;
+@property int availableSpace;
+@property int pricePerUnit;
+
 
 @end

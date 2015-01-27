@@ -18,6 +18,41 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    [self.totalSpaceField setText:[NSString stringWithFormat:@"%d",self.totalSpace]];
+    [self.availableSpaceField setText:[NSString stringWithFormat:@"%d",self.availableSpace]];
+    [self.priceField setText:[NSString stringWithFormat:@"%d",self.pricePerUnit]];
+    [self addObserver:self forKeyPath:@"totalSpace" options:NSKeyValueObservingOptionNew context:nil];
+    
+    [self.totalSpaceField addObserver:self forKeyPath:@"totalSpace" options:NSKeyValueObservingOptionNew context:nil];
+   
+}
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    NSLog(@"changed");
+}
+     
+- (IBAction)minusTotalSpace:(id)sender {
+    if(self.totalSpace>0){
+        self.totalSpace-=1;
+    }
+}
+- (IBAction)plusTotalSpace:(id)sender {
+    self.totalSpace+=1;
+}
+- (IBAction)minusAvailableSpace:(id)sender {
+    if(self.availableSpace>0){
+        self.availableSpace-=1;
+    }
+}
+- (IBAction)plusAvailableSpace:(id)sender {
+    self.availableSpace+=1;
+}
+- (IBAction)minusPrice:(id)sender {
+    if(self.pricePerUnit>0){
+        self.pricePerUnit-=1;
+    }
+}
+- (IBAction)plusPrice:(id)sender {
+    self.pricePerUnit+=1;
 }
 
 - (void)didReceiveMemoryWarning {
