@@ -9,14 +9,42 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LogInAndSignUpDemo/spaceManagementViewController.m"
-            timestampString = "444027229.460199"
+            filePath = "LogInAndSignUpDemo/spaceManagementViewController.h"
+            timestampString = "444099961.268359"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
-            landmarkName = "-viewDidLoad"
-            landmarkType = "5">
+            startingLineNumber = "10"
+            endingLineNumber = "10">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[spaceManagementViewController header]"
+                  moduleName = "Airspress"
+                  urlString = "file:///Users/mohamedkane/Downloads/colis/LoginAndSignUpTutorial-master/LogInAndSignUpDemo/spaceManagementViewController.h"
+                  timestampString = "444099961.677732"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[spaceManagementViewController setHeader:]"
+                  moduleName = "Airspress"
+                  urlString = "file:///Users/mohamedkane/Downloads/colis/LoginAndSignUpTutorial-master/LogInAndSignUpDemo/spaceManagementViewController.h"
+                  timestampString = "444099961.678032"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "14"
+                  endingLineNumber = "14"
+                  offsetFromSymbolStart = "31">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

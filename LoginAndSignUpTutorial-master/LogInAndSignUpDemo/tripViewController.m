@@ -15,6 +15,7 @@
 @implementation tripViewController
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    
     return self;
 }
 -(void)viewWillAppear:(BOOL)animated{
@@ -38,7 +39,9 @@
     else{
     SPGooglePlacesAutocompleteViewController * search = [[SPGooglePlacesAutocompleteViewController alloc] init];
         self.navigationController.navigationBar.hidden=YES;
+        search.isDepartureLecation=true;
         self.tripToRegister.arrivalDate=self.tripDate.date;
+        search.tripToRegister=self.tripToRegister;
         [self.navigationController pushViewController:search animated:false];
     }
 

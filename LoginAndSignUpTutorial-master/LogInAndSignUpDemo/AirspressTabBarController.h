@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "APTrip.h"
 
 @interface AirspressTabBarController : UITabBarController<UIActionSheetDelegate>
 

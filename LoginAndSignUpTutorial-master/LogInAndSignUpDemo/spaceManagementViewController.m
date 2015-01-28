@@ -16,7 +16,10 @@ static NSString *const arrivalDateKey = @"arrivalDate";
 static NSString *const totalCapacityKey= @"totalCapacity";
 static NSString *const availCapacityKey = @"availCapacity";
 static NSString *const unitPriceKey = @"unitPriceUsd";
-
+static NSString *const successTitle = @"Trip Registered";
+static NSString *const succcessMessage =@"Congratulations, your flight information have been registered";
+static NSString *const errorMessageTitle = @"Wrong input format";
+static NSString *const errorMessageContent = @"Please, make sure that the values your enter are positive" ;
 @interface spaceManagementViewController ()
 
 @end
@@ -25,18 +28,34 @@ static NSString *const unitPriceKey = @"unitPriceUsd";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.availableSpaceField setDelegate:self];
+    [self.totalSpaceField setDelegate:self];
+    [self.priceField setDelegate:self];
     // Do any additional setup after loading the view from its nib.
     
     [self.totalSpaceField setText:[NSString stringWithFormat:@"%d",self.totalSpace]];
     [self.availableSpaceField setText:[NSString stringWithFormat:@"%d",self.availableSpace]];
     [self.priceField setText:[NSString stringWithFormat:@"%d",self.pricePerUnit]];
     [self addObserver:self forKeyPath:@"totalSpace" options:NSKeyValueObservingOptionNew context:nil];
-    
-    [self.totalSpaceField addObserver:self forKeyPath:@"totalSpace" options:NSKeyValueObservingOptionNew context:nil];
+    [self addObserver:self forKeyPath:@"availableSpace" options:NSKeyValueObservingOptionNew context:nil];
+    [self addObserver:self forKeyPath:@"pricePerUnit" options:NSKeyValueObservingOptionNew context:nil];
+
    
 }
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
-    NSLog(@"changed");
+    [self.totalSpaceField setText:[NSString stringWithFormat:@"%d",self.totalSpace]];
+    [self.availableSpaceField setText:[NSString stringWithFormat:@"%d",self.availableSpace]];
+    [self.priceField setText:[NSString stringWithFormat:@"%d",self.pricePerUnit]];
+}
+- (IBAction)tapSomewhere:(id)sender {
+    [self.totalSpaceField resignFirstResponder];
+    [self.availableSpaceField resignFirstResponder];
+    [self.priceField resignFirstResponder];
+    
+}
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
 }
      
 - (IBAction)minusTotalSpace:(id)sender {
@@ -70,7 +89,7 @@ static NSString *const unitPriceKey = @"unitPriceUsd";
         NSLog(@"Good");
     }
     else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Wrong input format" message:@"Please, make sure that the values your enter are positive" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:errorMessageTitle message:errorMessageContent delegate:self cancelButtonTitle:@"Okay" otherButtonTitles: nil];
         [alert show];
     }
     
@@ -78,67 +97,46 @@ static NSString *const unitPriceKey = @"unitPriceUsd";
 - (IBAction)registerTrip:(id)sender {
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     double totalSpace = [formatter numberFromString:self.totalSpaceField.text].doubleValue;
+    NSLog([NSString stringWithFormat:@" total Space : %f",totalSpace]);
     double availableSpace = [formatter numberFromString:self.availableSpaceField.text].doubleValue;
+    NSLog([NSString stringWithFormat:@" available Space : %f",availableSpace]);
     double pricePerUnit = [formatter numberFromString:self.priceField.text].doubleValue;
+    NSLog([NSString stringWithFormat:@" Price : %f",pricePerUnit]);
+    
     bool cond1 = totalSpace>=0.0;
     bool cond2 = availableSpace>=0.0;
     bool cond3 = pricePerUnit>=0.0;
     if(cond1&cond2&cond3){
         PFObject *tripObject = [PFObject objectWithClassName:tripKey];
+        NSLog([NSString stringWithFormat:@"from :%@",self.tripToRegister.fromLocation]);
         [tripObject setValue:self.tripToRegister.fromLocation forKey:fromLocationKey];
         [tripObject setValue:self.tripToRegister.toLocation forKey:toLocationKey];
-        [tripObject setValue:self.tripToRegister.departureDate forKey:departureDateKey];
-        [tripObject setValue:[PFUser currentUser] forKey:travelerKey];
+          NSLog([NSString stringWithFormat:@"to :%@",self.tripToRegister.toLocation]);
+       [tripObject setValue:self.tripToRegister.departureDate forKey:departureDateKey];
+        NSLog([NSString stringWithFormat:@"Departure :%@",self.tripToRegister.departureDate]);
+       [tripObject setValue:[PFUser currentUser] forKey:travelerKey];
+        NSLog([NSString stringWithFormat:@"user :%@",[PFUser currentUser]]);
         [tripObject setValue:self.tripToRegister.arrivalDate forKey:arrivalDateKey];
+              NSLog([NSString stringWithFormat:@"arrival :%@",self.tripToRegister.arrivalDate]);
         [tripObject setValue:[NSNumber numberWithDouble:availableSpace] forKey:availCapacityKey];
         [tripObject setValue:[NSNumber numberWithDouble:totalSpace] forKey:totalCapacityKey];
         [tripObject setValue:[NSNumber numberWithDouble:pricePerUnit] forKey:unitPriceKey];
         [tripObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Trip Registered" message:@"Congratulations, your flight information have been registered" delegate:self cancelButtonTitle:@"Cool" otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:successTitle message:succcessMessage delegate:self cancelButtonTitle:@"Home" otherButtonTitles: nil];
             [alert show];
         }];
     }
     else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Wrong input format" message:@"Please, make sure that the values your enter are positive" delegate:self cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:errorMessageTitle message:errorMessageContent delegate:self cancelButtonTitle:@"Okay" otherButtonTitles: nil];
         [alert show];
-    }
-}
+    }}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *CellIdentifier = @"FormTableViewCell";
-    
-    FormTableViewCell *cell = (FormTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil)
-    {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:CellIdentifier owner:self options:nil];
-        cell = [nib objectAtIndex:0];
-    }
-    switch (indexPath.row) {
-        case 0:
-            cell.titleLabel.text=@"Total Capacity (in Kg)";
-            break;
-        case 1:
-            cell.titleLabel.text=@"Available Capacity (in Kg)";
-        case 2:
-            cell.titleLabel.text= @"Price per Kg";
-            break;
-        default:
-            break;
-    }
-    return cell;
-}
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
-}
 
 /*
 #pragma mark - Navigation

@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FormTableViewCell.h"
 #import "APTrip.h"
 
-@interface spaceManagementViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UIAlertViewDelegate>
+@interface spaceManagementViewController : UIViewController<UITextFieldDelegate,UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *header;
 
@@ -21,6 +20,7 @@
 @property int totalSpace;
 @property int availableSpace;
 @property int pricePerUnit;
+@property (weak, nonatomic) IBOutlet UIView *insideView;
 
 
 @end

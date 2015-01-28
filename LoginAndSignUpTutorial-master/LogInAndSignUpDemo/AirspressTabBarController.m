@@ -56,6 +56,8 @@
     if (buttonIndex == 0) {
         NSLog(@"%@",[self.navController description]);
         tripViewController *newTrip = [[tripViewController alloc] init];
+        APTrip *trip = [[APTrip alloc] init];
+        newTrip.tripToRegister=trip;
         //Very important note : Due to this choice, all the views will be embedded in a Navigation Controller.
         UINavigationController *nav = self.selectedViewController;
         newTrip.isDepartureDate=true;

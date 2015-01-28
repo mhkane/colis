@@ -9,6 +9,7 @@
 #import "SPGooglePlacesAutocompleteViewController.h"
 #import "SPGooglePlacesAutocompleteQuery.h"
 #import "SPGooglePlacesAutocompletePlace.h"
+#import "spaceManagementViewController.h"
 
 @interface SPGooglePlacesAutocompleteViewController ()
 
@@ -100,15 +101,15 @@
     if(self.isDepartureLecation){
     SPGooglePlacesAutocompletePlace *place = [self placeAtIndexPath:indexPath];
         self.tripToRegister.fromLocation = place.name;
-        SPGooglePlacesAutocompleteViewController *toLocation = [[SPGooglePlacesAutocompleteViewController alloc]init];
-        toLocation.isDepartureLecation=false;
-        toLocation.tripToRegister=self.tripToRegister;
-        [self.navigationController pushViewController:toLocation animated:false];
+        self.searchDisplayController.searchBar.text=@"";
+        self.searchDisplayController.searchBar.placeholder = @"Enter arrival city";
+        self.isDepartureLecation=false;
     }
     else{
         SPGooglePlacesAutocompletePlace *place = [self placeAtIndexPath:indexPath];
         self.tripToRegister.toLocation=place.name;
         spaceManagementViewController *spaceInfo = [[spaceManagementViewController alloc] init];
+        spaceInfo.tripToRegister = self.tripToRegister;
         [self.navigationController pushViewController:spaceInfo animated:false];
         
     }
@@ -158,7 +159,10 @@
         [self.searchDisplayController setActive:NO];
     }
 }
-
+-(void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+    [self.searchDisplayController.searchBar setShowsCancelButton:NO animated:YES];
+    
+}
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar {
     if (shouldBeginEditing) {
         // Animate in the table view.

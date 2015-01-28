@@ -63,7 +63,7 @@
     spaceManagementViewController *r = [[spaceManagementViewController alloc] init];
     login2.fields = PFLogInFieldsUsernameAndPassword| PFLogInFieldsFacebook | PFLogInFieldsSignUpButton ;
     l.fields =PFLogInFieldsUsernameAndPassword| PFLogInFieldsFacebook | PFLogInFieldsSignUpButton | PFLogInFieldsLogInButton ;
-    self.window.rootViewController = r;
+    self.window.rootViewController = l;
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
