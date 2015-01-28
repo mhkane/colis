@@ -120,10 +120,19 @@ static NSString *const errorMessageContent = @"Please, make sure that the values
               NSLog([NSString stringWithFormat:@"arrival :%@",self.tripToRegister.arrivalDate]);
         [tripObject setValue:[NSNumber numberWithDouble:availableSpace] forKey:availCapacityKey];
         [tripObject setValue:[NSNumber numberWithDouble:totalSpace] forKey:totalCapacityKey];
-        [tripObject setValue:[NSNumber numberWithDouble:pricePerUnit] forKey:unitPriceKey];
+        [tripObject setValue:[NSString stringWithFormat:@"%f",pricePerUnit]forKey:unitPriceKey];
         [tripObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:successTitle message:succcessMessage delegate:self cancelButtonTitle:@"Home" otherButtonTitles: nil];
-            [alert show];
+            if(succeeded){
+                [self removeObserver:self forKeyPath:@"totalSpace"];
+                [self removeObserver:self forKeyPath:@"availableSpace"];
+                [self removeObserver:self forKeyPath:@"pricePerUnit"];
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:successTitle message:succcessMessage delegate:self cancelButtonTitle:@"Home" otherButtonTitles: nil];
+                [alert show];
+            }
+            else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:errorMessageTitle message:error.description delegate:self cancelButtonTitle:@"Okay" otherButtonTitles: nil];
+                [alert show];}
+            
         }];
     }
     else{
@@ -131,7 +140,12 @@ static NSString *const errorMessageContent = @"Please, make sure that the values
         [alert show];
     }}
 
-
+-(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    if([alertView.message isEqualToString:succcessMessage]){
+        [self.navigationController popToRootViewControllerAnimated:true];
+    }
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
