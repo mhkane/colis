@@ -12,6 +12,7 @@
 #import "AirspressTabBarController.h"
 #import "tripViewController.h"
 #import "deliveryRequestViewController.h"
+#import "APProfileTableViewController.h"
 
 @interface APLoginViewController ()
 
@@ -92,7 +93,7 @@
     deliveryRequestViewController *delivery = [[deliveryRequestViewController alloc]init];
     tripViewController *trip = [[tripViewController alloc] init];
     deliverersViewController *travelers = [[deliverersViewController alloc]init];
-    AirspressProfileViewController *profile = [[AirspressProfileViewController alloc] init];
+    APProfileTableViewController *profile = [[APProfileTableViewController alloc] init];
     [[travelers tabBarItem] setTitle:@"Travels"];
     [[travelers tabBarItem] setImage:[UIImage imageNamed:@"air6.png"]];
     [[profile tabBarItem] setTitle:@"Profile"];

@@ -87,6 +87,10 @@
 		38CFD6F81A746C6F002516C3 /* spaceManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38CFD6F61A746C6F002516C3 /* spaceManagementViewController.m */; };
 		38CFD6F91A746C6F002516C3 /* spaceManagementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38CFD6F71A746C6F002516C3 /* spaceManagementViewController.xib */; };
 		38CFD6FD1A746FC0002516C3 /* registerTrip.png in Resources */ = {isa = PBXBuildFile; fileRef = 38CFD6FC1A746FC0002516C3 /* registerTrip.png */; };
+		38EA487B1A7C9BC700D72715 /* APProfilePicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EA48791A7C9BC700D72715 /* APProfilePicTableViewCell.m */; };
+		38EA487C1A7C9BC700D72715 /* APProfilePicTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38EA487A1A7C9BC700D72715 /* APProfilePicTableViewCell.xib */; };
+		38EA48801A7C9E0100D72715 /* APProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EA487E1A7C9E0100D72715 /* APProfileTableViewController.m */; };
+		38EA48811A7C9E0100D72715 /* APProfileTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38EA487F1A7C9E0100D72715 /* APProfileTableViewController.xib */; };
 		38F34AED1A676C3900548329 /* SPGooglePlacesAutocompletePlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F34AE61A676C3900548329 /* SPGooglePlacesAutocompletePlace.m */; };
 		38F34AEE1A676C3900548329 /* SPGooglePlacesAutocompleteQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F34AE81A676C3900548329 /* SPGooglePlacesAutocompleteQuery.m */; };
 		38F34AEF1A676C3900548329 /* SPGooglePlacesAutocompleteUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F34AEA1A676C3900548329 /* SPGooglePlacesAutocompleteUtilities.m */; };
@@ -236,6 +240,12 @@
 		38CFD6F61A746C6F002516C3 /* spaceManagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spaceManagementViewController.m; sourceTree = "<group>"; };
 		38CFD6F71A746C6F002516C3 /* spaceManagementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = spaceManagementViewController.xib; sourceTree = "<group>"; };
 		38CFD6FC1A746FC0002516C3 /* registerTrip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerTrip.png; sourceTree = "<group>"; };
+		38EA48781A7C9BC700D72715 /* APProfilePicTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APProfilePicTableViewCell.h; sourceTree = "<group>"; };
+		38EA48791A7C9BC700D72715 /* APProfilePicTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APProfilePicTableViewCell.m; sourceTree = "<group>"; };
+		38EA487A1A7C9BC700D72715 /* APProfilePicTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = APProfilePicTableViewCell.xib; sourceTree = "<group>"; };
+		38EA487D1A7C9E0100D72715 /* APProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APProfileTableViewController.h; sourceTree = "<group>"; };
+		38EA487E1A7C9E0100D72715 /* APProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APProfileTableViewController.m; sourceTree = "<group>"; };
+		38EA487F1A7C9E0100D72715 /* APProfileTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = APProfileTableViewController.xib; sourceTree = "<group>"; };
 		38F34AE51A676C3900548329 /* SPGooglePlacesAutocompletePlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesAutocompletePlace.h; sourceTree = "<group>"; };
 		38F34AE61A676C3900548329 /* SPGooglePlacesAutocompletePlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGooglePlacesAutocompletePlace.m; sourceTree = "<group>"; };
 		38F34AE71A676C3900548329 /* SPGooglePlacesAutocompleteQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesAutocompleteQuery.h; sourceTree = "<group>"; };
@@ -418,6 +428,12 @@
 				383F04C61A52010600DC8267 /* EditProfileViewController.h */,
 				383F04C71A52010600DC8267 /* EditProfileViewController.m */,
 				383F04C81A52010600DC8267 /* EditProfileViewController.xib */,
+				38EA48781A7C9BC700D72715 /* APProfilePicTableViewCell.h */,
+				38EA48791A7C9BC700D72715 /* APProfilePicTableViewCell.m */,
+				38EA487A1A7C9BC700D72715 /* APProfilePicTableViewCell.xib */,
+				38EA487D1A7C9E0100D72715 /* APProfileTableViewController.h */,
+				38EA487E1A7C9E0100D72715 /* APProfileTableViewController.m */,
+				38EA487F1A7C9E0100D72715 /* APProfileTableViewController.xib */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -717,6 +733,7 @@
 				3854FEF81A2BAA7B0062A818 /* deliveryRequestViewController.xib in Resources */,
 				3872FF391A6F4B3000CEEDA8 /* suitcase6.png in Resources */,
 				383F04CA1A52010600DC8267 /* EditProfileViewController.xib in Resources */,
+				38EA48811A7C9E0100D72715 /* APProfileTableViewController.xib in Resources */,
 				38C0C2761A64E5F100132AF1 /* button-read-big@2x.png in Resources */,
 				38C445B81A4A794C0074A741 /* air6.png in Resources */,
 				3872FF3D1A6F4BD200CEEDA8 /* suits.png in Resources */,
@@ -749,6 +766,7 @@
 				747F008015951A58000F601E /* Twitter.png in Resources */,
 				389D597E1A4B912600E26258 /* user.png in Resources */,
 				38C0C27E1A64E5F100132AF1 /* icon-share@2x.png in Resources */,
+				38EA487C1A7C9BC700D72715 /* APProfilePicTableViewCell.xib in Resources */,
 				38CFD6F91A746C6F002516C3 /* spaceManagementViewController.xib in Resources */,
 				747F008115951A58000F601E /* TwitterDown.png in Resources */,
 				389D597A1A4B76D300E26258 /* user160.png in Resources */,
@@ -820,11 +838,13 @@
 				74366EB7158AAE1000A17D8A /* AppDelegate.m in Sources */,
 				38BF5FBC1A2B37C0000ABA60 /* orderViewController.m in Sources */,
 				382FFBD61A72EF2F00765B76 /* APLoginViewController.m in Sources */,
+				38EA487B1A7C9BC700D72715 /* APProfilePicTableViewCell.m in Sources */,
 				38C1D1121A6379670040083A /* JSQFlatButton.m in Sources */,
 				74366EE7158AC82C00A17D8A /* DefaultSettingsViewController.m in Sources */,
 				381B15DF1A69B4F300BD678C /* AirspressTravelCell.m in Sources */,
 				38F34AEF1A676C3900548329 /* SPGooglePlacesAutocompleteUtilities.m in Sources */,
 				38F34AED1A676C3900548329 /* SPGooglePlacesAutocompletePlace.m in Sources */,
+				38EA48801A7C9E0100D72715 /* APProfileTableViewController.m in Sources */,
 				3856D7C01A6AEFF200F01F1D /* AirspressTripDetailViewController.m in Sources */,
 				38CFD6F81A746C6F002516C3 /* spaceManagementViewController.m in Sources */,
 				74366EF4158AF2D300A17D8A /* PropertyConfigViewController.m in Sources */,
