@@ -31,9 +31,12 @@
     self.logInView.passwordField.borderStyle= UITextBorderStyleRoundedRect;
     self.logInView.usernameField.textColor=[UIColor grayColor];
     self.logInView.passwordField.textColor=[UIColor blackColor];
+    self.logInView.signUpButton.backgroundColor=nil;
+    [self.logInView.signUpButton setBackgroundImage:nil forState:UIControlStateHighlighted];
+    [self.logInView.signUpButton setBackgroundImage:nil forState:UIControlStateNormal];
+    NSLog(@"Current image:%@",self.logInView.signUpButton.currentImage);
+    NSLog(@"Background Image : %@",self.logInView.signUpButton.currentBackgroundImage);
     [self.logInView.signUpButton setImage:[UIImage imageNamed:@"signUp"] forState:UIControlStateNormal];
-    self.logInView.signUpButton.imageView.image=[UIImage imageNamed:@"signUp"];
-
 }
 
 - (void)didReceiveMemoryWarning {
