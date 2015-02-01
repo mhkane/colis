@@ -1,0 +1,56 @@
+{% extends "trips/account_base.html" %}
+<!-- We include base template for account related pages. And we fill the blocks -->
+{% block title %} Add a trip {% endblock title %}
+<!-- Stylesheets -->
+	{% block stylesheet %}
+		{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/editprofile.css' %}" /> 
+	{% endblock stylesheet %}
+<!-- We load the Autocomplete widget by setting onload attribute -->
+{% block onloader %}  {% endblock onloader %}
+<!-- 'greetings' is always the username of the logged-in user  -->
+	{% if greetings %}
+{% block username %} {{ username }} {% endblock username %}
+<!-- This block will contain everything that is not on the user sidebar: list of trips or trip details or other user profiles...etc -->
+{% block content %}
+<div class="row">
+<article class="db-content p-30">
+
+                                <header class="db-header">
+                                    <h1>Account Settings</h1>
+                                </header>
+                        
+                                <div class="profile-form js-profile-form">
+                                    
+                    <form accept-charset="UTF-8" action="/users/konoufo" class="edit_user"  id="edit_user_2161328" method="post"><div style="display:none"><input name="utf8" type="hidden" value="✓"><input name="_method" type="hidden" value="patch"><input name="authenticity_token" type="hidden" value="sCN4BaKeREBv5S8FywcNQFz6QxY/w4bcpBmkaQNQztg="></div>
+
+                        <input id="section" name="section" type="hidden" value="account_settings">
+
+                        <div class="form-errors hidden">
+                        </div>
+
+                        
+
+                            <div class="form-row">
+                                <div class="label-wrap"><label for="user_profile_attributes_name">FULL NAME</label></div>
+                                <div class="input-wrap"><input id="user_profile_attributes_name" name="user[profile_attributes][name]" type="text" value="Mohamed K. Coulibali"></div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="label-wrap"><label for="user_email">EMAIL</label></div>
+                                <div class="input-wrap"><input id="user_email" name="user[email]" type="text" value="konoufo@hotmail.fr"></div>
+                            </div>
+
+                                <div class="form-row">
+                                    <div class="label-wrap"><label for="paypal">PAYPAL</label></div>
+                                    <div class="input-wrap">
+                                        <p>Your profile is associated with a PayPal account.<br>To change it, <a class="change_paypal" href="/users/konoufo/paypal_change/change_email">click here</a>.</p>
+                                    </div>
+                                </div>
+
+<input id="user_profile_attributes_id" name="user[profile_attributes][id]" type="hidden" value="2383084">
+
+                        <div class="form-divi"></div>
+</div>
+{% endblock %}
+{% endif %}
