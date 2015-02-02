@@ -1,0 +1,65 @@
+  {% extends "trips/account_base.html" %}
+  {% block title %} Deal Page {% endblock title %}
+  
+  {% block content %}
+  
+  <h3> Make a deal</h3>
+  <div class="row">
+  <div class="col-lg-12"> 
+  <div class = "table-responsive">
+  <table class="table">
+  <thead>
+  <tr>
+	<th> Requester </th><th> Trip Info</th><th>Traveler</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+	<td> {{dealInfo.reqUser}} </td><td> Requested on: {{dealInfo.pubdate}} </td><td>{{dealInfo.traveler}} </td>
+  </tr>
+  <tr>
+	<td> {{dealInfo.reqEmail}} </td><td> Departure on: {{dealInfo.depDate}} </td><td>{{dealInfo.travelerEmail}} </td>
+  </tr>
+   <tr>
+	<td> </td><td> From: {{dealInfo.cityDep}} </td><td> </td>
+  </tr>
+     <tr>
+	<td> </td><td> To: {{dealInfo.cityArr}} </td><td> </td>
+  </tr>
+  <tr>
+	<td> </td><td> Shipment Weight: {{dealInfo.requestWeight}} Kg </td><td> </td>
+  </tr>
+  {% if not dealInfo.isdeliv %}
+  {% if not dealInfo.istraveler %}
+	{% if not dealInfo.ispayed %}
+		{% if not dealInfo.isaccepted %}
+			 <tr>
+			<td> </td><td> Status: <a class="btn btn-primary" href="{% url 'payment:paypal_create' rqkey %}">Not Accepted</a> </td><td> </td>
+		  </tr>
+		  {% else %}
+			 <tr>
+			<td> </td><td> Payment: <a class="btn btn-primary" href="{% url 'payment:paypal_create' rqkey %}">Pay with Paypal</a> </td><td> </td>
+		  </tr>
+			{% endif %}
+	{% else %}
+			 <tr>
+			<td> </td><td> Delivery: <a class="btn btn-primary btn-success" href="{% url 'delivery:confirmation' rqkey %}">Confirm Delivery</a> </td><td> </td>
+		  </tr>
+	{% endif %}
+	{% else %}
+			 <tr>
+			<td> </td><td> Status: <a class="btn btn-primary">Not Paid Yet</a> </td><td> </td>
+		  </tr>		
+	{% endif %}
+  {% else %}
+			 <tr>
+			<td> </td><td> <i class="fa fa-success"></i> <a class="alert-success" >Delivered !</a> </td><td> </td>
+		  </tr>		
+  
+  {% endif %}
+  </tbody>
+  </table>
+  </div>
+  </div>
+  </div>
+  {% endblock %}

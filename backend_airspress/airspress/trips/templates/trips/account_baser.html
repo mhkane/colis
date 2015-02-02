@@ -1,0 +1,167 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/font-awesome.min.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/bootstrap.min.css' %}" />
+	{% block stylesheet %} {% endblock stylesheet %}
+	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/datepicker3.css' %}" />
+	<title> {% block title %} Airspress - Home {% endblock %} </title>
+</head>
+<body {% block onloader %} {% endblock %}>
+    <nav class="navbar navbar-default navbar-static-top navbar-shrink">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <a class="navbar-brand" href="#page-top"><img src="{% static 'signup/img/mini-logo.png' %}" alt="AirSpress" title="Ship for Cheap"> </a>
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+			
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="hidden">
+                        <a href="#page-top"></a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="/trips/">Home</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#">Ressources</a>
+                    </li>
+				     <li class="page-scroll">
+                        <a href="#">FAQ</a>
+                    </li>
+                    <li class="page-scroll">
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container-fluid -->
+    </nav>
+  </div>		
+
+ <div id="wrapper" class="toggled">
+
+        <!-- Sidebar -->
+		<button class="mini-submenu" id="menu-open">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+        <div id="sidebar-wrapper" class="list-group">
+        <span href="#" class="list-group-item active">
+           <a class="sidebar-brand" href="#"> Hi, {% block username %} Anonymous {% endblock %}</a>
+            <a class="pull-right" href="#" id="menu-toggle">
+                <i class="fa fa-times"></i>
+            </a>
+        </span>
+            <ul class="sidebar-nav nav-pills nav-stacked" id="menu-bar">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        
+                    </a>
+                </li>
+                <li>
+                    <a href=" {% block linkProfile %} {% url 'account:profile' greetings %} {% endblock %} ">Profile</a>
+                </li>
+				
+				<li class="panel dropdown">
+							   <a data-toggle="collapse" data-parent="#menu-bar" href="#collapseOne">
+								  My Trips
+							   </a>
+					<ul id="collapseOne" class="panel-collapse collapse">
+						<li><a href="{% url 'account:myTrip' greetings %}">Added Trips</a></li>
+						<li><a href="{%  url 'account:otRequest' %}">Buyer Requests</a></li>
+					</ul>
+				</li>
+                <li>
+                    <a href="/account/mytrips/requested_trips/">Requested Trips</a>
+                </li>
+				<li> <a href="/account/mytrips/add">Add a trip</a> </li>
+                <li class='logout-btn'> 
+				   <a href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+	
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+			{% block content %}
+                <div class="row">
+				
+                    <div class="col-lg-12">
+                        <h1>Simple Sidebar</h1>
+                        <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
+                        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                    </div>
+                </div>
+			{% endblock %}
+            </div>
+			<hr class="prettyline">
+        </div>
+        <!-- /#page-content-wrapper -->
+    </div>
+		<!-- Modal --> <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
+
+					</div><!-- /.modal --> 
+	<footer> </footer>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAo_PT60oc_CGiUYJcI4gsYYa5UGZSBxp8&libraries=places&sensor=false"></script>
+
+	<script type="text/javascript" src="{% static 'signup/js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'signup/js/sidebar.js' %}"></script>
+	<script type="text/javascript" src="{% static 'signup/js/bootstrap-datepicker.js' %}"></script>
+	{% block jscript %} {% endblock jscript %}
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    $("#menu-open").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+	<script> $('.datepicker').datepicker({
+      format: 'mm-dd-yyyy',
+	  autoclose:true,
+	  orientation: 'top'
+    });
+	</script>
+	<script type="text/javascript" src="{% static 'signup/js/citySearch.js' %}"></script>
+	<script type="text/javascript" src="{% static 'signup/js/currencySel.js' %}"></script>
+
+	<script>
+	 $(document).ready(function(){
+  // $('#currency').on('change', updateCurrency);
+  $('body').on('click', '.modal-trigger', displayModal);
+  // $('body').on('click', '.deleter', deleteObject);
+   $('body').on('submit', '#modal-form', saveForm);
+ });
+ 
+ </script>
+
+</body>
+</html>

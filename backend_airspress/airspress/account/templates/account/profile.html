@@ -1,0 +1,88 @@
+{% extends "trips/account_base.html" %}
+<!-- We include base template for account related pages. And we fill the blocks -->
+{% block title %} Add a trip {% endblock title %}
+<!-- We load the Autocomplete widget by setting onload attribute -->
+{% block onloader %}  {% endblock onloader %}
+<!-- 'greetings' is always the username of the logged-in user  -->
+	{% if greetings %}
+{% block username %} {{ greetings }} {% endblock username %}
+<!-- This block will contain everything that is not on the user sidebar: list of trips or trip details or other user profiles...etc -->
+{% block content %}
+<div class="row">
+		<div class="col-lg-12">
+ <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">{{ username }}</h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+			  {% if pPicture %}
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="{{ pPicture }}" class="img-circle"> </div>
+                {% else %}
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="img-circle"> </div>
+				{% endif %}
+                <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
+                  <dl>
+                    <dt>DEPARTMENT:</dt>
+                    <dd>Administrator</dd>
+                    <dt>HIRE DATE</dt>
+                    <dd>11/12/2013</dd>
+                    <dt>DATE OF BIRTH</dt>
+                       <dd>11/12/2013</dd>
+                    <dt>GENDER</dt>
+                    <dd>Male</dd>
+                  </dl>
+                </div>-->
+                <div class=" col-md-9 col-lg-9 "> 
+                  <table class="table table-user-information">
+                    <tbody>
+                      <tr>
+                        <td>{{username}}</td>
+                      </tr>
+                      <tr>
+                        <td>Rating:</td>
+                        <td>{{Rating}}</td>
+                      </tr>
+                      <tr>
+					  <td>Bio:</td>
+                        <td>{{Bio}}</td>
+                        
+                      </tr>
+                   
+<!--                          <tr>
+                             <tr>
+                        <td>Gender</td>
+                        <td>Male</td>
+                      </tr>
+                        <tr>
+                        <td>Home Address</td>
+                        <td>Metro Manila,Philippines</td>
+                      </tr>
+                      <tr>
+                        <td>Email</td>
+                        <td><a href="mailto:info@support.com">info@support.com</a></td>
+                      </tr>
+                        <td>Phone Number</td>
+                        <td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)
+                        </td> -->
+                           
+<!--                       </tr> -->
+                     
+                    </tbody>
+                  </table>
+                  
+                  <a href="{% url 'account:myTrip' username %}" class="btn btn-primary"> View {{username}}'s Trips</a>
+                </div>
+              </div>
+            </div>
+                 <div class="panel-footer">
+                        <span class="pull-right">
+                            <a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                        </span>
+                    </div>
+            
+          </div>
+		</div><!--/col-->
+</div>
+{% endblock %}
+{% endif %}
