@@ -25,7 +25,14 @@
     // Do any additional setup after loading the view from its nib.
     self.delegate=self;
     self.signUpController.delegate=self;
-    self.logInView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"suit"]];
+    
+    
+    self.signUpController.fields = PFSignUpFieldsUsernameAndPassword|PFSignUpFieldsEmail|PFSignUpFieldsAdditional|PFSignUpFieldsSignUpButton|PFSignUpFieldsDismissButton;
+    
+    self.signUpController.signUpView.additionalField.placeholder=@"Phone Number";
+    self.signUpController.signUpView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"desert"]];
+    self.signUpController.signUpView.additionalField.keyboardType=UIKeyboardTypeDecimalPad;
+    self.logInView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"map"]];
     self.logInView.usernameField.backgroundColor=[UIColor whiteColor];
     self.logInView.passwordField.backgroundColor=[UIColor whiteColor];
     self.logInView.usernameField.borderStyle = UITextBorderStyleRoundedRect;
@@ -35,9 +42,10 @@
     self.logInView.signUpButton.backgroundColor=nil;
     [self.logInView.signUpButton setBackgroundImage:nil forState:UIControlStateHighlighted];
     [self.logInView.signUpButton setBackgroundImage:nil forState:UIControlStateNormal];
-    NSLog(@"Current image:%@",self.logInView.signUpButton.currentImage);
-    NSLog(@"Background Image : %@",self.logInView.signUpButton.currentBackgroundImage);
     [self.logInView.signUpButton setImage:[UIImage imageNamed:@"signUp"] forState:UIControlStateNormal];
+    [self.signUpController.signUpView.signUpButton setBackgroundImage:nil forState:UIControlStateHighlighted];
+    [self.signUpController.signUpView.signUpButton setBackgroundImage:nil forState:UIControlStateNormal];
+    [self.signUpController.signUpView.signUpButton setImage:[UIImage imageNamed:@"signUp"] forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -100,9 +108,8 @@
     [[profile tabBarItem] setImage:[UIImage imageNamed:@"user16.png"]];
     UINavigationController *travelNav = [[UINavigationController alloc]initWithRootViewController:travelers];
     [[travelers navigationItem] setTitle:@"Travels"];
+    [[profile navigationItem] setTitle:@"Profile"];
     UINavigationController *profileNav = [[UINavigationController alloc] initWithRootViewController:profile];
-    
-    
     [[trip tabBarItem] setTitle:@"trip"];
     NSArray *views = @[travelNav,delivery,profileNav];
     [menu setViewControllers:views];
