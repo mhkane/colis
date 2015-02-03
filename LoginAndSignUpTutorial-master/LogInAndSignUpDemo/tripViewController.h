@@ -16,8 +16,19 @@
     SPGooglePlacesAutocompleteQuery *searchQuery;
     BOOL shouldBeginEditing;
 }
+@property (weak, nonatomic) IBOutlet UILabel *totalSpaceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *freeSpaceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property NSArray *options;
 //- (NSArray *)locationsFromJSONFile:(NSURL *)url;
+@property (weak, nonatomic) IBOutlet UIButton *minusTotalSpace;
+@property (weak, nonatomic) IBOutlet UIButton *minusFreeSpace;
+@property (weak, nonatomic) IBOutlet UITextField *totalSpaceField;
+@property (weak, nonatomic) IBOutlet UIButton *plusFreeSpace;
+@property (weak, nonatomic) IBOutlet UITextField *freeSpaceField;
+@property (weak, nonatomic) IBOutlet UIButton *plusTotalField;
+@property (weak, nonatomic) IBOutlet UILabel *regTripLabel;
+@property (weak, nonatomic) IBOutlet UIButton *registerTripButton;
 @property (weak, nonatomic) IBOutlet UIDatePicker *tripDate;
 @property (weak, nonatomic) IBOutlet UILabel *nextLabel;
 @property BOOL isDepartureDate;
