@@ -28,6 +28,18 @@
         self.nextLabel.text= @"Pick departure city";
     }
 }
+- (IBAction)minusTotalSpace:(id)sender {
+}
+- (IBAction)plusTotalSpace:(id)sender {
+}
+- (IBAction)minusFreeSpace:(id)sender {
+}
+- (IBAction)plusFreeSpace:(id)sender {
+}
+- (IBAction)minusPrice:(id)sender {
+}
+- (IBAction)plusPrice:(id)sender {
+}
 - (IBAction)nextButton:(id)sender {
     if(self.isDepartureDate){
     tripViewController *newTrip = [[tripViewController alloc] init];
