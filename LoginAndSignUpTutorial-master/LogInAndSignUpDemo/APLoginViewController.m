@@ -13,6 +13,7 @@
 #import "tripViewController.h"
 #import "deliveryRequestViewController.h"
 #import "APProfileTableViewController.h"
+#import "SPGooglePlacesAutocompleteViewController.h"
 
 @interface APLoginViewController ()
 
@@ -102,6 +103,7 @@
     tripViewController *trip = [[tripViewController alloc] init];
     deliverersViewController *travelers = [[deliverersViewController alloc]init];
     APProfileTableViewController *profile = [[APProfileTableViewController alloc] init];
+    SPGooglePlacesAutocompleteViewController *departureDestination = [[SPGooglePlacesAutocompleteViewController alloc] init];
     [[travelers tabBarItem] setTitle:@"Travels"];
     [[travelers tabBarItem] setImage:[UIImage imageNamed:@"air6.png"]];
     [[profile tabBarItem] setTitle:@"Profile"];
@@ -111,7 +113,7 @@
     [[profile navigationItem] setTitle:@"Profile"];
     UINavigationController *profileNav = [[UINavigationController alloc] initWithRootViewController:profile];
     [[trip tabBarItem] setTitle:@"trip"];
-    NSArray *views = @[travelNav,delivery,profileNav];
+    NSArray *views = @[travelNav,departureDestination,profileNav];
     [menu setViewControllers:views];
     [self presentViewController:menu animated:false completion:nil];
     [self _loadData];

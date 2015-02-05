@@ -9,6 +9,7 @@
 #import "AirspressTabBarController.h"
 #import "orderViewController.h"
 #import "tripViewController.h"
+#import "SPGooglePlacesAutocompleteViewController.h"
 
 @interface AirspressTabBarController ()
 @property (nonatomic,strong) UINavigationController *navController;
@@ -54,14 +55,17 @@
 }
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
-        NSLog(@"%@",[self.navController description]);
-        tripViewController *newTrip = [[tripViewController alloc] init];
+        
+        SPGooglePlacesAutocompleteViewController *newTrip = [[SPGooglePlacesAutocompleteViewController alloc] init];
         APTrip *trip = [[APTrip alloc] init];
         newTrip.tripToRegister=trip;
         //Very important note : Due to this choice, all the views will be embedded in a Navigation Controller.
         UINavigationController *nav = self.selectedViewController;
-        newTrip.isDepartureDate=true;
+        newTrip.isDepartureLecation=true;
         newTrip.navigationItem.title=@"Departure";
+        newTrip.navigationController.navigationBar.hidden=YES;
+        self.navigationController.navigationBar.hidden=YES;
+        nav.navigationBar.hidden=YES;
         [nav pushViewController:newTrip animated:YES];
         NSLog(@"%@",[newTrip description]);
         

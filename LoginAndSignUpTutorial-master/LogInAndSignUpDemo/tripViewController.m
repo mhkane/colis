@@ -22,10 +22,15 @@
     if(self.isDepartureDate){
         self.titleLabel.text = @"Pick your departure date";
         self.nextLabel.text = @"Next";
+        [self.buttonHidden setValue:[NSNumber numberWithBool:YES] forKey:@"hidden"];
+        [self.textFieldToHide setValue:[NSNumber numberWithBool:YES] forKey:@"hidden"];
+        [self.toBehidden setValue:[NSNumber numberWithBool:YES] forKey:@"hidden"];
     }
     else{
         self.titleLabel.text = @"Pick your arrival date";
         self.nextLabel.text= @"Pick departure city";
+        self.toHideArrival2.hidden=YES;
+        self.toHidenWhenArrival.hidden=YES;
     }
 }
 - (IBAction)minusTotalSpace:(id)sender {
@@ -39,6 +44,8 @@
 - (IBAction)minusPrice:(id)sender {
 }
 - (IBAction)plusPrice:(id)sender {
+}
+- (IBAction)registerTripButton:(id)sender {
 }
 - (IBAction)nextButton:(id)sender {
     if(self.isDepartureDate){
