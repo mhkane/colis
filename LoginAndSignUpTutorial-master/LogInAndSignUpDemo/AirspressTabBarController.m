@@ -73,12 +73,12 @@
     } else if (buttonIndex == 1) {
         orderViewController *order = [[orderViewController alloc] init];
         UINavigationController *nav = self.selectedViewController;
-        [nav pushViewController:order animated:false];
+        [nav pushViewController:order animated:true];
     }
     else if(buttonIndex == 2){
         UIViewController *rating = [[UIViewController alloc] init];
         UINavigationController *nav = self.selectedViewController;
-        [nav pushViewController:rating animated:false];
+        [nav pushViewController:rating animated:true];
     }
 }
 /*

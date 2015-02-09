@@ -53,7 +53,7 @@
         self.tripToRegister.departureDate=self.tripDate.date;
         newTrip.tripToRegister = self.tripToRegister;
         newTrip.isDepartureDate=false;
-        [self.navigationController pushViewController:newTrip animated:false];
+        [self.navigationController pushViewController:newTrip animated:true];
     }
     else{
     SPGooglePlacesAutocompleteViewController * search = [[SPGooglePlacesAutocompleteViewController alloc] init];
@@ -61,7 +61,7 @@
         search.isDepartureLecation=true;
         self.tripToRegister.arrivalDate=self.tripDate.date;
         search.tripToRegister=self.tripToRegister;
-        [self.navigationController pushViewController:search animated:false];
+        [self.navigationController pushViewController:search animated:true];
     }
 
 

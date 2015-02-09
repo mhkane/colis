@@ -249,7 +249,7 @@
         NSString *message = [NSString stringWithFormat:@"%@ has a travel from %@ to %@ on %@",username,from,to,dateString];
         NSLog(@"%@",message);
         travelInfo.tripObject=trip;
-        [self.navigationController pushViewController:travelInfo animated:false];
+        [self.navigationController pushViewController:travelInfo animated:true];
     }
 }
 

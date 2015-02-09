@@ -111,7 +111,7 @@
         self.tripToRegister.toLocation=place.name;
         tripViewController *spaceInfo = [[tripViewController alloc] init];
         spaceInfo.tripToRegister = self.tripToRegister;
-        [self.navigationController pushViewController:spaceInfo animated:false];
+        [self.navigationController pushViewController:spaceInfo animated:true];
         
     }
     

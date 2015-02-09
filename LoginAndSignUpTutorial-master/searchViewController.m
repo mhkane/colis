@@ -42,7 +42,7 @@
     }
     deliverersViewController *searchController =[[deliverersViewController alloc] init];
     searchController.query=searchQuery;
-    [self presentViewController:searchController animated:false completion:nil];
+    [self presentViewController:searchController animated:true completion:nil];
 }
 
 /*
