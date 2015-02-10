@@ -101,6 +101,7 @@
 -(void)showMap{
     NSLog(@"Touched");
     orderViewController *order = [[orderViewController alloc] init];
+    order.tripObject=self.tripObject;
     order.navigationItem.title = @"Your request";
     [self.navigationController pushViewController:order animated:true];
   

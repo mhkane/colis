@@ -17,7 +17,7 @@ Mandrill.sendEmail({
         to: [
             {
                 email: request.params.email,
-                name: request.params
+                name: request.params.to_name,
             }
         ]
     },

@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "Airspress": {
+            "applicationId": "9GC4ybpn3PxuHyfCm3JKQZXyC1WBNuiTzhRcTHo6", 
+            "masterKey": "0LKTon71YDWkR0DFyf8yG67E6w19bQUIjlwn58t6"
+        }, 
+        "_default": {
+            "link": "Airspress"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.3.4"
+    }
+}

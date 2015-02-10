@@ -63,11 +63,6 @@
         search.tripToRegister=self.tripToRegister;
         [self.navigationController pushViewController:search animated:true];
     }
-
-
-
-   
-    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

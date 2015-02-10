@@ -10,6 +10,9 @@
 #import "cellForTravelTableViewCell.h"
 #import "AirspressTravelCell.h"
 
+static NSString *const tripKey = @"trip";
+static NSString *const dateOrder = @"departureDate";
+
 @interface deliverersViewController ()
 
 @end
@@ -41,11 +44,15 @@
     return self;
 }
 -(PFQuery*)queryForTable{
+    PFQuery *query;
     if(!self.query){
-    PFQuery *queryForTrip = [PFQuery queryWithClassName:@"trip"];
-        return queryForTrip;}
+    query = [PFQuery queryWithClassName:@"trip"];
+    }
     else{
-        return self.query;}
+        query = self.query;
+    }
+    [query orderByDescending:dateOrder];
+    return query;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -111,10 +118,10 @@
     // This method is called every time objects are loaded from Parse via the PFQuery
 }
 
-/*
+
  // Override to customize what kind of query to perform on the class. The default is to query for
  // all objects ordered by createdAt descending.
- - (PFQuery *)queryForTable {
+/* - (PFQuery *)queryForTable {
  PFQuery *query = [PFQuery queryWithClassName:self.className];
  
  // If Pull To Refresh is enabled, query against the network by default.
@@ -131,8 +138,8 @@
  [query orderByDescending:@"createdAt"];
  
  return query;
- }
- */
+ }*/
+
 
 
  // Override to customize the look of a cell representing an object. The default is to display
@@ -158,7 +165,7 @@
      NSString *travelerName = [trueUser username];
      cell.nameLabel.text=travelerName;
      cell.fromLabel.text = [NSString stringWithFormat:@" %@ to %@" ,[objectForCell objectForKey:@"fromLocation"],[objectForCell objectForKey:@"toLocation"]];
-     NSDate *travelDate = [objectForCell objectForKey:@"arrivalDate"];
+     NSDate *travelDate = [objectForCell objectForKey:@"departureDate"];
      NSDateFormatter *df2 =[[NSDateFormatter alloc] init];
      [df2 setDateFormat:@"EEE,d MMM yyyy"];
      NSString *dateString = [df2 stringFromDate:travelDate];
