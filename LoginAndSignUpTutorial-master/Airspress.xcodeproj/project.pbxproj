@@ -91,6 +91,13 @@
 		38EA487C1A7C9BC700D72715 /* APProfilePicTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38EA487A1A7C9BC700D72715 /* APProfilePicTableViewCell.xib */; };
 		38EA48801A7C9E0100D72715 /* APProfileTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 38EA487E1A7C9E0100D72715 /* APProfileTableViewController.m */; };
 		38EA48811A7C9E0100D72715 /* APProfileTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 38EA487F1A7C9E0100D72715 /* APProfileTableViewController.xib */; };
+		38EA48831A7EA2CD00D72715 /* blurry.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EA48821A7EA2CD00D72715 /* blurry.png */; };
+		38EA48851A7EA43400D72715 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EA48841A7EA43400D72715 /* map.png */; };
+		38EA488B1A7EA80600D72715 /* avion.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EA488A1A7EA80600D72715 /* avion.png */; };
+		38EA488F1A7EA90E00D72715 /* map2.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EA488E1A7EA90E00D72715 /* map2.png */; };
+		38EA48911A7EAA5200D72715 /* desert.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EA48901A7EAA5100D72715 /* desert.png */; };
+		38EA48941A7F09EE00D72715 /* regTrip.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EA48921A7F09EE00D72715 /* regTrip.png */; };
+		38EA48951A7F09EE00D72715 /* registerVoyage.png in Resources */ = {isa = PBXBuildFile; fileRef = 38EA48931A7F09EE00D72715 /* registerVoyage.png */; };
 		38F34AED1A676C3900548329 /* SPGooglePlacesAutocompletePlace.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F34AE61A676C3900548329 /* SPGooglePlacesAutocompletePlace.m */; };
 		38F34AEE1A676C3900548329 /* SPGooglePlacesAutocompleteQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F34AE81A676C3900548329 /* SPGooglePlacesAutocompleteQuery.m */; };
 		38F34AEF1A676C3900548329 /* SPGooglePlacesAutocompleteUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 38F34AEA1A676C3900548329 /* SPGooglePlacesAutocompleteUtilities.m */; };
@@ -246,6 +253,13 @@
 		38EA487D1A7C9E0100D72715 /* APProfileTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APProfileTableViewController.h; sourceTree = "<group>"; };
 		38EA487E1A7C9E0100D72715 /* APProfileTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APProfileTableViewController.m; sourceTree = "<group>"; };
 		38EA487F1A7C9E0100D72715 /* APProfileTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = APProfileTableViewController.xib; sourceTree = "<group>"; };
+		38EA48821A7EA2CD00D72715 /* blurry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blurry.png; sourceTree = "<group>"; };
+		38EA48841A7EA43400D72715 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map.png; path = ../map.png; sourceTree = "<group>"; };
+		38EA488A1A7EA80600D72715 /* avion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avion.png; sourceTree = "<group>"; };
+		38EA488E1A7EA90E00D72715 /* map2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map2.png; sourceTree = "<group>"; };
+		38EA48901A7EAA5100D72715 /* desert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = desert.png; sourceTree = "<group>"; };
+		38EA48921A7F09EE00D72715 /* regTrip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = regTrip.png; sourceTree = "<group>"; };
+		38EA48931A7F09EE00D72715 /* registerVoyage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = registerVoyage.png; sourceTree = "<group>"; };
 		38F34AE51A676C3900548329 /* SPGooglePlacesAutocompletePlace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesAutocompletePlace.h; sourceTree = "<group>"; };
 		38F34AE61A676C3900548329 /* SPGooglePlacesAutocompletePlace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGooglePlacesAutocompletePlace.m; sourceTree = "<group>"; };
 		38F34AE71A676C3900548329 /* SPGooglePlacesAutocompleteQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGooglePlacesAutocompleteQuery.h; sourceTree = "<group>"; };
@@ -576,6 +590,13 @@
 		74366EAC158AAE1000A17D8A /* Airspress */ = {
 			isa = PBXGroup;
 			children = (
+				38EA48921A7F09EE00D72715 /* regTrip.png */,
+				38EA48931A7F09EE00D72715 /* registerVoyage.png */,
+				38EA48901A7EAA5100D72715 /* desert.png */,
+				38EA488E1A7EA90E00D72715 /* map2.png */,
+				38EA488A1A7EA80600D72715 /* avion.png */,
+				38EA48841A7EA43400D72715 /* map.png */,
+				38EA48821A7EA2CD00D72715 /* blurry.png */,
 				389F414E1A785BAC0049BDEE /* suitcase2.png */,
 				389F414F1A785BAC0049BDEE /* suitcase1.png */,
 				38CFD6FC1A746FC0002516C3 /* registerTrip.png */,
@@ -711,11 +732,13 @@
 				38C0C27B1A64E5F100132AF1 /* icon-share-big.png in Resources */,
 				386341D91A64EA0C00FA1335 /* airplane_takeoff.png in Resources */,
 				382FFBDB1A730B1D00765B76 /* OrderButton.png in Resources */,
+				38EA48911A7EAA5200D72715 /* desert.png in Resources */,
 				38C0C2781A64E5F100132AF1 /* icon-read-big@2x.png in Resources */,
 				74366EE8158AC82C00A17D8A /* DefaultSettingsViewController.xib in Resources */,
 				3856D7B41A6A281800F01F1D /* Images.xcassets in Resources */,
 				74366EF5158AF2D300A17D8A /* PropertyConfigViewController.xib in Resources */,
 				389CCB3C1A43FECA00378D36 /* searchViewController.xib in Resources */,
+				38EA488F1A7EA90E00D72715 /* map2.png in Resources */,
 				3802070D1A280C300087CF76 /* tripViewController.xib in Resources */,
 				38C0C27F1A64E5F100132AF1 /* mask.png in Resources */,
 				747F007615951A58000F601E /* Exit.png in Resources */,
@@ -734,9 +757,12 @@
 				3872FF391A6F4B3000CEEDA8 /* suitcase6.png in Resources */,
 				383F04CA1A52010600DC8267 /* EditProfileViewController.xib in Resources */,
 				38EA48811A7C9E0100D72715 /* APProfileTableViewController.xib in Resources */,
+				38EA48951A7F09EE00D72715 /* registerVoyage.png in Resources */,
 				38C0C2761A64E5F100132AF1 /* button-read-big@2x.png in Resources */,
 				38C445B81A4A794C0074A741 /* air6.png in Resources */,
+				38EA48831A7EA2CD00D72715 /* blurry.png in Resources */,
 				3872FF3D1A6F4BD200CEEDA8 /* suits.png in Resources */,
+				38EA48941A7F09EE00D72715 /* regTrip.png in Resources */,
 				3856D7C11A6AEFF200F01F1D /* AirspressTripDetailCell.xib in Resources */,
 				389D59751A4B522000E26258 /* add139.png in Resources */,
 				382FFBDF1A731D9400765B76 /* nextButton.png in Resources */,
@@ -764,6 +790,7 @@
 				3856D7C81A6B00DD00F01F1D /* takeoff1.jpg in Resources */,
 				381B15DE1A69B4F300BD678C /* AirspressTravelCell.xib in Resources */,
 				747F008015951A58000F601E /* Twitter.png in Resources */,
+				38EA48851A7EA43400D72715 /* map.png in Resources */,
 				389D597E1A4B912600E26258 /* user.png in Resources */,
 				38C0C27E1A64E5F100132AF1 /* icon-share@2x.png in Resources */,
 				38EA487C1A7C9BC700D72715 /* APProfilePicTableViewCell.xib in Resources */,
@@ -787,6 +814,7 @@
 				3856D7C91A6B00DD00F01F1D /* takeoff2.jpg in Resources */,
 				38C0C2791A64E5F100132AF1 /* icon-read.png in Resources */,
 				C4FD613817286ACD00F61563 /* Icon@2x.png in Resources */,
+				38EA488B1A7EA80600D72715 /* avion.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

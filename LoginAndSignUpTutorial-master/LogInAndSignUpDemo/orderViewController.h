@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface orderViewController : UIViewController <UITextFieldDelegate, UIPickerViewDelegate,UIPickerViewDataSource>
-@property (weak, nonatomic) IBOutlet UITextField *itemName;
-@property (weak, nonatomic) IBOutlet UITextField *placeName;
-@property (weak, nonatomic) IBOutlet UITextField *city;
-@property (weak, nonatomic) IBOutlet UITextField *country;
 @property (weak, nonatomic) IBOutlet UIPickerView *paymentMethod;
+@property (weak, nonatomic) IBOutlet UITextField *productDescription;
+@property int weight;
+@property (weak, nonatomic) IBOutlet UILabel *weightLabel;
+@property (strong,nonatomic) PFObject *tripObject;
+@property (strong,nonatomic) PFUser *traveler;
 
 
 

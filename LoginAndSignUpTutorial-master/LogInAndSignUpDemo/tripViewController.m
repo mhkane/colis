@@ -22,11 +22,30 @@
     if(self.isDepartureDate){
         self.titleLabel.text = @"Pick your departure date";
         self.nextLabel.text = @"Next";
+        [self.buttonHidden setValue:[NSNumber numberWithBool:YES] forKey:@"hidden"];
+        [self.textFieldToHide setValue:[NSNumber numberWithBool:YES] forKey:@"hidden"];
+        [self.toBehidden setValue:[NSNumber numberWithBool:YES] forKey:@"hidden"];
     }
     else{
         self.titleLabel.text = @"Pick your arrival date";
         self.nextLabel.text= @"Pick departure city";
+        self.toHideArrival2.hidden=YES;
+        self.toHidenWhenArrival.hidden=YES;
     }
+}
+- (IBAction)minusTotalSpace:(id)sender {
+}
+- (IBAction)plusTotalSpace:(id)sender {
+}
+- (IBAction)minusFreeSpace:(id)sender {
+}
+- (IBAction)plusFreeSpace:(id)sender {
+}
+- (IBAction)minusPrice:(id)sender {
+}
+- (IBAction)plusPrice:(id)sender {
+}
+- (IBAction)registerTripButton:(id)sender {
 }
 - (IBAction)nextButton:(id)sender {
     if(self.isDepartureDate){
@@ -34,7 +53,7 @@
         self.tripToRegister.departureDate=self.tripDate.date;
         newTrip.tripToRegister = self.tripToRegister;
         newTrip.isDepartureDate=false;
-        [self.navigationController pushViewController:newTrip animated:false];
+        [self.navigationController pushViewController:newTrip animated:true];
     }
     else{
     SPGooglePlacesAutocompleteViewController * search = [[SPGooglePlacesAutocompleteViewController alloc] init];
@@ -42,13 +61,8 @@
         search.isDepartureLecation=true;
         self.tripToRegister.arrivalDate=self.tripDate.date;
         search.tripToRegister=self.tripToRegister;
-        [self.navigationController pushViewController:search animated:false];
+        [self.navigationController pushViewController:search animated:true];
     }
-
-
-
-   
-    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];

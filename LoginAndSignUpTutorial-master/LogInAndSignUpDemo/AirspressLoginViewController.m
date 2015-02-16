@@ -150,7 +150,7 @@
     [[trip tabBarItem] setTitle:@"trip"];
     NSArray *views = @[travelNav,delivery,profileNav];
     [menu setViewControllers:views];
-    [self presentViewController:menu animated:false completion:nil];
+    [self presentViewController:menu animated:true completion:nil];
     [self _loadData];
     
     

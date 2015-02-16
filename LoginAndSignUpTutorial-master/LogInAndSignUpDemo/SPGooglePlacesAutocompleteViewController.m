@@ -10,6 +10,7 @@
 #import "SPGooglePlacesAutocompleteQuery.h"
 #import "SPGooglePlacesAutocompletePlace.h"
 #import "spaceManagementViewController.h"
+#import "tripViewController.h"
 
 @interface SPGooglePlacesAutocompleteViewController ()
 
@@ -108,9 +109,9 @@
     else{
         SPGooglePlacesAutocompletePlace *place = [self placeAtIndexPath:indexPath];
         self.tripToRegister.toLocation=place.name;
-        spaceManagementViewController *spaceInfo = [[spaceManagementViewController alloc] init];
+        tripViewController *spaceInfo = [[tripViewController alloc] init];
         spaceInfo.tripToRegister = self.tripToRegister;
-        [self.navigationController pushViewController:spaceInfo animated:false];
+        [self.navigationController pushViewController:spaceInfo animated:true];
         
     }
     

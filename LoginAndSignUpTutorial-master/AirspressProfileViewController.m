@@ -46,7 +46,7 @@
     // Dispose of any resources that can be recreated.
 }
 - (IBAction)editProfile:(id)sender {
-    [self.navigationController pushViewController:[[EditProfileViewController alloc] init] animated:false];
+    [self.navigationController pushViewController:[[EditProfileViewController alloc] init] animated:true];
 }
 
 /*

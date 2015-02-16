@@ -73,7 +73,7 @@
     mediaUI.allowsEditing = NO;
     
     mediaUI.delegate = self;
-    [self.navigationController presentViewController:mediaUI animated:false completion:nil];
+    [self.navigationController presentViewController:mediaUI animated:true completion:nil];
 }
 
 

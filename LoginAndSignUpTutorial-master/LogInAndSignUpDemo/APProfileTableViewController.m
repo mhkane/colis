@@ -14,6 +14,7 @@ NSString *const additionalKey = @"additional";
 NSString *const emailKey = @"email";
 NSString *const profilePicKey = @"profilePicture";
 NSString *const points = @"userPoints";
+NSString *const bio = @"userBio";
 NSString *const profilePicCellIdentifier = @"APProfilePicTableViewCell";
 NSString *const AirspressTripDetailIdentifier= @"AirspressTripDetailCell";
 @interface APProfileTableViewController ()
@@ -86,6 +87,13 @@ NSString *const AirspressTripDetailIdentifier= @"AirspressTripDetailCell";
             cell.userLabel.text = self.user.username;
             PFUser *userForCell = self.user;
             PFFile *profilePic = [userForCell objectForKey:profilePicKey];
+            if([userForCell valueForKey:bio]){
+                cell.userBio.text=[userForCell valueForKey:bio];
+                
+            }
+            else{
+                cell.userBio.text = [NSString stringWithFormat:@"Hi, I am %@",self.user.username];
+            }
             [profilePic getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
                 UIImage *image = [[UIImage alloc]init];
                 if(error){
@@ -114,7 +122,7 @@ NSString *const AirspressTripDetailIdentifier= @"AirspressTripDetailCell";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.row==0){
-        return 172;}
+        return 300;}
     return 60;
     
 }

@@ -9,6 +9,7 @@
 #import "AirspressTabBarController.h"
 #import "orderViewController.h"
 #import "tripViewController.h"
+#import "SPGooglePlacesAutocompleteViewController.h"
 
 @interface AirspressTabBarController ()
 @property (nonatomic,strong) UINavigationController *navController;
@@ -49,32 +50,30 @@
     [plusButton addGestureRecognizer:swipeUpGestureRecognizer];
 }
 -(void)plusButtonAction{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add new trip", @"Add new order",@"Add new confirmation" ,nil];
+    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Add new trip",@"Add new confirmation" ,nil];
     [actionSheet showFromTabBar:self.tabBar];
 }
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 0) {
-        NSLog(@"%@",[self.navController description]);
-        tripViewController *newTrip = [[tripViewController alloc] init];
+        
+        SPGooglePlacesAutocompleteViewController *newTrip = [[SPGooglePlacesAutocompleteViewController alloc] init];
         APTrip *trip = [[APTrip alloc] init];
         newTrip.tripToRegister=trip;
         //Very important note : Due to this choice, all the views will be embedded in a Navigation Controller.
         UINavigationController *nav = self.selectedViewController;
-        newTrip.isDepartureDate=true;
+        newTrip.isDepartureLecation=true;
         newTrip.navigationItem.title=@"Departure";
+        newTrip.navigationController.navigationBar.hidden=YES;
+        self.navigationController.navigationBar.hidden=YES;
+        nav.navigationBar.hidden=YES;
         [nav pushViewController:newTrip animated:YES];
         NSLog(@"%@",[newTrip description]);
         
        // [self.navigationController pushViewController:newTrip animated:YES];
     } else if (buttonIndex == 1) {
-        orderViewController *order = [[orderViewController alloc] init];
-        UINavigationController *nav = self.selectedViewController;
-        [nav pushViewController:order animated:false];
-    }
-    else if(buttonIndex == 2){
         UIViewController *rating = [[UIViewController alloc] init];
         UINavigationController *nav = self.selectedViewController;
-        [nav pushViewController:rating animated:false];
+        [nav pushViewController:rating animated:true];
     }
 }
 /*

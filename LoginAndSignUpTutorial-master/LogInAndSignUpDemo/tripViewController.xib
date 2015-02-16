@@ -8,35 +8,53 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="tripViewController">
             <connections>
+                <outlet property="freeSpaceField" destination="jfe-ZK-89O" id="l1f-0P-RTG"/>
                 <outlet property="nextLabel" destination="Zg1-oG-skv" id="Ktg-GU-vIJ"/>
                 <outlet property="titleLabel" destination="gfw-UL-K4P" id="J0F-Vf-iBH"/>
+                <outlet property="toHideArrival2" destination="Zg1-oG-skv" id="xSp-jE-8nR"/>
+                <outlet property="toHidenWhenArrival" destination="Dx2-0x-yj0" id="H6O-aI-9IZ"/>
+                <outlet property="totalSpaceField" destination="XcY-AP-VEN" id="KVc-ve-znC"/>
                 <outlet property="tripDate" destination="lkI-6M-Hn6" id="saL-vG-rcj"/>
                 <outlet property="view" destination="a1H-uj-fLp" id="C5b-FV-kFd"/>
+                <outletCollection property="toBehidden" destination="jrl-PI-bBk" id="egS-vd-Dk6"/>
+                <outletCollection property="toBehidden" destination="XzF-hm-Oz2" id="J5V-zu-3oz"/>
+                <outletCollection property="toBehidden" destination="W8V-R1-LMd" id="rzu-C4-Y03"/>
+                <outletCollection property="toBehidden" destination="aEO-LK-vMI" id="e4Y-pD-a11"/>
+                <outletCollection property="buttonHidden" destination="Cud-dS-8eU" id="TSB-0X-ZWF"/>
+                <outletCollection property="buttonHidden" destination="eVb-OO-kFW" id="J5u-ec-Lz1"/>
+                <outletCollection property="buttonHidden" destination="ecf-KT-J1b" id="Yeb-NG-MDR"/>
+                <outletCollection property="buttonHidden" destination="DBb-sz-yrZ" id="iTm-Tc-8sg"/>
+                <outletCollection property="buttonHidden" destination="4xZ-CC-VPP" id="DeU-Nw-g6O"/>
+                <outletCollection property="buttonHidden" destination="N17-85-XRu" id="bxx-Xj-SRp"/>
+                <outletCollection property="buttonHidden" destination="Hr6-WT-Qqz" id="skp-FG-Y4M"/>
+                <outletCollection property="textFieldToHide" destination="vd8-al-dI3" id="WCx-iE-Asy"/>
+                <outletCollection property="textFieldToHide" destination="jfe-ZK-89O" id="BVX-u9-pVX"/>
+                <outletCollection property="textFieldToHide" destination="XcY-AP-VEN" id="yha-Ul-QEu"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="a1H-uj-fLp">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+            <rect key="frame" x="0.0" y="20" width="320" height="551"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="KbO-gE-XQA">
-                    <rect key="frame" x="67" y="106" width="186" height="116"/>
+                    <rect key="frame" x="78" y="67" width="186" height="116"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pick a depature date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gfw-UL-K4P">
-                    <rect key="frame" x="36" y="77" width="248" height="21"/>
+                    <rect key="frame" x="47" y="26" width="248" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="lkI-6M-Hn6">
-                    <rect key="frame" x="0.0" y="225" width="320" height="216"/>
+                    <rect key="frame" x="36" y="166" width="271" height="162"/>
                     <date key="date" timeIntervalSinceReferenceDate="438832576.17807901">
                         <!--2014-11-28 01:56:16 +0000-->
                     </date>
                 </datePicker>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Next" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zg1-oG-skv">
-                    <rect key="frame" x="208" y="471" width="93" height="55"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                    <rect key="frame" x="250" y="466" width="62" height="37"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -46,7 +64,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dx2-0x-yj0">
-                    <rect key="frame" x="232" y="449" width="45" height="38"/>
+                    <rect key="frame" x="261" y="438" width="45" height="38"/>
                     <state key="normal" backgroundImage="nextButton">
                         <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
@@ -54,17 +72,122 @@
                         <action selector="nextButton:" destination="-1" eventType="touchUpInside" id="KKE-z6-CXx"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total Space (kg)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jrl-PI-bBk">
+                    <rect key="frame" x="36" y="331" width="123" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hr6-WT-Qqz">
+                    <rect key="frame" x="192" y="328" width="25" height="30"/>
+                    <state key="normal" backgroundImage="minusButton">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="minusTotalSpace:" destination="-1" eventType="touchUpInside" id="YmZ-ZN-eCM"/>
+                    </connections>
+                </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="20" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XcY-AP-VEN">
+                    <rect key="frame" x="221" y="328" width="51" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N17-85-XRu">
+                    <rect key="frame" x="273" y="328" width="25" height="30"/>
+                    <state key="normal" backgroundImage="plusButton">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="plusTotalSpace:" destination="-1" eventType="touchUpInside" id="8Xf-wu-G5J"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Free Space (kg)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XzF-hm-Oz2">
+                    <rect key="frame" x="39" y="364" width="120" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4xZ-CC-VPP">
+                    <rect key="frame" x="192" y="366" width="25" height="30"/>
+                    <state key="normal" backgroundImage="minusButton">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="minusFreeSpace:" destination="-1" eventType="touchUpInside" id="7cb-5r-OQF"/>
+                    </connections>
+                </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jfe-ZK-89O">
+                    <rect key="frame" x="221" y="364" width="51" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DBb-sz-yrZ">
+                    <rect key="frame" x="273" y="366" width="25" height="30"/>
+                    <state key="normal" backgroundImage="plusButton">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="plusFreeSpace:" destination="-1" eventType="touchUpInside" id="MzB-hx-Bt0"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Price per kg (USD)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W8V-R1-LMd">
+                    <rect key="frame" x="39" y="400" width="142" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVb-OO-kFW">
+                    <rect key="frame" x="192" y="400" width="25" height="30"/>
+                    <state key="normal" backgroundImage="minusButton">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="minusPrice:" destination="-1" eventType="touchUpInside" id="S1w-D8-Omn"/>
+                    </connections>
+                </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="9" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vd8-al-dI3">
+                    <rect key="frame" x="221" y="400" width="51" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ecf-KT-J1b">
+                    <rect key="frame" x="273" y="400" width="25" height="30"/>
+                    <state key="normal" backgroundImage="plusButton">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="plusPrice:" destination="-1" eventType="touchUpInside" id="BAa-eT-4iQ"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cud-dS-8eU">
+                    <rect key="frame" x="33" y="441" width="274" height="39"/>
+                    <state key="normal" backgroundImage="registerTrip">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="registerTripButton:" destination="-1" eventType="touchUpInside" id="xtd-kP-nhl"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Register Trip" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="aEO-LK-vMI">
+                    <rect key="frame" x="123" y="450" width="97" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <gestureRecognizers/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-            <point key="canvasLocation" x="243" y="67"/>
+            <point key="canvasLocation" x="153" y="105"/>
         </view>
     </objects>
     <resources>
         <image name="logo.png" width="124" height="98"/>
+        <image name="minusButton" width="50" height="50"/>
         <image name="nextButton" width="121" height="124"/>
+        <image name="plusButton" width="50" height="50"/>
+        <image name="registerTrip" width="596" height="112"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

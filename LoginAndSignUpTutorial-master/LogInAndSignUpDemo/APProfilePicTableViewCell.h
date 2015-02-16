@@ -11,5 +11,7 @@
 @interface APProfilePicTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *profilePicture;
 @property (weak, nonatomic) IBOutlet UILabel *userLabel;
+@property (weak, nonatomic) IBOutlet UITextView *userBio;
+
 
 @end
