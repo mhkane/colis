@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="assets/img/favicon.png">
+
+    <title>Signup -Airspress</title>
+
+    <!-- Core -->
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'signup/css/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'signup/css/ui-style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom-ui.css' %}" />
+    <!-- JScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="{% static 'signup/js/bootstrap.min.js' %}"></script>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body class="bg-white">
+ <div class="login-box">
+       <div class='modal-header header'>
+	        Register
+	   </div>
+      <div class="modal-body">
+		{% include "trips/alerts.html" %}
+		{% if registerView.non_field_errors %}<div class="alert alert-danger">{{ registerView.non_field_errors }}</div>{% endif %}
+		<form class="auth-form" action="/register/student/" method="post">
+		{% csrf_token %}
+						<div class="">
+						    <div class="form-group" name="{{ registerView.login_institution.name }}">
+                                            <label>Select your institution :</label>
+                                            <select name="{{registerView.login_institution.name}}" class="form-control">
+												<option value="École Polytechnique de Montréal">École Polytechnique de Montréal</option>
+                                                <option value="HEC Rabat">HEC Rabat</option>
+                                                <option>Massachussets Institute of Technology</option>
+                                                <option>Université Laval</option>
+                                             
+                                            </select>
+							{% if registerView.login_institution.errors %}<div class="alert alert-danger">{{ registerView.login_institution.errors }}</div>{% endif %}
+
+                           </div>
+							<div class="form-group">
+								<input type="text" name="{{registerView.login_name.name}}" value="{{registerView.login_name.value}}" class="form-control" placeholder="Full name">
+							{% if registerView.login_name.errors %}<div class="alert alert-danger">{{ registerView.login_name.errors }}</div>{% endif %}
+
+							</div>
+							<div class="form-group">
+								<input type="text" name="{{registerView.login_email.name}}" value="{{registerView.login_email.value}}" class="form-control" placeholder="Email address">
+							{% if registerView.login_email.errors %}<div class="alert alert-danger">{{ registerView.login_email.errors }}</div>{% endif %}
+
+							</div>
+							<div class="form-group">
+								<input type="password" name="{{registerView.login_password.name}}" value="{{registerView.login_password.value}}" class="form-control" placeholder="Password">
+							{% if registerView.login_password.errors %}<div class="alert alert-danger">{{ registerView.login_password.errors }}</div>{% endif %}
+							</div>
+							<div class="form-group">
+								<input type="password" name="{{registerView.login_password_conf.name}}" value="{{registerView.login_password_conf.value}}" class="form-control" placeholder="Retype password">
+							{% if registerView.login_password_conf.errors %}<div class="alert alert-danger">{{ registerView.login_password_conf.errors }}</div>{% endif %}
+							</div>
+						</div>
+						<div class="footer">
+
+							<button type="submit" class="btn btn-signup btn-lg">Sign me up</button>
+
+							<a href="login.html" class="text-center">I already have a membership</a>
+						</div>
+	   </form>
+            
+        </div>
+		</div>
+	</body>
+</html>

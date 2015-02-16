@@ -2,6 +2,7 @@ from parse_rest.connection import register
 from airspress import settings
 import airspress
 from airspress.settings import FILE_UPLOAD_DIR
+from parse_rest.query import QueryResourceDoesNotExist
 #register to Parse
 register(settings.APPLICATION_ID, settings.REST_API_KEY)#settings.REST_API_KEY
 from parse_rest.connection import ParseBatcher
@@ -37,39 +38,62 @@ def is_logged_in(request):# return the current user if User logged in.
     
     return False
 def re_validation(loginView):
+    from signup.backend_parse import Institutions
     user_email = loginView.cleaned_data['login_email']
     user_password = loginView.cleaned_data['login_password']
+    user_password_conf = loginView.cleaned_data['login_password_conf']
     user_institution = loginView.cleaned_data['login_institution']
-    accepted_institution=['Université Laval','Massachussets Institute of Technology','HEC Rabat', 'École Polytechnique de Montréal']
-    domain_mail = {'Université Laval':'@ulaval.ca','Massachussets Institute of Technology':'@mit.edu'}
-    alert={}
-    email_existing='' # verifying existence of another user associated with this email address
+    user_name = loginView.cleaned_data['login_name']
+    #This shouldn't be kept but don't want to create subclass validation right now; TODO 
+    if not user_password == user_password_conf:
+        alert={'type':'danger', 'text':'Hmmm... Passwords don''t match...'}
+        return alert
+    # """Recover human readable names from the choiceField selectbox, yes it's that tedious hehe ;) """
+    institution_dict = dict(loginView.fields['login_institution'].choices)
+    accepted_institution = institution_dict[int(user_institution)]
+    # Now we can get the domains associated with the selected institution
+    try:
+        domain_mail = Institutions.Query.get(name=accepted_institution).mailDomain
+    except (AttributeError, QueryResourceDoesNotExist):
+        domain_mail=''
+    # This alert dict will be returned with relevant notes 
+    alert={'type':'','text':''}
+    email_existing='' 
+    # verifying existence of another user associated with this email address
     try:
         email_existing=User.Query.get(email=user_email).objectId
-    except AttributeError:
+    except (AttributeError, QueryResourceDoesNotExist):
         pass
     if email_existing:
-        alert={'type':'danger', 'message':'This email is already in use...', 'message2':'Did you forget your password ?'}
+        alert={'type':'danger', 'text':'This email is already in use...', 'link':'Did you forget your password ?'}
         return alert
-    if user_institution in accepted_institution:
-        if domain_mail[user_institution] in user_email:
-            new_user = User.signup(user_email, user_password, email=user_email)
-            alert={'type':'success', 'message':'''Nearly done ! Please confirm
-             your email address by following the link we sent you.'''}
-        else:
-            alert={'type':'warning','message':'You should use '+domain_mail[user_institution]+' email'}
+   
+    if domain_mail in user_email:
+        new_user = User.signup(user_email, user_password, email=user_email, Name=user_name)
+        alert={'type':'success', 'text':'''Nearly done ! Please confirm
+         your email address by following the link we sent you.'''}
     else:
-        alert={'type':'warning','message':'We are not in your college yet but it won''t take long before we do'}
+        alert={'type':'warning','text':'You should use an "'+domain_mail+'" email address'}
     return alert
-def sign_in(username, user_password):
-    cUser=User.login(username,user_password)
+def sign_in(request, loginView):
+    username = loginView.cleaned_data['login_username']
+    user_pass = loginView.cleaned_data['login_password']
     try:
+        cUser=User.login(username,user_pass)
         user_id = cUser.objectId
-    except AttributeError:
-        pass
+    except (AttributeError, QueryResourceDoesNotExist):
+        user_id=''
     if not user_id:
-        alert={'type':'danger','message':'This user does not exist','message2':'Sign up here'}
+        try:
+            is_user = User.Query.get(username=username)
+        except (AttributeError, QueryResourceDoesNotExist):
+            is_user=''
+        if is_user:
+            alert={'type':'warning','text':'Wrong Password !','link':'Forgot your password ?','url':'/password_reset/'}
+        else:
+            alert={'type':'danger','text':'This user does not exist','link':'Sign up here','url':'/login/student'}
         return alert
+    request.session['lsten']=cUser.sessionToken
     return cUser
     
 import airspress.settings
@@ -83,7 +107,7 @@ def save_user_pic( account, fbId=None, filepath=None):
         user_id = account.objectId
         data = json.loads(source.read())
         print data
-        urlpic = data['url']
+        urlpic = data['data']['url']
         connection = httplib.HTTPSConnection('api.parse.com', 443)
         connection.connect()
         connection.request('POST', '/1/files/pic1.jpg', 

@@ -13,9 +13,11 @@
     <!-- Core -->
 {% load staticfiles %}
 <link rel="stylesheet" type="text/css" href="{% static 'signup/css/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'signup/css/ui-style.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom-ui.css' %}" />
     <!-- index style -->
-    <link rel="stylesheet" type="text/css" href="{% static 'signup/css/stylindex.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'signup/css/stylindex.css' %}">
     <!-- JScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="{% static 'signup/js/bootstrap.min.js' %}"></script>
@@ -44,6 +46,8 @@
 	{% if not greetings %}	  
             <li><a href="#">Sign up</a></li>
 			<li><a href="#">Sign in</a></li>
+			<li><a class="btn btn-primary btn-lg" href="#" data-toggle="modal" data-target=".bs-modal-sm">Login </a></li>
+						
 		{% else %}
 			<li><a href="{% url 'account:profile' greetings %}">{{greetings}}</a></li>
 			<li><a href="{% url 'account:profile' greetings %}"><img alt="AirSpress" src="{{pPicture}}"></a></li>
@@ -69,7 +73,7 @@
 					  <a class="btn btn-primary btn-lg" href="/account/mytrips/add/" >Register a trip</a>
 					 or <a class="btn btn-primary btn-lg" href="/trips/search/" > Find</a> one.
 						{% else %}
-						<button class="btn btn-primary btn-lg" href="#signup" data-toggle="modal" data-target=".bs-modal-sm">Sign Up</button>
+						<button class="btn btn-primary btn-lg" href="#signup" data-toggle="modal" data-target=".bs-modal-lg">Sign Up</button>
 						{% endif %}
 					  </div>
 					
@@ -87,36 +91,13 @@
 	</div>
 {% if not greetings %}
 <!-- Modal -->
-<div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-        <br>
-        <div class="bs-example bs-example-tabs">
-            <ul id="myTab" class="nav nav-tabs">
-              <li class="active"><a href="#signin" data-toggle="tab">Sign In</a></li>
-            </ul>
-        </div>
-      <div class="modal-body">
-        <div id="myTabContent" class="tab-content">
-        <div class="tab-pane fade active in" id="signin">
-            <fieldset>
-            <!-- Sign In Button -->
-            <div >
-			<center>
-              <label ></label>
-              <div >
-                <a href="login/fb" class="btn fb-signin btn-lg">Sign In with Facebook</a>
-              </div>
-            </div>
-			<center>
-            </fieldset>
-            
-        </div>
-		</div>
-	  </div>
+<div class="modal fade bs-modal-lg" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		{% include "signup/signup_ajx.html" %}
 	 </div>
-	</div>
-</div>
+<div class="modal fade bs-modal-sm" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+		{% include "signup/signin_ajx.html" %}
+	 </div>
+	 <script src="{% static 'signup/js/modal-auth.js' %}"></script>
 {% endif %}
   </body>
 </html>

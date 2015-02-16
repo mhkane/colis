@@ -5,9 +5,10 @@ from django.core.urlresolvers import reverse
 from trips.forms import addForm, editproForm
 from trips.crtrips import tripCreate
 from trips.crtrips import trip
-from account.actions import request as trequests, getdeal
+from account.actions import request as trequests, getdeal, ref_create
 from trips.views import fbPicture
 from parse_rest.installation import Push
+from account.forms import referralForm
 # Create your views here.
 def addTrip(request):
     '''
@@ -247,4 +248,12 @@ def editProfile(request):#todo last man standing
         return HttpResponseRedirect(reverse('signup:index'))
             
     return render(request, 'trips/editprofile.html', {'greetings':cUser.username, 'addForm':editView})
-            
+def referral(request):
+    cUser = is_logged_in(request)
+    alert = {}
+    if cUser:
+        if request.method =='POST':
+            referralView = referralForm(request.POST)
+            if referralView.is_valid():
+                alert = ref_create(referralView,cUser)
+                            

@@ -11,6 +11,10 @@ class request(ParseObject):
     pass
 class acceptedRequest(ParseObject):
     pass
+# we have a referral class which is useful for retaining information between the referred and the referrer
+# And there is the secret-word the referred enter at signup, best way to store that
+class referral(ParseObject):
+    pass
 def getdeal(travelUser, aRequest, aTrip):
     reqAccepted = {}
     try:
@@ -94,3 +98,19 @@ def get_profile_pic(user_objectid):
     any_user=User.Query.get(objectId=user_objectid)
     any_user_pic = any_user.profilePicture.url
     return any_user_pic
+def ref_create(referralView, cUser):
+    new_ref = referral(referrer=cUser,secret=referralView.cleaned_data['secret_word'])
+    new_ref.save()
+    #send a mail to the referred user with the "secret word", mandrill in play !
+    from parse_rest.datatypes import Function
+    send_mail = Function("email") #there is the same function in django, might play with that when porting
+    result = send_mail(text='Your friend want to invite you in the amazing Airspress community',
+            subject="{0} invited you to join Airspress".format(cUser.username), from_email="no-reply@airspress.com",
+            from_name="Airspress", email=referralView.cleaned_data['referred_mail'], to_name='')
+    alert = {'type':'warning', 'text':'There was an error attempting to send the invitation, try again later.'}
+    try:
+        if result["result"]=="email sent":
+            alert = {'type':'success', 'text':'The invitation was succesfully sent !'}
+    except KeyError:
+        pass
+    return alert

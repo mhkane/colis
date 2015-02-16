@@ -11,12 +11,15 @@ from trips.forms import searchForm, requestForm
 #Tripy = trip(departureDate=  , fromLocation= , text=  , toLocation= )
 #Tripy.traveler = CurrentUser
 def fbPicture(request):
-    pPicture = request.session['pPicture']
+    try:
+        pPicture = request.session['pPicture']
+    except:
+        pPicture=''
     return pPicture
 def activeTrips(request):
     cUser = is_logged_in(request)
     if cUser:
-        myPicture = request.session['pPicture']
+        myPicture = fbPicture(request)
         allTrips = trip.Query.all()
         page_one = allTrips.limit(10)
         k = 0

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="assets/img/favicon.png">
+
+    <title>Signup -Airspress</title>
+
+    <!-- Core -->
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'signup/css/bootstrap.min.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'signup/css/ui-style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom-ui.css' %}" />
+  </head>
+  <body class="bg-white">
+ <div class="login-box">
+         <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+       <div class='modal-header header'>
+	        Login
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	   </div>
+      <div class="modal-body">
+		{% include "trips/alerts.html" %}
+		{% if loginView.non_field_errors %}<div class="alert alert-danger">{{ loginView.non_field_errors }}</div>{% endif %}
+		<form class="auth-form" action="/login/student/" method="post">
+		{% csrf_token %}
+						
+							<div class="form-group">
+								<input type="text" name="{{loginView.login_username.name}}" {% if loginView.login_name.value %} value="{{loginView.login_username.value}}" {% endif %} class="form-control" placeholder="Email Address">
+							{% if loginView.login_username.errors %}<div class="alert alert-danger">{{ loginView.login_username.errors }}</div>{% endif %}
+
+							</div>
+							<div class="form-group">
+								<input type="password" name="{{loginView.login_password.name}}" {% if loginView.login_password.value %} value="{{loginView.login_password.value}}" {% endif %} class="form-control" placeholder="Password">
+							{% if loginView.login_password.errors %}<div class="alert alert-danger">{{ loginView.login_password.errors }}</div>{% endif %}
+							</div>
+
+						<div class="footer">
+
+							<button type="submit" class="btn btn-signup btn-lg">Login</button>
+
+							<a href="login.html" class="text-center">Forgot your password ?</a>
+						</div>
+	   </form>
+            
+        </div>
+		</div>
+	  </div>
+		</div>
+	</body>
+</html>

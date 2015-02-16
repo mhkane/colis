@@ -11,7 +11,9 @@ from signup.forms import loginForm, registerForm
 authomatic = Authomatic(CONFIG, 'a super secret random string about falconpress and his brethren')
 
 def home(request):
-    # Create links and OpenID form and forward to the Login handler.
+    # Create links and sign-up form to forward to the Login handler.
+    registerView = registerForm()
+    loginView = loginForm()
     # Recover data from sessions
     cUser=None
     pPicture=''
@@ -19,7 +21,8 @@ def home(request):
         saken = request.session['lsten']
         cUser = currentUser(saken)
     except KeyError:
-        return render(request, 'signup/index.html')
+        return render(request, 'signup/index.html', 
+                    {'loginView':loginView,'registerView':registerView,})
     
     if cUser is not None:
         objID = cUser['objectId']
@@ -30,26 +33,52 @@ def home(request):
                 pPicture = cUser.profilePicture.url
             except AttributeError:
                 pass
-            return render(request, 'signup/index.html', {'greetings':username, 'pPicture':pPicture})
-    return render(request, 'signup/index.html')
+            return render(request, 'signup/index.html', 
+                    {'loginView':loginView,'registerView':registerView,
+                    'greetings':username, 'pPicture':pPicture})
+    return render(request, 'signup/index.html', 
+                    {'loginView':loginView,'registerView':registerView,})
 
 def signup(request, provider_name):
     if provider_name == 'student':
-        alert={} # dict type object to carry warnings or notifications to the front
+        alert={'type':'','text':''} # dict type object to carry warnings or notifications to the front
+        loginView=loginForm()
         cUser = is_logged_in(request)
         if not cUser:
             if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
                 registerView = registerForm(request.POST)
                 if registerView.is_valid():
+                    #Sometimes there's no obvious errors but there are still errors...
                     alert = re_validation(registerView)
+                    
                     print alert
-                    return render(request,'signup.html',{'alert':alert})
-            #Preparing search form on page
+                    if alert['type']=='success':
+                        # clear form only if success because...
+                        registerView=registerForm()
+                    # ...Not every one love filling forms a dozen time, unless you're a robot ;)
+                    if request.is_ajax():
+                        return render(request,'signup/signup_ajx.html',{'loginView':loginView,'registerView':registerView,
+                                                         'alert':alert})
+                    else:
+                        return HttpResponseRedirect(reverse('signup:register_success'))
+     
+            #Throwing back form on page with errors, alerts
                 else:
                     print registerView.errors
+                    if request.is_ajax():
+                        return render(request,'signup/signup_ajx.html',
+                            {'loginView':loginView,'registerView':registerView,
+                            'alert':alert})
+                    else:
+                        return render(request,'signup/signup.html',
+                            {'loginView':loginView,'registerView':registerView,
+                            'alert':alert})
+                
         else:
             return HttpResponseRedirect(reverse('trips:index'))
-        return render(request,'signup/signup.html')
+        registerView=registerForm()
+        return render(request,'signup/signup.html',{'registerView':registerView,})
+    return HttpResponseRedirect(reverse('signup:index'))#home page
             
 
 def login(request, provider_name):
@@ -57,19 +86,47 @@ def login(request, provider_name):
     Handles validating login form and sending validation emails
     Fire proper handler for each type of user i.e. student or student referrals
     '''
+    registerView=registerForm()
+    loginView=loginForm()
     if provider_name == 'student':
-        alert={} # dict type object to carry warnings or notifications to the front
+        alert={'type':'','text':''} # dict type object to carry warnings or notifications to the front
         cUser = is_logged_in(request)
         if not cUser:
             if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
                 loginView = loginForm(request.POST)
                 if loginView.is_valid():
-                    alert = sign_in(loginView)
+                    #Sometimes there's no obvious errors but there are still errors...
+                    alert = sign_in(request, loginView)
+                    
                     print alert
-                    return render(request,'signup/signup.html','')
-            #Preparing search form on page
+                    #if login succeeded alert is in fact cUser object i.e. logged-in user 
+                    if not isinstance(alert, dict):
+                        # clear form only if success because...
+                        loginView=loginForm()
+                        # ...Not every one love filling forms a dozen time, unless you're a robot ;)
+                        return HttpResponseRedirect(reverse('trips:index'))
+                    else:
+                        return render(request,'signup/signin_ajx.html',
+                            {'loginView':loginView,'registerView':registerView,
+                            'alert':alert})
+     
+            #Throwing back form on page with errors, alerts
                 else:
                     print loginView.errors
+                    alert={'type':'danger', 'text':'Some errors apparently...'}
+                    if request.is_ajax():
+                        return render(request,'signup/signin_ajx.html',
+                            {'loginView':loginView,'registerView':registerView,
+                            'alert':alert})
+                    else:
+                        return render(request,'signup/signin.html',
+                            {'loginView':loginView,'alert':alert})
+        # Or a user is connected and we see him to the trips page :)        
+        else:
+            return HttpResponseRedirect(reverse('trips:index'))
+        # GET request. This is definitely someone who came all the way to login, no modals but the page
+        return render(request,'signup/signin.html',{'loginView':loginView,})
+    # return HttpResponseRedirect(reverse('signup:index'))#home page
     else:
         # We need the response object for the adapter.
         response = HttpResponse()

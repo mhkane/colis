@@ -1,0 +1,34 @@
+.modal-header.header{border-bottom: 2px solid #e58811;
+background-color: #E89C39;
+font-size: 20px;
+text-align: center;
+color: #fff;
+border-radius: 3px;}
+.modal-body .fa{font-size:14px;}
+.modal-body .footer{text-align:center}
+.btn.btn-signup{background-color:#E89C39;border-color:#e58811;color:#f9f9f9}
+.alert{padding:5px;margin-top:5px;padding-left:15px;padding-right:15px;}
+/* buttons */
+.btn.btn-primary {
+border-width: 1px 1px 3px;
+-moz-box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+-webkit-box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+color: #fff;
+border-style: solid;
+border-top-style: solid;
+border-right-style: solid;
+border-bottom-style: solid;
+border-left-style: solid;
+border-color: rgb(244, 170, 35);
+background: linear-gradient(to bottom, #F9BC6D, #FC9412);
+}
+.btn.btn-primary:hover,.btn.btn-primary:focus{
+    background:#FC9412;
+    border-color:rgba(255,255,255,0);
+	border: 1px 1px 3px rgba(255,255,255,0);
+}
+.btn.btn-primary:active{
+	background:#FC9412;
+	border-color:rgba(255,255,255,0);
+}

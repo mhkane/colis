@@ -1,9 +1,6 @@
 {% if alert %}
-<div class="modal-body">
-
-  <div class="alert alert{{alert.type}}">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <strong>{{ alert.text }}</strong> 
+  <div class="alert alert-{{alert.type}} alert-dismissable">
+    <button type="button" data-dismiss="alert" class="close" aria-hidden="true">&times;</button>
+    <strong>{{ alert.text }} {{alert.message}}</strong> {% if alert.link %} <a href="{{url}}">{{link}}</a> {% endif %}
   </div>
-</div>
 {% endif %}

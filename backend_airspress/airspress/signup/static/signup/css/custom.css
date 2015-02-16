@@ -18,7 +18,7 @@ li i{padding-right:2px;}
 a.sidebar-brand{color:#fff}
 .fb-signin{background-color:#3B5998; color:#fff}
 div.modal-dialog.modal-sm{height:350px}
-.modal-content{height:90%}
+.modal-content{height:100%}
 .board-right{float:right;width:20%;}
 html,body,.container
 {
@@ -188,7 +188,7 @@ border-left-style: solid;
 border-bottom-color: rgb(244, 170, 35);
 background: linear-gradient(to bottom, #F9BC6D, #FC9412);
 }
-.btn.btn-primary:hover{
+.btn.btn-primary:hover,.btn.btn-primary:focus{
     background:#FC9412;
     border-color:rgba(255,255,255,0);
 	border: 1px 1px 3px rgba(255,255,255,0);
