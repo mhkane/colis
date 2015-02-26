@@ -7,10 +7,20 @@ from schemes import User, currentUser
 from airspress.settings import CONFIG
 from signup.schemes import save_user_pic, is_logged_in, re_validation, sign_in
 from signup.forms import loginForm, registerForm
+from account.actions import referral
+from parse_rest.query import QueryResourceDoesNotExist
 
 authomatic = Authomatic(CONFIG, 'a super secret random string about falconpress and his brethren')
 
 def home(request):
+    '''
+    This is the home page view. When anyone try to access any link 
+    on the domain i.e. "airspress.com/profile/" while not logged in
+    he/she is redirected here. One thing we can improve is adding a
+    "you have been disconnected"-like alert when a previously logged-in
+    try to access a timed-out session.
+    
+    '''
     # Create links and sign-up form to forward to the Login handler.
     registerView = registerForm()
     loginView = loginForm()
@@ -40,6 +50,11 @@ def home(request):
                     {'loginView':loginView,'registerView':registerView,})
 
 def signup(request, provider_name):
+    """
+    This is really self-descripting. But well... So provider_name is an URL argument
+    which tells us which kind sign-up is going on. Once we catch it we route the signup form
+    to the proper handler.
+    """
     if provider_name == 'student':
         alert={'type':'','text':''} # dict type object to carry warnings or notifications to the front
         loginView=loginForm()
@@ -78,6 +93,16 @@ def signup(request, provider_name):
             return HttpResponseRedirect(reverse('trips:index'))
         registerView=registerForm()
         return render(request,'signup/signup.html',{'registerView':registerView,})
+    elif provider_name == "referral":#referral
+        referred_id = request.GET.get('referral','')#here we get the "?referral=" parameter
+        if referred_id:
+            try:
+                referral_obj = referral.Query.get(objectId=referred_id)
+                #if we're still here, existing referral is confirmed, we can signup the user
+                #signup routine should create referralInfo column to store a pointer to the referral object
+                #which contains the referrer, and other userful info. Other than that it's the same as previous
+            except (AttributeError, QueryResourceDoesNotExist):
+                referral_obj=''
     return HttpResponseRedirect(reverse('signup:index'))#home page
             
 
@@ -127,7 +152,17 @@ def login(request, provider_name):
         # GET request. This is definitely someone who came all the way to login, no modals but the page
         return render(request,'signup/signin.html',{'loginView':loginView,})
     # return HttpResponseRedirect(reverse('signup:index'))#home page
-    else:
+    elif provider_name == "referral":#referral
+        referred_id = request.GET.get('referral','')#here we get the "?referral=" parameter
+        if referred_id:
+            try:
+                referral_obj = referral.Query.get(objectId=referred_id)
+                #if we're still here, existing referral is confirmed, we can signup the user
+                #signup routine should create referralInfo column to store a pointer to the referral object
+                #which contains the referrer, and other userful info. Other than that it's the same as previous
+            except (AttributeError, QueryResourceDoesNotExist):
+                referral_obj=''
+                    
         # We need the response object for the adapter.
         response = HttpResponse()
         

@@ -14,6 +14,10 @@ from parse_rest.user import User as ParseUser
 class User(ParseUser):
     pass
 def currentUser(saken):
+    '''
+    This scheme just recover the current logged-in user on Parse.
+    "saken" is the session token stored in a secure cookie on client side. 
+    '''
     import json,httplib
     connection = httplib.HTTPSConnection('api.parse.com', 443)
     connection.connect()
@@ -24,7 +28,7 @@ def currentUser(saken):
      })
     result = json.loads(connection.getresponse().read())
     return result
-def is_logged_in(request):# return the current user if User logged in.
+def is_logged_in(request):# return the current user if User is still logged in.
     try:
         saken = request.session['lsten']
         cUser = currentUser(saken)
@@ -37,19 +41,23 @@ def is_logged_in(request):# return the current user if User logged in.
             return cUserin
     
     return False
-def re_validation(loginView):
+def re_validation(registerView):
+    '''
+    This is the signup scheme which handles the two types of signup
+    and make the proper verifications
+    '''
     from signup.backend_parse import Institutions
-    user_email = loginView.cleaned_data['login_email']
-    user_password = loginView.cleaned_data['login_password']
-    user_password_conf = loginView.cleaned_data['login_password_conf']
-    user_institution = loginView.cleaned_data['login_institution']
-    user_name = loginView.cleaned_data['login_name']
+    user_email = registerView.cleaned_data['login_email']
+    user_password = registerView.cleaned_data['login_password']
+    user_password_conf = registerView.cleaned_data['login_password_conf']
+    user_institution = registerView.cleaned_data['login_institution']
+    user_name = registerView.cleaned_data['login_name']
     #This shouldn't be kept but don't want to create subclass validation right now; TODO 
     if not user_password == user_password_conf:
         alert={'type':'danger', 'text':'Hmmm... Passwords don''t match...'}
         return alert
     # """Recover human readable names from the choiceField selectbox, yes it's that tedious hehe ;) """
-    institution_dict = dict(loginView.fields['login_institution'].choices)
+    institution_dict = dict(registerView.fields['login_institution'].choices)
     accepted_institution = institution_dict[int(user_institution)]
     # Now we can get the domains associated with the selected institution
     try:
@@ -76,28 +84,42 @@ def re_validation(loginView):
         alert={'type':'warning','text':'You should use an "'+domain_mail+'" email address'}
     return alert
 def sign_in(request, loginView):
+    '''
+    This is the handler for login, "loginView" is the login form
+    '''
+    #recover login informaton
     username = loginView.cleaned_data['login_username']
     user_pass = loginView.cleaned_data['login_password']
+    # try to login via PArse
     try:
         cUser=User.login(username,user_pass)
         user_id = cUser.objectId
     except (AttributeError, QueryResourceDoesNotExist):
         user_id=''
+    #in case of error, check if username matches anything in the database
     if not user_id:
         try:
             is_user = User.Query.get(username=username)
         except (AttributeError, QueryResourceDoesNotExist):
             is_user=''
         if is_user:
+            # match! so must have lost her keys 
             alert={'type':'warning','text':'Wrong Password !','link':'Forgot your password ?','url':'/password_reset/'}
         else:
+            # hmm.. trying to plays us !?
             alert={'type':'danger','text':'This user does not exist','link':'Sign up here','url':'/login/student'}
         return alert
+    #create a secure session server-side and a little cookie client side
     request.session['lsten']=cUser.sessionToken
     return cUser
     
 import airspress.settings
 def save_user_pic( account, fbId=None, filepath=None):
+    '''
+    This is the picture uploader; it uploads a picture to Parse 
+    and associate it with an User. Needs some revamping so we can upload pics
+    in messages and requests as well.
+    '''
     import urllib2
     import httplib
     import json
@@ -158,6 +180,10 @@ import shutil
 FILE_UPLOAD_DIR = settings.FILE_UPLOAD_DIR
 
 def handle_uploaded_file(source, cUser):
+    '''
+    This is a helper for the uploader; creates a local tempfile to host user-uploaded file
+    on server before it's sent to Parse.com
+    '''
     fd, filepath = tempfile.mkstemp(prefix=source.name, dir=FILE_UPLOAD_DIR)
     with open(filepath, 'wb+') as dest:
         shutil.copyfileobj(source, dest)

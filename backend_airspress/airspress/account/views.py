@@ -238,7 +238,7 @@ def editProfile(request):#todo last man standing
                 
                 profilePic = handle_uploaded_file(request.FILES['profilePic'], saken)
                 
-        #Preparing search form on page
+        #
             else:
                 print editView.errors
             return render(request, 'trips/editprofile.html', {'greetings':cUser.username, 'editproForm':editView})             
@@ -256,4 +256,12 @@ def referral(request):
             referralView = referralForm(request.POST)
             if referralView.is_valid():
                 alert = ref_create(referralView,cUser)
+            else:
+                print referralView.errors
+            return render(request,'account/profile.html',{'alert':alert})#we probably won't use this template but a child-template
+        else:
+            referralView = referralForm()
+    else:
+        return HttpResponseRedirect(reverse('signup:index'))
+    return render(request, 'account/profile.html',{'referForm':referralView, 'alert': alert})
                             
