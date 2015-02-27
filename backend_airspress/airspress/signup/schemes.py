@@ -41,7 +41,7 @@ def is_logged_in(request):# return the current user if User is still logged in.
             return cUserin
     
     return False
-def re_validation(registerView):
+def re_validation(registerView, provider_name):
     '''
     This is the signup scheme which handles the two types of signup
     and make the proper verifications
@@ -52,18 +52,21 @@ def re_validation(registerView):
     user_password_conf = registerView.cleaned_data['login_password_conf']
     user_institution = registerView.cleaned_data['login_institution']
     user_name = registerView.cleaned_data['login_name']
-    #This shouldn't be kept but don't want to create subclass validation right now; TODO 
+    #This password validation line, shouldn't be kept but don't want 
+    # to create subclass validation right now; TODO 
+    # UPDATE: we created subclass validation, we should trash this one mwahahaha
     if not user_password == user_password_conf:
         alert={'type':'danger', 'text':'Hmmm... Passwords don''t match...'}
         return alert
-    # """Recover human readable names from the choiceField selectbox, yes it's that tedious hehe ;) """
-    institution_dict = dict(registerView.fields['login_institution'].choices)
-    accepted_institution = institution_dict[int(user_institution)]
-    # Now we can get the domains associated with the selected institution
-    try:
-        domain_mail = Institutions.Query.get(name=accepted_institution).mailDomain
-    except (AttributeError, QueryResourceDoesNotExist):
-        domain_mail=''
+    if provider_name == 'student':
+        # """Recover human readable names from the choiceField selectbox, yes it's that tedious hehe ;) """
+        institution_dict = dict(registerView.fields['login_institution'].choices)
+        accepted_institution = institution_dict[int(user_institution)]
+        # Now we can get the domains associated with the selected institution
+        try:
+            domain_mail = Institutions.Query.get(name=accepted_institution).mailDomain
+        except (AttributeError, QueryResourceDoesNotExist):
+            domain_mail=''
     # This alert dict will be returned with relevant notes 
     alert={'type':'','text':''}
     email_existing='' 
@@ -83,7 +86,7 @@ def re_validation(registerView):
     else:
         alert={'type':'warning','text':'You should use an "'+domain_mail+'" email address'}
     return alert
-def sign_in(request, loginView):
+def sign_in(request, loginView, provider_name):
     '''
     This is the handler for login, "loginView" is the login form
     '''

@@ -115,6 +115,8 @@ def deals(request, key):
     '''
     When a request is accepted a deal page can be accessed where users can see each other contact info
     and confirm delivery and pay for the transaction via a Paypal payment button; this is the "View Details".
+    "key" identify the deal page with a unique link e.g. "airspress.com/account/deals/uY45Egr"
+    where "key" is "uY45Egr"
     '''
     reqAccepted = {}
     cUser = is_logged_in(request)
@@ -134,10 +136,15 @@ def deals(request, key):
             availCap = aRequest.tripId.availCapacity
             reqWeight = aRequest.weightRequested
         except AttributeError:
-            pass#return render(request, 'trips/modals.html', {'alert':{'text':'This request does not exist !', 'type':'warning'}})
+            pass
+            #return render(request, 'trips/modals.html', {'alert':{'text':'This request does not exist !', 'type':'warning'}})
         if travelUser and reqUser:
+            #who is visiting the deal page ?
             if travelUser.objectId == cUser.objectId :
+                #if it is traveler we set some context variable for templates
                 istraveler = True
+                #and we push a notification for a first visit which is equivalent 
+                #to clicking on "accept" button
                 try:
                     if not aRequest.accepted:
                         aRequest.accepted= True
@@ -148,8 +155,10 @@ def deals(request, key):
                         aRequest.save()
                 except AttributeError:
                     pass
+                # getdeal get the deal class object associated with the request 
                 reqAccepted= getdeal(travelUser, aRequest, aTrip)
                 reqAccepted['istraveler']=istraveler
+                # reqAccepted dict contains all specific info for the deal 
                 print reqAccepted
                 return render(request, 'trips/modals.html',{'dealInfo':reqAccepted, 'rqkey':key})            
                 

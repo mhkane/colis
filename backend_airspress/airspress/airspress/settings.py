@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'airspress',
         'USER': 'postgres',
-        'PASSWORD': 'Shinsekai',
+        'PASSWORD': '#####',
         'HOST': '',
         'PORT':'5432',
     }
