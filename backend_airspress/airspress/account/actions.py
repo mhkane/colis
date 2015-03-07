@@ -4,9 +4,10 @@ user actions : put request on a travel, add a trip, make payments
 and also edit profile information
 '''
 from signup.schemes import User
-from parse_rest.datatypes import Object as ParseObject
+from parse_rest.datatypes import Object as ParseObject, Function
 from email.mime.image import MIMEImage
 from airspress.settings import FILE_UPLOAD_DIR
+from django.core.urlresolvers import reverse
 class request(ParseObject):
     pass
 class acceptedRequest(ParseObject):
@@ -15,6 +16,8 @@ class acceptedRequest(ParseObject):
 # And there is the secret-word the referred enter at signup, best way to store that
 class referral(ParseObject):
     pass
+#Cloud function for mail sending
+send_mail = Function("email")
 def getdeal(travelUser, aRequest, aTrip):
     reqAccepted = {}
     try:
@@ -101,10 +104,9 @@ def get_profile_pic(user_objectid):
 def ref_create(referralView, cUser):
     new_ref = referral(referrer=cUser,secret=referralView.cleaned_data['secret_word'])
     new_ref.save()
-    #send a mail to the referred user with the "secret word", mandrill in play !
-    from parse_rest.datatypes import Function
+    #send a mail to the referred user with the "secret word" which will be used in referred signup, mandrill in play !
     send_mail = Function("email") #there is the same function in django, might play with that when porting
-    result = send_mail(text='Your friend want to invite you in the amazing Airspress community',
+    result = send_mail(text='Your friend want to invite you in the amazing Airspress community.\n\nLink: '+reverse('signup:register', args=['referral']+'?referral='+new_ref.objectId),
             subject="{0} invited you to join Airspress".format(cUser.username), from_email="no-reply@airspress.com",
             from_name="Airspress", email=referralView.cleaned_data['referred_mail'], to_name='')
     alert = {'type':'warning', 'text':'There was an error attempting to send the invitation, try again later.'}

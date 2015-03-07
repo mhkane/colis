@@ -253,10 +253,11 @@ def editProfile(request):#todo last man standing
             return render(request, 'trips/editprofile.html', {'greetings':cUser.username, 'editproForm':editView})             
         else:
             editView = editproForm()
-    else:
-        return HttpResponseRedirect(reverse('signup:index'))
+            return render(request, 'trips/editprofile.html', {'greetings':cUser.username, 'addForm':editView})
+    
+    return HttpResponseRedirect(reverse('signup:index'))
             
-    return render(request, 'trips/editprofile.html', {'greetings':cUser.username, 'addForm':editView})
+    
 def referral(request):
     cUser = is_logged_in(request)
     alert = {}
@@ -267,10 +268,10 @@ def referral(request):
                 alert = ref_create(referralView,cUser)
             else:
                 print referralView.errors
-            return render(request,'account/profile.html',{'alert':alert})#we probably won't use this template but a child-template
+            return render(request,'account/profile.html',{'alert':alert, 'referForm':referralView})#we probably won't use this template but a child-template
         else:
             referralView = referralForm()
-    else:
-        return HttpResponseRedirect(reverse('signup:index'))
-    return render(request, 'account/profile.html',{'referForm':referralView, 'alert': alert})
+            return render(request, 'account/profile.html',{'referForm':referralView, 'alert': alert})
+    return HttpResponseRedirect(reverse('signup:index'))
+    
                             

@@ -3,6 +3,7 @@ from airspress import settings
 import airspress
 from airspress.settings import FILE_UPLOAD_DIR
 from parse_rest.query import QueryResourceDoesNotExist
+from parse_rest.core import ResourceRequestNotFound
 #register to Parse
 register(settings.APPLICATION_ID, settings.REST_API_KEY)#settings.REST_API_KEY
 from parse_rest.connection import ParseBatcher
@@ -68,7 +69,7 @@ def re_validation(registerView, provider_name):
         except (AttributeError, QueryResourceDoesNotExist):
             domain_mail=''
     # This alert dict will be returned with relevant notes 
-    alert={'type':'','text':''}
+    alert={} # alert["type"] and alert["text"] are mandatory, we can add other keywords
     email_existing='' 
     # verifying existence of another user associated with this email address
     try:
@@ -97,7 +98,7 @@ def sign_in(request, loginView, provider_name):
     try:
         cUser=User.login(username,user_pass)
         user_id = cUser.objectId
-    except (AttributeError, QueryResourceDoesNotExist):
+    except (AttributeError, QueryResourceDoesNotExist,ResourceRequestNotFound):
         user_id=''
     #in case of error, check if username matches anything in the database
     if not user_id:
@@ -115,7 +116,15 @@ def sign_in(request, loginView, provider_name):
     #create a secure session server-side and a little cookie client side
     request.session['lsten']=cUser.sessionToken
     return cUser
-    
+def change_password(email):
+    reference = ''
+    try:
+        this_user = User.Query.get(email=email)
+        result = passRequest(userRequester=this_user)
+        reference = result.objectId
+    except (AttributeError, QueryResourceDoesNotExist):
+        pass
+    return reference
 import airspress.settings
 def save_user_pic( account, fbId=None, filepath=None):
     '''

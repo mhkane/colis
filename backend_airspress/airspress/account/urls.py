@@ -13,6 +13,8 @@ urlpatterns = patterns('',
     url(ur'^(?P<key>.*)/deals/$', views.deals, name='deals'),
     url(ur'^usersRequest/$', views.otRequests, name='otRequest'),
     url(ur'^(?P<key>.*)/$', views.profileView, name='profile'),
+    url(ur'^(?P<key>.*)/edit/$', views.editProfile, name='edit_profile'),
+    url(ur'^referral/$', views.referral,name='referral'),
     url(r'^mix_manage/$',utils.mix_manage, name="parse_mix"),
     #url(r'^search', views.searchTrips, name='search'),
     

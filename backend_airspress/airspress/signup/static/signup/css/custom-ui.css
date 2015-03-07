@@ -32,3 +32,6 @@ background: linear-gradient(to bottom, #F9BC6D, #FC9412);
 	background:#FC9412;
 	border-color:rgba(255,255,255,0);
 }
+/* alerts */
+#loginModal .alert button{right:0 !important;}
+#loginModal .alert{word-break:break-all;}

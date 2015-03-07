@@ -6,8 +6,9 @@ from authomatic.adapters import DjangoAdapter
 from schemes import User, currentUser
 from airspress.settings import CONFIG
 from signup.schemes import save_user_pic, is_logged_in, re_validation, sign_in
-from signup.forms import loginForm, registerForm, ref_regForm
-from account.actions import referral
+from signup.forms import loginForm, registerForm, ref_regForm, change_passForm,\
+    email_askForm
+from account.actions import referral, send_mail
 from parse_rest.query import QueryResourceDoesNotExist
 
 authomatic = Authomatic(CONFIG, 'a super secret random string about falconpress and his brethren')
@@ -62,7 +63,7 @@ def signup(request, provider_name):
         if not cUser:
             if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
                 registerView = registerForm(request.POST)
-                if registerView.is_valid():
+                if registerView.is_valid() and registerView.clean_password2():
                     #Sometimes there's no obvious errors but there are still errors...
                     alert = re_validation(registerView, provider_name)
                     
@@ -194,3 +195,69 @@ def logout(request):
     except:
         pass
     return HttpResponseRedirect(reverse('signup:index'))
+def mail_confirmation(request):
+    ''' There are some operations that need for security purposes, to
+    ask for a mail confirmation e.g. "password reset", "signup". 
+    This view is the one which is called when getting only the user email address
+    is absolutely necessary i.e. it's not for signup because 
+    we have the email address from signup form '''
+    alert={}
+    if request.method == 'POST':
+        email_address = email_askForm(request.POST)
+        if email_address.isvalid():
+            # route = POst['route']
+            # reference = change_pass # reference is for constructing unique link that will be used
+            #if reference :
+            try:
+                #send a mail with when necessary a link to the next step e.g. password reset
+                send_mail(text='')
+            except (AttributeError, QueryResourceDoesNotExist):
+                alert = {'type':'warning','message':'There is a problem with the servers. Retry Later'}
+            alert = {'type':'success','message':'Your Password was succesfully changed !'}
+        
+        else:
+            print email_address.errors
+        return render(request,'signup/ask_email.html',{'alert':alert, 'email':email_address})
+    # route = request.GET.get('next','')
+    email_address = email_askForm()
+    return render(request,'signup/ask_email.html',{'email':email_address})
+def new_password(request):
+    ''' This view is as the name suggest intended to display a form for the
+    user to change the password. The unique password changing link is generated from
+    mail_confirmation.'''
+    alert={}
+    if request.method == 'POST':
+        change_passView = change_passForm(request.POST)
+        if change_passView.isvalid() and change_passView.clean_password2():
+            #
+            alert = {'type':'success','message':'Your Password was succesfully changed !'}
+            try:
+                pass_request_id = request.POST['pass_request']
+                cUser = passRequest.Query.get(objectId=pass_request_id).userRequester
+                cUser.request_password_reset(email=cUser.email)
+                cUser.password = change_passView.clean_password2()
+                cUser.save()
+            except (AttributeError, QueryResourceDoesNotExist):
+                alert = {'type':'warning','message':'There is a problem with the servers. Retry Later'}
+
+        
+        else:
+            print change_passView.errors
+        return render(request,'signup/password_change.html',{'alert':alert, 'change_pass':change_passView })
+    pass_request_id = request.get.GET('jeton')
+    return render(request,'signup/password_change.html',{'pass_request':pass_request_id})
+def switch_pass(request):
+    cUser = is_logged_in(request)
+    alert={}
+    if cUser:
+        try:
+            email = cUser.email
+            cUser.request_password_reset(email=email)
+            alert['type']='success'
+            alert['text']='Check your inbox, we sent out a link to reset your password'
+            return render(request,'signup/password_change.html', {'alert':alert})
+        except (AttributeError, QueryResourceDoesNotExist):
+            alert={'type':'danger','text':'There seem to be a problem. Try again later.'}
+            return render(request,'signup/password_change.html', {'alert':alert})
+    return HttpResponseRedirect(reverse('signup:index'))
+            return render(request,'signup/password_change.html', {'alert':alert})

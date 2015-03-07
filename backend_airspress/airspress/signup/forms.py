@@ -25,4 +25,17 @@ class registerForm(regForm):
 # referred user register form
 class ref_regForm(regForm):
     pass
-    
+#new password request 
+class change_passForm(forms.Form):
+    new_pass = forms.CharField(min_length=8)
+    new_pass_conf = forms.CharField()
+    def clean_password2(self):
+        # Check that the two password entries match
+        password1 = self.cleaned_data.get("new_pass")
+        password2 = self.cleaned_data.get("new_pass_conf")
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Passwords don't match")
+        return password2
+# for mail confirmation
+class email_askForm(forms.Form):
+    email = forms.EmailField()

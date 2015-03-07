@@ -32,6 +32,7 @@
 	   </div>
       <div class="modal-body">
 		{% include "trips/alerts.html" %}
+		{% if not ref_regView %}
 		{% if registerView.non_field_errors %}<div class="alert alert-danger">{{ registerView.non_field_errors }}</div>{% endif %}
 		<form class="auth-form" action="/register/student/" method="post">
 		{% csrf_token %}
@@ -55,16 +56,16 @@
 							</div>
 							<div class="form-group">
 								<input type="text" name="{{registerView.login_email.name}}" value="{{registerView.login_email.value}}" class="form-control" placeholder="Email address">
-							{% if registerView.login_email.errors %}<div class="alert alert-danger">{{ registerView.login_email.errors }}</div>{% endif %}
+							{% if registerView.login_email.errors %}<div class="a>{{ registerView.login_email.errors }}</div>{% endif %}
 
 							</div>
 							<div class="form-group">
 								<input type="password" name="{{registerView.login_password.name}}" value="{{registerView.login_password.value}}" class="form-control" placeholder="Password">
-							{% if registerView.login_password.errors %}<div class="alert alert-danger">{{ registerView.login_password.errors }}</div>{% endif %}
+							{% if registerView.login_password.errors %}<div class="">{{ registerView.login_password.errors }}</div>{% endif %}
 							</div>
 							<div class="form-group">
 								<input type="password" name="{{registerView.login_password_conf.name}}" value="{{registerView.login_password_conf.value}}" class="form-control" placeholder="Retype password">
-							{% if registerView.login_password_conf.errors %}<div class="alert alert-danger">{{ registerView.login_password_conf.errors }}</div>{% endif %}
+							{% if registerView.login_password_conf.errors %}<div class="">{{ registerView.login_password_conf.errors }}</div>{% endif %}
 							</div>
 						</div>
 						<div class="footer">
@@ -74,7 +75,39 @@
 							<a href="login.html" class="text-center">I already have a membership</a>
 						</div>
 	   </form>
-            
+            {% else %}
+		{% if ref_regView.non_field_errors %}<div class="alert alert-danger">{{ ref_regView.non_field_errors }}</div>{% endif %}
+		<form class="auth-form" action="/register/referral/" method="post">
+		{% csrf_token %}
+						<div class="">
+						    
+							<div class="form-group">
+								<input type="text" name="{{ref_regView.login_name.name}}" value="{{ref_regView.login_name.value}}" class="form-control" placeholder="Full name">
+							{% if ref_regView.login_name.errors %}<div class="alert alert-danger">{{ ref_regView.login_name.errors }}</div>{% endif %}
+
+							</div>
+							<div class="form-group">
+								<input type="text" name="{{ref_regView.login_email.name}}" value="{{ref_regView.login_email.value}}" class="form-control" placeholder="Email address">
+							{% if ref_regView.login_email.errors %}<div class="a>{{ ref_regView.login_email.errors }}</div>{% endif %}
+
+							</div>
+							<div class="form-group">
+								<input type="password" name="{{ref_regView.login_password.name}}" value="{{ref_regView.login_password.value}}" class="form-control" placeholder="Password">
+							{% if ref_regView.login_password.errors %}<div class="">{{ ref_regView.login_password.errors }}</div>{% endif %}
+							</div>
+							<div class="form-group">
+								<input type="password" name="{{ref_regView.login_password_conf.name}}" value="{{ref_regView.login_password_conf.value}}" class="form-control" placeholder="Retype password">
+							{% if ref_regView.login_password_conf.errors %}<div class="">{{ ref_regView.login_password_conf.errors }}</div>{% endif %}
+							</div>
+						</div>
+						<div class="footer">
+
+							<button type="submit" class="btn btn-signup btn-lg">Sign me up</button>
+
+							<a href="login.html" class="text-center">I already have a membership</a>
+						</div>
+	   </form>		
+			{% endif %}
         </div>
 		</div>
 	</body>
