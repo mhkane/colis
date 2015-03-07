@@ -81,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'airspress',
         'USER': 'postgres',
-        'PASSWORD': 'Shinsekai',
+        'PASSWORD': '#####',
         'HOST': '',
         'PORT':'5432',
     }
@@ -113,15 +113,15 @@ MEDIA_URL = '/media/'
 STATIC_URL = '/static/'
 #Paypal Credentials
 PAYPAL_MODE='sandbox' #or 'live'
-PAYPAL_ID = 'AasK0xBGMLG8RARnY-SwXrdw_hCADnC2qCYjoPaNHDWIJSrcPvF0J10eyT4t'
-PAYPAL_SECRET ='EJqwBRDBF932t3jOO--kd23etAlxcFS-3Tys717xJkW7s1CPdU34ThvQo4bv'
+PAYPAL_ID = '#####'
+PAYPAL_SECRET ='#####'
 # PARSE APPLICATION KEYS
-APPLICATION_ID = "9GC4ybpn3PxuHyfCm3JKQZXyC1WBNuiTzhRcTHo6"
-REST_API_KEY = "asSPhJ5AV70NOyohcnRWLqXWtL5OrVNZV68yq6Tu"
-MASTER_KEY = "wzDarFuVlJHUI9vPEKZwfKVnluLYBRazv6KT1fKP"
+APPLICATION_ID = "####"
+REST_API_KEY = "a###"
+MASTER_KEY = "wz###"
 #FACEBOOK login CONFIG
-consumer_secret = '5f199d47d0bd5ea9f7f9a6c379a4d139'
-consumer_key = '1537229933223161'
+consumer_secret = '5f#######'
+consumer_key = '15########'
 CONFIG = {
           
     'fb': {
