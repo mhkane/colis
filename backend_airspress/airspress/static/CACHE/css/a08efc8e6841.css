@@ -1,0 +1,335 @@
+@import url('/static/signup/css/font-awesome.min.css?3fc951b48aa9');
+/* This contains additional customisations that are used for
+	the "real" website not the presentation website */
+
+body{background-color: rgba(0,0,0,0.03);}
+.navbar-static-top{position:fixed;right:0;left:0; background-color:#e7962e; height:50px;border-bottom: 1px solid #ddd;
+box-shadow: 0 3px 2px -2px rgba(200,200,200,0.3);
+}
+/* logo */
+.container .navbar-header .navbar-brand {padding-top:5px; margin-left:15px}
+.container{height:50px}
+.navbar-brand img{height:40px;}
+
+/* END -- logo */
+.slogan{text-align:center;}
+table {background-color:#fff}
+li i{padding-right:2px;}
+a.sidebar-brand{color:#fff}
+.fb-signin{background-color:#3B5998; color:#fff}
+div.modal-dialog.modal-sm{height:350px}
+.modal-content{height:100%}
+.board-right{float:right;width:20%;}
+html,body,.container
+{
+    height:100%;
+}
+ul{list-style-type:none;}
+.btn-search{margin-top:10px}
+.travelUser{text-align:center; }
+.travelUser span{display:block; text-align:center}
+.firstin .travelUser img{background-image:url('/static/signup/img/imgnofound.gif'); background-size:100% 100%;}
+.pull-right{margin-bottom:15px;}
+.errorlist{font-size:9px; margin:0;margin-top:5px;color:red;}
+.twodates{overflow:hidden; padding-left:0;padding-right:0;width:63%;}
+.twodates ul{padding-left:5px;}
+.twodates p{margin-bottom:0;}
+.twodates .col-md-6{padding-right:0;}
+.firstin {
+    margin-right: 0;
+	margin-left:0;
+}
+.price-details{overflow:auto;}
+p.unit-price{text-align:center; padding-top:15%; font-family: Museo-500; font-size:14px; color:green;}
+div.caption{padding-right:5px;}
+.format-add-trip{margin-left:150px;}
+.form-add-trip .form-group {padding-top:30px;}
+.form-req-trip .help-block {margin-bottom:0;}
+.form-req-trip .form-group {padding-top:20px;}
+.form-req-trip>.input-group{ width:30%;}
+form .comment{width:80%;}
+.form-add-trip .form-group .input-group{width:90%;}
+.form-add-trip .fa {font-size:14px;}
+/* Navbar */
+a.navbar-brand{margin-left:50px;}
+nav.navbar-static-top .container{width:100%; margin-right:0; padding-left:0;}
+ul.nav.navbar-nav.navbar-right {
+padding-left:0;
+width:70%;
+}
+
+ul.nav.navbar-nav.navbar-right li a{color:#fff; font-weight:bold;}
+ul.nav.navbar-nav.navbar-right li a:hover{background-color:#fc9412; color:#fff}
+ul.nav.navbar-nav.navbar-right li.dropdown a{color:#e7962e}
+.navbar-inverse {
+background-image: -webkit-linear-gradient(top, #3c3c3c 0%, #222 100%);
+background-image: linear-gradient(to bottom, #3c3c3c 0%, #222 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3c3c3c', endColorstr='#ff222222', GradientType=0);
+filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+background-repeat: repeat-x;
+}
+/* Dropdown Menu */
+
+.dropdown {
+    background:#fff;
+    border:1px solid #e7962e;
+    border-radius:1px
+}
+.dropdown-menu>li>a {
+    color:#428bca;
+}
+.dropdown ul.dropdown-menu {
+    border-radius:4px;
+    box-shadow:none;
+    margin-top:20px;
+    width:300px;
+}
+.dropdown ul.dropdown-menu:before {
+    content: "";
+    border-bottom: 10px solid #fff;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    position: absolute;
+    top: -10px;
+    right: 16px;
+    z-index: 10;
+}
+.dropdown ul.dropdown-menu:after {
+    content: "";
+    border-bottom: 12px solid #ccc;
+    border-right: 12px solid transparent;
+    border-left: 12px solid transparent;
+    position: absolute;
+    top: -12px;
+    right: 14px;
+    z-index: 9;
+}
+/* Navbar END */
+/* Sidebar STYLING*/
+.fa.fa-times{font: 14px/1 FontAwesome; color:white;}
+.mini-submenu{
+  display:inline-block !important;
+  position:fixed;
+  top:50px;
+  right:0;
+  z-index:1;
+  background-color: rgba(0, 0, 0, 0);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 9px;
+  /*position: relative;*/
+  width: 50px;
+  transition: background-color ease 0.5s
+
+}
+
+.mini-submenu:hover{
+  cursor: pointer;
+  background-color:#e7962e;
+}
+.mini-submenu:active{border:none}
+.mini-submenu .icon-bar {
+  border-radius: 1px;
+  display: block;
+  height: 2px;
+  width: 25px;
+  margin-top: 5px;
+}
+
+.mini-submenu .icon-bar {
+  background-color: #e7962e;
+}
+.mini-submenu:hover .icon-bar{
+  cursor: pointer;
+  background-color:#fff;
+}
+
+#slide-submenu{
+  background: rgba(0, 0, 0, 0.45);
+  display: inline-block;
+  padding: 0 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+/* ! End-- - Sidebar */
+
+							/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* User Profile STYLING */
+.table-user-information > tbody > tr {
+    border-top: 1px solid rgb(221, 221, 221);
+}
+
+.table-user-information > tbody > tr:first-child {
+    border-top: 0;
+}
+
+
+.table-user-information > tbody > tr > td {
+    border-top: 0;
+}
+.toppad
+{margin-top:20px;
+}
+/* User Profile END ! */
+
+/* buttons */
+.btn-primary {
+border-width: 1px 1px 3px;
+-moz-box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+-webkit-box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+color: #fff;
+border-style: solid;
+border-top-style: solid;
+border-right-style: solid;
+border-bottom-style: solid;
+border-left-style: solid;
+border-bottom-color: rgb(244, 170, 35);
+background: linear-gradient(to bottom, #F9BC6D, #FC9412);
+}
+.btn.btn-primary:hover,.btn.btn-primary:focus{
+    background:#FC9412;
+    border-color:rgba(255,255,255,0);
+	border: 1px 1px 3px rgba(255,255,255,0);
+}
+.btn-primary:active{
+	background:#FC9412;
+	border-color:rgba(255,255,255,0);
+}
+/* buttons END */
+
+/* media queries */
+@media (min-width: 768px){
+/*!
+ * This code partly reuse : The Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/* Toggle Styles */
+
+#wrapper {
+    padding-right: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-right: 250px; /* to change sidebar width, hashtag: sidewidth */
+}
+
+#sidebar-wrapper {
+    display: block !important;
+    z-index: 1000;
+    position: fixed;
+    right: 250px;/* sidewidth */
+    width: 0;
+    height: 100%;
+    margin-right: -250px;/* sidewidth */
+    overflow-y: auto;
+    background: none repeat scroll 0 0 #fff;
+	border-left:1px solid #e7962e;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;/* sidewidth */
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;/* sidewidth */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #f2a009;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-right: 250px;/* sidewidth */
+		padding-top:50px;
+    }
+
+    #wrapper.toggled {
+        padding-right: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px; /* sidewidth*/
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+@media (max-width:768px) {
+li span{font-size: 30px;}
+}
+/* media queries END ! */
+/* media queries END ! */
+p.errors{margin:0;}

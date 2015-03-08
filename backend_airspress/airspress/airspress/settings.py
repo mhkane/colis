@@ -23,7 +23,7 @@ SECRET_KEY = 'spb_fb$xf-vyc&*^n_^ur2#mgjk32!#+3cmvs&0mr70h!=_0@2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+COMPRESSOR_ENABLED = True
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -37,6 +37,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 STATICFILES_FINDERS = ( 
                        'django.contrib.staticfiles.finders.FileSystemFinder',
                        'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+                    'compressor.finders.CompressorFinder',
                        )
 #Uploaded Files
 FILE_UPLOAD_DIR = 'c:/'
@@ -51,6 +52,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'compressor',
     'south',
     'signup',
     'trips',
@@ -66,6 +68,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'airspress.middlewares.AjaxRedirect',
+    
 )
 
 ROOT_URLCONF = 'airspress.urls'
@@ -81,7 +85,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'airspress',
         'USER': 'postgres',
-        'PASSWORD': '#####',
+        'PASSWORD': 'Shinsekai',
         'HOST': '',
         'PORT':'5432',
     }
@@ -109,19 +113,19 @@ DATE_INPUT_FORMATS = ['%m-%d-%Y','%d-%m-%Y','%Y-%m-%d',
 MEDIA_URL = '/media/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-
+STATIC_ROOT = 'c:/Users/-/Downloads/Poject/backend/airspress/static'
 STATIC_URL = '/static/'
 #Paypal Credentials
 PAYPAL_MODE='sandbox' #or 'live'
-PAYPAL_ID = '#####'
-PAYPAL_SECRET ='#####'
+PAYPAL_ID = 'AasK0xBGMLG8RARnY-SwXrdw_hCADnC2qCYjoPaNHDWIJSrcPvF0J10eyT4t'
+PAYPAL_SECRET ='EJqwBRDBF932t3jOO--kd23etAlxcFS-3Tys717xJkW7s1CPdU34ThvQo4bv'
 # PARSE APPLICATION KEYS
-APPLICATION_ID = "####"
-REST_API_KEY = "a###"
-MASTER_KEY = "wz###"
+APPLICATION_ID = "9GC4ybpn3PxuHyfCm3JKQZXyC1WBNuiTzhRcTHo6"
+REST_API_KEY = "asSPhJ5AV70NOyohcnRWLqXWtL5OrVNZV68yq6Tu"
+MASTER_KEY = "wzDarFuVlJHUI9vPEKZwfKVnluLYBRazv6KT1fKP"
 #FACEBOOK login CONFIG
-consumer_secret = '5f#######'
-consumer_key = '15########'
+consumer_secret = '5f199d47d0bd5ea9f7f9a6c379a4d139'
+consumer_key = '1537229933223161'
 CONFIG = {
           
     'fb': {

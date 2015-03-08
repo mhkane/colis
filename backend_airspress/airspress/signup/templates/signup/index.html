@@ -12,12 +12,15 @@
 
     <!-- Core -->
 {% load staticfiles %}
+{% load compress %}
+{% compress css %}
 <link rel="stylesheet" type="text/css" href="{% static 'signup/css/bootstrap.min.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'signup/css/ui-style.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom-ui.css' %}" />
     <!-- index style -->
     <link rel="stylesheet" type="text/css" href="{% static 'signup/css/stylindex.css' %}">
+{% endcompress %}
     <!-- JScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="{% static 'signup/js/bootstrap.min.js' %}"></script>
@@ -97,7 +100,9 @@
 <div class="modal fade bs-modal-sm" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 		{% include "signup/signin_ajx.html" %}
 	 </div>
+	{% compress js %} 
 	 <script src="{% static 'signup/js/modal-auth.js' %}"></script>
+	 {% endcompress %}
 {% endif %}
   </body>
 </html>

@@ -5,5 +5,5 @@ urlpatterns = patterns('',
     url(r'^$', views.home, name='index'),
     url(r'^login/(\w*)/', views.login, name='login'),
     url(r'^logout', views.logout, name='logout'),
-    url(r'^register/(\w*)/', views.signup, name='register')
+    url(r'^register/(\w*)/', views.signup, name='register'),
     )

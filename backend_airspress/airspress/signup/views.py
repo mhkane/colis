@@ -260,4 +260,3 @@ def switch_pass(request):
             alert={'type':'danger','text':'There seem to be a problem. Try again later.'}
             return render(request,'signup/password_change.html', {'alert':alert})
     return HttpResponseRedirect(reverse('signup:index'))
-            return render(request,'signup/password_change.html', {'alert':alert})
