@@ -9,6 +9,7 @@ from account.actions import request as trequests, getdeal, ref_create
 from trips.views import fbPicture
 from parse_rest.installation import Push
 from account.forms import referralForm
+from parse_rest.query import QueryResourceDoesNotExist
 # Create your views here.
 def addTrip(request):
     '''
@@ -219,22 +220,33 @@ def profileView(request, key):
     cUser = is_logged_in(request)
     if cUser:
         pPicture = fbPicture(request)
-        anyUser = User.Query.get(username=key)
         anyName = ''
         anyMail = ''
         anyBio = ''
         anyRating = ''
+        is_verified = ''
         try:
+            anyUser = User.Query.get(username=key)
             anyName = anyUser.username
             anyMail = anyUser.email
-            anyBio = anyUser.userBio
+            is_verified = anyUser.emailVerified
             anyRating = anyUser.userRating
-        except AttributeError:
+            anyBio = anyUser.userBio
+            
+        except (AttributeError, QueryResourceDoesNotExist):
             pass
-        proDict={'greetings':anyName,'username':anyName, 'email':anyMail, 'Bio':anyBio, 'rating':anyRating, 'pPicture':pPicture}
+        if not anyRating:
+            anyRating = 0
+        # crunch down the long username; this is the messy way
+        # we can implement the slick Messi way afterwards ;-)
+        for delim in ['.','@','_']:
+            if delim in anyName:
+                anyName = anyName.split(delim, 1)[0]
+        # let's get everything in a dict object
+        proDict={'username':anyName, 'is_verified':is_verified, 'email':anyMail, 'Bio':anyBio, 'rating':anyRating, 'pPicture':pPicture}
         if request.is_ajax():
-            return render(request, 'trips/modals.html', proDict)
-        return render(request, 'account/profile.html', proDict)
+            return render(request, 'trips/modals.html', {'userinfo':proDict, 'greetings':cUser.username})
+        return render(request, 'account/profile.html', {'userinfo':proDict, 'greetings':cUser.username})
     return HttpResponseRedirect(reverse('signup:index'))
                 
 def editProfile(request):#todo last man standing

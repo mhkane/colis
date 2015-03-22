@@ -265,6 +265,7 @@ div.user-menu div.user-menu-content:not(.active){
     margin: auto;
     height: 10em;
 }
+img.img-responsive{height:10em}
 .user-container .img-responsive{	height:10em}
 	/* icons */
 	.user-menu-list .fa {
@@ -276,3 +277,18 @@ div.user-menu div.user-menu-content:not(.active){
 	span .fa {
 		font-size: 1.5em;
 	}
+.special-img 
+{
+    position: relative;
+    top: -5px;
+    float: left;
+    left: -5px;
+}
+.profile-image  {
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+ul.nav.navbar-nav.navbar-right>li>a{transition: all ease .3s}
+ul.nav.navbar-nav.navbar-right>li>a:hover ,
+ul.nav.navbar-nav.navbar-right>li>a:active{border-bottom-color:#fc9412; border-bottom:3px solid #fc9412; color:#fc9412; background-color:#fff}
+.panel-collapse{display:none;}

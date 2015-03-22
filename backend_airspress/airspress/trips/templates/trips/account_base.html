@@ -12,6 +12,8 @@
 	{% block stylesheet %} {% endblock stylesheet %}
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/datepicker3.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'account/css/star-rating.min.css' %}" />
+
 	<title> {% block title %} Airspress - A peer-to-peer delivery service{% endblock %} </title>
 </head>
 <body {% block onloader %} {% endblock %}>
@@ -48,20 +50,21 @@
                         <a href="#">How it works ?</a>
                     </li>
 					<li class="page-scroll dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img  src=" {{ myPicture }} "><span>{{ greetings }}</span></a>
+                        <a href="#" class="dropdown-toggle profile-image" data-toggle="dropdown"><img  class="img-circle special-image" src=" {{ myPicture }} "><span>{{ greetings }}</span> </a>
                     <ul class="dropdown-menu" id="menu-bar">
 						<li>
-							<a href=" {% url 'account:profile' greetings %} ">Profile <span class="glyphicon glyphicon-cog pull-right"></span></a>
+							<a href=" {% url 'account:profile' greetings %} ">Profile <i class="glyphicon glyphicon-cog pull-right"></i></a>
 						</li>
 						<li class="divider"></li>
-						<li class="panel dropdown">
-									   <a data-toggle="collapse" data-parent="#menu-bar" href="#collapseOne">
+						<li class="panel dropdown dropdown-nested">
+									   <a data-toggle="dropdown"  href="#">
 										  My Trips
 									   </a>
-							<ul id="collapseOne" class="panel-collapse collapse">
+							<hr class="divider"></hr>
+							<ul id="collapseOne" class="panel-collapse">
 								<li><a href="{% url 'account:myTrip' greetings %}">Added Trips</a></li>
 								<li class="divider"></li>
-								<li><a href="{%  url 'account:otRequest' %}">Buyer Requests <span class="badge pull-right"> 42 </span></a></li>
+								<li><a href="{%  url 'account:otRequest' %}">Buyer Requests <i class="badge pull-right"> 42 </i></a></li>
 							</ul>
 						</li>
 						<li class="divider"></li>
@@ -161,9 +164,17 @@
 	<script type="text/javascript" src="{% static 'signup/js/bootstrap.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'signup/js/sidebar.js' %}"></script>
 	<script type="text/javascript" src="{% static 'signup/js/bootstrap-datepicker.js' %}"></script>
+	<script type="text/javascript" src="{% static 'account/js/star-rating.min.js' %}"></script>
 	{% block jscript %} {% endblock jscript %}
     <!-- Menu Toggle Script -->
     <script>
+
+  $('.dropdown-nested').click(function(event){
+      event.stopPropagation();
+      var dropdown = $(this).children('.panel-collapse');
+      dropdown.toggle();
+  
+	});
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
