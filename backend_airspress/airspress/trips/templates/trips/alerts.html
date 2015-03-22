@@ -1,6 +1,6 @@
 {% if alert %}
   <div class="alert alert-{{alert.type}} alert-dismissable">
     <button type="button" data-dismiss="alert" class="close" aria-hidden="true">&times;</button>
-    <strong>{{ alert.text }} {{alert.message}}</strong> {% if alert.link %} <a href="{{url}}">{{link}}</a> {% endif %}
+    <strong>{{ alert.text }} {{alert.message}}</strong> {% if alert.link %} <a href="{{alert.url}}">{{alert.link}}</a> {% endif %}
   </div>
 {% endif %}

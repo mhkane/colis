@@ -6,4 +6,7 @@ urlpatterns = patterns('',
     url(r'^login/(\w*)/', views.login, name='login'),
     url(r'^logout', views.logout, name='logout'),
     url(r'^register/(\w*)/', views.signup, name='register'),
+    url(r'^mail_confirmation/', views.mail_confirmation, name='mailconf'),
+    url(r'^forgot_password/$', views.pre_pass_reset, name='forgot_pass'),
+    url(r'^reset_password/', views.pass_reset, name='reset_pass'),
     )

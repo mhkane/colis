@@ -8,3 +8,5 @@ from parse_rest.datatypes import Object as ParseObject
 
 class Institutions(ParseObject):
     pass
+class passRequest(ParseObject):
+    pass

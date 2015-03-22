@@ -10,9 +10,10 @@
 		{% if registerView.non_field_errors %}<div class="alert alert-danger">{{ registerView.non_field_errors }}</div>{% endif %}
 		<form class="auth-form" action="/register/student/" method="post">
 		{% csrf_token %}
-						
+						<div class="tab-content">
+						<div class="tab-pane active">
 						    <div class="form-group">
-                                            <label>Select your institution :</label>
+                                            <label>Select your institution in the list :</label>
                                             <select name="{{registerView.login_institution.name}}" class="form-control">
 											    {% for value, text in registerView.login_institution.field.choices %}
 													<option value="{{ value }}">{{ text }}</option>
@@ -26,6 +27,9 @@
 							{% if registerView.login_institution.errors %}<div class="">{{ registerView.login_institution.errors }}</div>{% endif %}
 
                            </div>
+								<a class="btn btn-lg btn-success" href="#signup2" data-toggle="tab"> Next </a>
+						   </div>
+						   <div class="tab-pane fade" id="signup2">
 							<div class="form-group">
 								<input type="text" name="{{registerView.login_name.name}}" {% if registerView.login_name.value %} value="{{registerView.login_name.value}}" {% endif %} class="form-control" placeholder="Full name">
 							{% if registerView.login_name.errors %}<div class="">{{ registerView.login_name.errors }}</div>{% endif %}
@@ -48,23 +52,24 @@
 
 							<button type="submit" class="btn btn-signup btn-lg">Sign me up</button>
 
-							<a href="login.html" class="text-center">I already have a membership</a>
+							<a href="#loginModal" data-toggle="modal" class="text-center">I already have a membership</a>
+						</div>
+						</div>
 						</div>
 	   </form>
        {% else %}
 		{% if ref_regView.non_field_errors %}<div class="alert alert-danger">{{ ref_regView.non_field_errors }}</div>{% endif %}
 		<form class="auth-form" action="/register/referral/" method="post">
 		{% csrf_token %}
-						<div class="">
 						    
 							<div class="form-group">
 								<input type="text" name="{{ref_regView.login_name.name}}" value="{{ref_regView.login_name.value}}" class="form-control" placeholder="Full name">
-							{% if ref_regView.login_name.errors %}<div class="alert alert-danger">{{ ref_regView.login_name.errors }}</div>{% endif %}
+							{% if ref_regView.login_name.errors %}<div class="">{{ ref_regView.login_name.errors }}</div>{% endif %}
 
 							</div>
 							<div class="form-group">
 								<input type="text" name="{{ref_regView.login_email.name}}" value="{{ref_regView.login_email.value}}" class="form-control" placeholder="Email address">
-							{% if ref_regView.login_email.errors %}<div class="a>{{ ref_regView.login_email.errors }}</div>{% endif %}
+							{% if ref_regView.login_email.errors %}<div>{{ ref_regView.login_email.errors }}</div>{% endif %}
 
 							</div>
 							<div class="form-group">
@@ -75,12 +80,12 @@
 								<input type="password" name="{{ref_regView.login_password_conf.name}}" value="{{ref_regView.login_password_conf.value}}" class="form-control" placeholder="Retype password">
 							{% if ref_regView.login_password_conf.errors %}<div class="">{{ ref_regView.login_password_conf.errors }}</div>{% endif %}
 							</div>
-						</div>
+						
 						<div class="footer">
 
 							<button type="submit" class="btn btn-signup btn-lg">Sign me up</button>
 
-							<a href="login.html" class="text-center">I already have a membership</a>
+							<a href="#loginModal" data-toggle="modal" class="text-center">I already have a membership</a>
 						</div>
 	   </form>		
 		{% endif %}

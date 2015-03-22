@@ -6,6 +6,7 @@ from parse_rest.user import User
 import airspress
 from parse_rest.installation import Push
 from account.actions import notif_mail
+from signup.schemes import change_password
 cityDep = 'The bottom'
 cityArr = 'The top'
 depDate1=timezone.now()
@@ -51,4 +52,5 @@ depDate2=adata
 # push_alert = 'Mohamed_K. accepted your request!'
 # Push.alert({"alert": push_alert,
 #                                  "badge": "Increment"}, where={"appUser":{"__type":"Pointer","className":"_User","objectId":"LKfygJctc7"}})
-k=notif_mail("konoufo@hotmail.fr","Mohamed","accepted your request")
+k=change_password('marsiale','9lTLf3GPg1')
+print k

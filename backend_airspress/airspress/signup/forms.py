@@ -9,7 +9,7 @@ class regForm(forms.Form):
     login_email=forms.EmailField()
     login_password = forms.CharField(min_length=8)
     login_password_conf = forms.CharField()
-    def clean_password2(self):
+    def clean_login_password_conf(self):
         # Check that the two password entries match
         password1 = self.cleaned_data.get("login_password")
         password2 = self.cleaned_data.get("login_password_conf")
@@ -29,7 +29,7 @@ class ref_regForm(regForm):
 class change_passForm(forms.Form):
     new_pass = forms.CharField(min_length=8)
     new_pass_conf = forms.CharField()
-    def clean_password2(self):
+    def clean_new_pass_conf(self):
         # Check that the two password entries match
         password1 = self.cleaned_data.get("new_pass")
         password2 = self.cleaned_data.get("new_pass_conf")

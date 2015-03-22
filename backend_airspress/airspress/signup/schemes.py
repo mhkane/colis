@@ -4,6 +4,7 @@ import airspress
 from airspress.settings import FILE_UPLOAD_DIR
 from parse_rest.query import QueryResourceDoesNotExist
 from parse_rest.core import ResourceRequestNotFound
+from signup.backend_parse import passRequest
 #register to Parse
 register(settings.APPLICATION_ID, settings.REST_API_KEY)#settings.REST_API_KEY
 from parse_rest.connection import ParseBatcher
@@ -116,15 +117,31 @@ def sign_in(request, loginView, provider_name):
     #create a secure session server-side and a little cookie client side
     request.session['lsten']=cUser.sessionToken
     return cUser
-def change_password(email):
+def request_password(email):
     reference = ''
     try:
         this_user = User.Query.get(email=email)
         result = passRequest(userRequester=this_user)
+        result.save()
         reference = result.objectId
     except (AttributeError, QueryResourceDoesNotExist):
         pass
+    print reference
     return reference
+def change_password(new_password, userid):
+    import json,httplib
+    connection = httplib.HTTPSConnection('api.parse.com', 443)
+    connection.connect()
+    connection.request('PUT', '/1/users/'+userid, json.dumps({
+       "password": new_password
+     }), 
+    {"X-Parse-Application-Id": settings.APPLICATION_ID,
+       "X-Parse-Master-Key": settings.MASTER_KEY,
+       "Content-Type":"application/json" 
+     })
+    result = json.loads(connection.getresponse().read())
+    print result
+    return result    
 import airspress.settings
 def save_user_pic( account, fbId=None, filepath=None):
     '''
