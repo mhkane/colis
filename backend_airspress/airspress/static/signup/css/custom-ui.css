@@ -43,7 +43,7 @@ a.dropdown-toggle:hover span{color:#fff;}
 
 /* -- color classes -- */
 .coralbg {
-    background-color: #FA396F;
+    background-color: #FAAE39;
 } 
 
 .coral {
@@ -266,6 +266,7 @@ div.user-menu div.user-menu-content:not(.active){
     height: 10em;
 }
 img.img-responsive{height:10em}
+img.img-responsive{height:10em}
 .user-container .img-responsive{	height:10em}
 	/* icons */
 	.user-menu-list .fa {
@@ -291,4 +292,6 @@ img.img-responsive{height:10em}
 ul.nav.navbar-nav.navbar-right>li>a{transition: all ease .3s}
 ul.nav.navbar-nav.navbar-right>li>a:hover ,
 ul.nav.navbar-nav.navbar-right>li>a:active{border-bottom-color:#fc9412; border-bottom:3px solid #fc9412; color:#fc9412; background-color:#fff}
+ul.nav.navbar-nav.navbar-right>li.dropdown>a:hover span,
+ul.nav.navbar-nav.navbar-right>li.dropdown>a:active span{color:#fc9412; background-color:#fff}
 .panel-collapse{display:none;}
