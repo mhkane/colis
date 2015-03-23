@@ -40,10 +40,13 @@
 						    <div class="form-group" name="{{ registerView.login_institution.name }}">
                                             <label>Select your institution :</label>
                                             <select name="{{registerView.login_institution.name}}" class="form-control">
-												<option value="École Polytechnique de Montréal">École Polytechnique de Montréal</option>
+											    {% for value, text in registerView.login_institution.field.choices %}
+													<option value="{{ value }}">{{ text }}</option>
+												{% endfor %}
+<!-- 												<option value="École Polytechnique de Montréal">École Polytechnique de Montréal</option>
                                                 <option value="HEC Rabat">HEC Rabat</option>
                                                 <option>Massachussets Institute of Technology</option>
-                                                <option>Université Laval</option>
+                                                <option>Université Laval</option> -->
                                              
                                             </select>
 							{% if registerView.login_institution.errors %}<div class="alert alert-danger">{{ registerView.login_institution.errors }}</div>{% endif %}
