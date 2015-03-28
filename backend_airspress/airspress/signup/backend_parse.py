@@ -10,3 +10,5 @@ class Institutions(ParseObject):
     pass
 class passRequest(ParseObject):
     pass
+class Reviews(ParseObject):
+    pass

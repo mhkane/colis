@@ -2,10 +2,11 @@ from django.shortcuts import render
 from signup.schemes import is_logged_in, User, handle_uploaded_file
 from django.http.response import HttpResponseRedirect, HttpResponseForbidden
 from django.core.urlresolvers import reverse
-from trips.forms import addForm, editproForm
+from trips.forms import addForm, editproForm, reviewForm
 from trips.crtrips import tripCreate
 from trips.crtrips import trip
-from account.actions import request as trequests, getdeal, ref_create
+from account.actions import request as trequests, getdeal, ref_create,\
+    tripReview
 from trips.views import fbPicture
 from parse_rest.installation import Push
 from account.forms import referralForm
@@ -215,7 +216,25 @@ def otRequests(request):
                 print reqTrips
         return render(request, 'trips/mytrips.html', {'otRequest':reqTrips,'greetings':cUser.username,})
     return HttpResponseRedirect(reverse('signup:index'))    
-           
+def reviewTrip(request,key):
+    alert={}
+    cUser = is_logged_in(request)
+    if cUser:
+        if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
+            review = reviewForm(request.POST)
+            if review.is_valid():
+                alert = tripReview(cUser, review, key)
+                if alert:
+                    return HttpResponseRedirect(reverse('account:deals',kwargs={'key':key}))
+            else:
+                print review.errors
+            return render(request, 'trips/modals.html', 
+                    {'key':key,'alert':alert,'greetings':cUser.username, 
+                    'reviewForm':review, 'pPicture':cUser.profilePicture})             
+        else:
+            review = reviewForm()
+    else:
+        return HttpResponseRedirect(reverse('signup:index'))
 def profileView(request, key):
     cUser = is_logged_in(request)
     if cUser:
@@ -262,10 +281,10 @@ def editProfile(request):#todo last man standing
         #
             else:
                 print editView.errors
-            return render(request, 'trips/editprofile.html', {'greetings':cUser.username, 'editproForm':editView})             
+            return render(request, 'account/editprofile.html', {'greetings':cUser.username, 'editproForm':editView})             
         else:
             editView = editproForm()
-            return render(request, 'trips/editprofile.html', {'greetings':cUser.username, 'addForm':editView})
+            return render(request, 'account/editprofile.html', {'greetings':cUser.username, 'addForm':editView})
     
     return HttpResponseRedirect(reverse('signup:index'))
             

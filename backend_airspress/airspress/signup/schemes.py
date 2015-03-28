@@ -143,6 +143,20 @@ def change_password(new_password, userid):
     print result
     return result    
 import airspress.settings
+def verify_email(userid):
+    import json,httplib
+    connection = httplib.HTTPSConnection('api.parse.com', 443)
+    connection.connect()
+    connection.request('PUT', '/1/users/'+userid, json.dumps({
+       "emailVerified": True
+     }), 
+    {"X-Parse-Application-Id": settings.APPLICATION_ID,
+       "X-Parse-Master-Key": settings.MASTER_KEY,
+       "Content-Type":"application/json" 
+     })
+    result = json.loads(connection.getresponse().read())
+    print result
+    return result 
 def save_user_pic( account, fbId=None, filepath=None):
     '''
     This is the picture uploader; it uploads a picture to Parse 

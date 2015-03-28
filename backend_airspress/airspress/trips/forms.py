@@ -23,4 +23,6 @@ class editproForm(forms.Form):
     userBio = forms.CharField()
     timeZone = forms.CharField()
     profilePic = forms.FileField(label='Select a picture', help_text ='max. 2mb' )
-    
+class reviewForm(forms.Form):
+    text = forms.CharField(max_length=200)
+    rating= forms.CharField()

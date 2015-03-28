@@ -24,8 +24,8 @@
 						<h4 class="white"><i class="fa fa-check-circle-o "></i>  Email Verified</h4>
 						{% else %} <h4 class="white"><i class="fa fa-user-times"></i>  Email Not Verified</h4>
 						{% endif %}
-                        <button type="button" class="btn btn-labeled btn-info" href="#">
-                            <span class="btn-label"><i class="fa fa-pencil"></i></span>Update</button>
+                        <a type="button" class="btn btn-labeled btn-info" href="/account/edit/">
+                            <span class="btn-label"><i class="fa fa-pencil"></i></span>Update</a>
 						<a href="{% url 'account:myTrip' username %}" class="btn btn-primary"> View {{userinfo.username}}'s Trips</a>
                     </div>
                 </div>

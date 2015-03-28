@@ -6,7 +6,7 @@ from authomatic.adapters import DjangoAdapter
 from schemes import User, currentUser
 from airspress.settings import CONFIG
 from signup.schemes import save_user_pic, is_logged_in, re_validation, sign_in,\
-    request_password, change_password
+    request_password, change_password, verify_email
 from signup.forms import loginForm, registerForm, ref_regForm, change_passForm,\
     email_askForm
 from account.actions import referral, send_mail
@@ -70,7 +70,7 @@ def signup(request, provider_name):
         if not cUser:
             if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
                 registerView = registerForm(request.POST)
-                if registerView.is_valid() and registerView.clean_password2():
+                if registerView.is_valid() and registerView.clean_login_password_conf():
                     #Sometimes there's no obvious errors but there are still errors...
                     alert = re_validation(registerView, provider_name)
                     
@@ -239,6 +239,19 @@ def mail_confirmation(request):
         else:
             print email_address.errors
         return render(request,'signup/ask_email.html',{'alert':alert, 'email':email_address})
+    elif request.GET.get('token','') and request.GET.get('username',''):
+        '''Signup email verification signal is caught here and email verified get set to True'''
+        username = request.GET.get('username','')
+        try:
+            userid = User.Query.get(username=username).objectId
+            result = verify_email(userid)
+            alert={'type':'success', 
+                   'text':'Your email address has been verified! Go on, add your trips and make your requests',
+                   'link':'/login/student/'}
+            return render(request,'signup/ask_email.html',{'alert':alert})
+
+        except (AttributeError, QueryResourceDoesNotExist):
+            pass
     # 'route' content identify the process which required an email confirmation
     # any frontend link to access this view should have a 'next' parameter which indicates the 
     #upcoming process e.g. www.airspress.com/mail_confimation?next=reset_password
@@ -255,7 +268,7 @@ def pass_reset(request):
         change_passView = change_passForm(request.POST)
         if change_passView.is_valid():
             #
-            alert = {'type':'success','message':'Your Password was succesfully changed ! Login ','link':'here', 'url':'/login/en/'}#,'url':'/login/'}
+            alert = {'type':'success','message':'Your Password was succesfully changed ! Login ','link':'here', 'url':'/login/student/en/'}#,'url':'/login/'}
             try:
                 pass_request_id = request.POST.get('jeton','')
                 cUser = passRequest.Query.get(objectId=pass_request_id).userRequester

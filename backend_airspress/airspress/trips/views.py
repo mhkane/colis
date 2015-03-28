@@ -105,7 +105,7 @@ def requestTrip(request, key):
             if reqView.is_valid():
                 alert = tripRequest(cUser, reqView, key)
                 print alert
-        #Preparing search form on page
+        
             else:
                 print reqView.errors
             return render(request, 'trips/modals.html', {'key':key,'alert':alert,'greetings':cUser.username, 'requestForm':reqView, 'pPicture':myPicture})             

@@ -8,6 +8,8 @@ from parse_rest.datatypes import Object as ParseObject, Function
 from email.mime.image import MIMEImage
 from airspress.settings import FILE_UPLOAD_DIR
 from django.core.urlresolvers import reverse
+from parse_rest.query import QueryResourceDoesNotExist
+from django.http.response import HttpResponseRedirect
 class request(ParseObject):
     pass
 class acceptedRequest(ParseObject):
@@ -101,6 +103,25 @@ def get_profile_pic(user_objectid):
     any_user=User.Query.get(objectId=user_objectid)
     any_user_pic = any_user.profilePicture.url
     return any_user_pic
+def tripReview(cUser, review, key):
+    ''' Takes every review and saves relevent information'''
+    from backend_parse import Reviews
+    dealer = ''
+    traveler = request.Query.get(objectId=key).traveler
+    requester = request.Query.get(objectId=key).requester
+    is_accepted = request.Query.get(objectId=key).accepted
+    if is_accepted:
+        if traveler==cUser:
+            dealer = requester
+        elif requester==cUser:
+            dealer = traveler
+        try:
+            alert = Reviews(reviewer=cUser, reviewText=review.cleaned_data['text'], reviewRating=review.cleaned_data['rating'],
+            reviewed= dealer)
+            return alert
+        except (AttributeError, QueryResourceDoesNotExist):
+            pass
+    return False
 def ref_create(referralView, cUser):
     new_ref = referral(referrer=cUser,secret=referralView.cleaned_data['secret_word'])
     new_ref.save()
