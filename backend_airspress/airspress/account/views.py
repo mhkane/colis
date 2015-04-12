@@ -11,6 +11,7 @@ from trips.views import fbPicture
 from parse_rest.installation import Push
 from account.forms import referralForm
 from parse_rest.query import QueryResourceDoesNotExist
+from signup.backend_parse import reviews
 # Create your views here.
 def addTrip(request):
     '''
@@ -185,11 +186,37 @@ def deals(request, key):
             #if everything so far is ok and nothing forbidden
             # we fetch the conversations between the 2 users
             # on this deal
+            # items to purchase on this deal
+            wanted_items = Item.Query.filter(request=aRequest)
+            k=0
+            items_dict={}
+            for wanted_item in wanted_items:
+                try:
+                    k=k+1
+                    items_dict['item'+str(k)]= {'name':wanted_item.name,'type':wanted_item.type,
+                                           'unitPrice':wanted_item.unitPrice,'quantity':wanted_item.quantity, 
+                                           'price':wanted_item.price}
+                except (AttributeError,QueryResourceDoesNotExist):
+                    pass
+            # reviews on this deal
+            deal_reviews = reviews.Query.filter(reviewedRequest=aRequest)
+            reviews_dict = {}
+            k=0
+            for deal_review in deal_reviews:
+                try:
+                    k=k+1
+                    reviews_dict['review'+str(k)] = {'sender':{'name':deal_review.reviewer.username,
+                                'picture':deal_review.reviewer.profilePicture},'text':deal_review.reviewText,
+                                'rating':deal_review.rating,'pubDate':deal_review.createdAt.date()}  
+                except (AttributeError, QueryResourceDoesNotExist):
+                    pass  
             # TODO use firebase cloud functions and retrieve user_messages
+            
+            review_form = reviewForm()
             return render(request, 'trips/deals.html',
                       {'dealInfo':reqAccepted,'reqUser':req_user_dic,
-                        'travelUser':travel_user_dic,'user_messages':'',
-                        'reviews':'','items':'', 'rqkey':key})
+                        'travelUser':travel_user_dic,'review_form':review_form,
+                        'user_messages':'','reviews':reviews_dict,'items':items_dict, 'rqkey':key})
     return HttpResponseRedirect(reverse('trips:index')) # We aren't redirecting to signup:index to avoid a certain lag on signup page
 
 def otRequests(request):
@@ -247,9 +274,9 @@ def reviewTrip(request,key):
                     {'key':key,'alert':alert,'greetings':cUser.username, 
                     'reviewForm':review, 'pPicture':cUser.profilePicture})             
         else:
-            review = reviewForm()
+            return HttpResponseRedirect(reverse('account:deals',kwargs={'key':key}))
     else:
-        return HttpResponseRedirect(reverse('signup:index'))
+        return HttpResponseRedirect(reverse('trips:index'))
 def profileView(request, key):
     cUser = is_logged_in(request)
     if cUser:
