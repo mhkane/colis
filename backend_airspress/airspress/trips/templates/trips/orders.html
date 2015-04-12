@@ -1,0 +1,114 @@
+{% extends "trips/account_base.html" %}
+<!-- We include base template for account related pages. And we fill the blocks -->
+{% block title %} Add a trip {% endblock title %}
+<!-- We load the Autocomplete widget by setting onload attribute -->
+{% block stylesheet %} <link rel="stylesheet" type="text/css" href="{% static 'trips/css/orders.css' %}" /> {% endblock stylesheet %}
+<!-- 'greetings' is always the username of the logged-in user  -->
+	{% if greetings %}
+{% block username %} {{ greetings }} {% endblock username %}
+<!-- This block will contain everything that is not on the user sidebar: list of trips or trip details or other user profiles...etc -->
+{% block content %}
+<div class="row">
+		<div class="col-lg-12">
+		<!--  HYBRIDE  --->  <div class="db-tabs-wrapper">
+
+                                        <article class="db-order-activity js-page-tab-content js-page-tab-activity">
+                                            
+                                            <header class="order-header with-star cf">
+                                                <a class="star hint--top" data-hint="star" href="https://www.fiverr.com/users/konoufo/manage_orders/FO52C0106303/toggle_star" id="star-FO52C0106303">star</a>
+                                                <span class="order-price">$60.00</span>
+                                                <h1>
+                                                    Order #FO52C0106303
+                                                    <ul class="order-header-info cf">
+                                                        <li>Buyer: <a href="https://www.fiverr.com/phanidatta">phanidatta</a></li>
+                                                        <li><time datetime="2015-01-28"><em>January 28, 2015</em></time></li>
+                                                    </ul>
+                                                </h1>
+                                            </header>
+
+                                                                                        <div class="order-gig-details">
+
+                                                <div class="order-gig-detail">
+                                                    <table>
+                                                        <thead>
+                                                            <tr>
+                                                                <td>Item</td>
+                                                                <td class="qty">Quantity</td>
+                                                                <td class="date">Duration</td>
+                                                                <td class="amount">Amount</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="truncated">translate english in french</td>
+                                                                <td class="qty"><strong>×</strong>4</td>
+                                                                <td class="date" style="">2 days</td>
+                                                                <td class="amount">$20.00</td>
+                                                            </tr>
+
+
+
+
+                                                            <tr>
+                                                                <td class="truncated">
+                                                                    <span class="status-bar bar-inline gig-extra">Extra</span>
+                                                                        translate up to 1000 words
+                                                                </td>
+                                                                <td class="qty"><strong>×</strong>4</td>
+                                                                <td class="date" style="">
+                                                                            <em>+ 1 day</em>
+                                                                </td>
+                                                                <td class="amount">$40.00</td>
+                                                            </tr>
+
+
+
+
+
+
+                                                            <tr class="total">
+                                                                <td colspan="4">Total <em>$60.00</em></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+
+                                            </div> 
+<!-- hybride --> 
+			<div class="panel panel-default panel-airdeal">
+				<div class="panel-heading">
+					<h2><i class="fa fa-edit"></i></h2>
+				</div>
+				<div class="panel-body">
+					
+						{% if alert %}
+		<div class="alert alert-{{alert.type}} alert-dismissable">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			<strong>{{ alert.text }}</strong> 
+		  </div>
+						{% endif %}
+						
+
+				</div>
+			</div>
+			<div class="panel panel-default panel-airdeal">
+				<div class="panel-heading">
+					<h2><i class="fa fa-edit"></i></h2>
+				</div>
+				<div class="panel-body">
+					
+						{% if alert %}
+					<div class="alert alert-{{alert.type}} alert-dismissable">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+						<strong>{{ alert.text }}</strong> 
+					</div>
+						{% endif %}
+						
+
+				</div>
+			</div>
+		</div><!--/col-->
+</div>
+{% endblock %}
+{% endif %}

@@ -10,6 +10,7 @@ from airspress.settings import FILE_UPLOAD_DIR
 from django.core.urlresolvers import reverse
 from parse_rest.query import QueryResourceDoesNotExist
 from django.http.response import HttpResponseRedirect
+
 class request(ParseObject):
     pass
 class acceptedRequest(ParseObject):
@@ -18,8 +19,11 @@ class acceptedRequest(ParseObject):
 # And there is the secret-word the referred enter at signup, best way to store that
 class referral(ParseObject):
     pass
+
 #Cloud function for mail sending
 send_mail = Function("email")
+
+# function to recover information for a given deal 
 def getdeal(travelUser, aRequest, aTrip):
     reqAccepted = {}
     try:
@@ -29,9 +33,10 @@ def getdeal(travelUser, aRequest, aTrip):
         #priceDeal = aRequest.priceUsd
         pub_date = aRequest.createdAt
         departDate = aTrip.departureDate.date()
+        arriDate = aTrip.arrivalDate.date()
         destLocation = aTrip.toLocation
         oriLocation = aTrip.fromLocation
-        reqAccepted = {'pubdate':pub_date, 
+        reqAccepted = {'pubdate':pub_date, 'arrDate':arriDate,
              'depDate':departDate, 'cityDep':destLocation, 
              'cityArr':oriLocation,'requestWeight':reqWeight, 
              'traveler':travelName, 'travelerEmail':'', 'reqUser':reqUser.username, 'reqEmail':''}
@@ -47,6 +52,7 @@ def getdeal(travelUser, aRequest, aTrip):
     # send notification
     
     return reqAccepted
+# TRASH we don't use this as we've configuring a cloud function to send the emails
 def notif_mail(recipient_email, msg_a, msg_b):
     import smtplib
 
@@ -99,13 +105,16 @@ def notif_mail(recipient_email, msg_a, msg_b):
     s.sendmail(me, you, msg.as_string())
     s.close()
     return 0
+# i don't know why i made this a function in the first place
 def get_profile_pic(user_objectid):
     any_user=User.Query.get(objectId=user_objectid)
     any_user_pic = any_user.profilePicture.url
     return any_user_pic
+
+# A function to handle review and save them to Parse
 def tripReview(cUser, review, key):
     ''' Takes every review and saves relevent information'''
-    from backend_parse import Reviews
+    from signup.backend_parse import Reviews
     dealer = ''
     traveler = request.Query.get(objectId=key).traveler
     requester = request.Query.get(objectId=key).requester
@@ -116,9 +125,9 @@ def tripReview(cUser, review, key):
         elif requester==cUser:
             dealer = traveler
         try:
-            alert = Reviews(reviewer=cUser, reviewText=review.cleaned_data['text'], reviewRating=review.cleaned_data['rating'],
+            new_review = Reviews(reviewer=cUser, reviewText=review.cleaned_data['text'], reviewRating=review.cleaned_data['rating'],
             reviewed= dealer)
-            return alert
+            return new_review
         except (AttributeError, QueryResourceDoesNotExist):
             pass
     return False

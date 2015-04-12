@@ -1,65 +1,171 @@
-  {% extends "trips/account_base.html" %}
-  {% block title %} Deal Page {% endblock title %}
-  
-  {% block content %}
-  
-  <h3> Make a deal</h3>
+{% extends "trips/account_base.html" %}
+<!-- We include base template for account related pages. And we fill the blocks -->
+{% block content %}
+		<!--  HYBRIDE  ---> 
+		<div class="db-container mp-box">
+		<section class="db-content content-left db-content-order-detail">
+		<div class="db-tabs-wrapper">
+
+                                        <article class="db-order-activity js-page-tab-content js-page-tab-activity">
+                                            
+                                            <header class="order-header with-star cf">
+                                                <span class="order-price">{{ dealInfo.totalPrice }}</span>
+												{% if not dealInfo.istraveler and not dealInfo.ispayed %}
+												<!-- Payment triggers-->
+												<a class="btn btn-embossed" href="{% url 'payment:paypal_create' rqkey %}">Pay with Paypal</a>
+												
+												<!-- Payment triggers-->
+												{% endif %}
+                                                <h1>
+                                                    <i class="fa fa-map-marker">&nbsp;</i>{{ dealInfo.cityDep}} <i class="fa-long-arrow-right fa"></i> {{ dealInfo.cityArr}}<i class="fa fa-map-marker"></i>
+                                                    <ul class="order-header-info cf">
+                                                        <li>{% if dealInfo.istraveler %} Buyer:  <a href="{% url 'account:profile' reqUser.username %}">{{reqUser.username}}</a> 
+														{% else %} Traveler:  <a href="{% url 'account:profile' travelUser.username">{{travelUser.username}}</a>
+														{% endif %}</li>
+														
+                                                        <li><time datetime="2015-01-28"><em>Started on {{ dealInfo.pubdate }}</em></time></li>
+                                                    </ul>
+                                                </h1>
+                                            </header>
+
+                                             <div class="order-gig-details">
+
+                                                <div class="order-gig-detail">
+                                                    <table>
+                                                        <thead>
+                                                            <tr>
+                                                                <td>Item</td>
+                                                                <td class="qty">Quantity</td>
+                                                                <td class="date">Delivery after arrival</td>
+                                                                <td class="amount">Amount</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+														{% for item in requested_items %}
+                                                            <tr>
+                                                                <td class="truncated">{{item.name}}</td>
+                                                                <td class="qty"><strong>×</strong>{{item.quantity}}</td>
+                                                                <td class="date" style="">2 days</td>
+                                                                <td class="amount">{{ item.price }}</td>
+                                                            </tr>
+														{% endfor %}	
+	                                                         <tr>
+                                                                <td class="truncated">
+                                                                    <span class="status-bar bar-inline gig-extra">Commission</span>
+                                                                        
+                                                                </td>
+                                                                <td class="qty"><strong></strong></td>
+                                                                <td class="date" style="">
+                                                                            
+                                                                </td>
+                                                                <td class="amount">{{ dealInfo.commission}}</td>
+                                                            </tr>														
+                                                            <tr class="total">
+                                                                <td colspan="4">Total <em>{{ dealInfo.totalPrice }}</em></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+
+                                            </div> 
+<!-- hybride --> 
+<div class="container">
   <div class="row">
-  <div class="col-lg-12"> 
-  <div class = "table-responsive">
-  <table class="table">
-  <thead>
-  <tr>
-	<th> Requester </th><th> Trip Info</th><th>Traveler</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-	<td> {{dealInfo.reqUser}} </td><td> Requested on: {{dealInfo.pubdate}} </td><td>{{dealInfo.traveler}} </td>
-  </tr>
-  <tr>
-	<td> {{dealInfo.reqEmail}} </td><td> Departure on: {{dealInfo.depDate}} </td><td>{{dealInfo.travelerEmail}} </td>
-  </tr>
-   <tr>
-	<td> </td><td> From: {{dealInfo.cityDep}} </td><td> </td>
-  </tr>
-     <tr>
-	<td> </td><td> To: {{dealInfo.cityArr}} </td><td> </td>
-  </tr>
-  <tr>
-	<td> </td><td> Shipment Weight: {{dealInfo.requestWeight}} Kg </td><td> </td>
-  </tr>
-  {% if not dealInfo.isdeliv %}
-  {% if not dealInfo.istraveler %}
-	{% if not dealInfo.ispayed %}
-		{% if not dealInfo.isaccepted %}
-			 <tr>
-			<td> </td><td> Status: <a class="btn btn-primary" href="{% url 'payment:paypal_create' rqkey %}">Not Accepted</a> </td><td> </td>
-		  </tr>
-		  {% else %}
-			 <tr>
-			<td> </td><td> Payment: <a class="btn btn-primary" href="{% url 'payment:paypal_create' rqkey %}">Pay with Paypal</a> </td><td> </td>
-		  </tr>
-			{% endif %}
+    <div class="col-md-8">
+      <h2 class="page-header"></h2>
+        <section class="comment-list">
+          <!-- First Comment -->
+		  {% for message in user_messages %}
+			{% if message.text %}
+          <article class="row">
+            <div class="col-md-2 col-sm-2 hidden-xs">
+              <figure class="thumbnail">
+                <img class="img-responsive" src="message.sender.picture" />
+                <figcaption class="text-center">{{ message.sender.name }}</figcaption>
+              </figure>
+            </div>
+            <div class="col-md-10 col-sm-10">
+              <div class="panel panel-default arrow left">
+                <div class="panel-body">
+                  <header class="text-left">
+                    <div class="comment-user"><i class="fa fa-user"></i> {{message.sender.name}}</div>
+                    <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> {{message.time}}</time>
+                  </header>
+                  <div class="comment-post">
+                    <p>
+                      {{message.text}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+		  {% endif %}
+		  </section>
+		  </div>
+		</div>
+	</div>
+{% if dealInfo.isdeliv %}
+	<div class="row" style="margin-top:40px;">
+		<div class="col-md-12">
+		
+	{% if not dealInfo.reviewed %}	
+    	<div class="well well-sm">
+            <div class="text-right">
+                <a class="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box"> <strong>Rate this Airdeal</strong></a>
+            </div>
+        
+            <div class="row" id="post-review-box" style="display:none;">
+                <div class="col-md-12">
+                    <form accept-charset="UTF-8" action="" method="post">
+                        <input id="ratings-hidden" name="rating" type="hidden"> 
+                        <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
+        
+                        <div class="text-right">
+                            <div class="stars starrr" data-rating="0" style="cursor:pointer;"></div>
+                            <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
+                            <span class="glyphicon glyphicon-remove">&nbsp;</span>Cancel</a>
+                            <button class="btn btn-success btn-lg" type="submit" id="send-review">Save</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> 
 	{% else %}
-			 <tr>
-			<td> </td><td> Delivery: <a class="btn btn-primary btn-success" href="{% url 'delivery:confirmation' rqkey %}">Confirm Delivery</a> </td><td> </td>
-		  </tr>
-	{% endif %}
-	{% else %}
-			 <tr>
-			<td> </td><td> Status: <a class="btn btn-primary">Not Paid Yet</a> </td><td> </td>
-		  </tr>		
-	{% endif %}
-  {% else %}
-			 <tr>
-			<td> </td><td> <i class="fa fa-success"></i> <a class="alert-success" >Delivered !</a> </td><td> </td>
-		  </tr>		
-  
-  {% endif %}
-  </tbody>
-  </table>
-  </div>
-  </div>
-  </div>
-  {% endblock %}
+		{% for review in reviews }
+		 {% if review.text %}
+		<!-- a readonly review-->
+         <div class="well">		
+			<div class="row-fluid">
+			  <div class="col-md-2 col-sm-2 hidden-xs">               
+				  <figure class="thumbnail">
+						<img class="img-responsive" src="{{ review.sender.picture }}" />
+						<figcaption class="text-center"></figcaption>
+				  </figure>
+			 </div>
+			  <div class="span9"> {{ review.text }} <br>
+				<strong>{{ review.sender.name }} </strong>
+			  </div>
+			  <div class="span2 muted mycenter" style="text-align: right;"><div class="rating-stars" data-rating="{{review.rating}}" ></div></div>
+			</div>
+		  </div>
+		  <!-- a readonly review-->
+		    {% endif %}
+		  {% endfor %}
+   {% endif %}
+ {% endif %}
+		</div>
+	  </div>
+	</div>
+  </section>
+</div>
+</div><!--/col-->
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+{% block jscript %} <script type="text/javascript" src="js/order-review.js"></script> {% endblock %}
+<script src="js/jquery.raty.js"></script>
+<script type="text/javascript">//score should depend on data-rating, see docs !
+ $('.rating-stars').raty({ starType: 'i', score: 5, readOnly: true });</script>
+{% endblock content %}
