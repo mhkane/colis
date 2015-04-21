@@ -12,12 +12,13 @@
 	{% block stylesheet %} {% endblock stylesheet %}
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom-ui.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'account/css/flat-ui.min.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/datepicker3.css' %}" />
-	<link rel="stylesheet" type="text/css" href="css/jquery.raty.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'trips/css/jquery.raty.css' %}">
 	<title> {% block title %} Airspress - A peer-to-peer delivery service{% endblock %} </title>
 </head>
 <body {% block onloader %} {% endblock %}>
-    <nav class="navbar navbar-default navbar-static-top navbar-shrink">
+    <nav class="navbar navbar-default navbar-static-top navbar-shrink navbar-inverse navbar-embossed">
         <div class="container">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header page-scroll">
@@ -49,34 +50,26 @@
                     <li class="page-scroll">
                         <a href="#">How it works ?</a>
                     </li>
-					<li class="page-scroll dropdown">
-                        <a href="#" class="dropdown-toggle profile-image" data-toggle="dropdown"><img  class="img-circle special-image" src=" {{ myPicture }} "><span>{{ greetings }}</span> </a>
-                    <ul class="dropdown-menu" id="menu-bar">
-						<li>
-							<a href=" {% url 'account:profile' greetings %} ">Profile <i class="glyphicon glyphicon-cog pull-right"></i></a>
-						</li>
-						<li class="divider"></li>
-						<li class="panel dropdown dropdown-nested">
-									   <a data-toggle="dropdown"  href="#">
-										  My Trips
-									   </a>
-							<hr class="divider"></hr>
-							<ul id="collapseOne" class="panel-collapse">
-								<li><a href="{% url 'account:myTrip' greetings %}">Added Trips</a></li>
-								<li class="divider"></li>
-								<li><a href="{%  url 'account:otRequest' %}">Buyer Requests <i class="badge pull-right"> 42 </i></a></li>
-							</ul>
-						</li>
-						<li class="divider"></li>
+					<!-- -->
+					<li>
+					<div class="btn-group">
+					  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+						<img alt="{{greetings}}" class="img-circle" style="width:15px; height:auto;" src="{{ myPicture }}">{{ greetings }} <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu" role="menu">
+						<li><a href=" {% url 'account:profile' greetings %} ">Profile <i class="fa fa-cog pull-right"></i></a></li>
+						<li><a href="{%  url 'account:otRequest' %}">Buyer Requests <i class="badge pull-right"> 42 </i></a></li>
+						<li><a href="{% url 'account:myTrip' greetings %}">My Trips</a></li>
 						<li>
 							<a href="/account/mytrips/requested_trips/">Requested Trips</a>
 						</li>
-						<li class="divider"></li>
-						<li> <a href="/account/mytrips/add">Add a trip</a> </li>
-						<li class="divider"></li>
+						<li><a href="/account/mytrips/add">Add a trip</a></li>
 						<li class='logout-btn'> 
 						   <a href="/logout"> Logout <span class="glyphicon glyphicon-log-out pull-right"></span></a>
 						</li>
+					  </ul>
+					</div>
+	<!-- -->		</li>
 					</ul>
 					
 					</li>
@@ -85,8 +78,7 @@
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
-    </nav>
-  </div>		
+    </nav>		
 
  <div id="wrapper" class="toggled">
         <!-- Page Content -->
@@ -118,10 +110,11 @@
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAo_PT60oc_CGiUYJcI4gsYYa5UGZSBxp8&libraries=places&sensor=false"></script>
 
-	<script type="text/javascript" src="{% static 'signup/js/bootstrap.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'account/js/flat-ui.min.js' %}"></script>
+	
 	<script type="text/javascript" src="{% static 'signup/js/sidebar.js' %}"></script>
 	<script type="text/javascript" src="{% static 'signup/js/bootstrap-datepicker.js' %}"></script>
-	<script type="text/javascript" src="{% static 'account/js/jquery-raty.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'account/js/jquery.raty.js' %}"></script>
 	{% block jscript %} {% endblock jscript %}
     <!-- Menu Toggle Script -->
     <script>
@@ -149,6 +142,7 @@
 	</script>
 	<script type="text/javascript" src="{% static 'signup/js/citySearch.js' %}"></script>
 	<script type="text/javascript" src="{% static 'signup/js/currencySel.js' %}"></script>
+	
 
 	<script>
 	 $(document).ready(function(){

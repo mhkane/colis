@@ -12,3 +12,5 @@ class passRequest(ParseObject):
     pass
 class reviews(ParseObject):
     pass
+class Item(ParseObject):
+    pass

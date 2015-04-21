@@ -10,17 +10,18 @@ body {
     background: linear-gradient(to bottom,  #dec8bb 0%,#ac8e74 31%,#bda285 66%,#876d52 100%); /* W3C */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dec8bb', endColorstr='#876d52',GradientType=0 ); /* IE6-8 */
 }
-.modal-header.header{border-bottom: 2px solid #e58811;
-background-color: #fff;
+.modal-header.header{border-bottom: 2px solid #d54330;
+background-color: #e27d33;
 font-size: 20px;
 text-align: center;
-color: #e58811;
+color: #fff;
 border-radius: 3px;}
 .modal-body .fa{font-size:14px;}
 .modal-body .footer{text-align:center}
 .btn.btn-signup{background-color:#E89C39;border-color:#e58811;color:#f9f9f9}
 .alert{padding:5px;margin-top:5px;padding-left:15px;padding-right:15px;}
 /* buttons */
+/*
 .btn.btn-primary {
 border-width: 1px 1px 3px;
 -moz-box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
@@ -45,14 +46,15 @@ background: linear-gradient(to bottom, #F9BC6D, #FC9412);
 	border-color:rgba(255,255,255,0);
 }
 a.dropdown-toggle:hover span{color:#fff;}
+*/
 /* alerts */
 #loginModal .alert button{right:0 !important;}
 #loginModal .alert{word-break:break-all;}
-/* Profile */
+/* Profile 
 .square, .btn {
     border-radius: 0px!important;
 }
-
+*/
 /* -- color classes -- */
 .coralbg {
     background-color: #FAAE39;

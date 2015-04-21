@@ -6,12 +6,12 @@ from trips.forms import addForm, editproForm, reviewForm
 from trips.crtrips import tripCreate
 from trips.crtrips import trip
 from account.actions import request as trequests, getdeal, ref_create,\
-    tripReview
+    tripReview, get_profile_pic
 from trips.views import fbPicture
 from parse_rest.installation import Push
 from account.forms import referralForm
 from parse_rest.query import QueryResourceDoesNotExist
-from signup.backend_parse import reviews
+from signup.backend_parse import reviews, Item
 # Create your views here.
 def addTrip(request):
     '''
@@ -151,6 +151,8 @@ def deals(request, key):
             except (AttributeError, QueryResourceDoesNotExist):
                 req_user_dic['picture']=''
                 travel_user_dic['picture']=''
+            #  get the deal info associated with the airdeal request 
+            reqAccepted= getdeal(travelUser, reqUser, aRequest, aTrip)
             # who is visiting the deal page ?
             if travelUser.objectId == cUser.objectId :
                 #if it is traveler it means:
@@ -166,14 +168,12 @@ def deals(request, key):
                         aRequest.save()
                 except AttributeError:
                     pass
-                # getdeal get the deal class object associated with the request 
-                reqAccepted= getdeal(travelUser, aRequest, aTrip)
+                
                 reqAccepted['istraveler']=True
                 # reqAccepted dict contains all specific info for the deal 
                 print reqAccepted         
                 
             elif reqUser.objectId == cUser.objectId:
-                reqAccepted= getdeal(travelUser, aRequest, aTrip)
                 reqAccepted['istraveler']= False
                 try:
                     if not aRequest.accepted:
@@ -186,6 +186,7 @@ def deals(request, key):
             #if everything so far is ok and nothing forbidden
             # we fetch the conversations between the 2 users
             # on this deal
+            
             # items to purchase on this deal
             wanted_items = Item.Query.filter(request=aRequest)
             k=0
@@ -213,10 +214,13 @@ def deals(request, key):
             # TODO use firebase cloud functions and retrieve user_messages
             
             review_form = reviewForm()
-            return render(request, 'trips/deals.html',
+            #if not reqAccepted:
+            #     return Http404()
+            return render(request, 'account/deals.html',
                       {'dealInfo':reqAccepted,'reqUser':req_user_dic,
                         'travelUser':travel_user_dic,'review_form':review_form,
-                        'user_messages':'','reviews':reviews_dict,'items':items_dict, 'rqkey':key})
+                        'myPicture':get_profile_pic(cUser.objectId),'greetings':cUser.username,
+                        'user_messages':'','reviews':reviews_dict,'requested_items':items_dict, 'rqkey':key})
     return HttpResponseRedirect(reverse('trips:index')) # We aren't redirecting to signup:index to avoid a certain lag on signup page
 
 def otRequests(request):

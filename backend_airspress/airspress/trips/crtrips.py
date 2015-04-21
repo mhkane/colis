@@ -6,6 +6,8 @@ import datetime
 from time import strptime
 from moneyed.classes import Money
 from decimal import Decimal
+from string import split
+from signup.backend_parse import Item
 register(settings.APPLICATION_ID, settings.REST_API_KEY)#settings.REST_API_KEY
 from parse_rest.datatypes import Object as ParseObject
 from parse_rest.user import User
@@ -76,9 +78,17 @@ def tripFind(request, cUser, searchView):
             if travelerUser == '':
                 pass
             else:
+                areas_ori_location = split(oriLocation,',') 
+                areas_dest_location = split(destLocation,',')
+                destCountry = areas_dest_location[-1]
+                destCity = areas_dest_location[1]
+                oriCountry = areas_ori_location[-1]
+                oriCity = areas_ori_location[1]
                 tripDict['objTrip'+str(k)] = {'pub_date':pub_date, 
-                'travelerUser':travelerUser, 'departDate':departDate, 
-                'destLocation':destLocation, 'oriLocation':oriLocation, 'tripId':tripId, 'pPicture':pPicture,}
+                'travelerUser':travelerUser, 
+                'departDate':{'month':departDate.strftime("%B"), 'day':departDate.day},
+                'destLocation':{'city':destCity,'country':destCountry}, 
+                'oriLocation':{'city':oriCity,'country':oriCountry}, 'tripId':tripId, 'pPicture':pPicture,}
                 #once the context dict created we can use render()
                 print(tripDict)
                 print k+1
@@ -140,19 +150,31 @@ def tripRequest(cUser, reqView, key):
     except AttributeError:
         pass
     try:
+
         deliveryCity = tripnow.toLocation
+        item_name = reqView.cleaned_data['item_name']
+        item_price = reqView.cleaned_data['item_price']
+        item_quantity = reqView.cleaned_data['item_quantity']
+        shop_name = reqView.cleaned_data['shop_name']
         weightGood = reqView.cleaned_data['weightGood']
-        moreInfo = reqView.cleaned_data['comments']
-        newRequest = trequests(moreInfo=moreInfo, weightRequested=weightGood, deliveryCity=deliveryCity, accepted=False,
+        item_description = reqView.cleaned_data['comments']
+
+        newRequest = trequests(moreInfo=item_description, weightRequested=weightGood, deliveryCity=deliveryCity, accepted=False,
                         paymentStatus=False, deliveryStatus=False)
+        
         newRequest.tripId = tripnow
         newRequest.Requester = cUser
         newRequest.save()
+        new_item = Item(name=item_name, quantity=item_quantity, description=item_description, unitPrice=item_price)
+        new_item.request = newRequest
+        new_item.save()
         print newRequest
-        alert['text'] = 'Request not submitted. Try again...'
-        alert['type'] = 'warning'
+
     except AttributeError:
         newRequest=''
+        # alerts in case try does not go true
+        alert['text'] = 'Request not submitted. Try again...'
+        alert['type'] = 'warning'
         pass
     if newRequest:
         alert = {'text':'Request submitted with success. You will be notified as soon as Traveler accept it.','type':'success'}

@@ -71,18 +71,58 @@
   <div class='modal-body'>
     {% csrf_token %}
 	{% block form-content %}
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="col-md-6">
 		<div class="form-group">
-		  <label class="control-label" for="trip"> Weight(kg)</label>
-		  <div class="controls">
-			<div class="input-group">
-			  <input type="text" name="{{ requestForm.weightGood.name }}" class="form-control">
-			</div>
-			{{requestForm.weightGood.errors}}
-			<span class="help-block col-sm-8">Write a round amount</span>
-		  </div>
+		  <label class="control-label" for="trip"> Name</label>
+
+			  <input type="text" name="{{ requestForm.item_name.name }}" class="form-control">
+				<span class="form-control-feedback fui-lock"></span>
+			{{requestForm.item_name.errors}}
+			<span class="help-block col-sm-8">Name that best describe the item</span>
+		 
 		</div>
 		<div class="form-group">
-		  <label class="control-label" for="trip">Comments</label>
+		  <label class="control-label" for="trip"> Quantity</label>
+
+			  <input type="text" name="{{ requestForm.item_quantity.name }}" class="form-control">
+				<span class="form-control-feedback fui-lock"></span>
+			{{requestForm.item_quantity.errors}}
+			<span class="help-block col-sm-8">How many of this do you want ?</span>
+		 
+		</div>
+		<div class="form-group">
+		  <label class="control-label" for="trip"> Weight</label>
+
+			  <input type="text" placeholder="Amount in kilograms" name="{{ requestForm.weightGood.name }}" class="form-control">
+				<span class="form-control-feedback fui-lock"></span>
+			{{requestForm.weightGood.errors}}
+			<span class="help-block col-sm-8">Write a round amount</span>
+		 
+		</div>
+		</div>
+		<div class="col-md-6">
+		<div class="form-group">
+		  <label class="control-label" for="trip"> Unit Price</label>
+
+			  <input type="text" name="{{ requestForm.item_price.name }}" class="form-control">
+				<span class="form-control-feedback fui-lock"></span>
+			{{requestForm.item_price.errors}}
+			<span class="help-block col-sm-8"></span>
+		 
+		</div>
+				<div class="form-group">
+		  <label class="control-label" for="trip"> <h6>Shop Name</h6></label>
+
+			  <input type="text" name="{{ requestForm.shop_name.name }}" class="form-control">
+				<span class="form-control-feedback fui-lock"></span>
+			{{requestForm.shop_name.errors}}
+			<span class="help-block col-sm-8">Name a shop that you know sell this item</span>
+		 
+		</div>
+		<div class="form-group">
+		  <label class="control-label" for="trip"><h6>Comments</h6></label>
 		  <div class="controls">
 			<div class="input-group comment">
 			  <textarea rows="5" id="comment" name="{{ requestForm.comments.name }}" class="form-control"></textarea>
@@ -91,6 +131,9 @@
 			<span class="help-block col-sm-8">Any word for our friend ?</span>
 		  </div>
 		</div>
+		</div>
+	   </div>
+	</div>
 	{% endblock %}
 		
   </div>

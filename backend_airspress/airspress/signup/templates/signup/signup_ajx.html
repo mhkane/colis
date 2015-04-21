@@ -37,15 +37,18 @@
 							</div>
 							<div class="form-group">
 								<input type="text" name="{{registerView.login_email.name}}" {% if registerView.login_email.value %} value="{{registerView.login_email.value}}" {% endif %} class="form-control" placeholder="Email address">
+								<span class="form-control-feedback fui-user"></span>
 							{% if registerView.login_email.errors %}<div class="">{{ registerView.login_email.errors }}</div>{% endif %}
-
+								
 							</div>
 							<div class="form-group">
 								<input type="password" name="{{registerView.login_password.name}}" {% if registerView.login_password.value %} value="{{registerView.login_password.value}}" {% endif %} class="form-control" placeholder="Password">
+								<span class="form-control-feedback fui-lock"></span>
 							{% if registerView.login_password.errors %}<div class="">{{ registerView.login_password.errors }}</div>{% endif %}
 							</div>
 							<div class="form-group">
 								<input type="password" name="{{registerView.login_password_conf.name}}" {% if registerView.login_password_conf.value %} value="{{registerView.login_password_conf.value}}" {% endif %} class="form-control" placeholder="Retype password">
+								<span class="form-control-feedback fui-lock"></span>
 							{% if registerView.login_password_conf.errors %}<div class="">{{ registerView.login_password_conf.errors }}</div>{% endif %}
 							</div>
 						<div class="footer">

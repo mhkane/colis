@@ -15,6 +15,10 @@ class addForm(forms.Form):
     weightGood = forms.IntegerField()
     distance = forms.IntegerField(required=False)
 class requestForm(forms.Form):
+    item_name = forms.CharField()
+    item_price = forms.DecimalField()
+    item_quantity = forms.IntegerField()
+    shop_name = forms.CharField()
     weightGood = forms.IntegerField()
     comments = forms.CharField()
 

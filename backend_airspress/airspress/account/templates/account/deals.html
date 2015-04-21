@@ -1,5 +1,11 @@
 {% extends "trips/account_base.html" %}
 <!-- We include base template for account related pages. And we fill the blocks -->
+{% load staticfiles %}
+{% block title %} AirDeal {% endblock title %}
+{% block stylesheet %} 
+						<link rel="stylesheet" type="text/css" href="{% static 'account/css/orders.css' %}" />
+{% endblock stylesheet %}
+
 {% block content %}
 		<!--  HYBRIDE  ---> 
 		<div class="db-container mp-box">
@@ -12,12 +18,12 @@
                                                 <span class="order-price">{{ dealInfo.totalPrice }}</span>
 												{% if not dealInfo.istraveler and not dealInfo.ispayed %}
 												<!-- Payment triggers-->
-												<a class="btn btn-embossed" href="{% url 'payment:paypal_create' rqkey %}">Pay with Paypal</a>
+												<a class="btn btn-primary btn-embossed" href="{% url 'payment:paypal_create' rqkey %}">Pay with Paypal</a>
 												
 												<!-- Payment triggers-->
 												{% endif %}
                                                 <h1>
-                                                    <i class="fa fa-map-marker">&nbsp;</i>{{ dealInfo.cityDep}} <i class="fa-long-arrow-right fa"></i> {{ dealInfo.cityArr}}<i class="fa fa-map-marker"></i>
+                                                    <i class="fa fa-map-marker">&nbsp;</i>{{ dealInfo.cityDep }} <i class="fa-long-arrow-right fa"></i> {{ dealInfo.cityArr }}<i class="fa fa-map-marker"></i>
                                                     <ul class="order-header-info cf">
                                                         <li>{% if dealInfo.istraveler %} Buyer:  <a href="{% url 'account:profile' reqUser.username %}">{{reqUser.username}}</a> 
 														{% else %} Traveler:  <a href="{% url 'account:profile' travelUser.username">{{travelUser.username}}</a>
@@ -102,6 +108,7 @@
             </div>
           </article>
 		  {% endif %}
+		  {% endfor %}
 		  </section>
 		  </div>
 		</div>
@@ -133,7 +140,7 @@
             </div>
         </div> 
 	{% else %}
-		{% for review in reviews }
+		{% for review in reviews %}
 		 {% if review.text %}
 		<!-- a readonly review-->
          <div class="well">		
@@ -163,9 +170,9 @@
 </div><!--/col-->
 </div>
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
-{% block jscript %} <script type="text/javascript" src="js/order-review.js"></script> {% endblock %}
-<script src="js/jquery.raty.js"></script>
+{% endblock content %}
+{% block jscript %} 
+<script type="text/javascript" src=" {% static 'account/js/order-review.js' %}"></script>
 <script type="text/javascript">//score should depend on data-rating, see docs !
  $('.rating-stars').raty({ starType: 'i', score: 5, readOnly: true });</script>
-{% endblock content %}
+ {% endblock jscript %}

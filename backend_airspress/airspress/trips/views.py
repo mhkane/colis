@@ -5,6 +5,8 @@ from signup.schemes import User, currentUser#ParseUser
 from trips.crtrips import trip, tripFind, tripRequest
 from signup.schemes import is_logged_in
 from trips.forms import searchForm, requestForm
+from string import split
+from account.actions import get_profile_pic
 #
 #
 #    Current = User.login_auth(auth_data)
@@ -50,9 +52,17 @@ def activeTrips(request):
                 if travelerUser == '':
                     pass
                 else:
+                    areas_ori_location = split(oriLocation,',') 
+                    areas_dest_location = split(destLocation,',')
+                    destCountry = areas_dest_location[-1]
+                    destCity = areas_dest_location[0]
+                    oriCountry = areas_ori_location[-1]
+                    oriCity = areas_ori_location[0]
                     tripDict['objTrip'+str(k)] = {'pub_date':pub_date, 
-                    'travelerUser':travelerUser, 'departDate':departDate, 
-                    'destLocation':destLocation, 'oriLocation':oriLocation, 'tripId':tripId, 'pPicture':pPicture}
+                    'travelerUser':travelerUser, 
+                    'departDate':{'month':departDate.strftime("%B")[:3], 'day':departDate.day},
+                    'destLocation':{'city':destCity,'country':destCountry}, 
+                    'oriLocation':{'city':oriCity,'country':oriCountry}, 'tripId':tripId, 'pPicture':pPicture,}
                     #once the context dict created we can use render()
                     print(tripDict)
                     print k
@@ -78,7 +88,7 @@ def searchTrips(request):
     tripDict={}
     cUser = is_logged_in(request)
     if cUser:
-        myPicture = fbPicture(request)
+        myPicture = cUser.profilePicture.url
         if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
             searchView = searchForm(request.POST)
             if searchView.is_valid():
@@ -99,7 +109,7 @@ def requestTrip(request, key):
     alert={}
     cUser = is_logged_in(request)
     if cUser:
-        myPicture = fbPicture(request)
+        myPicture = get_profile_pic(cUser.objectId)
         if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
             reqView = requestForm(request.POST)
             if reqView.is_valid():

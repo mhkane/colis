@@ -12,19 +12,21 @@
 						
 							<div class="form-group">
 								<input type="text" name="{{loginView.login_username.name}}" {% if loginView.login_name.value %} value="{{loginView.login_username.value}}" {% endif %} class="form-control" placeholder="Email Address">
+							<span class="form-control-feedback fui-user"></span>
 							{% if loginView.login_username.errors %}<div class="">{{ loginView.login_username.errors }}</div>{% endif %}
 
 							</div>
 							<div class="form-group">
 								<input type="password" name="{{loginView.login_password.name}}" {% if loginView.login_password.value %} value="{{loginView.login_password.value}}" {% endif %} class="form-control" placeholder="Password">
+								<span class="form-control-feedback fui-lock"></span>
 							{% if loginView.login_password.errors %}<div class="">{{ loginView.login_password.errors }}</div>{% endif %}
 							</div>
 
 						<div class="footer">
 
-							<button type="submit" class="btn btn-signup btn-lg"><i class="fa fa-sign-in">&nbsp;</i>Login</button>
+							<button type="submit" class="btn btn-embossed btn-primary"><i class="fa fa-sign-in">&nbsp;</i>Login</button>
 
-							<a href="/forgot_password/"  style="display:block; color:blue;" class="text-center">Forgot your password ?</a>
+							<a href="/forgot_password/"  style="display:block; color:blue; font-size:.7em;" class="text-center">Forgot your password ?</a>
 						</div>
 	   </form>
             

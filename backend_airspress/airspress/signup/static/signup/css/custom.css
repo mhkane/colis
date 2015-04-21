@@ -71,7 +71,8 @@ filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 background-repeat: repeat-x;
 }
 /* Dropdown Menu */
-.panel.dropdown{border:none;}
+.btn-group ul.dropdown-menu{background-color:#e81;}
+/*.panel.dropdown{border:none;}
 .dropdown {
     background:#fff;
     border:1px solid #e7962e;
@@ -105,7 +106,7 @@ background-repeat: repeat-x;
     top: -12px;
     right: 14px;
     z-index: 9;
-}
+}*/
 /* Navbar END */
 /* Sidebar STYLING*/
 .fa.fa-times{font: 14px/1 FontAwesome; color:white;}
@@ -201,7 +202,11 @@ margin-top:5px;
 	border-color:rgba(255,255,255,0);
 }
 /* buttons END */
+/* ICONS */
+ul.dropdown-menu i.fa{font-size:1.1em;}
 
+
+/* ICONS */
 /* media queries */
 @media (min-width: 768px){
 /*!

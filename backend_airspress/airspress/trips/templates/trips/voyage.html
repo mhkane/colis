@@ -1,4 +1,5 @@
 {% extends "trips/account_base.html" %}
+{% load staticfiles %}
 <!-- We include base template for account related pages. And we fill the blocks -->
 {% block title %} Trips {% endblock title %}
 <!-- We load the Autocomplete widget by setting onload attribute -->
@@ -6,18 +7,28 @@
 <!-- 'greetings' is always the username of the logged-in user  -->
 	{% if greetings %}
 {% block username %} {{ greetings }} {% endblock username %}
+<!-- stylesheets -->
+{% block stylesheet%}
+<link rel="stylesheet" type="text/css" href="{% static 'trips/css/listing.css' %}" /> 
+{% endblock stylesheet %}
+<!-- JS scripts and files -->
+{% block jscript %}
+<script type="text/javascript">$('.rating-stars').raty({ starType: 'i', score: function() {
+    return $(this).attr('data-score');
+  }, readOnly: true });</script>
+ {% endblock jscript %}
 <!-- This block will contain everything that is not on the user sidebar: list of trips or trip details or other user profiles...etc -->
     {% block content %}
 
 		 <form id="search_Form" class="row" method="post" action="/trips/search/">
             {% csrf_token %}	
 			<div class="col-sm-4"> 
-			<label class="form-label">Départs</label>
+			<label class="form-label"><h6>Départs</h6></label>
 			<div class="form-inline">
 			  <fieldset class="form-group">
-				<div class="input-daterange input-group datepicker">
+				<div style="background-color:#e81;" class="input-daterange input-group datepicker">
 					  <input type="text" class="input-sm form-control" name="{{ searchForm.depDate1.name}}" id="id_{{ searchForm.depDate1.name }}" /> 
-				       <span class="input-group-addon">to</span>
+				       <span style="background-color:#e81;" class="input-group-addon">to</span>
 								<input type="text" class="input-sm form-control" name="{{ searchForm.depDate2.name}}" />
 						
 				</div>
@@ -27,7 +38,7 @@
 			</div>
 			<div class="col-sm-4">
 				<div class="control-group col-md-12">
-				   <label class="control-label">From</label>
+				   <label class="control-label"><h6>From</h6></label>
 				   <div class="controls">
 					 <input class="col-md-12" id="location1" name="location1" type="text" placeholder="City, State, Country" value=""> 
 					 <input name="{{searchForm.cityDep.name}}" type="hidden" value="">
@@ -41,7 +52,7 @@
 			</div>
 			<div class="col-sm-4">
 				<div class="control-group col-md-12">
-				   <label class="control-label">To</label>
+				   <label class="control-label"><h6>To</h6></label>
 				   <div class="controls">
 				   	
 					 <input class="col-md-12" id="location2" name="location2" type="text" placeholder="City, State, Country" value=""> 
@@ -66,7 +77,46 @@
 			<div class="thumbnail bootsnipp-thumb">
 			  <div class="row firstin">
 				<div class="col-md-4 col-lg-4 travelUser">
-				<a> <img class="img-circle"  alt="" src="{{v.pPicture}}" style="width: 80px; height: 80px;">
+						<a> <img class="img-circle" alt="" src="{{v.pPicture}}" style="width: 80px; height: 80px;">
+							  <span>{{v.travelerUser}}</span>
+						</a>
+						<div class="rating-stars" data-score="4"></div>
+					
+						</div>
+						<div class="col-md-8 twodates pull-right">
+						<ul> 
+								<li><i class="fa fa-map-marker">&nbsp;</i><strong class="fromCity">{{ v.oriLocation.city }}<span class="country">, {{ v.oriLocation.country }}</span></strong></li> 
+								<li class="linediv"><span><i class="fa fa-plane fa-rotate-180"></i></span></li>
+								<li><i class="fa fa-map-marker">&nbsp;</i><strong class="toCity">{{ v.destLocation.city }}<span class="country">, {{ v.destLocation.country }}</span></strong></li>
+								
+						</ul>
+						</div>
+						</div>
+						<div class="row">
+						<div class="col-md-7 price-details"> 
+								<p class="unit-price"> <strong><span class="greater">11 $</span> per Kg</strong> <i class="fa fa-cube"></i></p>
+							</div>
+						<div style="text-align:center" class="col-md-5">
+								<li style="list-style:none; margin:auto;" class="date">
+									 <div class="calendar event_date"> 
+									<span class="month">{{ v.departDate.month }}</span> 
+									<span class="day">{{ v.departDate.day }}</span> 
+									</div>
+							   </li>
+						</div>	
+						</div>
+					
+						<!-- Prices and buttons -->
+					<div class="row">	
+						<p class=" col-md-7 available"><i class="fa fa-suitcase">&nbsp;</i> <strong class="greater">8</strong> /10 Kg Available</p>
+						<div class="col-md-5 pull-right">
+							<p><a href="{% url 'trips:request' v.tripId %}" data-target="#modal" class="btn btn-primary btn-embossed btn-sm btn-block modal-trigger">Request</a></p>
+						</div>
+						
+					</div>
+					</div>	
+					</div>
+		<!--		<a> <img class="img-circle"  alt="" src="{{v.pPicture}}" style="width: 80px; height: 80px;">
 				      <span>{{v.travelerUser}}</span>
 				</a>
 				</div>
@@ -77,7 +127,7 @@
 				</ul>
 				</div>
 			</div>	
-				<!-- forms to select weight -->
+				<!-- forms to select weight 
 			<div class="row">	
 				<div class="col-md-7 price-details"> 
 					<p class="unit-price"> 25 $</p>
@@ -93,12 +143,16 @@
 					
 				</div>
 				
-			</div>
-			</div>
-		</div>	
-		{% cycle '' '' '</div>' %}
+			</div> -->	
+		{% if forloop.last %} 
+			</div> 
+		{% else %}
+			{% cycle '' '' '</div>' %}
+		{% endif %}
+		
 {% endfor %}
-	</div>
+
+</div>
 <!-- Modal for viewing trip details-->
 <div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">

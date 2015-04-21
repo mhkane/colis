@@ -9,11 +9,9 @@ from email.mime.image import MIMEImage
 from airspress.settings import FILE_UPLOAD_DIR
 from django.core.urlresolvers import reverse
 from parse_rest.query import QueryResourceDoesNotExist
-from django.http.response import HttpResponseRedirect
+from decimal import Decimal
 
 class request(ParseObject):
-    pass
-class acceptedRequest(ParseObject):
     pass
 # we have a referral class which is useful for retaining information between the referred and the referrer
 # And there is the secret-word the referred enter at signup, best way to store that
@@ -24,33 +22,35 @@ class referral(ParseObject):
 send_mail = Function("email")
 
 # function to recover information for a given deal 
-def getdeal(travelUser, aRequest, aTrip):
+def getdeal(travelUser, reqUser, aRequest, aTrip):
     reqAccepted = {}
     try:
-        reqWeight = aRequest.weightRequested
-        reqUser = aRequest.Requester
-        travelName = travelUser.username
+        #reqWeight = aRequest.weightRequested
         #priceDeal = aRequest.priceUsd
         pub_date = aRequest.createdAt
         departDate = aTrip.departureDate.date()
         arriDate = aTrip.arrivalDate.date()
         destLocation = aTrip.toLocation
         oriLocation = aTrip.fromLocation
-        reqAccepted = {'pubdate':pub_date, 'arrDate':arriDate,
-             'depDate':departDate, 'cityDep':destLocation, 
-             'cityArr':oriLocation,'requestWeight':reqWeight, 
-             'traveler':travelName, 'travelerEmail':'', 'reqUser':reqUser.username, 'reqEmail':''}
-        reqEmail=reqUser.email
-        travelEmail = travelUser.email
-        reqAccepted['travelerEmail']=travelEmail
-        reqAccepted['reqEmail'] = reqEmail
+        
     except AttributeError:
         pass
-    reqAccepted['ispayed']= aRequest.paymentStatus or False
-    reqAccepted['isdeliv']= aRequest.deliveryStatus or False
-    
+    reqUser_pic = ''
+    traveler_pic=''
+    try:
+        reqUser_pic = reqUser.profilePicture.url
+        traveler_pic = travelUser.profilePicture.url
+        reqAccepted['ispayed']= aRequest.paymentStatus
+        reqAccepted['isdeliv']= aRequest.deliveryStatus
+    except AttributeError:
+        pass
+    reqAccepted = {'pubdate':pub_date, 'arrDate':arriDate,
+             'depDate':departDate, 'cityDep':oriLocation, 
+             'cityArr':destLocation,
+             'traveler':{'username':travelUser.username,'picture':traveler_pic},
+             'reqUser':{'username':reqUser.username,'picture':reqUser_pic}}
     # send notification
-    
+    print reqAccepted
     return reqAccepted
 # TRASH we don't use this as we've configuring a cloud function to send the emails
 def notif_mail(recipient_email, msg_a, msg_b):
@@ -107,26 +107,35 @@ def notif_mail(recipient_email, msg_a, msg_b):
     return 0
 # i don't know why i made this a function in the first place
 def get_profile_pic(user_objectid):
-    any_user=User.Query.get(objectId=user_objectid)
-    any_user_pic = any_user.profilePicture.url
+    try:
+        any_user=User.Query.get(objectId=user_objectid)
+        any_user_pic = any_user.profilePicture.url
+    except:
+        void = ''
+        return void
     return any_user_pic
 
 # A function to handle review and save them to Parse
 def tripReview(cUser, review, key):
     ''' Takes every review and saves relevent information'''
+    # 'request' variable used here is a ParseObject, not to confuse with a view request 
     from signup.backend_parse import Reviews
     dealer = ''
-    traveler = request.Query.get(objectId=key).traveler
-    requester = request.Query.get(objectId=key).requester
-    is_accepted = request.Query.get(objectId=key).accepted
+    try:
+        reviewedRequest = request.Query.get(objectId=key)
+        traveler = reviewedRequest.traveler
+        requester = reviewedRequest.requester
+        is_accepted = reviewedRequest.accepted
+    except (AttributeError, QueryResourceDoesNotExist):
+        return False
     if is_accepted:
         if traveler==cUser:
             dealer = requester
         elif requester==cUser:
             dealer = traveler
         try:
-            new_review = Reviews(reviewer=cUser, reviewText=review.cleaned_data['text'], reviewRating=review.cleaned_data['rating'],
-            reviewed= dealer)
+            new_review = Reviews(reviewedRequest=request, reviewer=cUser, reviewText=review.cleaned_data['text'], rating=Decimal(review.cleaned_data['rating']),
+            reviewedUser= dealer)
             return new_review
         except (AttributeError, QueryResourceDoesNotExist):
             pass
