@@ -5,7 +5,6 @@ from django.utils import timezone
 import datetime
 from time import strptime
 from moneyed.classes import Money
-from decimal import Decimal
 from string import split
 from signup.backend_parse import Item
 register(settings.APPLICATION_ID, settings.REST_API_KEY)#settings.REST_API_KEY
@@ -165,6 +164,7 @@ def tripRequest(cUser, reqView, key):
         newRequest.tripId = tripnow
         newRequest.Requester = cUser
         newRequest.save()
+        #items_total_price = priceCalc(item_quantity, item_price) 
         new_item = Item(name=item_name, quantity=item_quantity, description=item_description, unitPrice=item_price)
         new_item.request = newRequest
         new_item.save()
@@ -190,6 +190,6 @@ def isodate_to_tz_datetime(isodate):
     current_timezone = timezone.get_current_timezone()
     return current_timezone.localize(date, is_dst=None)
 def priceCalc(weight, distance):
-    price = Decimal(weight) * Decimal(distance)* Decimal(0.1)
-    price = Money(amount=str(price),currency='USD')
-    return str(price.amount)
+    price = weight * distance
+    price = Money(amount=price,currency='USD')
+    return str(price)

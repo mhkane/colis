@@ -4,9 +4,9 @@ $.ajax({
     url: this.action, 
     data: $(this).serialize(),
     context: this,
-    success: function(data, status) {
-        if (data.redirect){
-		window.location.replace("/trips");
+    success: function(data, status, xhr) {
+        if (xhr.status == 278){
+		window.location.replace("/trips/");
 		} else {
 	  $('#signupModal').html(data);
 		}
@@ -20,13 +20,14 @@ $.ajax({
     url: this.action, 
     data: $(this).serialize(),
     context: this,
-    success: function(data, status) {
-        if (data.redirect){
-		window.location.replace("/trips");
+    success: function(data, status, xhr) {
+        if (xhr.status == 278){
+		window.location.replace(xhr.getResponseHeader("Location"));
 		} else {
 	  $('#loginModal').html(data);
 		}
     }
     });
     return false;
+	
 });

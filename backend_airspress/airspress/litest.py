@@ -52,5 +52,8 @@ depDate2=adata
 # push_alert = 'Mohamed_K. accepted your request!'
 # Push.alert({"alert": push_alert,
 #                                  "badge": "Increment"}, where={"appUser":{"__type":"Pointer","className":"_User","objectId":"LKfygJctc7"}})
-k=change_password('marsiale','9lTLf3GPg1')
-print k
+# k=change_password('marsiale','9lTLf3GPg1')
+# print k
+from trips.crtrips import priceCalc
+
+print priceCalc(5,25)
