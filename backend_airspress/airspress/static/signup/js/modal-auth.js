@@ -1,4 +1,4 @@
-$(document).on('submit', '.auth-form', function(){
+$(document).on('submit', '.signup-form', function(){
 $.ajax({ 
     type: $(this).attr('method'), 
     url: this.action, 

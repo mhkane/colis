@@ -57,7 +57,7 @@
 										
 										<div class="main-box-body clearfix">
 											<div class="profile-status">
-												<i class="fa fa-circle"></i> {% if userinfo.is_verified %} Verified {% else %} Not Verified {% endif %}
+												<i class="fa fa-circle small"></i> {% if userinfo.is_verified %} Verified {% else %} Not Verified {% endif %}
 											</div>
 											{% if userinfo.pPicture %}
 											<img alt="User Pic" src="{{ userinfo.pPicture }}" class="profile-img img-responsive center-block">
@@ -66,9 +66,9 @@
 											{% endif %}
 											
 											
-											<div class="profile-label">
+											<!--<div class="profile-label">
 												<span class="label label-danger">Admin</span>
-											</div>
+											</div> -->
 											
 											<div class="profile-stars">
 												<div class="rating-stars" data-score="{{userinfo.rating}}"></div>

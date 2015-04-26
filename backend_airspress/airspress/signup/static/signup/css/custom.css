@@ -58,7 +58,7 @@ padding-left:0;
 width:70%;
 }
 
-ul.navbar-nav.navbar-right li a{color:#fff; font-weight:bold;}
+ul.navbar-nav.navbar-right li a{font-weight:bold;}
 ul.nav.navbar-nav.navbar-right>li>a{transition: all ease .5s}
 ul.nav.navbar-right>li>a:hover ,
 ul.nav.navbar-right>li>a:active{border-bottom-color:#fc9412; border-bottom:3px solid #fc9412; color:#fff}
