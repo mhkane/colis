@@ -8,7 +8,7 @@
 		{% include "trips/alerts.html" %}
 		{% if not ref_regView %}
 		{% if registerView.non_field_errors %}<div class="alert alert-danger">{{ registerView.non_field_errors }}</div>{% endif %}
-		<form class="auth-form" action="/register/student/" method="post">
+		<form class="signup-form" action="/register/student/" method="post">
 		{% csrf_token %}
 						<div class="tab-content">
 						<div class="tab-pane active">

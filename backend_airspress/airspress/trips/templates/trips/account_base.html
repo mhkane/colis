@@ -7,14 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/font-awesome.min.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/bootstrap.min.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/font-awesome.min.css' %}" />
 	{% block stylesheet %} {% endblock stylesheet %}
-	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom.css' %}" />
+	
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom-ui.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'account/css/flat-ui.min.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/datepicker3.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'trips/css/jquery.raty.css' %}">
+	{% block stylesheet_bottom %} {% endblock stylesheet_bottom %}
+	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom.css' %}" />
 	<title> {% block title %} Airspress - A peer-to-peer delivery service{% endblock %} </title>
 </head>
 <body {% block onloader %} {% endblock %}>

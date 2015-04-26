@@ -1,0 +1,40 @@
+{% for review in userinfo.reviews %}
+	<div class="story">
+		<div class="story-user">
+			<a href="#">
+				<img src="{{review.sender.pPicture}}" alt=""/>
+			</a>
+		</div>
+		
+		<div class="story-content">
+			<header class="story-header">
+				<div class="story-author">
+					<a href="#" class="story-author-link">
+					
+					{{review.sender.name}}
+					</a>
+					posted a review
+				</div>
+				<div class="story-time">
+					<i class="fa fa-clock-o"></i> {{review.pub_date}}
+				</div>
+			</header>
+			<div class="story-inner-content">
+				{{review.text}}
+				<div class="story-images clearfix">
+					<a href="img/samples/tahiti-1.jpg" class="story-image-link">
+						<img src="img/samples/tahiti-1.jpg" alt="" class="img-responsive"/>
+					</a>
+				</div>
+			</div>
+			<footer class="story-footer">
+				<a href="#" class="story-comments-link">
+					<i class="fa fa-comment fa-lg"></i> 8320 Comments
+				</a>
+				<a href="#" class="story-likes-link">
+					<i class="fa fa-heart fa-lg"></i> 82k Likes
+				</a>
+			</footer>
+		</div>
+	</div>
+	{% endfor %}

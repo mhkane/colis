@@ -8,165 +8,306 @@
 <!-- 'greetings' is always the username of the logged-in user  -->
 	{% if greetings %}
 {% block username %} {{ greetings }} {% endblock username %}
-{% block stylesheet %} <link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom-ui.css' %}"/>{% endblock stylesheet %}
-<!-- This block will contain everything that is not on the user sidebar: list of trips or trip details or other user profiles...etc -->
-{% block content %}
- 
-<div class="container">
-    <div class="row user-menu-container square">
-        <div class="col-md-7 user-details">
-            <div class="row coralbg white">
-                <div class="col-md-6 no-pad">
-                    <div class="user-pad">
-                        <h3>Welcome back, {{userinfo.username}}</h3>
-                        <h4 class="white"><i class="fa fa-map-marker"></i> San Antonio, TX</h4>
-						{% if userinfo.is_verified %}
-						<h4 class="white"><i class="fa fa-check-circle-o "></i>  Email Verified</h4>
-						{% else %} <h4 class="white"><i class="fa fa-user-times"></i>  Email Not Verified</h4>
-						{% endif %}
-                        <a type="button" class="btn btn-labeled btn-info" href="/account/edit/">
-                            <span class="btn-label"><i class="fa fa-pencil"></i></span>Update</a>
-						<a href="{% url 'account:myTrip' username %}" class="btn btn-primary"> View {{userinfo.username}}'s Trips</a>
-                    </div>
-                </div>
-                <div class="col-md-6 no-pad">
-                    <div class="user-image">
-						{% if userinfo.pPicture %}
-						<img alt="User Pic" src="{{ userinfo.pPicture }}" class="img-circle img-responsive ">
-						{% else %}
-						<img alt="User Pic" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="img-circle img-responsive">
-						{% endif %}
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="row overview">
-                <div class="col-md-4 user-pad text-center">
-                    <h3>Titre </h3>
-                    <h4>Level 1 Traveler</h4>
-                </div>
-                <div class="col-md-4 user-pad text-center">
-                    <h3>Votes</h3>
-                    <h4>456</h4>
-                </div>
-                <div class="col-md-4 user-pad text-center">
-                    <h3>RATING</h3>
-                    <input id="input-1a" type="number" class="rating" data-readonly="true" data-symbol="&#xf0fc;" data-glyphicon="false" data-rating-class="rating-fa" data-size="sm" >
-					<input id="hidden-rating" type="hidden" value="{{ userinfo.rating }}">
-                </div>
-            </div>
-        </div>
-        <div class="col-md-1 user-menu-btns">
-            <div class="btn-group-vertical square" id="responsive">
-                <a href="#" class="btn btn-block btn-default active">
-                  <i class="fa fa-bell-o fa-3x"></i>
-                </a>
-                <a href="#" class="btn btn-default">
-                  <i class="fa fa-envelope-o fa-3x"></i>
-                </a>
-                <a href="#" class="btn btn-default">
-                  <i class="fa fa-laptop fa-3x"></i>
-                </a>
-                <a href="#" class="btn btn-default">
-                  <i class="fa fa-cloud-upload fa-3x"></i>
-                </a>
-            </div>
-        </div>
-        <div class="col-md-4 user-menu user-pad">
-            <div class="user-menu-content active">
-                <h3>
-                    Recent Requests
-                </h3>
-                <ul class="user-menu-list">
-                    <li>
-                        <h4><i class="fa fa-user coral"></i> Roselynn Smith : "Could i have..."</h4>
-                    </li>
-                    <li>
-                        <h4><i class="fa fa-heart-o coral"></i> Tidjane Thiam : "Could i have..."</h4>
-                    </li>
-                    <li>
-                        <h4><i class="fa fa-paper-plane-o coral"></i> Buzz Aldrin :"Could i have..."</h4>
-                    </li>
-                    <li>
-                        <button type="button" class="btn btn-labeled btn-success" href="#">
-                            <span class="btn-label"><i class="fa fa-bell-o"></i></span>View all activity</button>
-                    </li>
-                </ul>
-            </div>
-            <div class="user-menu-content">
-                <h3>
-                    Your Inbox
-                </h3>
-                <ul class="user-menu-list">
-                    <li>
-                        <h4>From Roselyn Smith <small class="coral"><strong>NEW</strong> <i class="fa fa-clock-o"></i> 7:42 A.M.</small></h4>
-                    </li>
-                    <li>
-                        <h4>From Tidjane Thiam <small class="coral"><i class="fa fa-clock-o"></i> 10:42 A.M.</small></h4>
-                    </li>
-                    <li>
-                        <h4>From Newton Isaac <small class="coral"><i class="fa fa-clock-o"></i> 10:42 A.M.</small></h4>
-                    </li>
-                    <li>
-                        <button type="button" class="btn btn-labeled btn-danger" href="#">
-                            <span class="btn-label"><i class="fa fa-envelope-o"></i></span>View All Messages</button>
-                    </li>
-                </ul>
-            </div>
-            <div class="user-menu-content">
-                <h3>
-                    Newly added trips on Airspress
-                </h3>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="view">
-                            <div class="caption">
-                                <p>KaizerFrank</p>
-                                <a href="" rel="tooltip" title="Appreciate"><span class="fa fa-heart-o fa-2x"></span></a>
-                                <a href="" rel="tooltip" title="View"><span class="fa fa-search fa-2x"></span></a>
-                            </div>
-                            <img src="http://24.media.tumblr.com/273167b30c7af4437dcf14ed894b0768/tumblr_n5waxesawa1st5lhmo1_1280.jpg" class="img-responsive">
-                        </div>
-                        <div class="info">
-                            <p class="small" style="text-overflow: ellipsis"> Paris, France - Brussels, Belgium</p>
-                            <p class="small coral text-right"><i class="fa fa-clock-o"></i> Posted Today | 10:42 A.M.</small>
-                        </div>
-                        <div class="stats turqbg">
-                            <span class="fa fa-heart-o"> <strong>47 req.</strong></span>
-                            <span class="fa fa-eye pull-right"> <strong>137 views</strong></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="view">
-                            <div class="caption">
-                                <p>Anyone</p>
-                                <a href="" rel="tooltip" title="Appreciate"><span class="fa fa-heart-o fa-2x"></span></a>
-                                <a href="" rel="tooltip" title="View"><span class="fa fa-search fa-2x"></span></a>
-                            </div>
-                            <img src="http://24.media.tumblr.com/282fadab7d782edce9debf3872c00ef1/tumblr_n3tswomqPS1st5lhmo1_1280.jpg" class="img-responsive">
-                        </div>
-                        <div class="info">
-                            <p class="small" style="text-overflow: ellipsis">Porto, Portugal - Toronto, Ontario, Canada</p>
-                            <p class="small coral text-right"><i class="fa fa-clock-o"></i> Posted Today | 10:42 A.M.</small>
-                        </div>
-                        <div class="stats turqbg">
-                            <span class="fa fa-heart-o"> <strong>47 req.</strong></span>
-                            <span class="fa fa-eye pull-right"> <strong>137 views</strong></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock %}
+{% block stylesheet_bottom %} 	
+	<!-- libraries -->
+	<link rel="stylesheet" type="text/css" href="{% static 'account/css/libs/nanoscroller.css' %}" />
 
-{% endif %}
+	<!-- global styles -->
+	<link rel="stylesheet" type="text/css" href="{% static 'account/css/compiled/theme_styles.css' %}" />
+
+	<!-- this page specific styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'account/css/libs/magnific-popup.css' %}">
+	
+	<!-- Favicon 
+	<link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
+
+	<!-- google font libraries -->
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
+
+{% endblock stylesheet_bottom %}
 
 {% block jscript %} 
-{% compress js %}
-<script  type="text/javascript" src="{% static 'signup/js/profileRecent.js' %}"></script> 
-<script  type="text/javascript" src="{% static 'account/js/rating-display.js' %}"></script> 
 
-{% endcompress %} 
-{% endblock jscript %}
+	<script src="{% static 'account/js/jquery.nanoscroller.min.js' %}"></script>
+	
+	<!-- this page specific scripts -->
+	<script src="{% static 'account/js/jquery.slimscroll.min.js' %}"></script>
+	<script src="{% static 'account/js/jquery.magnific-popup.min.js' %}"></script>
+	
+	<!-- scripts -->
+	<script src="{% static 'account/js/scripts.js' %}"></script>
+	<script src="{% static 'account/js/pace.min.js' %}"></script>
+	
+<script type="text/javascript">$('.rating-stars').raty({ starType: 'i', score: function() {
+    return $(this).attr('data-score');
+  }, readOnly: true });</script> 
+  
+ {% endblock jscript %}
+<!-- This block will contain everything that is not on the user sidebar: list of trips or trip details or other user profiles...etc -->
+{% block content %}
+<div class="content-wrapper">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="row" id="user-profile">
+								<div class="col-lg-3 col-md-4 col-sm-4">
+									<div class="main-box clearfix">
+										<header class="main-box-header clearfix">
+											<h2>{{userinfo.username}}</h2>
+										</header>
+										
+										<div class="main-box-body clearfix">
+											<div class="profile-status">
+												<i class="fa fa-circle"></i> {% if userinfo.is_verified %} Verified {% else %} Not Verified {% endif %}
+											</div>
+											{% if userinfo.pPicture %}
+											<img alt="User Pic" src="{{ userinfo.pPicture }}" class="profile-img img-responsive center-block">
+											{% else %}
+											<img alt="User Pic" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="profile-img img-responsive center-block">
+											{% endif %}
+											
+											
+											<div class="profile-label">
+												<span class="label label-danger">Admin</span>
+											</div>
+											
+											<div class="profile-stars">
+												<div class="rating-stars" data-score="{{userinfo.rating}}"></div>
+												<span>{{userinfo.total_reviews}} reviews</span>
+											</div>
+											
+											<div class="profile-since">
+												Member since: Jan 2012
+											</div>
+											
+											<div class="profile-details">
+												<ul class="fa-ul">
+													<li><i class="fa-li fa fa-plane small"></i>AirDeals (Traveler): <span>{{userinfo.total_deliveries}}</span></li>
+													<li><i class="fa-li fa fa-cube small"></i>AirDeals (Buyer): <span>{{userinfo.total_orders}}</span></li>
+												</ul>
+											</div>
+											
+											<div class="profile-message-btn center-block text-center">
+												<a href="#" class="btn btn-success">
+													<i class="fa fa-envelope"></i>
+													Send message
+												</a>
+											</div>
+										</div>
+										
+									</div>
+								</div>
+								
+								<div class="col-lg-9 col-md-8 col-sm-8">
+									<div class="main-box clearfix">
+										<div class="tabs-wrapper profile-tabs">
+											<ul class="nav nav-tabs">
+												<li class="active"><a href="#tab-newsfeed" data-toggle="tab">Reviews</a></li>
+												<li><a href="#tab-trips" data-toggle="tab">Trips</a></li>
+												{% if userinfo.is_cuser %}
+												<li><a href="#tab-friends" data-toggle="tab">Invite a Friend</a></li>
+												<li><a href="" data-toggle="tab">Edit Profile</a></li>
+												{% endif %}
+											</ul>
+											<!--  Every section should have an html file of its own
+													for better organization and easier modifications-->
+											<!--- This is reviews section-->
+											<div class="tab-content">
+												<div class="tab-pane fade in active" id="tab-newsfeed">
+													
+													<div id="newsfeed">
+														{% include "account/reviews_history.html" %}
+														
+													</div>
+													
+												</div>
+											<!-- End of reviews section-->
+												<div class="tab-pane fade" id="tab-trips">
+													
+													<div class="table-responsive">
+														<table class="table">
+															<tbody>
+																<tr>
+																	<td class="text-center">
+																		<i class="fa fa-comment"></i>
+																	</td>
+																	<td>
+																		Scarlett Johansson posted a comment in <a href="#">Avengers Initiative</a> project.
+																	</td>
+																	<td>
+																		2014/08/08 12:08
+																	</td>
+																</tr>
+																<tr>
+																	<td class="text-center">
+																		<i class="fa fa-truck"></i>
+																	</td>
+																	<td>
+																		Scarlett Johansson changed order status from <span class="label label-primary">Pending</span>
+																		to <span class="label label-success">Completed</span>
+																	</td>
+																	<td>
+																		2014/08/08 12:08
+																	</td>
+																</tr>
+																<tr>
+																	<td class="text-center">
+																		<i class="fa fa-check"></i>
+																	</td>
+																	<td>
+																		Scarlett Johansson posted a comment in <a href="#">Lost in Translation opening scene</a> discussion.
+																	</td>
+																	<td>
+																		2014/08/08 12:08
+																	</td>
+																</tr>
+																<tr>
+																	<td class="text-center">
+																		<i class="fa fa-users"></i>
+																	</td>
+																	<td>
+																		Scarlett Johansson posted a comment in <a href="#">Avengers Initiative</a> project.
+																	</td>
+																	<td>
+																		2014/08/08 12:08
+																	</td>
+																</tr>
+																<tr>
+																	<td class="text-center">
+																		<i class="fa fa-heart"></i>
+																	</td>
+																	<td>
+																		Scarlett Johansson changed order status from <span class="label label-warning">On Hold</span>
+																		to <span class="label label-danger">Disabled</span>
+																	</td>
+																	<td>
+																		2014/08/08 12:08
+																	</td>
+																</tr>
+																
+															</tbody>
+														</table>
+													</div>
+													
+												</div>
+												
+												
+												<div class="tab-pane fade" id="tab-chat">
+													<div class="conversation-wrapper">
+														<div class="conversation-content">
+															<div class="conversation-inner">
+															
+																<div class="conversation-item item-left clearfix">
+																	<div class="conversation-user">
+																		<img src="img/samples/ryan.png" alt=""/>
+																	</div>
+																	<div class="conversation-body">
+																		<div class="name">
+																			Ryan Gossling
+																		</div>
+																		<div class="time hidden-xs">
+																			September 21, 2013 18:28
+																		</div>
+																		<div class="text">
+																			I don't think they tried to market it to the billionaire, spelunking, 
+																			base-jumping crowd.
+																		</div>
+																	</div>
+																</div>
+																<div class="conversation-item item-right clearfix">
+																	<div class="conversation-user">
+																		<img src="img/samples/kunis.png" alt=""/>
+																	</div>
+																	<div class="conversation-body">
+																		<div class="name">
+																			Mila Kunis
+																		</div>
+																		<div class="time hidden-xs">
+																			September 21, 2013 12:45
+																		</div>
+																		<div class="text">
+																			Normally, both your asses would be dead as fucking fried chicken, but you 
+																			happen to pull this shit while I'm in a transitional period so I don't wanna 
+																			kill you, I wanna help you.
+																		</div>
+																	</div>
+																</div>
+																<div class="conversation-item item-right clearfix">
+																	<div class="conversation-user">
+																		<img src="img/samples/kunis.png" alt=""/>
+																	</div>
+																	<div class="conversation-body">
+																		<div class="name">
+																			Mila Kunis
+																		</div>
+																		<div class="time hidden-xs">
+																			September 21, 2013 12:45
+																		</div>
+																		<div class="text">
+																			Normally, both your asses would be dead as fucking fried chicken, but you 
+																			happen to pull this shit while I'm in a transitional period so I don't wanna 
+																			kill you, I wanna help you.
+																		</div>
+																	</div>
+																</div>
+																<div class="conversation-item item-left clearfix">
+																	<div class="conversation-user">
+																		<img src="img/samples/ryan.png" alt=""/>
+																	</div>
+																	<div class="conversation-body">
+																		<div class="name">
+																			Ryan Gossling
+																		</div>
+																		<div class="time hidden-xs">
+																			September 21, 2013 18:28
+																		</div>
+																		<div class="text">
+																			I don't think they tried to market it to the billionaire, spelunking, 
+																			base-jumping crowd.
+																		</div>
+																	</div>
+																</div>
+																<div class="conversation-item item-right clearfix">
+																	<div class="conversation-user">
+																		<img src="img/samples/kunis.png" alt=""/>
+																	</div>
+																	<div class="conversation-body">
+																		<div class="name">
+																			Mila Kunis
+																		</div>
+																		<div class="time hidden-xs">
+																			September 21, 2013 12:45
+																		</div>
+																		<div class="text">
+																			Normally, both your asses would be dead as fucking fried chicken, but you 
+																			happen to pull this shit while I'm in a transitional period so I don't wanna 
+																			kill you, I wanna help you.
+																		</div>
+																	</div>
+																</div>
+																
+															</div>
+														</div>
+														<div class="conversation-new-message">
+															<form>
+																<div class="form-group">
+																	<textarea class="form-control" rows="2" placeholder="Enter your message..."></textarea>
+																</div>
+																
+																<div class="clearfix">
+																	<button type="submit" class="btn btn-success pull-right">Send message</button>
+																</div>
+															</form>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+{% endblock %}
+{% endif %}

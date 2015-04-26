@@ -106,6 +106,8 @@ def notif_mail(recipient_email, msg_a, msg_b):
     s.close()
     return 0
 # i don't know why i made this a function in the first place
+# Well now it's useful. Some users might lack profile pic
+# i don't want to be overwhelmed by a ton of "try..except" and what-not... 
 def get_profile_pic(user_objectid):
     try:
         any_user=User.Query.get(objectId=user_objectid)
@@ -119,7 +121,7 @@ def get_profile_pic(user_objectid):
 def tripReview(cUser, review, key):
     ''' Takes every review and saves relevent information'''
     # 'request' variable used here is a ParseObject, not to confuse with a view request 
-    from signup.backend_parse import Reviews
+    from signup.backend_parse import reviews
     dealer = ''
     try:
         reviewedRequest = request.Query.get(objectId=key)
@@ -134,8 +136,12 @@ def tripReview(cUser, review, key):
         elif requester==cUser:
             dealer = traveler
         try:
-            new_review = Reviews(reviewedRequest=request, reviewer=cUser, reviewText=review.cleaned_data['text'], rating=Decimal(review.cleaned_data['rating']),
+            new_review = reviews(reviewedRequest=reviewedRequest, reviewer=cUser, reviewText=review.cleaned_data['text'], rating=Decimal(review.cleaned_data['rating']),
             reviewedUser= dealer)
+            new_review.save()
+            new_review={'sender':{'name':new_review.reviewer.username,
+                                'picture':get_profile_pic(new_review.reviewer.objectId)},'text':new_review.reviewText,
+                                'rating':new_review.rating,'pubDate':new_review.createdAt.date()}  
             return new_review
         except (AttributeError, QueryResourceDoesNotExist):
             pass

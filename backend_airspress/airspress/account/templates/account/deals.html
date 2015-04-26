@@ -114,7 +114,7 @@
 		</div>
 	</div>
 {% if dealInfo.isdeliv %}
-	<div class="row" style="margin-top:40px;">
+	<div class="row" id="review-feedback" style="margin-top:40px;">
 		<div class="col-md-12">
 		
 	{% if not dealInfo.reviewed %}	
@@ -125,15 +125,15 @@
         
             <div class="row" id="post-review-box" style="display:none;">
                 <div class="col-md-12">
-                    <form accept-charset="UTF-8" action="" method="post">
+                    <form accept-charset="UTF-8" id="review-form" action="" method="post">
                         <input id="ratings-hidden" name="rating" type="hidden"> 
-                        <textarea class="form-control animated" cols="50" id="new-review" name="comment" placeholder="Enter your review here..." rows="5"></textarea>
+                        <textarea class="form-control animated" cols="50" id="new-review" name="{{reviewForm.text.name}}" placeholder="Enter your review here..." rows="5"></textarea>
         
                         <div class="text-right">
                             <div class="stars starrr" data-rating="0" style="cursor:pointer;"></div>
                             <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
                             <span class="glyphicon glyphicon-remove">&nbsp;</span>Cancel</a>
-                            <button class="btn btn-success btn-lg" type="submit" id="send-review">Save</button>
+                            <button class="btn btn-success btn-lg" type="submit" id="send-review">SEND</button>
                         </div>
                     </form>
                 </div>
@@ -173,6 +173,25 @@
 {% endblock content %}
 {% block jscript %} 
 <script type="text/javascript" src=" {% static 'account/js/order-review.js' %}"></script>
-<script type="text/javascript">//score should depend on data-rating, see docs !
- $('.rating-stars').raty({ starType: 'i', score: 5, readOnly: true });</script>
+<script type="text/javascript">//score should depend on data-rating attribute
+ $('.rating-stars').raty({ starType: 'i', score: function() { return $(this).attr('data-rating');}, 
+						   readOnly: true });
+$(document).on('submit', '#review-form', function(){
+$.ajax({ 
+    type: $(this).attr('method'), 
+    url: this.action, 
+    data: $(this).serialize(),
+    context: this,
+    success: function(data, status, xhr) {
+        if (xhr.status == 278){
+		window.location.replace("/trips/");
+		} else {
+	  $('#review-feedback').html(data);
+		}
+    }
+    });
+    return false;
+});
+$('input[name="rating"]').val(findComponent(place, 'country'))						   
+						   </script>
  {% endblock jscript %}

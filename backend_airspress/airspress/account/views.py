@@ -267,16 +267,15 @@ def reviewTrip(request,key):
     cUser = is_logged_in(request)
     if cUser:
         if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
-            review = reviewForm(request.POST)
-            if review.is_valid():
-                new_review = tripReview(cUser, review, key)
-                if new_review:
-                    return HttpResponseRedirect(reverse('account:deals',kwargs={'key':key}))
+            review_form = reviewForm(request.POST)
+            if review_form.is_valid():
+                new_review = tripReview(cUser, review_form, key)
+                
             else:
-                print review.errors
-            return render(request, 'trips/modals.html', 
-                    {'key':key,'alert':alert,'greetings':cUser.username, 
-                    'reviewForm':review, 'pPicture':cUser.profilePicture})             
+                print review_form.errors
+            return render(request, 'trips/reviews.html', 
+                    {'key':key,'review':new_review,'alert':alert,'greetings':cUser.username, 
+                    'reviewForm':review_form, 'myPicture':get_profile_pic(cUser.objectId)})             
         else:
             return HttpResponseRedirect(reverse('account:deals',kwargs={'key':key}))
     else:
@@ -284,34 +283,56 @@ def reviewTrip(request,key):
 def profileView(request, key):
     cUser = is_logged_in(request)
     if cUser:
-        pPicture = fbPicture(request)
         anyName = ''
         anyMail = ''
         anyBio = ''
         anyRating = ''
+        total_reviews = 0
+        total_deliveries = total_reviews
+        total_orders = 0
         is_verified = ''
+        is_cuser = False
+        reviews_dict={}
         try:
             anyUser = User.Query.get(username=key)
+            pPicture = get_profile_pic(cUser.objectId)
             anyName = anyUser.username
             anyMail = anyUser.email
+            anyReview = reviews.Query.filter(reviewedUser=anyUser)
+            k=0
+            for review in anyReview:
+                k = k+1
+                reviews_dict['review'+str(k)] = {'sender':{'name':review.reviewer.username,
+                                                           'picture':get_profile_pic(review.reviewer.objectId)},
+                                                 'rating':review.rating,'text':review.reviewText, 'pub_date':review.createdAt.date()}
             is_verified = anyUser.emailVerified
             anyRating = anyUser.userRating
-            anyBio = anyUser.userBio
-            
+            total_reviews = anyUser.totalReviews
+            total_deliveries = anyUser.totalDeliveries
+            total_orders = anyUser.totalOrders
+            anyBio = anyUser.userBio 
         except (AttributeError, QueryResourceDoesNotExist):
             pass
         if not anyRating:
             anyRating = 0
-        # crunch down the long username; this is the messy way
+        
+        if anyName == cUser.username :
+            is_cuser = True
+         
+        # crunch down the long usernames; this is the sick messy way
         # we can implement the slick Messi way afterwards ;-)
         for delim in ['.','@','_']:
             if delim in anyName:
                 anyName = anyName.split(delim, 1)[0]
         # let's get everything in a dict object
-        proDict={'username':anyName, 'is_verified':is_verified, 'email':anyMail, 'Bio':anyBio, 'rating':anyRating, 'pPicture':pPicture}
+        proDict={'username':anyName, 'is_verified':is_verified, 'is_cuser':is_cuser, 'email':anyMail, 'Bio':anyBio, 
+                 'rating':anyRating, 'total_deliveries':total_deliveries, 'total_orders':total_orders, 'pPicture':pPicture,
+                 'total_reviews':total_reviews, 'reviews':reviews_dict}
         if request.is_ajax():
-            return render(request, 'trips/modals.html', {'userinfo':proDict, 'greetings':cUser.username})
-        return render(request, 'account/profile.html', {'userinfo':proDict, 'greetings':cUser.username})
+            return render(request, 'trips/modals.html', {'userinfo':proDict, 'greetings':cUser.username, 
+                                                         'myPicture':get_profile_pic(cUser.objectId)})
+        return render(request, 'account/profile.html', {'userinfo':proDict, 'greetings':cUser.username,
+                                                        'myPicture':get_profile_pic(cUser.objectId)})
     return HttpResponseRedirect(reverse('signup:index'))
                 
 def editProfile(request):#todo last man standing
@@ -319,15 +340,15 @@ def editProfile(request):#todo last man standing
     if cUser:
         saken = request.session['lsten']
         if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
-            editView = editproForm(request.POST, request.FILES)
-            if editView.is_valid():
+            edit_profile_form = editproForm(request.POST, request.FILES)
+            if edit_profile_form.is_valid():
                 
                 profilePic = handle_uploaded_file(request.FILES['profilePic'], saken)
                 
         #
             else:
-                print editView.errors
-            return render(request, 'account/editprofile.html', {'greetings':cUser.username, 'editproForm':editView})             
+                print edit_profile_form.errors
+            return render(request, 'account/editprofile.html', {'greetings':cUser.username, 'editproForm':edit_profile_form})             
         else:
             editView = editproForm()
             return render(request, 'account/editprofile.html', {'greetings':cUser.username, 'addForm':editView})
