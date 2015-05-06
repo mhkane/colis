@@ -1,15 +1,17 @@
 from django.shortcuts import render
 from signup.schemes import is_logged_in, User, handle_uploaded_file
+    
 from django.http.response import HttpResponseRedirect, HttpResponseForbidden
 from django.core.urlresolvers import reverse
 from trips.forms import addForm, editproForm, reviewForm
 from trips.crtrips import tripCreate
 from trips.crtrips import trip
 from account.actions import request as trequests, getdeal, ref_create,\
-    tripReview, get_profile_pic
+    tripReview, get_profile_pic, get_user_info
 from trips.views import fbPicture
 from parse_rest.installation import Push
-from account.forms import referralForm
+from account.forms import referralForm, settings_form_general,\
+    settings_form_picture
 from parse_rest.query import QueryResourceDoesNotExist
 from signup.backend_parse import reviews, Item
 # Create your views here.
@@ -39,6 +41,7 @@ def addTrip(request):
         return HttpResponseRedirect(reverse('signup:index'))
             
     return render(request, 'trips/addtrip.html', {'greetings':cUser.username, 'addForm':addView})
+
 def myTrips(request, key):
     '''
     
@@ -74,6 +77,7 @@ def myTrips(request, key):
                 print ownTrips
         return render(request, 'trips/mytrips.html', {'ownTrips':ownTrips,'greetings':cUser.username,})
     return HttpResponseRedirect(reverse('signup:index'))
+
 def requestedTrips(request):
     '''
     
@@ -283,6 +287,8 @@ def reviewTrip(request,key):
 def profileView(request, key):
     cUser = is_logged_in(request)
     if cUser:
+        screen_name=''
+        pPicture=''
         anyName = ''
         anyMail = ''
         anyBio = ''
@@ -295,7 +301,7 @@ def profileView(request, key):
         reviews_dict={}
         try:
             anyUser = User.Query.get(username=key)
-            pPicture = get_profile_pic(cUser.objectId)
+            pPicture = get_profile_pic(anyUser.objectId)
             anyName = anyUser.username
             anyMail = anyUser.email
             anyReview = reviews.Query.filter(reviewedUser=anyUser)
@@ -310,7 +316,8 @@ def profileView(request, key):
             total_reviews = anyUser.totalReviews
             total_deliveries = anyUser.totalDeliveries
             total_orders = anyUser.totalOrders
-            anyBio = anyUser.userBio 
+            anyBio = anyUser.userBio
+            screen_name = anyUser.screenName
         except (AttributeError, QueryResourceDoesNotExist):
             pass
         if not anyRating:
@@ -325,7 +332,7 @@ def profileView(request, key):
             if delim in anyName:
                 anyName = anyName.split(delim, 1)[0]
         # let's get everything in a dict object
-        proDict={'username':anyName, 'is_verified':is_verified, 'is_cuser':is_cuser, 'email':anyMail, 'Bio':anyBio, 
+        proDict={'username':anyName, 'screen_name':screen_name,'is_verified':is_verified, 'is_cuser':is_cuser, 'email':anyMail, 'Bio':anyBio, 
                  'rating':anyRating, 'total_deliveries':total_deliveries, 'total_orders':total_orders, 'pPicture':pPicture,
                  'total_reviews':total_reviews, 'reviews':reviews_dict}
         if request.is_ajax():
@@ -335,23 +342,36 @@ def profileView(request, key):
                                                         'myPicture':get_profile_pic(cUser.objectId)})
     return HttpResponseRedirect(reverse('signup:index'))
                 
-def editProfile(request):#todo last man standing
+def edit_profile(request, section):#todo last man standing
     cUser = is_logged_in(request)
     if cUser:
+        proDict = get_user_info(cUser.objectId, cUser)
         saken = request.session['lsten']
         if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
-            edit_profile_form = editproForm(request.POST, request.FILES)
-            if edit_profile_form.is_valid():
-                
-                profilePic = handle_uploaded_file(request.FILES['profilePic'], saken)
-                
-        #
-            else:
-                print edit_profile_form.errors
-            return render(request, 'account/editprofile.html', {'greetings':cUser.username, 'editproForm':edit_profile_form})             
+            if section == 'general':
+                general_form = settings_form_general(request.POST)
+                profile_picture_form = settings_form_picture(request.POST, request.FILES)
+                if general_form.is_valid():
+                    cUser.screenName = general_form.cleaned_data['screen_name']
+                    cUser.timeZone = general_form.cleaned_data['time_zone']
+                    cUser.save()
+                else:
+                    print general_form.errors
+                if profile_picture_form.is_valid():
+                    profile_picture = handle_uploaded_file(request.FILES['profile_picture'], cUser)
+                    
+            #
+                else:
+                    print profile_picture_form.errors
+                return render(request, 'account/editprofile.html', {'greetings':cUser.username,'myPicture':get_profile_pic(cUser.objectId), 
+                                                                    'userinfo':proDict,'general_form':general_form,
+                                                                    'pic_form':profile_picture_form})             
         else:
-            editView = editproForm()
-            return render(request, 'account/editprofile.html', {'greetings':cUser.username, 'addForm':editView})
+            general_form = settings_form_general()
+            profile_picture_form = settings_form_picture()
+            return render(request, 'account/editprofile.html', {'greetings':cUser.username,'myPicture':get_profile_pic(cUser.objectId), 
+                                                                'userinfo':proDict,'general_form':general_form,
+                                                                'pic_form':profile_picture_form})
     
     return HttpResponseRedirect(reverse('signup:index'))
             

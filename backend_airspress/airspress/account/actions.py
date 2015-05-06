@@ -10,6 +10,7 @@ from airspress.settings import FILE_UPLOAD_DIR
 from django.core.urlresolvers import reverse
 from parse_rest.query import QueryResourceDoesNotExist
 from decimal import Decimal
+from signup.backend_parse import reviews
 
 class request(ParseObject):
     pass
@@ -117,6 +118,60 @@ def get_profile_pic(user_objectid):
         return void
     return any_user_pic
 
+#get any user info, used for profileview
+def get_user_info(user_id, cUser):
+    proDict={}
+    if user_id:
+        screen_name=''
+        pPicture=''
+        anyName = ''
+        anyMail = ''
+        anyBio = ''
+        anyRating = ''
+        total_reviews = 0
+        total_deliveries = total_reviews
+        total_orders = 0
+        is_verified = ''
+        is_cuser = False
+        reviews_dict={}
+        try:
+            anyUser = User.Query.get(objectId=user_id)
+            pPicture = get_profile_pic(anyUser.objectId)
+            anyName = anyUser.username
+            anyMail = anyUser.email
+            anyReview = reviews.Query.filter(reviewedUser=anyUser)
+            k=0
+            for review in anyReview:
+                k = k+1
+                reviews_dict['review'+str(k)] = {'sender':{'name':review.reviewer.username,
+                                                           'picture':get_profile_pic(review.reviewer.objectId)},
+                                                 'rating':review.rating,'text':review.reviewText, 'pub_date':review.createdAt.date()}
+            is_verified = anyUser.emailVerified
+            anyRating = anyUser.userRating
+            total_reviews = anyUser.totalReviews
+            total_deliveries = anyUser.totalDeliveries
+            total_orders = anyUser.totalOrders
+            anyBio = anyUser.userBio
+            screen_name = anyUser.screenName
+        except (AttributeError, QueryResourceDoesNotExist):
+            pass
+        if not anyRating:
+            anyRating = 0
+        
+        if anyName == cUser.username :
+            is_cuser = True
+         
+        # crunch down the long usernames; this is the sick messy way
+        # we can implement the slick Messi way afterwards ;-)
+        for delim in ['.','@','_']:
+            if delim in anyName:
+                anyName = anyName.split(delim, 1)[0]
+        # let's get everything in a dict object
+        proDict={'username':anyName, 'screen_name':screen_name,'is_verified':is_verified, 'is_cuser':is_cuser, 'email':anyMail, 'Bio':anyBio, 
+                 'rating':anyRating, 'total_deliveries':total_deliveries, 'total_orders':total_orders, 'pPicture':pPicture,
+                 'total_reviews':total_reviews, 'reviews':reviews_dict}
+    return proDict
+
 # A function to handle review and save them to Parse
 def tripReview(cUser, review, key):
     ''' Takes every review and saves relevent information'''
@@ -146,6 +201,7 @@ def tripReview(cUser, review, key):
         except (AttributeError, QueryResourceDoesNotExist):
             pass
     return False
+
 def ref_create(referralView, cUser):
     new_ref = referral(referrer=cUser,secret=referralView.cleaned_data['secret_word'])
     new_ref.save()

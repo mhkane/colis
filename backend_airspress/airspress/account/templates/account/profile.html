@@ -52,7 +52,7 @@
 								<div class="col-lg-3 col-md-4 col-sm-4">
 									<div class="main-box clearfix">
 										<header class="main-box-header clearfix">
-											<h2>{{userinfo.username}}</h2>
+											<h2>{% firstof userinfo.screen_name userinfo.username %}</h2>
 										</header>
 										
 										<div class="main-box-body clearfix">
@@ -85,13 +85,14 @@
 													<li><i class="fa-li fa fa-cube small"></i>AirDeals (Buyer): <span>{{userinfo.total_orders}}</span></li>
 												</ul>
 											</div>
-											
+											{% if not userinfo.is_cuser %}
 											<div class="profile-message-btn center-block text-center">
 												<a href="#" class="btn btn-success">
 													<i class="fa fa-envelope"></i>
 													Send message
 												</a>
 											</div>
+											{% endif %}
 										</div>
 										
 									</div>
@@ -105,7 +106,7 @@
 												<li><a href="#tab-trips" data-toggle="tab">Trips</a></li>
 												{% if userinfo.is_cuser %}
 												<li><a href="#tab-friends" data-toggle="tab">Invite a Friend</a></li>
-												<li><a href="" data-toggle="tab">Edit Profile</a></li>
+												<li><a href="/account/edit/here/" >Edit Profile</a></li>
 												{% endif %}
 											</ul>
 											<!--  Every section should have an html file of its own

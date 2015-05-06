@@ -1,13 +1,12 @@
 from parse_rest.connection import register
 from airspress import settings
-import airspress
-from airspress.settings import FILE_UPLOAD_DIR
 from parse_rest.query import QueryResourceDoesNotExist
 from parse_rest.core import ResourceRequestNotFound
 from signup.backend_parse import passRequest
+from string import split
 #register to Parse
-register(settings.APPLICATION_ID, settings.REST_API_KEY)#settings.REST_API_KEY
-from parse_rest.connection import ParseBatcher
+register(settings.APPLICATION_ID, settings.REST_API_KEY, master_key=settings.MASTER_KEY)#settings.REST_API_KEY
+#from parse_rest.connection import ParseBatcher
 # Object Alias to differentiate from python objects
 from parse_rest.datatypes import Object as ParseObject
 #We override Django User class
@@ -30,6 +29,8 @@ def currentUser(saken):
      })
     result = json.loads(connection.getresponse().read())
     return result
+
+
 def is_logged_in(request):# return the current user if User is still logged in.
     try:
         saken = request.session['lsten']
@@ -40,9 +41,11 @@ def is_logged_in(request):# return the current user if User is still logged in.
         objID = cUser['objectId']
         if objID:
             cUserin = User.Query.get(objectId = objID) # unless we do that we can't operate it as a ParseUser
+            cUserin.sessionToken = saken
             return cUserin
     
     return False
+
 def re_validation(registerView, provider_name):
     '''
     This is the signup scheme which handles the two types of signup
@@ -88,6 +91,7 @@ def re_validation(registerView, provider_name):
     else:
         alert={'type':'warning','text':'You should use an "'+domain_mail+'" email address'}
     return alert
+
 def sign_in(request, loginView, provider_name):
     '''
     This is the handler for login, "loginView" is the login form
@@ -117,6 +121,7 @@ def sign_in(request, loginView, provider_name):
     #create a secure session server-side and a little cookie client side
     request.session['lsten']=cUser.sessionToken
     return cUser
+
 def request_password(email):
     reference = ''
     try:
@@ -128,6 +133,7 @@ def request_password(email):
         pass
     print reference
     return reference
+
 def change_password(new_password, userid):
     import json,httplib
     connection = httplib.HTTPSConnection('api.parse.com', 443)
@@ -141,7 +147,9 @@ def change_password(new_password, userid):
      })
     result = json.loads(connection.getresponse().read())
     print result
-    return result    
+    return result
+
+    
 import airspress.settings
 def verify_email(userid):
     import json,httplib
@@ -157,7 +165,9 @@ def verify_email(userid):
     result = json.loads(connection.getresponse().read())
     print result
     return result 
-def save_user_pic( account, fbId=None, filepath=None):
+
+
+def save_user_pic( account, fbId=None, filepath=None, filetype='image/jpeg', filext='jpg'):
     '''
     This is the picture uploader; it uploads a picture to Parse 
     and associate it with an User. Needs some revamping so we can upload pics
@@ -166,6 +176,8 @@ def save_user_pic( account, fbId=None, filepath=None):
     import urllib2
     import httplib
     import json
+    print filetype
+    print filext
     if fbId is not None:
         source = urllib2.urlopen('https://graph.facebook.com/v2.2/'+fbId+'/picture?redirect=0&type=large')
         filepath = settings.FILE_UPLOAD_DIR + fbId +'.jpg'
@@ -175,24 +187,24 @@ def save_user_pic( account, fbId=None, filepath=None):
         urlpic = data['data']['url']
         connection = httplib.HTTPSConnection('api.parse.com', 443)
         connection.connect()
-        connection.request('POST', '/1/files/pic1.jpg', 
+        connection.request('POST', '/1/files/pic1.'+str(filext), 
            urllib2.urlopen(urlpic).read(), 
             {
              "X-Parse-Application-Id": airspress.settings.APPLICATION_ID,
                "X-Parse-REST-API-Key": airspress.settings.REST_API_KEY, 
-                "Content-Type": "image/jpeg"
+                "Content-Type": str(filetype)
              })
         picture = json.loads(connection.getresponse().read())
     else:
         user_id = account.objectId
         connection = httplib.HTTPSConnection('api.parse.com', 443)
         connection.connect()
-        connection.request('POST', '/1/files/pic1.jpg', 
+        connection.request('POST', '/1/files/pic1.'+str(filext), 
         open(filepath,'rb').read(), 
         {
          "X-Parse-Application-Id": airspress.settings.APPLICATION_ID,
            "X-Parse-REST-API-Key": airspress.settings.REST_API_KEY, 
-            "Content-Type": "image/jpeg"
+            "Content-Type": str(filetype)
          })
         picture = json.loads(connection.getresponse().read())
     print picture
@@ -206,6 +218,7 @@ def save_user_pic( account, fbId=None, filepath=None):
          }), {
            "X-Parse-Application-Id": airspress.settings.APPLICATION_ID,
            "X-Parse-REST-API-Key": airspress.settings.REST_API_KEY,
+           "X-Parse-Session-Token": account.sessionToken,
            "Content-Type": "application/json"
          })
     result = json.loads(connection.getresponse().read())
@@ -214,7 +227,7 @@ def save_user_pic( account, fbId=None, filepath=None):
     try:
         profilePic = account.profilePicture.url
     except AttributeError:
-        profilePic = ''
+        pass
     return profilePic
 
 import tempfile
@@ -227,8 +240,14 @@ def handle_uploaded_file(source, cUser):
     This is a helper for the uploader; creates a local tempfile to host user-uploaded file
     on server before it's sent to Parse.com
     '''
+    import os
     fd, filepath = tempfile.mkstemp(prefix=source.name, dir=FILE_UPLOAD_DIR)
     with open(filepath, 'wb+') as dest:
         shutil.copyfileobj(source, dest)
-    verify = save_user_pic(account=cUser, filepath=filepath)
+    verify = save_user_pic(account=cUser, filepath=filepath, filetype=source.content_type, filext=split(source.name,sep='.')[-1])
+    try:
+        os.remove(filepath)
+    except OSError:
+        pass
     return verify
+
