@@ -16,33 +16,41 @@ def auth_server(node):
     f = Firebase(ROOT_URL_FIREBASE+node, auth_token=token)
     return f
 # create conversation channel for a deal
-def create_conversation(deal_id, members_list):
-    reference = auth_server("data/airdeals/")
-    deals_ref = reference.child("deals")
-    dealers_ref = reference.child("dealers")
+def create_conversation(channel_id, members_list, source=None):
+    channel = ""
+    node = ""
+    users = ""
+    if source=="direct_messaging":
+        node = "data/directMessaging/"
+        channel = "conversations"
+        users = "users"
+        
+    reference = auth_server(node if node else "data/airdeals/")
+    channel_ref = reference.child(channel if channel else "deals")
+    users_ref = reference.child(users if users else "dealers")
     
     
     # update with deal info
-    deals_dic = {}
+    channel_dic = {}
     members = {}
     for user_id in members_list:
         members[user_id]=True
         
-    deals_dic[deal_id]={'members':members}
-    deals_ref.update(deals_dic)
+    channel_dic[channel_id]={'members':members}
+    channel_ref.update(channel_dic)
     
     # update with dealers info
     
-    dealers_dic = {}
+    users_dic = {}
     members = {}
     for user_id in members_list:
         try:
-            user_deal_ref = dealers_ref.child(user_id+"/deals")
-            user_deal_ref.update({deal_id:True})
+            user_channel_ref = users_ref.child(user_id + "/" + (channel if channel else "deals"))
+            user_channel_ref.update({channel_id:True})
         except:
-            dealers_dic[user_id]={'deals':{deal_id:True}}
-            dealers_ref.update(dealers_dic)
-    return True
+            users_dic[user_id]={(channel if channel else 'deals'):{channel_id:True}}
+            users_ref.update(users_dic)
+    return node+'messages'
             
 def retrieve_conversation():
     reference = auth_server("data/airdeals/")

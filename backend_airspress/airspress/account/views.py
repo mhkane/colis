@@ -227,7 +227,7 @@ def deals(request, key):
             #if not reqAccepted:
             #     return Http404()
             return render(request, 'account/deals.html',
-                      {'dealInfo':reqAccepted,'reqUser':req_user_dic,
+                      {'dealInfo':reqAccepted,'reqUser':req_user_dic, 'firebase_node':checker+"/"+key,
                         'travelUser':travel_user_dic,'review_form':review_form,
                         'myPicture':get_profile_pic(cUser.objectId),'greetings':cUser.username,'current_user_id':cUser.objectId,
                         'firebase_token':messaging_token,'reviews':reviews_dict,'requested_items':items_dict, 'rqkey':key})
@@ -293,6 +293,7 @@ def reviewTrip(request,key):
 def profileView(request, key):
     cUser = is_logged_in(request)
     if cUser:
+        any_user_id=''
         screen_name=''
         pPicture=''
         anyName = ''
@@ -305,8 +306,10 @@ def profileView(request, key):
         is_verified = ''
         is_cuser = False
         reviews_dict={}
+        chat_token=''
         try:
             anyUser = User.Query.get(username=key)
+            any_user_id = anyUser.objectId
             pPicture = get_profile_pic(anyUser.objectId)
             anyName = anyUser.username
             anyMail = anyUser.email
@@ -331,14 +334,24 @@ def profileView(request, key):
         
         if anyName == cUser.username :
             is_cuser = True
+        else:
+            # Bring in the instant chat
+            # source_id is used as a unique idenifier of conversation
+            source_id = cUser.objectId + "-"+any_user_id
+            chat_token = auth_client(cUser.objectId, "chat", source_id)
+            chat_node = create_conversation(source_id, [cUser.objectId, any_user_id], "direct_messaging")
          
         # crunch down the long usernames; this is the sick messy way
         # we can implement the slick Messi way afterwards ;-)
         for delim in ['.','@','_']:
             if delim in anyName:
-                anyName = anyName.split(delim, 1)[0]
+                crunch_name =''
+                crunch_name += anyName
+                crunch_name = crunch_name.split(delim, 1)[0]
+        
+        
         # let's get everything in a dict object
-        proDict={'username':anyName, 'screen_name':screen_name,'is_verified':is_verified, 'is_cuser':is_cuser, 'email':anyMail, 'Bio':anyBio, 
+        proDict={'username':anyName, 'short_username':crunch_name, 'screen_name':screen_name,'is_verified':is_verified, 'is_cuser':is_cuser, 'email':anyMail, 'Bio':anyBio, 
                  'rating':anyRating, 'total_deliveries':total_deliveries, 'total_orders':total_orders, 'pPicture':pPicture,
                  'total_reviews':total_reviews, 'reviews':reviews_dict}
         referral_form = referralForm()
@@ -347,6 +360,9 @@ def profileView(request, key):
                                                          'myPicture':get_profile_pic(cUser.objectId)})
         context_dic = {'userinfo':proDict, 'greetings':cUser.username,
                         'myPicture':get_profile_pic(cUser.objectId), 'referral_form':referral_form}
+        context_dic['firebase_token']=chat_token
+        context_dic['firebase_node']=chat_node+"/"+source_id
+        context_dic['current_user_id'] = cUser.objectId
         return render(request, 'account/profile.html', context_dic)
     return HttpResponseRedirect(reverse('signup:index'))
                 

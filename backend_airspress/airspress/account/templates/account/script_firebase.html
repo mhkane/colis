@@ -29,11 +29,12 @@
 
 window.onload = function(){
 // Get a reference to messages
-var ref = new Firebase("https://radiant-torch-2520.firebaseio.com/data/airdeals/messages/{{rqkey}}");
+var ref = new Firebase("https://radiant-torch-2520.firebaseio.com/{% firstof firebase_node "data/airdeals/messages/"|add:rqkey %}");
 // Define Generated Token
 var AUTH_TOKEN = "{{firebase_token}}";
 
 // Authenticate with Token
+ref.unauth();
 ref.authWithCustomToken(AUTH_TOKEN, function(error, authData) {
   if (error) {
     console.log("Login Failed!", error);
@@ -48,12 +49,13 @@ document.getElementById('SendMessage1').onclick = function(e){
 	e.preventDefault();
 	var newMessageText = document.getElementById('NewMessage1').value;
 	// Send to Firebase
+	if (newMessageText !== ""){
 	ref.push({"sender":"{{current_user_id}}", "text": newMessageText, "pub_date":getDateTime()});
 	// Empty Textarea
-	newMessageText = '';
-  
+	document.getElementById('NewMessage1').value = '';
+	}
 };
-function Shidori(e) {
+document.getElementById('NewMessage1').onkeydown = function Shidori(e) {
     if (e.keyCode == 13 || e.which == 13) {
 	// Catch Submit and Halt it
 	e.preventDefault();
@@ -62,7 +64,7 @@ function Shidori(e) {
 	if (newMessageText !== ""){
 	ref.push({"sender":"{{current_user_id}}", "text": newMessageText, "pub_date":getDateTime()});
 	// Empty Textarea
-	newMessageText = '';
+	document.getElementById('NewMessage1').value = '';
 	}
 	
 	}
@@ -72,21 +74,22 @@ ref.limitToLast(10).on("child_added", function(snapshot) {
   var newMessage = snapshot.val();
   // Conversation list of messages 
   var conversation = document.getElementById('Conversation1');
+  var wrapper = document.getElementById('WrapperConversation1');
   // new Message element
   var snippet = '';
   var part1 = '<div class="conversation-item item-left clearfix">\
 						<div class="conversation-user">\
-							<img src=" {% if dealInfo.istraveler %} {{reqUser.picture}} {% else %} {{travelUser.picture}} {% endif %} " alt=""/>\
+							<img src=" {% if dealInfo.istraveler %} {{reqUser.picture}} {% else %} {% firstof travelUser.picture myPicture %} {% endif %} " alt=""/>\
 						</div>\
 						<div class="conversation-body">\
-							<div class="name"> {% if dealInfo.istraveler %} {{reqUser.username}} {% else %} {{travelUser.username}} {% endif %} </div>\
+							<div class="name"> {% if dealInfo.istraveler %} {{reqUser.username}} {% else %} {% firstof travelUser.username greetings %} {% endif %} </div>\
 							<div class="time hidden-xs">';
   var part11 = '<div class="conversation-item item-right clearfix">\
 						<div class="conversation-user">\
-							<img src=" {% if not dealInfo.istraveler %} {{reqUser.picture}} {% else %} {{travelUser.picture}} {% endif %} " alt=""/>\
+							<img src=" {% if not dealInfo.istraveler %} {{reqUser.picture}} {% else %} {% firstof travelUser.picture myPicture %} {% endif %} " alt=""/>\
 						</div>\
 						<div class="conversation-body">\
-							<div class="name"> {% if not dealInfo.istraveler %} {{reqUser.username}} {% else %} {{travelUser.username}} {% endif %} </div>\
+							<div class="name"> {% if not dealInfo.istraveler %} {{reqUser.username}} {% else %} {% firstof travelUser.username greetings %} {% endif %} </div>\
 							<div class="time hidden-xs">';	
   var part2 = '</div>\
 							<div class="text">';
@@ -103,5 +106,6 @@ ref.limitToLast(10).on("child_added", function(snapshot) {
   
   //Scroll to the Bottom of conversation
   conversation.scrollTop = conversation.height
+  wrapper.scrollTop = wrapper.height
 });};
 </script>
