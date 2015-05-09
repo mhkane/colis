@@ -26,9 +26,12 @@
 	<link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
 
 	<!-- google font libraries -->
-	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
 
 {% endblock stylesheet_bottom %}
+{% block stylesheet_uncomp %}
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
+{% endblock stylesheet_uncomp %}
+
 
 {% block jscript %} 
 
@@ -61,49 +64,7 @@ $('.rating-stars').raty({ starType: 'i', score: function() {
 				<div class="row" id="user-profile">
 								<div class="col-lg-3 col-md-4 col-sm-4">
 									<div class="main-box clearfix">
-										<header class="main-box-header clearfix">
-											<h2>{% firstof userinfo.screen_name userinfo.username %}</h2>
-										</header>
-										
-										<div class="main-box-body clearfix">
-											<div class="profile-status">
-												<i class="fa fa-circle small"></i> {% if userinfo.is_verified %} Verified {% else %} Not Verified {% endif %}
-											</div>
-											{% if userinfo.pPicture %}
-											<img alt="User Pic" src="{{ userinfo.pPicture }}" class="profile-img img-responsive center-block">
-											{% else %}
-											<img alt="User Pic" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="profile-img img-responsive center-block">
-											{% endif %}
-											
-											
-											<!--<div class="profile-label">
-												<span class="label label-danger">Admin</span>
-											</div> -->
-											
-											<div class="profile-stars">
-												<div class="rating-stars" data-score="{{userinfo.rating}}"></div>
-												<span>{{userinfo.total_reviews}} reviews</span>
-											</div>
-											
-											<div class="profile-since">
-												Member since: Jan 2012
-											</div>
-											
-											<div class="profile-details">
-												<ul class="fa-ul">
-													<li><i class="fa-li fa fa-plane small"></i>AirDeals (Traveler): <span>{{userinfo.total_deliveries}}</span></li>
-													<li><i class="fa-li fa fa-cube small"></i>AirDeals (Buyer): <span>{{userinfo.total_orders}}</span></li>
-												</ul>
-											</div>
-											{% if not userinfo.is_cuser %}
-											<div class="profile-message-btn center-block text-center">
-												<a href="#" class="btn btn-success">
-													<i class="fa fa-envelope"></i>
-													Send message
-												</a>
-											</div>
-											{% endif %}
-										</div>
+										{% include "account/profile_main.html" %}
 										
 									</div>
 								</div>
@@ -113,48 +74,18 @@ $('.rating-stars').raty({ starType: 'i', score: function() {
 										<div class="tabs-wrapper profile-tabs">
 											<ul class="nav nav-tabs">
 												<li class="active"><a href="#tab-general" data-toggle="tab">General</a></li>
-												<li><a href="#tab-social" data-toggle="tab">Social</a></li>
+												<!-- <li><a href="#tab-social" data-toggle="tab">Social</a></li> -->
 												
 												<li><a href="#tab-security" data-toggle="tab">Security</a></li>
-												<li><a href="#tab-payment" data-toggle="tab">Payment</a></li>
+												<!-- <li><a href="#tab-payment" data-toggle="tab">Payment</a></li> -->
 												
 											</ul>
 											<!--  Every tab/section should have an html file of its own
 													for better organization and easier modifications-->
 											
 											<div class="tab-content">
-												<div class="tab-pane fade in active" id="tab-general">
-													<form role="form" method="POST" action="/account/edit/general/" enctype="multipart/form-data">
-														{% csrf_token %}
-														<div class="form-group">
-															<div>
-																<img alt="" id="uploaded-file" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="profile-img img-responsive center-block">
-															</div>
-															<label for="InputPicture">Profile Picture</label>
-															<input name="{{pic_form.profile_picture.name}}" type="file" class="form-control" id="InputPicture" >
-															<p class="help-block">
-																{% firstof pic_form.profile_picture.errors pic_form.profile_picture.help_text %}
-															</p>
-														</div>
-														<div class="form-group">
-															<label for="screen_name">Screen Name</label>
-															<input type="text" name="{{general_form.screen_name.name}}" class="form-control" id="screen_name" placeholder="Name that shows up on you profile">
-															<p class="help-block">
-																{% firstof general_form.screen_name.errors general_form.screen_name.help_text %}
-															</p>
-														</div>
-
-										
-														
-														<div class="form-group">
-															<label for="exampleTooltip">Time Zone</label>
-															<input type="text" name="{{general_form.time_zone.name}}" class="form-control" id="exampleTooltip" data-toggle="tooltip" data-placement="bottom" title="">
-															<p class="help-block">
-																{% firstof general_form.time_zone.errors general_form.time_zone.help_text %}
-															</p>
-														</div>
-														<button type="submit" class="btn btn-primary btn-success">Save</button>
-													</form>	
+												<div class="tab-pane fade {{tab_general}}" id="tab-general">
+													{% include 'account/editprofile_general.html' %}
 													
 												</div>
 											
@@ -166,31 +97,9 @@ $('.rating-stars').raty({ starType: 'i', score: function() {
 												
 												
 												
-												<div class="tab-pane fade" id="tab-security">
-													<header>Change Password</header>
-														
-														<form accept-charset="utf-8" method="POST" action="/account/edit/security/">
-														{% csrf_token %}
-															<div class="form-group">
-																<label for="InputPassword1">Current Password</label>
-																<input type="password" class="form-control" id="InputPassword1" placeholder="">
-															</div>
-															<div class="form-group">
-																<label for="InputPassword2">New Password</label>
-																<input type="password" class="form-control" id="InputPassword2" placeholder="" data-indicator="pwindicator">
-																<div id="pwindicator" class="pwdindicator">
-																	<div class="bar"></div>
-																	<div class="pwdstrength-label"></div>
-																</div>
-															</div>
-															<div class="form-group">
-																<label for="InputPassword3">Confirm Password</label>
-																<input type="password" class="form-control" id="InputPassword3" placeholder="">
-															</div>
-															<button type="submit" class="btn btn-primary btn-success">Save</button>
-
-														</form>
+												<div class="tab-pane fade {{tab_security}}" id="tab-security">
 													
+													{% include 'account/editprofile_security.html' %}
 												</div>
 												<div class="tab-pane fade" id="tab-payment">
 												

@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from signup.schemes import is_logged_in, User, handle_uploaded_file
+from signup.schemes import is_logged_in, User, handle_uploaded_file, sign_in,\
+    change_password
     
 from django.http.response import HttpResponseRedirect, HttpResponseForbidden
 from django.core.urlresolvers import reverse
@@ -11,9 +12,11 @@ from account.actions import request as trequests, getdeal, ref_create,\
 from trips.views import fbPicture
 from parse_rest.installation import Push
 from account.forms import referralForm, settings_form_general,\
-    settings_form_picture
+    settings_form_picture, settings_form_password
 from parse_rest.query import QueryResourceDoesNotExist
 from signup.backend_parse import reviews, Item
+from parse_rest.core import ResourceRequestNotFound
+from texto_airspress.schemes import auth_client, create_conversation
 # Create your views here.
 def addTrip(request):
     '''
@@ -150,8 +153,8 @@ def deals(request, key):
             travel_user_dic = {'username':travelUser.username}
             req_user_dic = {'username':reqUser.username}
             try:
-                travel_user_dic['picture']=travelUser.profilePicture
-                req_user_dic['picture']=reqUser.profilePicture
+                travel_user_dic['picture']=get_profile_pic(travelUser.objectId)
+                req_user_dic['picture']=get_profile_pic(reqUser.objectId)
             except (AttributeError, QueryResourceDoesNotExist):
                 req_user_dic['picture']=''
                 travel_user_dic['picture']=''
@@ -190,7 +193,10 @@ def deals(request, key):
             #if everything so far is ok and nothing forbidden
             # we fetch the conversations between the 2 users
             # on this deal
-            
+            messaging_token = auth_client(cUser.objectId, 'deals', key)
+            members_list = [reqUser.objectId, travelUser.objectId]
+            deal_id = key # in fact it's the trip request objectId 
+            checker = create_conversation(deal_id, members_list)
             # items to purchase on this deal
             wanted_items = Item.Query.filter(request=aRequest)
             k=0
@@ -223,8 +229,8 @@ def deals(request, key):
             return render(request, 'account/deals.html',
                       {'dealInfo':reqAccepted,'reqUser':req_user_dic,
                         'travelUser':travel_user_dic,'review_form':review_form,
-                        'myPicture':get_profile_pic(cUser.objectId),'greetings':cUser.username,
-                        'user_messages':'','reviews':reviews_dict,'requested_items':items_dict, 'rqkey':key})
+                        'myPicture':get_profile_pic(cUser.objectId),'greetings':cUser.username,'current_user_id':cUser.objectId,
+                        'firebase_token':messaging_token,'reviews':reviews_dict,'requested_items':items_dict, 'rqkey':key})
     return HttpResponseRedirect(reverse('trips:index')) # We aren't redirecting to signup:index to avoid a certain lag on signup page
 
 def otRequests(request):
@@ -335,19 +341,22 @@ def profileView(request, key):
         proDict={'username':anyName, 'screen_name':screen_name,'is_verified':is_verified, 'is_cuser':is_cuser, 'email':anyMail, 'Bio':anyBio, 
                  'rating':anyRating, 'total_deliveries':total_deliveries, 'total_orders':total_orders, 'pPicture':pPicture,
                  'total_reviews':total_reviews, 'reviews':reviews_dict}
+        referral_form = referralForm()
         if request.is_ajax():
             return render(request, 'trips/modals.html', {'userinfo':proDict, 'greetings':cUser.username, 
                                                          'myPicture':get_profile_pic(cUser.objectId)})
-        return render(request, 'account/profile.html', {'userinfo':proDict, 'greetings':cUser.username,
-                                                        'myPicture':get_profile_pic(cUser.objectId)})
+        context_dic = {'userinfo':proDict, 'greetings':cUser.username,
+                        'myPicture':get_profile_pic(cUser.objectId), 'referral_form':referral_form}
+        return render(request, 'account/profile.html', context_dic)
     return HttpResponseRedirect(reverse('signup:index'))
                 
 def edit_profile(request, section):#todo last man standing
     cUser = is_logged_in(request)
     if cUser:
-        proDict = get_user_info(cUser.objectId, cUser)
+        proDict = get_user_info(cUser, request, user_id=cUser.objectId)
         saken = request.session['lsten']
         if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
+            context_dic={}
             if section == 'general':
                 general_form = settings_form_general(request.POST)
                 profile_picture_form = settings_form_picture(request.POST, request.FILES)
@@ -356,22 +365,52 @@ def edit_profile(request, section):#todo last man standing
                     cUser.timeZone = general_form.cleaned_data['time_zone']
                     cUser.save()
                 else:
-                    print general_form.errors
+                    print general_form.errors  
                 if profile_picture_form.is_valid():
                     profile_picture = handle_uploaded_file(request.FILES['profile_picture'], cUser)
-                    
-            #
                 else:
                     print profile_picture_form.errors
-                return render(request, 'account/editprofile.html', {'greetings':cUser.username,'myPicture':get_profile_pic(cUser.objectId), 
-                                                                    'userinfo':proDict,'general_form':general_form,
-                                                                    'pic_form':profile_picture_form})             
+                    
+                # In case of profile modification we get rid of the "cached" user info
+                if general_form.is_valid() or profile_picture_form.is_valid():
+                    try:
+                        del request.session['userinfo']
+                    except:
+                        pass
+                context_dic = {'greetings':cUser.username,'myPicture':get_profile_pic(cUser.objectId), 
+                                'userinfo':proDict,'general_form':general_form,'pic_form':profile_picture_form}
+                context_dic['password_form']=settings_form_password()
+                context_dic['tab_general']="active in"
+                    
+            elif section == 'security':
+                password_form = settings_form_password(request.POST)
+                context_dic = {'greetings':cUser.username,'myPicture':get_profile_pic(cUser.objectId), 
+                                'userinfo':proDict}
+                if password_form.is_valid():
+                    current_password = password_form.cleaned_data['current_pass'] 
+                    test_user = sign_in(request, login_dic={'username':cUser.username,
+                                                            'password':current_password})
+                    try:
+                        user_id = test_user.objectId
+                        new_password = password_form.clean_new_pass_conf()
+                        if new_password:
+                            change_password(new_password, user_id)
+                    except(AttributeError):
+                        context_dic['alert']=test_user
+                context_dic['password_form']=password_form
+                context_dic['general_form'] = settings_form_general()
+                context_dic['pic_form']=settings_form_picture()
+                context_dic['tab_security']="active in"
+            return render(request, 'account/editprofile.html', context_dic )        
+                          
         else:
             general_form = settings_form_general()
             profile_picture_form = settings_form_picture()
-            return render(request, 'account/editprofile.html', {'greetings':cUser.username,'myPicture':get_profile_pic(cUser.objectId), 
-                                                                'userinfo':proDict,'general_form':general_form,
-                                                                'pic_form':profile_picture_form})
+            password_form = settings_form_password()
+            context_dic = {'greetings':cUser.username,'myPicture':get_profile_pic(cUser.objectId), 
+                           'userinfo':proDict,'general_form':general_form,'tab_general':'active in',
+                            'pic_form':profile_picture_form, 'password_form':password_form}
+            return render(request, 'account/editprofile.html', context_dic )
     
     return HttpResponseRedirect(reverse('signup:index'))
             
@@ -380,16 +419,24 @@ def referral(request):
     cUser = is_logged_in(request)
     alert = {}
     if cUser:
+        context_dic = {'greetings':cUser.username,'myPicture':get_profile_pic(cUser.objectId)}
         if request.method =='POST':
             referralView = referralForm(request.POST)
             if referralView.is_valid():
-                alert = ref_create(referralView,cUser)
+                alert = ref_create(referralView, cUser, request)
             else:
                 print referralView.errors
-            return render(request,'account/profile.html',{'alert':alert, 'referForm':referralView})#we probably won't use this template but a child-template
+            pro_dic = get_user_info(cUser, request, user_id=cUser.objectId)
+            context_dic['userinfo']=pro_dic
+            context_dic['alert']=alert
+            context_dic['referral_form']=referralView
+            context_dic['tab_friends']='active in'  
+            return render(request,'account/profile.html', context_dic)#we probably won't use this template but a child-template
         else:
             referralView = referralForm()
-            return render(request, 'account/profile.html',{'referForm':referralView, 'alert': alert})
+            context_dic['alert']=alert
+            context_dic['referral_form']=referralView
+            return render(request, 'account/profile.html', context_dic)
     return HttpResponseRedirect(reverse('signup:index'))
     
                             

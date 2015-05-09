@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load compress %}
 <!DOCTYPE html>
 <html lang="en">
 <head> 
@@ -7,18 +8,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+	{% compress css %}
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/bootstrap.min.css' %}" />
-	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/font-awesome.min.css' %}" />
-	{% block stylesheet %} {% endblock stylesheet %}
-	
-	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom-ui.css' %}" />
+	{% endcompress %}
+	{% compress css %}
 	<link rel="stylesheet" type="text/css" href="{% static 'account/css/flat-ui.min.css' %}" />
+	{% endcompress %}
+	{% compress css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/font-awesome.min.css' %}" />
+	{% endcompress %}
+	{% compress css %}
+	{% block stylesheet %} {% endblock stylesheet %}
+	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom-ui.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/datepicker3.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'trips/css/jquery.raty.css' %}">
 	{% block stylesheet_bottom %} {% endblock stylesheet_bottom %}
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom.css' %}" />
+	{% endcompress %}
+	{% block stylesheet_uncomp %}
+	
+	{% endblock stylesheet_uncomp %}
+	
+	{% block head_jscript_uncomp %}  {% endblock %}
+	
+	{% compress js %}
+	{% block head_jscript %}  {% endblock %}
+	{% endcompress %}
+	
+	
 	<title> {% block title %} Airspress - A peer-to-peer delivery service{% endblock %} </title>
 </head>
+
 <body {% block onloader %} {% endblock %}>
     <nav class="navbar navbar-default navbar-fixed-top navbar-shrink navbar-inverse navbar-embossed">
         <div class="container">

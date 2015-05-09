@@ -1,0 +1,49 @@
+	<!-- This the conversation widget. It is included wherever there is need to show conversations
+	between 2 airspressers. It's quite responsive so i think it can even handle a "facebook" sized conversation box.-->
+	
+	
+	    <div class="conversation-wrapper">
+			<div class="conversation-content">
+				<div class="conversation-inner">
+			{% for message in user_messages %}
+				{% if message.text %}
+					{% if not message.sender.is_cuser %}
+					<div class="conversation-item item-left clearfix">
+						<div class="conversation-user">
+							<img src="{{message.sender.picture}}" alt=""/>
+						</div>
+						<div class="conversation-body">
+							<div class="name">
+								{{message.sender.name}}
+							</div>
+							<div class="time hidden-xs">
+								{{message.pub_date}}
+							</div>
+							<div class="text">
+								{{message.text}}
+							</div>
+						</div>
+					</div>
+					{% else %}
+					<div class="conversation-item item-right clearfix">
+						<div class="conversation-user">
+							<img src="{{message.sender.picture}}" alt=""/>
+						</div>
+						<div class="conversation-body">
+							<div class="name">
+								{{message.sender.name}}
+							</div>
+							<div class="time hidden-xs">
+								{{message.pub_date}}
+							</div>
+							<div class="text">
+								{{message.text}}
+							</div>
+						</div>
+					</div>
+					{% endif %}
+				{% endif %}
+			{% endfor%}
+				</div>
+			</div>
+		</div>

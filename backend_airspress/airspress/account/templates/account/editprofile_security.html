@@ -1,0 +1,32 @@
+			<h3>Change Password</h3>
+			
+			<form accept-charset="utf-8" method="POST" action="/account/edit/security/">
+			{% csrf_token %}
+				<div class="form-group">
+					<!--<label for="InputPassword1">Current Password</label>-->
+					<input type="password" name="{{ password_form.current_pass.name }}" class="form-control" id="InputPassword1" >
+					<p class="help-block">
+					{% firstof password_form.current_pass.errors password_form.current_pass.help_text %}
+				</p>
+				</div>
+				<div class="form-group">
+					<!--<label for="InputPassword2"><strong>New Password</strong>/label -->
+					<input type="password" name="{{ password_form.new_pass.name }}" class="form-control" id="InputPassword2"  data-indicator="pwindicator">
+					<p class="help-block">
+					{% firstof password_form.new_pass.errors password_form.new_pass.help_text %}
+					</p>
+					<div id="pwindicator" class="pwdindicator">
+						<div class="bar"></div>
+						<div class="pwdstrength-label"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<!-- <label for="InputPassword3">Confirm Password</label> -->
+					<input type="password" name="{{ password_form.new_pass_conf.name }}" class="form-control" id="InputPassword3" >
+					<p class="help-block">
+					{% firstof password_form.new_pass_conf.errors password_form.new_pass_conf.help_text %}
+					</p>
+				</div>
+				<button type="submit" class="btn btn-primary btn-success">Save</button>
+
+			</form>

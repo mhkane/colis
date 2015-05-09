@@ -77,7 +77,7 @@
 			<div class="thumbnail bootsnipp-thumb">
 			  <div class="row firstin">
 				<div class="col-md-4 col-lg-4 travelUser">
-						<a> <img class="img-circle" alt="" src="{{v.pPicture}}" style="width: 80px; height: 80px;">
+						<a href="{% url 'account:profile' v.travelerUser %}"> <img class="img-circle" alt="" src="{{v.pPicture}}" style="width: 80px; height: 80px;">
 							  <span>{{v.travelerUser}}</span>
 						</a>
 						<div class="rating-stars" data-score="4"></div>

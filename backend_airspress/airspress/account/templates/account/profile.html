@@ -20,11 +20,11 @@
 	
 	<!-- Favicon 
 	<link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
-
-	<!-- google font libraries -->
-	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
-
+	-->
 {% endblock stylesheet_bottom %}
+{% block stylesheet_uncomp %}
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
+{% endblock stylesheet_uncomp %}
 
 {% block jscript %} 
 
@@ -43,6 +43,10 @@
   }, readOnly: true });</script> 
   
  {% endblock jscript %}
+ 
+ {% block head_jscript %} {% include 'account/script_firebase.html' %} {% endblock %}
+{% block head_jscript_uncomp %} <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script> {% endblock %}
+
 <!-- This block will contain everything that is not on the user sidebar: list of trips or trip details or other user profiles...etc -->
 {% block content %}
 <div class="content-wrapper">
@@ -87,7 +91,7 @@
 											</div>
 											{% if not userinfo.is_cuser %}
 											<div class="profile-message-btn center-block text-center">
-												<a href="#" class="btn btn-success">
+												<a href="#tab-chat" data-toggle="tab" class="btn btn-success">
 													<i class="fa fa-envelope"></i>
 													Send message
 												</a>
@@ -113,7 +117,7 @@
 													for better organization and easier modifications-->
 											<!--- This is reviews section-->
 											<div class="tab-content">
-												<div class="tab-pane fade in active" id="tab-newsfeed">
+												<div class="tab-pane fade {% if not tab_friends %} in active {% endif %}" id="tab-newsfeed">
 													
 													<div id="newsfeed">
 														{% include "account/reviews_history.html" %}
@@ -190,112 +194,51 @@
 													</div>
 													
 												</div>
-												
+												<div class="tab-pane fade {{tab_friends}}" id="tab-friends">
+													<h2>Spread the word ! Invite your friends to use Airspress</h2>
+							
+													{% if alert %}
+														{% include 'trips/alerts.html' %}
+													{% endif %}
+													
+													<br>
+													
+													<form accept-charset="utf-8" method="POST" action="/account/referral/">
+														{% csrf_token %}
+														<div class="form-group">
+															<label for="InputEmail1"><strong>Email Address</strong></label>
+															<input type="text" name="{{ referral_form.referred_email.name }}" class="form-control" id="InputEmail1" >
+															<p class="help-block">
+															{% firstof referral_form.referred_email.errors referral_form.referred_email.help_text %}
+															</p>
+														</div>
+														<div class="form-group">
+															<label for="InputMessage1"><strong>Personal Message</strong> (Optional)</label>
+															<textarea type="text" name="{{ referral_form.message.name }}" class="form-control" id="InputMessage1" placeholder="{{referral_form.message.help_text}}">
+															</textarea>
+															<p class="help-block">
+															{% firstof referral_form.message.errors %}
+															</p>
+														</div>
+														<button type="submit" class="btn btn-primary btn-block">INVITE</button>
+													</form>	
+												</div>
 												
 												<div class="tab-pane fade" id="tab-chat">
 													<div class="conversation-wrapper">
 														<div class="conversation-content">
-															<div class="conversation-inner">
+															<div class="conversation-inner" id="Conversation1">
 															
-																<div class="conversation-item item-left clearfix">
-																	<div class="conversation-user">
-																		<img src="img/samples/ryan.png" alt=""/>
-																	</div>
-																	<div class="conversation-body">
-																		<div class="name">
-																			Ryan Gossling
-																		</div>
-																		<div class="time hidden-xs">
-																			September 21, 2013 18:28
-																		</div>
-																		<div class="text">
-																			I don't think they tried to market it to the billionaire, spelunking, 
-																			base-jumping crowd.
-																		</div>
-																	</div>
-																</div>
-																<div class="conversation-item item-right clearfix">
-																	<div class="conversation-user">
-																		<img src="img/samples/kunis.png" alt=""/>
-																	</div>
-																	<div class="conversation-body">
-																		<div class="name">
-																			Mila Kunis
-																		</div>
-																		<div class="time hidden-xs">
-																			September 21, 2013 12:45
-																		</div>
-																		<div class="text">
-																			Normally, both your asses would be dead as fucking fried chicken, but you 
-																			happen to pull this shit while I'm in a transitional period so I don't wanna 
-																			kill you, I wanna help you.
-																		</div>
-																	</div>
-																</div>
-																<div class="conversation-item item-right clearfix">
-																	<div class="conversation-user">
-																		<img src="img/samples/kunis.png" alt=""/>
-																	</div>
-																	<div class="conversation-body">
-																		<div class="name">
-																			Mila Kunis
-																		</div>
-																		<div class="time hidden-xs">
-																			September 21, 2013 12:45
-																		</div>
-																		<div class="text">
-																			Normally, both your asses would be dead as fucking fried chicken, but you 
-																			happen to pull this shit while I'm in a transitional period so I don't wanna 
-																			kill you, I wanna help you.
-																		</div>
-																	</div>
-																</div>
-																<div class="conversation-item item-left clearfix">
-																	<div class="conversation-user">
-																		<img src="img/samples/ryan.png" alt=""/>
-																	</div>
-																	<div class="conversation-body">
-																		<div class="name">
-																			Ryan Gossling
-																		</div>
-																		<div class="time hidden-xs">
-																			September 21, 2013 18:28
-																		</div>
-																		<div class="text">
-																			I don't think they tried to market it to the billionaire, spelunking, 
-																			base-jumping crowd.
-																		</div>
-																	</div>
-																</div>
-																<div class="conversation-item item-right clearfix">
-																	<div class="conversation-user">
-																		<img src="img/samples/kunis.png" alt=""/>
-																	</div>
-																	<div class="conversation-body">
-																		<div class="name">
-																			Mila Kunis
-																		</div>
-																		<div class="time hidden-xs">
-																			September 21, 2013 12:45
-																		</div>
-																		<div class="text">
-																			Normally, both your asses would be dead as fucking fried chicken, but you 
-																			happen to pull this shit while I'm in a transitional period so I don't wanna 
-																			kill you, I wanna help you.
-																		</div>
-																	</div>
-																</div>
-																
 															</div>
-														</div>
+														</div>	
 														<div class="conversation-new-message">
 															<form>
 																<div class="form-group">
-																	<textarea class="form-control" rows="2" placeholder="Enter your message..."></textarea>
+																	<textarea class="form-control" onkeydown="return Shidori(event)" id="NewMessage1" rows="8" placeholder="Enter your message..."></textarea>
 																</div>
 																
 																<div class="clearfix">
-																	<button type="submit" class="btn btn-success pull-right">Send message</button>
+																	<button type="submit" id="SendMessage1" class="btn btn-success pull-right">Send message</button>
 																</div>
 															</form>
 														</div>

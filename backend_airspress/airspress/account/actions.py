@@ -10,13 +10,9 @@ from airspress.settings import FILE_UPLOAD_DIR
 from django.core.urlresolvers import reverse
 from parse_rest.query import QueryResourceDoesNotExist
 from decimal import Decimal
-from signup.backend_parse import reviews
+from signup.backend_parse import reviews, referral
 
 class request(ParseObject):
-    pass
-# we have a referral class which is useful for retaining information between the referred and the referrer
-# And there is the secret-word the referred enter at signup, best way to store that
-class referral(ParseObject):
     pass
 
 #Cloud function for mail sending
@@ -119,23 +115,31 @@ def get_profile_pic(user_objectid):
     return any_user_pic
 
 #get any user info, used for profileview
-def get_user_info(user_id, cUser):
+def get_user_info(cUser, request, user_id='',username=''):
     proDict={}
-    if user_id:
+    try:
+        proDict=request.session['userinfo']
+        if user_id and proDict['id'] == user_id:
+            return proDict
+        if username and proDict['username'] == username:
+            return proDict
+    except KeyError:
+        pass
+    if user_id or username:
         screen_name=''
         pPicture=''
-        anyName = ''
+        anyName = '' if user_id else username
         anyMail = ''
         anyBio = ''
         anyRating = ''
         total_reviews = 0
         total_deliveries = total_reviews
         total_orders = 0
-        is_verified = ''
+        is_verified = False
         is_cuser = False
         reviews_dict={}
         try:
-            anyUser = User.Query.get(objectId=user_id)
+            anyUser = User.Query.get(objectId=user_id) if user_id else User.Query.get(username=username)
             pPicture = get_profile_pic(anyUser.objectId)
             anyName = anyUser.username
             anyMail = anyUser.email
@@ -167,9 +171,11 @@ def get_user_info(user_id, cUser):
             if delim in anyName:
                 anyName = anyName.split(delim, 1)[0]
         # let's get everything in a dict object
-        proDict={'username':anyName, 'screen_name':screen_name,'is_verified':is_verified, 'is_cuser':is_cuser, 'email':anyMail, 'Bio':anyBio, 
+        proDict={'id':user_id,'username':anyName, 'screen_name':screen_name,'is_verified':is_verified, 'is_cuser':is_cuser, 'email':anyMail, 'Bio':anyBio, 
                  'rating':anyRating, 'total_deliveries':total_deliveries, 'total_orders':total_orders, 'pPicture':pPicture,
                  'total_reviews':total_reviews, 'reviews':reviews_dict}
+        if is_cuser:
+            request.session['userinfo']=proDict
     return proDict
 
 # A function to handle review and save them to Parse
@@ -202,14 +208,18 @@ def tripReview(cUser, review, key):
             pass
     return False
 
-def ref_create(referralView, cUser):
-    new_ref = referral(referrer=cUser,secret=referralView.cleaned_data['secret_word'])
+def ref_create(referralView, cUser, request):
+    new_ref = referral(referrer=cUser)
     new_ref.save()
     #send a mail to the referred user with the "secret word" which will be used in referred signup, mandrill in play !
+    personal_message = '{0} said: \n"'.format(cUser.Name) + referralView.cleaned_data['message'] + '"'
+    link = request.build_absolute_uri(reverse('signup:register', args=['referral'])) + '?referral=' + new_ref.objectId
+    
     send_mail = Function("email") #there is the same function in django, might play with that when porting
-    result = send_mail(text='Your friend want to invite you in the amazing Airspress community.\n\nLink: '+reverse('signup:register', args=['referral']+'?referral='+new_ref.objectId),
+    result = send_mail(text='Your friend want to invite you in the amazing Airspress community.\n\n'+personal_message+'\n\nLink: '+link,
             subject="{0} invited you to join Airspress".format(cUser.username), from_email="no-reply@airspress.com",
-            from_name="Airspress", email=referralView.cleaned_data['referred_mail'], to_name='')
+            from_name="Airspress", email=referralView.cleaned_data['referred_email'], to_name='')
+    
     alert = {'type':'warning', 'text':'There was an error attempting to send the invitation, try again later.'}
     try:
         if result["result"]=="email sent":

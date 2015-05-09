@@ -2,7 +2,7 @@ from parse_rest.connection import register
 from airspress import settings
 from parse_rest.query import QueryResourceDoesNotExist
 from parse_rest.core import ResourceRequestNotFound
-from signup.backend_parse import passRequest
+from signup.backend_parse import passRequest, referral
 from string import split
 #register to Parse
 register(settings.APPLICATION_ID, settings.REST_API_KEY, master_key=settings.MASTER_KEY)#settings.REST_API_KEY
@@ -46,23 +46,28 @@ def is_logged_in(request):# return the current user if User is still logged in.
     
     return False
 
-def re_validation(registerView, provider_name):
+def re_validation(registerView, provider_name, referral_id=''):
     '''
     This is the signup scheme which handles the two types of signup
     and make the proper verifications
     '''
     from signup.backend_parse import Institutions
+    user_name = registerView.cleaned_data['login_name']
     user_email = registerView.cleaned_data['login_email']
     user_password = registerView.cleaned_data['login_password']
     user_password_conf = registerView.cleaned_data['login_password_conf']
-    user_institution = registerView.cleaned_data['login_institution']
-    user_name = registerView.cleaned_data['login_name']
+    try:
+        user_institution = registerView.cleaned_data['login_institution']
+    except KeyError:
+        user_institution=''
+    
     #This password validation line, shouldn't be kept but don't want 
     # to create subclass validation right now; TODO 
     # UPDATE: we created subclass validation, we should trash this one mwahahaha
     if not user_password == user_password_conf:
         alert={'type':'danger', 'text':'Hmmm... Passwords don''t match...'}
         return alert
+    domain_mail = "@"
     if provider_name == 'student':
         # """Recover human readable names from the choiceField selectbox, yes it's that tedious hehe ;) """
         institution_dict = dict(registerView.fields['login_institution'].choices)
@@ -71,7 +76,8 @@ def re_validation(registerView, provider_name):
         try:
             domain_mail = Institutions.Query.get(name=accepted_institution).mailDomain
         except (AttributeError, QueryResourceDoesNotExist):
-            domain_mail=''
+            alert={'type':'danger', 'text':'An error occured. Try again later...'}
+            return alert
     # This alert dict will be returned with relevant notes 
     alert={} # alert["type"] and alert["text"] are mandatory, we can add other keywords
     email_existing='' 
@@ -83,22 +89,47 @@ def re_validation(registerView, provider_name):
     if email_existing:
         alert={'type':'danger', 'text':'This email is already in use...', 'link':'Did you forget your password ?'}
         return alert
-   
+    
     if domain_mail in user_email:
+        if provider_name=='referral':
+            try:
+                this_referral = referral.Query.get(objectId=referral_id)
+                new_user = User.signup(user_email, user_password, email=user_email, Name=user_name)
+                new_user = User.login(user_email, user_password)
+                new_user.referralInfo = this_referral
+                new_user.save()
+            except (QueryResourceDoesNotExist, ResourceRequestNotFound):
+                alert={'type':'danger', 'text':'This referral link is not valid !'}
+                return alert
+           
         new_user = User.signup(user_email, user_password, email=user_email, Name=user_name)
         alert={'type':'success', 'text':'''Nearly done ! Please confirm
          your email address by following the link we sent you.'''}
+        
     else:
         alert={'type':'warning','text':'You should use an "'+domain_mail+'" email address'}
+
     return alert
 
-def sign_in(request, loginView, provider_name):
+def sign_in(request, login_dic=None, loginView=None, provider_name='student'):
     '''
     This is the handler for login, "loginView" is the login form
+    "loginView" is a form object containing login information
+    "login_dic" is a dict object containing login information
+    Both do not happen at the same time. 
+    "login_dic" is mainly used outside the actual signing-in routine.
+    Any of them will behave the same.
     '''
-    #recover login informaton
-    username = loginView.cleaned_data['login_username']
-    user_pass = loginView.cleaned_data['login_password']
+    #recover login information
+    if loginView is not None:
+        username = loginView.cleaned_data['login_username']
+        user_pass = loginView.cleaned_data['login_password']
+    elif login_dic is not None:
+        username = login_dic['username']
+        user_pass = login_dic['password']
+    else:
+        username = ''
+        user_pass = username
     # try to login via PArse
     try:
         cUser=User.login(username,user_pass)
@@ -119,7 +150,9 @@ def sign_in(request, loginView, provider_name):
             alert={'type':'danger','text':'This user does not exist','link':'Sign up here','url':'/login/student'}
         return alert
     #create a secure session server-side and a little cookie client side
+    
     request.session['lsten']=cUser.sessionToken
+    
     return cUser
 
 def request_password(email):

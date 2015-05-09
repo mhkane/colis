@@ -63,7 +63,7 @@ a:after {
     transition: color 0.1s ease-in, background 0.1s ease-in;
 }
 .navbar-inverse .navbar-nav > li > a {
-    color: #c6d550;
+    color: #fff;
 }
 
 .alignleft {
@@ -149,36 +149,6 @@ h2.subtitle {
 	font-size: 20px;
 }
 
-/* slide */
-.carousel-indicators {
-  position: absolute;
-  bottom: -40px;
-  left: 50%;
-  z-index: 15;
-  width: 60%;
-  padding-left: 0;
-  margin-left: -50%;
-  text-align: center;
-  list-style: none;
-}
-.carousel-indicators li {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  margin: 1px;
-  text-indent: -999px;
-  cursor: pointer;
-  background-color: #000 \9;
-  background-color: #fff;
-  border: 1px solid #fff;
-  border-radius: 10px;
-}
-.carousel-indicators .active {
-  width: 12px;
-  height: 12px;
-  margin: 0;
-  background-color: #b7cb1b;
-}
 
 /* footer */
 #footer {

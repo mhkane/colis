@@ -1,0 +1,52 @@
+{% if dealInfo.isdeliv %}
+	<div class="row" id="review-feedback" style="margin-top:40px;">
+		<div class="col-md-12">
+		
+	{% if not dealInfo.reviewed %}	
+    	<div class="well well-sm">
+            <div class="text-right">
+                <a class="btn btn-success btn-green" href="#reviews-anchor" id="open-review-box"> <strong>Rate this Airdeal</strong></a>
+            </div>
+        
+            <div class="row" id="post-review-box" style="display:none;">
+                <div class="col-md-12">
+                    <form accept-charset="UTF-8" id="review-form" action="" method="post">
+                        <input id="ratings-hidden" name="rating" type="hidden"> 
+                        <textarea class="form-control animated" cols="50" id="new-review" name="{{reviewForm.text.name}}" placeholder="Enter your review here..." rows="5"></textarea>
+        
+                        <div class="text-right">
+                            <div class="stars starrr" data-rating="0" style="cursor:pointer;"></div>
+                            <a class="btn btn-danger btn-sm" href="#" id="close-review-box" style="display:none; margin-right: 10px;">
+                            <span class="glyphicon glyphicon-remove">&nbsp;</span>Cancel</a>
+                            <button class="btn btn-success btn-lg" type="submit" id="send-review">SEND</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div> 
+	{% else %}
+		{% for review in reviews %}
+		 {% if review.text %}
+		<!-- a readonly review-->
+         <div class="well">		
+			<div class="row-fluid">
+			  <div class="col-md-2 col-sm-2 hidden-xs">               
+				  <figure class="thumbnail">
+						<img class="img-responsive" src="{{ review.sender.picture }}" />
+						<figcaption class="text-center"></figcaption>
+				  </figure>
+			 </div>
+			  <div class="span9"> {{ review.text }} <br>
+				<strong>{{ review.sender.name }} </strong>
+			  </div>
+			  <div class="span2 muted mycenter" style="text-align: right;"><div class="rating-stars" data-rating="{{review.rating}}" ></div></div>
+			</div>
+		  </div>
+		  <!-- a readonly review-->
+		    {% endif %}
+		  {% endfor %}
+   {% endif %}
+ 
+		</div>
+	  </div>
+{% endif %}

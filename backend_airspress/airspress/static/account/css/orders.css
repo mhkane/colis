@@ -1783,7 +1783,7 @@ html.opacity .order-review.hide-order-review {
      box-sizing: border-box;
      margin-left: 202px;
      margin-top: 100px;
-     min-height: 800px;
+     min-height: 100%;
      position: relative;
 }
 

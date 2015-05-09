@@ -107,31 +107,29 @@ def signup(request, provider_name):
             #and he's signing up
             ref_regView = ref_regForm(request.POST)
             if ref_regView.is_valid():
+                referral_id = request.POST.get('referral_id','')
                 #Sometimes there's no obvious errors but there are still errors...
-                alert = re_validation(ref_regView)
+                
+                alert = re_validation(ref_regView, provider_name, referral_id=referral_id)
                 
                 print alert
                 if alert['type']=='success':
                     # clear form only if success because...
+                    # ...Not every one love filling forms a dozen time, unless you're a robot ;)
                     ref_regView=registerForm()
-                # ...Not every one love filling forms a dozen time, unless you're a robot ;)
-                if request.is_ajax():
-                    return render(request,'signup/signup_ajx.html',{'loginView':loginView,'ref_regView':ref_regView,
-                                                     'alert':alert})
-                else:
-                    return HttpResponseRedirect(reverse('signup:register_success'))
+                    return render(request, 'signup/register_success.html',{'alert':alert})
  
         #Throwing back form on page with errors, alerts
             else:
                 print registerView.errors
-                if request.is_ajax():
-                    return render(request,'signup/signup_ajx.html',
-                        {'loginView':loginView,'registerView':registerView,
-                        'alert':alert})
-                else:
-                    return render(request,'signup/signup.html',
-                        {'loginView':loginView,'registerView':registerView,
-                        'alert':alert})                
+            if request.is_ajax():
+                return render(request,'signup/signup_ajx.html',
+                    {'ref_regView':ref_regView,
+                    'alert':alert})
+            else:
+                return render(request,'signup/signup.html',
+                    {'ref_regView':ref_regView,
+                    'alert':alert})                
         else:
             #referred user is getting at the referral signup page
             ref_regView = ref_regForm()
@@ -143,9 +141,9 @@ def signup(request, provider_name):
                     #if we're still here, existing referral is confirmed, we can signup the user
                     #signup routine should create referralInfo column to store a pointer to the referral object
                     #which contains the referrer, and other userful info. Other than that it's the same as previous
-                    return render(request,'signup/signup.html',{'ref_regView':ref_regView,'loginView':loginView})
+                    return render(request,'signup/signup.html',{'ref_regView':ref_regView,'loginView':loginView, 'referral_id':referral_obj})
                 except (AttributeError, QueryResourceDoesNotExist):
-                    referral_obj=''
+                    pass
     return HttpResponseRedirect(reverse('signup:index'))#home page
             
 
@@ -164,7 +162,7 @@ def login(request, provider_name):
             loginView = loginForm(request.POST)
             if loginView.is_valid():
                 #Sometimes there's no obvious errors but there are still errors... So we get to verify again before login   
-                alert = sign_in(request, loginView, provider_name)
+                alert = sign_in(request, loginView=loginView, provider_name=provider_name)
                 
                 print alert
                 #if login succeeded alert is in fact cUser object i.e. logged-in user 
@@ -202,6 +200,7 @@ def logout(request):
     except:
         pass
     return HttpResponseRedirect(reverse('signup:index'))
+
 def mail_confirmation(request):
     ''' There are some operations that need for security purposes, to
     ask for an email confirmation e.g. "password reset", "signup". 
@@ -297,7 +296,9 @@ def pre_pass_reset(request):
     and then redirect to mail_confirmation view  """
     return HttpResponseRedirect(reverse('signup:mailconf')+'?next=reset_password')
 
-# This was an attempt to simply use Parse.com 'ready-to-use' Password reset routine
+
+
+# "switch_pass" was an attempt to simply use Parse.com 'ready-to-use' Password reset routine
 # but will get 'parseapps.com' links (not very good for business ;) )
 # or we could have paid to enable the use of a custom domain. Well i had a spare
 #brain cell and decided it could be fun building our own routine.
