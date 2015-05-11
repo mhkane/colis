@@ -89,7 +89,7 @@ border-radius: 3px;}
 .modal-body .fa{font-size:14px;}
 .modal-body .footer{text-align:center}
 .btn.btn-signup{background-color:#E89C39;border-color:#e58811;color:#f9f9f9; display:block; margin-left:auto; margin-right:auto;}
-.alert{padding:5px;margin-top:5px;padding-left:15px;padding-right:15px;}
+.alert{padding:5px;margin-top:5px;padding-left:15px;padding-right:25px;}
 
 
 
@@ -247,3 +247,5 @@ li span{font-size: 30px;}
 /* media queries END ! */
 /* media queries END ! */
 p.errors{margin:0;}
+
+/* custom.css */

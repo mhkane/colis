@@ -39,8 +39,13 @@
 	<script src="{% static 'account/js/pace.min.js' %}"></script>
 	
 <script type="text/javascript">$('.rating-stars').raty({ starType: 'i', score: function() {
-    return $(this).attr('data-score');
-  }, readOnly: true });</script> 
+																				return $(this).attr('data-score');
+																			  }, readOnly: true });
+							// Display Conversation On Profile Page											  
+							function displayChat() {document.getElementById("displayChat").click();
+													$('#navtab-chat').removeClass("hidden");
+							};
+  </script> 
   
  {% endblock jscript %}
  
@@ -91,7 +96,7 @@
 											</div>
 											{% if not userinfo.is_cuser %}
 											<div class="profile-message-btn center-block text-center">
-												<a href="#tab-chat" data-toggle="tab" class="btn btn-success">
+												<a onclick="displayChat()" class="btn btn-success">
 													<i class="fa fa-envelope"></i>
 													Send message
 												</a>
@@ -108,6 +113,7 @@
 											<ul class="nav nav-tabs">
 												<li class="active"><a href="#tab-newsfeed" data-toggle="tab">Reviews</a></li>
 												<li><a href="#tab-trips" data-toggle="tab">Trips</a></li>
+												<li id="navtab-chat" class="hidden"><a id="displayChat" href="#tab-chat" data-toggle="tab">Conversation</a></li>
 												{% if userinfo.is_cuser %}
 												<li><a href="#tab-friends" data-toggle="tab">Invite a Friend</a></li>
 												<li><a href="/account/edit/here/" >Edit Profile</a></li>

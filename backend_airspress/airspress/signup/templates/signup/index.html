@@ -109,6 +109,16 @@
 	 {% endcompress %}
 	{% compress js %} 
 	 <script src="{% static 'signup/js/modal-auth.js' %}"></script>
+	 <script src="{% static 'signup/js/jquery.pwstrength.js' %}"></script>
+	 <script type="text/javascript">
+		  //password strength meter
+				$('#InputPassword1').pwstrength({
+					label: '.pwdstrength-label'
+				});
+	 </script> 
+	 {% block homepage_js %}
+	 
+	 {% endblock homepage_js %}
 	 {% endcompress %}
 {% endif %}
   </body>

@@ -29,7 +29,7 @@
 
 window.onload = function(){
 // Get a reference to messages
-var ref = new Firebase("https://radiant-torch-2520.firebaseio.com/{% firstof firebase_node "data/airdeals/messages/"|add:rqkey %}");
+var ref = new Firebase("https://radiant-torch-2520.firebaseio.com/{% firstof firebase_node %}");
 // Define Generated Token
 var AUTH_TOKEN = "{{firebase_token}}";
 

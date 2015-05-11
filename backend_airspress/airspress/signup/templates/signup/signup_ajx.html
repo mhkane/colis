@@ -43,12 +43,16 @@
 								
 							</div>
 							<div class="form-group">
-								<input type="password" name="{{registerView.login_password.name}}" {% if registerView.login_password.value %} value="{{registerView.login_password.value}}" {% endif %} class="form-control" placeholder="Password">
+								<input id="InputPassword1" type="password" name="{{registerView.login_password.name}}" {% if registerView.login_password.value %} value="{{registerView.login_password.value}}" {% endif %} class="form-control" placeholder="Password" data-indicator="pwindicator">
 								<span class="form-control-feedback fui-lock"></span>
 							{% if registerView.login_password.errors %}<div class="">{{ registerView.login_password.errors }}</div>{% endif %}
+									<div id="pwindicator" class="pwdindicator">
+										<div class="bar"></div>
+										<div class="pwdstrength-label"></div>
+									</div>
 							</div>
 							<div class="form-group">
-								<input type="password" name="{{registerView.login_password_conf.name}}" {% if registerView.login_password_conf.value %} value="{{registerView.login_password_conf.value}}" {% endif %} class="form-control" placeholder="Retype password">
+								<input id="InputPassword2" type="password" name="{{registerView.login_password_conf.name}}" {% if registerView.login_password_conf.value %} value="{{registerView.login_password_conf.value}}" {% endif %} class="form-control" placeholder="Retype password">
 								<span class="form-control-feedback fui-lock"></span>
 							{% if registerView.login_password_conf.errors %}<div class="">{{ registerView.login_password_conf.errors }}</div>{% endif %}
 							</div>
@@ -63,9 +67,9 @@
 							
 							</div>
 							<div class="footer">
-								<label class="checkbox" for="checkbox1">
+								<label class="checkbox" for="checkbox1" style=" display: inline-block; margin-right:auto;">
 									  <input name="{{registerView.tos_check.name}}" type="checkbox" data-toggle="checkbox" value="" id="checkbox1" required="" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
-									  I agree with the Terms of Services
+									  <span style="padding-left:1.9em;">I agree with the Terms of Services</span>
 								</label>
 								<button type="submit" class="btn btn-signup btn-lg">Sign me up</button>
 

@@ -196,7 +196,7 @@ def deals(request, key):
             messaging_token = auth_client(cUser.objectId, 'deals', key)
             members_list = [reqUser.objectId, travelUser.objectId]
             deal_id = key # in fact it's the trip request objectId 
-            checker = create_conversation(deal_id, members_list)
+            chat_node = create_conversation(deal_id, members_list)
             # items to purchase on this deal
             wanted_items = Item.Query.filter(request=aRequest)
             k=0
@@ -227,7 +227,7 @@ def deals(request, key):
             #if not reqAccepted:
             #     return Http404()
             return render(request, 'account/deals.html',
-                      {'dealInfo':reqAccepted,'reqUser':req_user_dic, 'firebase_node':checker+"/"+key,
+                      {'dealInfo':reqAccepted,'reqUser':req_user_dic, 'firebase_node':chat_node+"/"+key,
                         'travelUser':travel_user_dic,'review_form':review_form,
                         'myPicture':get_profile_pic(cUser.objectId),'greetings':cUser.username,'current_user_id':cUser.objectId,
                         'firebase_token':messaging_token,'reviews':reviews_dict,'requested_items':items_dict, 'rqkey':key})
@@ -307,6 +307,8 @@ def profileView(request, key):
         is_cuser = False
         reviews_dict={}
         chat_token=''
+        chat_node=''
+        source_id=''
         try:
             anyUser = User.Query.get(username=key)
             any_user_id = anyUser.objectId
@@ -343,9 +345,9 @@ def profileView(request, key):
          
         # crunch down the long usernames; this is the sick messy way
         # we can implement the slick Messi way afterwards ;-)
+        crunch_name =''
         for delim in ['.','@','_']:
             if delim in anyName:
-                crunch_name =''
                 crunch_name += anyName
                 crunch_name = crunch_name.split(delim, 1)[0]
         
@@ -360,9 +362,10 @@ def profileView(request, key):
                                                          'myPicture':get_profile_pic(cUser.objectId)})
         context_dic = {'userinfo':proDict, 'greetings':cUser.username,
                         'myPicture':get_profile_pic(cUser.objectId), 'referral_form':referral_form}
-        context_dic['firebase_token']=chat_token
-        context_dic['firebase_node']=chat_node+"/"+source_id
-        context_dic['current_user_id'] = cUser.objectId
+        if chat_node:
+            context_dic['firebase_token']=chat_token
+            context_dic['firebase_node']=chat_node+"/"+source_id
+            context_dic['current_user_id'] = cUser.objectId
         return render(request, 'account/profile.html', context_dic)
     return HttpResponseRedirect(reverse('signup:index'))
                 

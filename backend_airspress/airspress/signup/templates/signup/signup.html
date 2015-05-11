@@ -89,7 +89,7 @@
 										
 										<div class="form-group">
 											<label for="InputPassword1">Password</label>
-											<input id="InputPassword1" type="password" name="{{registerView.login_password.name}}" value="{% firstof registerView.login_password.value %}" class="form-control" placeholder="Password">
+											<input id="InputPassword1" type="password" name="{{registerView.login_password.name}}" value="{% firstof registerView.login_password.value %}" class="form-control" placeholder="Password" data-indicator="pwindicator">
 											<p class="help-block">
 												{% firstof registerView.login_password.errors %}
 											</p>
