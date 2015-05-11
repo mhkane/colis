@@ -18,10 +18,7 @@
 					<form class="form-add-trip" method="POST" action="/account/mytrips/add/">
 						{% csrf_token %}
 						{% if alert %}
-		<div class="alert alert-{{alert.type}} alert-dismissable">
-			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-			<strong>{{ alert.text }}</strong> 
-		  </div>
+								{% include 'trips/alerts.html' %}
 						{% endif %}
 						<div class = "row">
 						<div class="form-group col-md-6">
