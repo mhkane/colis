@@ -1,97 +1,95 @@
 {% extends "trips/account_base.html" %}
-<!-- We include base template for account related pages. And we fill the blocks -->
-{% block title %} Add a trip {% endblock title %}
+<!-- We included base template for account related pages. Now we fill the blocks -->
+{% load staticfiles %}
+{% block title %} My trips {% endblock title %}
 <!-- We load the Autocomplete widget by setting onload attribute -->
 {% block onloader %}  {% endblock onloader %}
 <!-- 'greetings' is always the username of the logged-in user  -->
 	{% if greetings %}
 {% block username %} {{ greetings }} {% endblock username %}
-<!-- This block will contain everything that is not on the user sidebar: list of trips or trip details or other user profiles...etc -->
-{% block content %}
-<div class="row">
-		<div class="col-lg-12">
-		<div class="table-responsive">
-<table class="table table-bordered table-hover">
-    <thead>
-	{% if ownTrips %}
-    <tr class="success">
-    <th>#</th>
-    <th>Publication Date</th>
-    <th>Departure Date</th>
-    <th>From</th>
-	<th>To</th>
-	<th>Available Capacity</th>
-	<th> Total Capacity<th>
-	<!-- <th class="active"> Details <th> -->
-    </tr>
-	{% elif otRequest %}
-    <tr class="success">
-    <th>Requester</th>
-    <th>Publication Date</th>
-    <th>Departure Date</th>
-    <th>From</th>
-	<th>To</th>
-	<th>Requested Capacity</th>
-	<th> Traveler Capacity</th>
-	<th class="active"> Details </th>
-    </tr>	
-	{% elif reqTrips %}
-    <tr class="success">
-    <th>Traveler</th>
-    <th>Publication Date</th>
-    <th>Departure Date</th>
-    <th>From</th>
-	<th>To</th>
-	<th>Requested Capacity</th>
-	<th> Traveler Capacity</th>
-	<th class="active"> Details </th>
-    </tr>	
-	{% endif %}
-    </thead>
-    <tbody>
-	{% if ownTrips %}
-	{% for k, v in ownTrips.items %}
-    <tr>
-	<td>{{ forloop.counter }}</td>
-    <td>{{ v.pubdate }}</td>
-    <td>{{ v.depDate }}</td>
-    <td>{{ v.cityDep }}</td>
-    <td>{{ v.cityArr }}</td>
-	<td>{{ v.availCap }} Kg</td>
-	<td>{{ v.totalCap }} Kg</td>
-    </tr>
-	{% endfor %}
-	{% elif reqTrips %}
-	{% for k, v in reqTrips.items %}
-    <tr>
-	<td>{{ v.traveler }}</td>
-    <td>{{ v.pubdate }}</td>
-    <td>{{ v.depDate }}</td>
-    <td>{{ v.cityDep }}</td>
-    <td>{{ v.cityArr }}</td>
-	<td>{{ v.requestWeight }} Kg</td>
-	<td>{{ v.availCap }} Kg</td>
-	<td> <a class="btn btn-primary modal-trigger" data-target="#modal" href="{% url 'account:deals' v.reqIdo %}"> {{ v.optionBtno }}</a></td>
-    </tr>
-	{% endfor %}
-	{% elif otRequest %}
-	{% for k, v in otRequest.items %}
-    <tr>
-	<td>{{ v.requester }}</td>
-    <td>{{ v.pubdate }}</td>
-    <td>{{ v.depDate }}</td>
-    <td>{{ v.cityDep }}</td>
-    <td>{{ v.cityArr }}</td>
-	<td>{{ v.requestWeight }} Kg</td>
-	<td>{{ v.availCap }} Kg</td>
-	<td> <a class="btn btn-primary modal-trigger" data-target="#modal" href="{% url 'account:deals' v.reqId %}"> {{ v.optionBtn }}</a></td>
-    </tr>
-	{% endfor %}	
-	{% endif %}
-    </tbody>
-    </table>
-	</div>
-		</div><!--/col-->
-</div>
-{% endblock %}
-{% endif %}
+{% block stylesheet_bottom %} 	
+	<!-- libraries -->
+	<link rel="stylesheet" type="text/css" href="{% static 'account/css/libs/nanoscroller.css' %}" />
+
+	<!-- global styles -->
+	<link rel="stylesheet" type="text/css" href="{% static 'account/css/compiled/theme_styles.css' %}" />
+
+	<!-- this page specific styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'account/css/libs/magnific-popup.css' %}">
+	
+	<!-- Favicon 
+	<link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
+	-->
+{% endblock stylesheet_bottom %}
+{% block stylesheet_uncomp %}
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
+{% endblock stylesheet_uncomp %}
+
+{% block jscript %} 
+	<script src="{% static 'account/js/jquery.nanoscroller.min.js' %}"></script>
+{% endblock jscript %}	
+
+{% block content %}							
+
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="main-box clearfix">
+										<header class="main-box-header clearfix">
+											<h2 class="pull-left">My Trips</h2>
+											
+											<div class="filter-block pull-right">
+												<div class="form-group pull-left">
+													<input type="text" class="form-control" placeholder="Search...">
+													<i class="fa fa-search small search-icon"></i>
+												</div>
+												
+												<a href="#" class="btn btn-primary pull-right">
+													<i class="fa fa-plus-circle fa-lg"></i> Add a trip
+												</a>
+											</div>
+										</header>
+										
+										<div class="main-box-body clearfix">
+											<div class="table-responsive">
+												<table class="table">
+													<thead>
+														<tr>
+															<th><a href="#"><span>Publication Date</span></a></th>
+															<th class="text-center"><a href="#" class="asc"><span>Departure Date</span></a></th>
+															<th class="text-right"><a href="#" class="asc"><span>From</span></a></th>
+															<th class="text-right"><a href="#" class="asc"><span>To</span></a></th>
+															<th class="text-right"><a href="#" class="asc"><span>Available</span></a></th>
+															<th class="text-right"><a href="#" class="asc"><span>Total</span></a></th>
+															
+														</tr>
+													</thead>
+													<tbody>
+														{% for k, v in ownTrips.items %}
+														<tr>
+															<td class="text-center">
+																{{ v.pubdate }}
+															</td>
+															<td class="text-center">{{ v.depDate }}</td>
+															<td class="text-right">{{ v.cityDep }}</td>
+															<td class="text-right">{{ v.cityArr }}</td>
+															<td class="text-right">{{ v.availCap }} Kg</td>
+															<td class="text-right">{{ v.totalCap }} Kg</td>
+														</tr>
+														{% empty %}
+														<tr>
+														  <td style="height:15em;width:100%;margin:auto; display:block;">
+															<h2 style="font-size: 3em; position:absolute; top:50%; margin:0; margin-right:-50%; left:50%; transform:translate(-50%,-50%)">
+															  You have not added any trips yet.
+															</h2>
+														  </td>
+														</tr>
+														{% endfor %}
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>	
+	{% endblock content %}						
+{% endif %}							

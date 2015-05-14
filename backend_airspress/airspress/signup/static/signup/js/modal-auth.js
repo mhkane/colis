@@ -6,7 +6,7 @@ $.ajax({
     context: this,
     success: function(data, status, xhr) {
         if (xhr.status == 278){
-		window.location.replace("/trips/");
+		window.location.replace(xhr.getResponseHeader("Location"));
 		} else {
 	  $('#signupModal').html(data);
 		}

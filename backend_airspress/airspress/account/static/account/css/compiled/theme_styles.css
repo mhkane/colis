@@ -1394,7 +1394,7 @@ h3 .small {
   background-clip: padding-box;
   /* stops bg color from leaking outside the border: */
 }
-
+.btn.btn-primary{border-bottom:2px solid; border-color:#d28206;}
 .btn-default,
 .wizard-cancel,
 .wizard-back {
@@ -1450,33 +1450,6 @@ h3 .small {
 
 .btn-link {
   border: none;
-}
-
-.btn-primary {
-  background-color: #3498db;
-  border-color: #2980b9;
-}
-
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary.active,
-.open .dropdown-toggle.btn-primary {
-  background-color: #2980b9;
-  border-color: #1c5c87;
-}
-
-.btn-success {
-  background-color: #2ecc71;
-  border-color: #27ae60;
-}
-
-.btn-success:hover,
-.btn-success:focus,
-.btn-success:active,
-.btn-success.active,
-.open .dropdown-toggle.btn-success {
-  background-color: #27ae60;
 }
 
 .btn-danger {

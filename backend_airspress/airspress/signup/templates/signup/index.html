@@ -3,100 +3,158 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="assets/img/favicon.png">
+    <link rel="icon" href="assets/img/favicon.ico">
 
-    <title>AirSpress- Peer-to-Peer Delivery Service</title>
+        <title>AirSpress- Peer-to-Peer Delivery Service</title>
 
-    <!-- Core -->
-{% load staticfiles %}
-{% load compress %}
-{% compress css %}
-<link rel="stylesheet" type="text/css" href="{% static 'signup/css/bootstrap.min.css' %}" />
-{% endcompress %}
-{% compress css %}
-<link rel="stylesheet" type="text/css" href="{% static 'account/css/flat-ui.min.css' %}" />
-{% endcompress %}
-{% compress css %}
-<link rel="stylesheet" type="text/css" href="{% static 'signup/css/ui-style.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom.css' %}" />
-<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom-ui.css' %}" />   
-{% endcompress %}
-	<!-- index style -->
-<link rel="stylesheet" type="text/css" href="{% static 'signup/css/stylindex.css' %}">
+		<!-- Core -->
+	{% load staticfiles %}
+	{% load compress %}
+	{% compress css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/bootstrap.min.css' %}" />
+	{% endcompress %}
+	{% compress css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'account/css/flat-ui.min.css' %}" />
+	{% endcompress %}
+	{% compress css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/font-awesome.min.css' %}" />
+	{% endcompress %}
+    <!-- Custom styles for this homepage -->
+	{% compress css %}
+    <link type="text/css" href="{% static 'signup/css/custom-animations.css' %}" rel="stylesheet"/>
+    <link type="text/css" href="{% static 'signup/css/style.css' %}" rel="stylesheet"/>
+	{% endcompress %}
     <!-- JQuery -->
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
 
   <body>
 
-    <!-- Fixed navbar -->
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right ">
-	{% if not greetings %}	  
-            <li><a href="#">Sign up</a></li>
-		
-			<li><a class="btn btn-primary btn-lg" href="#" data-toggle="modal" data-target=".bs-modal-sm">Login </a></li>
-						
-		{% else %}
-			<li><a href="{% url 'account:profile' greetings %}">{{greetings}}</a></li>
-			<li><a href="{% url 'account:profile' greetings %}"><img alt="AirSpress" src="{{pPicture}}"></a></li>
-		{% endif %}
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
-
-	<div id="header">
-	<a class="navbar-brand" href="/"><img src="{% static 'signup/img/logo.png' %}" alt="AirSpress"></a>
+	<! -- ********** HEADER ********** -->
+	<div id="h">
 		<div class="container">
 			<div class="row">
-						<div class="col-lg-12 slogan">
-						{% if greetings %}
-						<h1> Hi, {{ greetings }}</h1>	
-						{% endif %}
-						{% if not greetings %}
-						<h1> NOTHING MUST BE TOO FAR AWAY</h1>
-						<h2 class="subtitle"> Ask a Traveler to bring you anything from their trip </h2>
-						{% endif %}
-						{% if greetings %}
-					  <a class="btn btn-primary btn-lg" href="/account/mytrips/add/" >Register a trip</a>
-					 or <a class="btn btn-primary btn-lg" href="/trips/search/" > Find</a> one.
-						{% else %}
-						<button class="btn btn-primary btn-lg" href="#signup" data-toggle="modal" data-target=".bs-modal-lg">Sign Up</button>
-						{% endif %}
-					  </div>
-					
+				<a class="navbar-brand page-scroll" href="#page-top"><img src="{% static 'signup/img/logo-bright.png' %}" alt="AirSpress"></a>
+			    <li><button class="btn btn-lg btn-info btn-register btn-embossed" href="#" data-toggle="modal" data-target=".bs-modal-sm" style="font-weight:bold; width:100px; font-family:'Museo-500';">Login</button></li>
+			    <div class="col-md-10 col-md-offset-1 mt">
+			    	<h3>LET'S SHOP</h3>
+			    	<h1 class="mb">ANYTHING, ANYWHERE</h1>
+					<button class="btn btn-primary btn-lg" href="#signup" data-toggle="modal" data-target=".bs-modal-lg" style="font-weight:bold;">Sign Up</button>
+			    </div>
+			    <div class="col-md-12 mt hidden-xs">
+			    	<img src="" class="img-responsive aligncenter" alt="" data-effect="slide-bottom">
+			    </div>
 			</div>
-		</div>
-	</div>
-	<div id="footer">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-6 col-lg-offset-3">
-					<p class="copyright">Copyright &copy; 2015 - AirSpress Inc.</p>
+		</div><! --/container -->
+	</div><! --/h -->
+	
+	<! -- ********** FIRST ********** -->
+	<div id="w">
+		<div class="row nopadding">
+			<div class="col-md-5 col-md-offset-1 mt">
+				<h4>The end of high shipping costs</h4>
+				<p>Have you ever thought of acquiring any item which is hard to obtain in your country of residence ?</p>
+				<p>You probably didn’t buy it given the high cost of international shipping.</p>
+				<p>With Airspress, we designed a platform which will enable us to reduce the cost of international shipping, together.</p>
+				
 			</div>
-		</div>		
-	</div>	
-	</div>
-{% if not greetings %}
+			
+			<div class="col-md-6 pull-right">
+				<img src="{% static 'signup/img/typical_airspresser.png' %}" style="max-width:30em" class="img-responsive alignright" alt="" data-effect="slide-right">
+			</div>
+		</div><! --/row -->
+	</div><! --/container -->
+	
+
+	<! -- ********** BLUE SECTION - PICTON ********** -->
+	<div id="picton">
+		<div class="row nopadding">
+			<div class="col-md-6 pull-left">
+				<img src="{% static 'signup/img/peace.png' %}" class="img-responsive alignleft" alt="" data-effect="slide-left">
+			</div>
+			<div class="col-md-5 mt">
+				<h4>Simple and effective</h4>
+				<p>As a buyer, you can place orders with travelers.</p>
+				<p>As a traveler, Airspress will allow you to publish your trip information and be put in touch</p>
+				<p>with people interested in placing orders with you in order to monetize the free space in your luggage.</p>
+				
+			</div>
+	
+		</div><! --row -->
+	</div><! --/Picton -->
+	
+	
+	<! -- ********** BLUE SECTION - CURIOUS ********** -->
+	<div id="curious">
+		<div class="row nopadding">
+			<div class="col-md-5 col-md-offset-1 mt">
+				<h4>A whole opportunity...</h4>
+				<p>We are a peer-to-peer ordering platform harnessing the flow of travelers</p>
+				<p>in order to simplify the process of acquiring items unavailable where you live.</p>
+				<p>With Airspress, your trips visibility will increase and	you will be able to better manage your orders</p>
+				<p>and shopping commodities sold in other countries will become far easier and less onerous.</p>
+			</div>
+			
+			<div class="col-md-6 pull-right">
+				<img src="assets/img/shot03.png" class="img-responsive alignright" alt="" data-effect="slide-right">
+			</div>
+		</div><! --/row -->
+	</div><! --/curious -->
+
+	<! -- ********** BLUE SECTION - MALIBU ********** -->
+
+
+	<! -- ********** FOOTER ********** -->
+	<div id="f">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 centered">
+					<h4 class="mb">This a pilot version. Invite us to your school</h4>
+				
+				</div>
+
+			</div><! --/row -->
+		</div><! --/container -->
+	</div><! --/F -->
+
+	<! -- ********** CREDITS ********** -->
+	<footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright © Airspress 2015</span>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li><a href="https://www.twitter.com/airspress"><i class="fa fa-twitter"></i></a>
+                        </li>
+                        <li><a href="https://www.facebook.com/Airspress"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline quicklinks">
+                        <li><a href="#">Terms of Use</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    {% if not greetings %}
 <!-- Modal -->
 <div class="modal fade bs-modal-lg" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 		{% include "signup/signup_ajx.html" %}
@@ -121,5 +179,7 @@
 	 {% endblock homepage_js %}
 	 {% endcompress %}
 {% endif %}
+    <script src="{% static 'signup/js/retina-1.1.0.js' %}"></script>
+    <script src="{% static 'signup/js/jquery.unveilEffects.js' %}"></script>
   </body>
 </html>

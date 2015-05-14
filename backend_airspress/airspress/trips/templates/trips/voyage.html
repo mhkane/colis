@@ -13,6 +13,10 @@
 {% endblock stylesheet %}
 <!-- JS scripts and files -->
 {% block jscript %}
+
+		<!-- scripts -->
+<script src="{% static 'account/js/scripts.js' %}"></script>
+<script src="{% static 'account/js/pace.min.js' %}"></script>
 <script type="text/javascript">$('.rating-stars').raty({ starType: 'i', score: function() {
     return $(this).attr('data-score');
   }, readOnly: true });</script>
@@ -23,7 +27,7 @@
 		 <form id="search_Form" class="row" method="post" action="/trips/search/">
             {% csrf_token %}	
 			<div class="col-sm-4"> 
-			<label class="form-label"><h6>Départs</h6></label>
+			<label class="form-label"><h2>Départs</h2></label>
 			<div class="form-inline">
 			  <fieldset class="form-group">
 				<div style="background-color:#e81;" class="input-daterange input-group datepicker">
@@ -38,7 +42,7 @@
 			</div>
 			<div class="col-sm-4">
 				<div class="control-group col-md-12">
-				   <label class="control-label"><h6>From</h6></label>
+				   <label class="control-label"><h2>From</h2></label>
 				   <div class="controls">
 					 <input class="col-md-12" id="location1" name="location1" type="text" placeholder="City, State, Country" value=""> 
 					 <input name="{{searchForm.cityDep.name}}" type="hidden" value="">
@@ -52,7 +56,7 @@
 			</div>
 			<div class="col-sm-4">
 				<div class="control-group col-md-12">
-				   <label class="control-label"><h6>To</h6></label>
+				   <label class="control-label"><h2>To</h2></label>
 				   <div class="controls">
 				   	
 					 <input class="col-md-12" id="location2" name="location2" type="text" placeholder="City, State, Country" value=""> 
@@ -64,23 +68,23 @@
 					</div>
 					{{searchForm.cityArr.errors}}
 				</div>
-            <input type="submit" class="btn btn-primary pull-right btn-search" value="Find a traveler" />
+            <input type="submit" class="btn btn-primary pull-right btn-search noborder" value="Find a traveler" />
 			</div>
         </form>
 			<!-- Modal --> <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
 
 					</div><!-- /.modal --> 
 	<div class="row">	
-{% for k, v in tripDict.items %}
-		{% cycle '<div class="row">' '' '' %}
+		<div class="row">
+		{% for k, v in tripDict.items %}
 		<div class=" col-md-4 col-lg-4 trip-container">
 			<div class="thumbnail bootsnipp-thumb">
 			  <div class="row firstin">
 				<div class="col-md-4 col-lg-4 travelUser">
 						<a href="{% url 'account:profile' v.travelerUser %}"> <img class="img-circle" alt="" src="{{v.pPicture}}" style="width: 80px; height: 80px;">
-							  <span>{{v.travelerUser}}</span>
+							  <span style="overflow:hidden;">{{v.travelerUser}}</span>
 						</a>
-						<div class="rating-stars" data-score="4"></div>
+						<div class="rating-stars" data-score="{{v.travelerRating}}"></div>
 					
 						</div>
 						<div class="col-md-8 twodates pull-right">
@@ -94,7 +98,7 @@
 						</div>
 						<div class="row">
 						<div class="col-md-7 price-details"> 
-								<p class="unit-price"> <strong><span class="greater">11 $</span> per Kg</strong> <i class="fa fa-cube"></i></p>
+								<p class="unit-price"> <strong><span class="greater">{{ v.unit_price }} $</span> per Kg</strong> <i class="fa fa-cube"></i></p>
 							</div>
 						<div style="text-align:center" class="col-md-5">
 								<li style="list-style:none; margin:auto;" class="date">
@@ -108,7 +112,7 @@
 					
 						<!-- Prices and buttons -->
 					<div class="row">	
-						<p class=" col-md-7 available"><i class="fa fa-suitcase">&nbsp;</i> <strong class="greater">8</strong> /10 Kg Available</p>
+						<p class=" col-md-7 available"><i class="fa fa-suitcase">&nbsp;</i> <strong class="greater">{{v.available}}</strong> /{{v.total}} Available</p>
 						<div class="col-md-5 pull-right">
 							<p><a href="{% url 'trips:request' v.tripId %}" data-target="#modal" class="btn btn-primary btn-embossed btn-sm btn-block modal-trigger">Request</a></p>
 						</div>
@@ -116,42 +120,14 @@
 					</div>
 					</div>	
 					</div>
-		<!--		<a> <img class="img-circle"  alt="" src="{{v.pPicture}}" style="width: 80px; height: 80px;">
-				      <span>{{v.travelerUser}}</span>
-				</a>
-				</div>
-				<div class="col-md-8 twodates pull-right">
-				<ul> 
-					    <li><i class="glyphicon glyphicon-plane"></i><strong class="fromCity">{{ v.oriLocation }}</strong> <i class="glyphicon glyphicon-arrow-right"></i> <strong class="toCity">{{ v.destLocation }}</strong></li> 
-				        <li><i class="glyphicon glyphicon-time"></i><span class="departDate">{{ v.departDate }}</span></li>
-				</ul>
-				</div>
-			</div>	
-				<!-- forms to select weight 
-			<div class="row">	
-				<div class="col-md-7 price-details"> 
-					<p class="unit-price"> 25 $</p>
-				<form id="weight" method="POST">
-					<select class="form-control" id="unit-weight" name="" >
-						<option>Kg</option>
-					</select>
-				</form>
-				</div>
-				<div class="col-md-5 pull-right">
-					<p><a href="{% url 'trips:request' v.tripId %}" data-target="#modal" class="btn btn-primary btn-sm btn-block modal-trigger">Request</a></p>
-					<p><a href="#" class="btn btn-primary btn-lg btn-block">Calculate</a></p>
-					
-				</div>
-				
-			</div> -->	
-		{% if forloop.last %} 
-			</div> 
-		{% else %}
-			{% cycle '' '' '</div>' %}
+			
+		{% if forloop.counter|divisibleby:3 %} 
+			</div>
+			<div>	
 		{% endif %}
 		
 {% endfor %}
-
+	</div>
 </div>
 <!-- Modal for viewing trip details-->
 <div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">

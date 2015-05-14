@@ -22,7 +22,14 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom-ui.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/datepicker3.css' %}" />
 	<link rel="stylesheet" type="text/css" href="{% static 'trips/css/jquery.raty.css' %}">
-	{% block stylesheet_bottom %} {% endblock stylesheet_bottom %}
+	{% block stylesheet_bottom %} 	
+	<!-- libraries -->
+	<link rel="stylesheet" type="text/css" href="{% static 'account/css/libs/nanoscroller.css' %}" />
+
+	<!-- global styles -->
+	<link rel="stylesheet" type="text/css" href="{% static 'account/css/compiled/theme_styles.css' %}" />
+	
+	{% endblock stylesheet_bottom %}
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom.css' %}" />
 	{% endcompress %}
 	{% block stylesheet_uncomp %}
@@ -40,80 +47,70 @@
 </head>
 
 <body {% block onloader %} {% endblock %}>
-    <nav class="navbar navbar-default navbar-fixed-top navbar-shrink navbar-inverse navbar-embossed">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <a class="navbar-brand" href="#page-top"><img src="{% static 'signup/img/mini-logo.png' %}" alt="AirSpress" title="Ship for Cheap"> </a>
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-			
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="/trips/">Home</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="#">Notifications <span class="badge"> 42 </span></a>
-                    </li>
-				     <li class="page-scroll">
-                        <a href="#">FAQ</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="#">How it works ?</a>
-                    </li>
-					<!-- -->
-					<li>
-					<div class="btn-group">
-					  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-						<img alt="" class="img-circle" style="width:15px; height:auto;" src="{{ myPicture }}">{{ greetings }} <span class="caret"></span>
-					  </button>
-					  <ul class="dropdown-menu" role="menu">
-						<li><a href=" {% url 'account:profile' greetings %} ">Profile <span><i class="fa fa-cog pull-right"></i></span></a></li>
-						<li><a href="{%  url 'account:otRequest' %}">Buyer Requests </a></li>
-						<li><a href="{% url 'account:myTrip' greetings %}">My Trips</a></li>
-						<li>
-							<a href="/account/mytrips/requested_trips/">Requested Trips</a>
-						</li>
-						<li><a href="/account/mytrips/add">Add a trip</a></li>
-						<li class='logout-btn'> 
-						   <a href="/logout"> Logout <span class="glyphicon glyphicon-log-out pull-right"></span></a>
-						</li>
-					  </ul>
-					</div>
-	<!-- -->		</li>
-					</ul>
+<div id="theme-wrapper">
+    <header style="background-color:#e82;" class="navbar" id="header-navbar">
+			<div class="container">
+				<a style="background-color:#e82" href="/trips/" id="logo" class="navbar-brand">
+					<img src="{% static 'signup/img/mini-logo.png' %}" alt="AirSpress" title="Ship for Cheap" class="normal-logo logo-white"/>
 					
-					</li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>		
-
- <div id="wrapper" class="toggled">
+				</a>
+				
+				<div class="clearfix">
+				<button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="fa fa-bars"></span>
+				</button>
+				<div style="margin-bottom: 0;" class="nav-no-collapse pull-right" id="header-nav">
+					<ul style="margin-bottom: 0;" class="nav navbar-nav pull-right">
+						<li>
+							<a href="/trips/">
+								<i class="fa fa-home"></i>&nbsp;Home
+							</a>
+						</li>
+						<li>
+							<a href="">
+								<i class="fa fa-question-circle"></i>&nbsp;FAQ
+							</a>
+						</li>
+						<li class="dropdown profile-dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<img src="{{myPicture}}" alt=""/>
+								<span class="hidden-xs">{{greetings}}</span> <b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu brand-color">
+								
+									<li><a href=" {% url 'account:profile' greetings %} ">Profile <span><i class="fa fa-cog pull-right"></i></span></a></li>
+									<li><a href="{%  url 'account:otRequest' %}">Buyer Requests </a></li>
+									<li><a href="{% url 'account:myTrip' greetings %}">My Trips</a></li>
+									<li>
+										<a href="/account/mytrips/requested_trips/">Requested Trips</a>
+									</li>
+									<li><a href="/account/mytrips/add">Add a trip</a></li>
+									<li class='logout-btn'> 
+									   <a href="/logout"> Logout <span class="glyphicon glyphicon-log-out pull-right"></span></a>
+									</li>
+								
+							</ul>
+						</li>
+						<li class="hidden-xxs">
+							<a href="/logout" class="btn">
+								<i class="fa fa-power-off"></i>
+							</a>
+						</li>
+					</ul>
+				</div>
+				</div>
+			</div>
+		</header>
+		
         <!-- Page Content -->
-        <div id="page-content-wrapper">
+        <div style="margin-left:0;" id="content-wrapper">
             <div class="container-fluid">
 			{% block content %}
                 <div class="row">
 				
                     <div class="col-lg-12">
-                        <h1>Simple Sidebar</h1>
-                        <p>This template has a responsive menu toggling system. The menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will appear/disappear. On small screens, the page content will be pushed off canvas.</p>
-                        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
-                        <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+                        
                     </div>
                 </div>
 			{% endblock %}
@@ -126,36 +123,19 @@
 
 					</div><!-- /.modal --> 
 	<footer> </footer>
-    <!-- /#wrapper -->
+</div>   <!-- /#wrapper -->
 
     <!-- jQuery -->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAo_PT60oc_CGiUYJcI4gsYYa5UGZSBxp8&libraries=places&sensor=false"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAo_PT60oc_CGiUYJcI4gsYYa5UGZSBxp8&libraries=geometry,places&sensor=false&language=en-US"></script>
 
 	<script type="text/javascript" src="{% static 'account/js/flat-ui.min.js' %}"></script>
-	
+	<script src="{% static 'account/js/jquery.nanoscroller.min.js' %}"></script>
 	<script type="text/javascript" src="{% static 'signup/js/sidebar.js' %}"></script>
 	<script type="text/javascript" src="{% static 'signup/js/bootstrap-datepicker.js' %}"></script>
 	<script type="text/javascript" src="{% static 'account/js/jquery.raty.js' %}"></script>
-	{% block jscript %} {% endblock jscript %}
-    <!-- Menu Toggle Script -->
-    <script>
-
-  $('.dropdown-nested').click(function(event){
-      event.stopPropagation();
-      var dropdown = $(this).children('.panel-collapse');
-      dropdown.toggle();
-  
-	});
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-    $("#menu-open").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-    </script>
+	
 	<script> $('.datepicker').datepicker({
       format: 'mm-dd-yyyy',
 	  autoclose:true,
@@ -164,7 +144,12 @@
 	</script>
 	<script type="text/javascript" src="{% static 'signup/js/citySearch.js' %}"></script>
 	<script type="text/javascript" src="{% static 'signup/js/currencySel.js' %}"></script>
+	{% block jscript %} 
 	
+		<!-- scripts -->
+	<script src="{% static 'account/js/scripts.js' %}"></script>
+	<script src="{% static 'account/js/pace.min.js' %}"></script>
+	{% endblock jscript %}
 
 	<script>
 	 $(document).ready(function(){

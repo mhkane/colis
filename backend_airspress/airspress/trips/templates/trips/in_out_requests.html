@@ -1,0 +1,104 @@
+{% extends "trips/account_base.html" %}
+<!-- We included base template for account related pages. Now we fill the blocks -->
+{% load staticfiles %}
+{% block title %} {% if traveler %} Incoming Requests {% else %} My Requests {% endif %} {% endblock title %}
+<!-- We load the Autocomplete widget by setting onload attribute -->
+{% block onloader %}  {% endblock onloader %}
+<!-- 'greetings' is always the username of the logged-in user  -->
+	{% if greetings %}
+{% block username %} {{ greetings }} {% endblock username %}
+{% block stylesheet_bottom %} 	
+	<!-- libraries -->
+	<link rel="stylesheet" type="text/css" href="{% static 'account/css/libs/nanoscroller.css' %}" />
+
+	<!-- global styles -->
+	<link rel="stylesheet" type="text/css" href="{% static 'account/css/compiled/theme_styles.css' %}" />
+
+	<!-- this page specific styles -->
+    <link rel="stylesheet" type="text/css" href="{% static 'account/css/libs/magnific-popup.css' %}">
+	
+	<!-- Favicon 
+	<link type="image/x-icon" href="favicon.png" rel="shortcut icon"/>
+	-->
+{% endblock stylesheet_bottom %}
+{% block stylesheet_uncomp %}
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
+{% endblock stylesheet_uncomp %}
+
+{% block jscript %} 
+	<script src="{% static 'account/js/jquery.nanoscroller.min.js' %}"></script>
+{% endblock jscript %}	
+
+{% block content %}							
+
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="main-box clearfix">
+										<header class="main-box-header clearfix">
+											<h2 class="pull-left">Incoming Requests</h2>
+											
+											<div class="filter-block pull-right">
+												<div class="form-group pull-left">
+													<input type="text" class="form-control" placeholder="Search...">
+													<i class="fa fa-search small search-icon"></i>
+												</div>
+												
+											</div>
+										</header>
+										
+										<div class="main-box-body clearfix">
+											<div class="table-responsive">
+												<table class="table">
+													<thead>
+														<tr>
+															<th><a href="#"><span>Publication Date</span></a></th>
+															<th><span>{% if traveler %} Requester {% else %} Traveler {% endif %}</span></th>
+															<th class="text-center"><a href="#" class="asc"><span>Departure Date</span></a></th>
+															<th class="text-right"><a href="#" class="asc"><span>From</span></a></th>
+															<th class="text-right"><a href="#" class="asc"><span>To</span></a></th>
+															<th class="text-right"><a href="#" class="asc"><span>Requested Capacity</span></a></th>
+															<th class="text-right"><a href="#" class="asc"><span>Traveler Capacity</span></a></th>
+															<th class="text-center"><span>Status</span></th>
+															<th>&nbsp;</th>
+														</tr>
+													</thead>
+													<tbody>
+														{% for k, v in request_trips.items %}
+														<tr>
+															<td class="text-center">
+																{{ v.pubdate }}
+															</td>
+															<td>{% firstof v.requester v.traveler}</td>
+															<td class="text-center">{{ v.depDate }}</td>
+															<td class="text-right">{{ v.cityDep }}</td>
+															<td class="text-right">{{ v.cityArr }}</td>
+															<td class="text-right">{{ v.requestWeight }} Kg</td>
+															<td class="text-right">{{ v.availCap }} Kg</td>
+															<td class="text-center">
+																<span class="label label-{% firstof v.status.type 'success' %}">{{v.status.text}}</span>
+															</td>
+															<td style="width: 15%;">
+																<a href="{% url 'account:deals' v.reqId %}" class="table-link btn btn-success">
+																	{{v.optionBtn}}
+																</a>
+															</td>
+														</tr>
+														{% empty %}
+														<tr>
+														  <td style="height:15em;width:100%;margin:auto; display:block;">
+															<h2 style="font-size: 3em; position:absolute; top:50%; margin:0; margin-right:-50%; left:50%; transform:translate(-50%,-50%)">
+															  {% if traveler %} You did not receive any requests yet. {% else %} You did not make any requests yet.{% endif %} 
+															</h2>
+														  </td>
+														</tr>
+														
+														{% endfor %}
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>	
+	{% endblock content %}						
+{% endif %}							

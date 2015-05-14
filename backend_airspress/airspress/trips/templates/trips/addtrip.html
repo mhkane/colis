@@ -1,4 +1,5 @@
 {% extends "trips/account_base.html" %}
+{% load staticfiles %}
 <!-- We include base template for account related pages. And we fill the blocks -->
 {% block title %} Add a trip {% endblock title %}
 <!-- We load the Autocomplete widget by setting onload attribute -->
@@ -6,108 +7,270 @@
 <!-- 'greetings' is always the username of the logged-in user  -->
 	{% if greetings %}
 {% block username %} {{ greetings }} {% endblock username %}
+{% block stylesheet_bottom %} 	
+	<!-- libraries -->
+	<link rel="stylesheet" type="text/css" href="{% static 'account/css/libs/nanoscroller.css' %}" />
+
+	<!-- global styles -->
+	<link rel="stylesheet" type="text/css" href="{% static 'account/css/compiled/theme_styles.css' %}" />
+
+{% endblock stylesheet_bottom %}
+{% block stylesheet_uncomp %}
+	<link href='//fonts.googleapis.com/css?family=Open+Sans:400,600,700,300|Titillium+Web:200,300,400' rel='stylesheet' type='text/css'>
+{% endblock stylesheet_uncomp %}
+
+{% block jscript %} 
+
+	<script src="{% static 'account/js/jquery.nanoscroller.min.js' %}"></script>
+	
+	<!-- this page specific scripts -->
+	<script src="{% static 'account/js/jquery.slimscroll.min.js' %}"></script>
+	
+	<!-- scripts -->
+	<script src="{% static 'account/js/scripts.js' %}"></script>
+	<script src="{% static 'account/js/pace.min.js' %}"></script>
+<script> 
+	// return trip activation
+	function returnTrip(e) {
+			var backtrip_date = document.querySelector('#backtrip');
+			var backtrip_weight = document.querySelector('#weightGood2');
+				if (document.getElementById("checkbox1").checked){
+						backtrip_date.classList.remove('hidden');
+						backtrip_weight.classList.remove('hidden');
+				} else {backtrip_date.classList.add('hidden');
+						backtrip_weight.classList.add('hidden');
+					};};
+	// enable form before submit
+	function enableForm(){
+		var allInputs = document.querySelectorAll('input');
+		for (var i = 0; i < allInputs.length; i++) {
+			allInputs[i].disabled = false;
+		};
+	};
+	window.onload = function(){
+						// referencing all "NEXT" buttons
+						var triggerNext = document.querySelectorAll('a[step-toggle="next"]');
+						if (triggerNext) {
+						// Every button display the next step which is determined basing on step-display elements...
+						for (var i = 0; i < triggerNext.length; i++) {
+							triggerNext[i].onclick = function(e){ 
+															// display next step row
+															$('#' + this.getAttribute("step-display")).removeClass("hidden");
+															// display buttons which are on the next step row
+															document.querySelector('*[step-hide="'+this.getAttribute("step-display")+'"]').classList.remove("hidden");
+															if (this.getAttribute("step-display") != "step4") {
+															document.querySelector('*[step-disable="'+this.getAttribute("step-display")+'"]').classList.remove("hidden");
+															};
+															// scroll to keep current step in front of user
+															document.querySelector('#' + this.getAttribute("step-display")).scrollIntoView(false);
+															// the 'Next' button on step4 does a special thing; it show the calculated commission in a box at the right;
+															if (this.getAttribute("step-display") == 'step4') {
+																var unitPrice = distancePrice();
+																document.querySelector('input[name="unit_price"]').value = unitPrice;
+																document.getElementById("priceDisplay").innerHTML = "<strong style='font-size:1.3em'>" + unitPrice + "</strong><span style='color:green'> &nbsp; $USD per kg</span>"
+																$('#step4b').removeClass("hidden");
+																};
+															$(this).hide('slow');
+															$("a[step-hide='" + this.getAttribute("step-disable") + "']" ).hide('slow');
+															prevInputs = document.querySelectorAll("*[step='"+this.getAttribute('step-disable')+"']");
+															if (prevInputs) {
+																for (var k = 0; k < prevInputs.length; k++) {
+																	prevInput = prevInputs[k];
+																	prevInput.disabled = true;
+																}
+															};
+															
+															};
+						};
+						};
+						// Doing same thing for "BAck" buttons... Too tired to elaborate, sor.. Not sorry ! mwahahaha
+						var triggerBack = document.querySelectorAll("*[step-toggle='back']");
+						for (var i = 0; i < triggerBack.length; i++){
+						var trigger = triggerNext[i];
+						triggerBack[i].onclick = function(e){  
+														$('#'+this.getAttribute("step-hide")).addClass("hidden");
+														if (this.getAttribute("step-hide") == 'step4') {
+																$('#step4b').addClass("hidden");
+																};
+														$("a[step-display='" + this.getAttribute("step-hide") + "']" ).show('slow');
+														$(this).show('slow')
+														document.querySelector("a[step-display='" + this.getAttribute("step-hide") + "']" ).scrollIntoView(true);
+														$("a[step-hide='" + this.getAttribute("step-enable") + "']" ).show('slow');
+														prevInputs = document.querySelectorAll("*[step='"+this.getAttribute('step-enable')+"']");
+														if (prevInputs) {
+															for (var k = 0; k < prevInputs.length; k++) {
+																prevInput = prevInputs[k];
+																prevInput.disabled = false;
+															}
+														}};
+						};
+						document.getElementById("changePrice").onclick = function(){document.getElementById(this.getAttribute('input-enable')).disabled = false;};	
+						
+					};
+</script>
+{% endblock jscript %}
 <!-- This block will contain everything that is not on the user sidebar: list of trips or trip details or other user profiles...etc -->
 {% block content %}
-<div class="row">
+<div class="content-wrapper">
+	<div class="row">
 		<div class="col-lg-12">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<h2><i class="fa fa-edit"></i>Trip information</h2>
-				</div>
-				<div class="panel-body">
-					<form class="form-add-trip" method="POST" action="/account/mytrips/add/">
-						{% csrf_token %}
-						{% if alert %}
-								{% include 'trips/alerts.html' %}
-						{% endif %}
-						<div class = "row">
-						<div class="form-group col-md-6">
-						  <label class="control-label" for="trip">Departure Date - Arrival Date</label>
-						  <div class="controls">
-							<div class="input-group input-daterange datepicker add-trip-dates">
-							  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-							  <input placeholder="Select a departure date" type="text" name="{{ addForm.depDate.name }}" class="form-control">
-							  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-							  <input placeholder="Select an arrival date" type="text"  name="{{ addForm.arrivDate.name }}" class="form-control">
+			<div class="row" id="user-profile">
+				<div class="col-lg-9 col-md-8 col-sm-8">
+					<div class="main-box clearfix" id="tripAdd">
+							<div class="panel-heading">
+								<h2><i class="fa fa-edit"></i>Trip information</h2>
 							</div>
-							{{addForm.arrivDate.errors}} {{addForm.depDate.errors}}
-						  </div>
-						</div>
-					<div class="row">						
-						<div class="form-group col-md-6">
-						  <label class="control-label" for="trip">Flight Number (if applicable)</label>
-						  <div class="controls">
-							<div class="input-group col-sm-4">
-							  <span class="input-group-addon"><i class="glyphicon glyphicon-plane"></i></span>
-							  <input type="text" class="form-control">
-							</div>
-							<span class="help-block col-sm-8">ex. 999</span>
-						  </div>
-						</div>
-						</div>
-						
-						<div class="form-group col-md-6">
-						  <label class="control-label" for="trip">From</label>
-						  <div class="controls">
-							<div class="input-group col-sm-4">
-							  <span class="input-group-addon"><i class="fa fa-plane"></i></span>
-							  <input type="text" id="location1" name="{{addForm.cityDep.name}}" class="form-control">
-							  	<input name="location_lat1" type="hidden">
-								<input name="location_lng1" type="hidden">
-							  </div>
-							{{addForm.cityDep.errors}}
-							<span class="help-block col-sm-8">Start typing in and select the city</span>
-						  </div>
-						</div>
-					
-						
-						<div class="form-group col-md-6">
-						  <label class="control-label" for="trip">To</label>
-						  <div class="controls">
-							<div class="input-group col-sm-4">
-							  <span class="input-group-addon"><i class="glyphicon glyphicon-plane"></i></span>
-							  <input type="text" id="location2" name="{{addForm.cityArr.name}}" class="form-control">
-							  	<input name="location_lat2" type="hidden">
-								<input name="location_lng2" type="hidden">
-								<input name="{{addForm.distance.name}}" type="hidden">
-							</div>
-							{{addForm.cityArr.errors}}
-							<span class="help-block col-sm-8">Start typing in and select the city</span>
-						  </div>
-						</div>
-						
-						<div class="form-group col-md-6">
-						  <label class="control-label" for="trip"> Available Weight for Buyers(kg)</label>
-						  <div class="controls">
-							<div class="input-group col-sm-4">
-							  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-							  <input type="text" name="{{addForm.weightGood.name}}" class="form-control">
-							</div>
-							{{addForm.weightGood.errors}}
-							<span class="help-block col-sm-8">Write a round amount</span>
-						  </div>
-						</div>
-						
-						<div class="form-group col-md-6">
-						  <label class="control-label" for="trip">Will you shop for customers ?</label>
-						  <div class="controls">
-							<div class="input-group col-sm-4">
-							  <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
-							  <input type="text" class="form-control">
-							</div>
-							<span class="help-block col-sm-8">Yes or No</span>
-						  </div>
-						</div>
-						
-						<div class="form-actions">
-						  <button type="submit" class="btn btn-primary">Save changes</button>
-						  <button type="reset" class="btn btn-default">Cancel</button>
-						</div>
-					</form>   
+							<div class="main-box-body clearfix">
+								<form id="addTripForm" class="form-add-trip" method="POST" onsubmit="enableForm()" action="/account/mytrips/add/">
+										{% csrf_token %}
+										{% if alert %}
+												{% include 'trips/alerts.html' %}
+										{% endif %}
+									<div class = "row">
+										<div class="col-md-6">
+											<div class="form-group">
+											  <label class="control-label" for="departure">Departure Date - Arrival Date</label>
+											  <div class="controls">
+												<div class="input-group input-daterange datepicker add-trip-dates">
+												  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+												  <input step="step1" id="departure" placeholder="Select a departure date" type="text" name="{{ addForm.depDate.name }}" class="form-control">
+												  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+												  <input step="step1" placeholder="Select an arrival date" type="text"  name="{{ addForm.arrivDate.name }}" class="form-control">
+												</div>
+												{{addForm.arrivDate.errors}} {{addForm.depDate.errors}}
+											  </div>
+											</div>
+											<label  class="checkbox" for="checkbox1" style=" display: inline-block; margin-right:auto;">
+												  <input step="step1" name="{{addForm.return_check.name}}" type="checkbox" data-toggle="checkbox" value="" id="checkbox1"  onclick="returnTrip()" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+												  <span style="padding-left:1.9em;">I also want to add my return trip </span>
+											</label>
+											<a class="btn btn-lg btn-success pull-right {% if addForm.errors %} hidden {% endif %}" step-toggle="next" step-display="step2" step-disable="step1" > Next </a>
+											
+										</div>
+										<div id="backtrip" class="col-md-6 {% if not addForm.arrivDate2.errors and not addForm.depDate2.errors %} hidden {% endif %}">
+											<div class="form-group">
+											  <label class="control-label" for="departure">Return Trip: Departure Date - Arrival Date</label>
+											  <div class="controls">
+												<div class="input-group input-daterange datepicker add-trip-dates">
+												  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+												  <input step="step1" id="departure" placeholder="Select a departure date" type="text" name="{{ addForm.depDate2.name }}" class="form-control">
+												  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+												  <input step="step1" placeholder="Select an arrival date" type="text"  name="{{ addForm.arrivDate2.name }}" class="form-control">
+												</div>
+												<div class="help-block">
+													{{addForm.arrivDate2.errors}} {{addForm.depDate2.errors}}
+												</div>
+											  </div>
+											</div>
+										</div>	
+									</div>
+									<div id="step2" class="row {% if not addForm.cityDep.errors and not addForm.cityArr.errors %} hidden {% endif %}">						
+										
+										<div class="form-group">
+										  <label class="control-label" for="location1">From</label>
+										  <div class="controls">
+											<div class="input-group col-sm-4">
+											  <span class="input-group-addon"><i class="fa fa-plane"></i></span>
+											  <input step="step2" type="text" id="location1" class="form-control">
+												<input name="{{addForm.cityDep.name}}" value="{% if not addForm.cityDep.errors and addForm.cityDep.value %} {{addForm.cityDep.value}} {% endif %}" type="hidden">
+												<input name="location_lat1" type="hidden">
+												<input name="location_lng1" type="hidden">
+											  </div>
+											{{addForm.cityDep.errors}}
+											<span class="help-block col-sm-8">Start typing in and select the city</span>
+										  </div>
+										</div>
+									
+										
+										<div class="form-group">
+										  <label class="control-label" for="location2">To</label>
+										  <div class="controls">
+											<div class="input-group col-sm-4">
+											  <span class="input-group-addon"><i class="glyphicon glyphicon-plane"></i></span>
+											  <input step="step2" type="text" id="location2" class="form-control">
+												<input name="location_lat2" type="hidden">
+												<input name="location_lng2" type="hidden">
+												<input name="{{addForm.cityArr.name}}" value="{% if not addForm.cityArr.errors and addForm.cityArr.value %} {{addForm.cityArr.value}} {% endif %}" type="hidden">
+												<input name="{{addForm.distance.name}}" type="hidden">
+											</div>
+											{{addForm.cityArr.errors}}
+											<span class="help-block col-sm-8">Start typing in and select the city</span>
+										  </div>
+										</div>
+										<a class="btn btn-lg btn-success pull-right {% if addForm.errors %} hidden {% endif %}" step-toggle="next" step-display="step3" step-disable="step2" > Next </a>
+										<a class="btn btn-lg btn-danger {% if addForm.errors %} hidden {% endif %}" step-toggle="back" step-hide="step2" step-enable="step1" > Back </a>
+									</div>
+									<div id="step3" class="row {% if not addForm.weightGood2.errors and not addForm.weightGood.errors and not addForm.unit_price.errors and not addForm.custom_price.errors %} hidden {% endif %}">
+										<div class="row">
+											<div class="form-group col-md-6">
+											  <label class="control-label" for="weightGood"> Available Weight for Buyers(kg)</label>
+											  <div class="controls">
+												<div class="input-group col-sm-4">
+												  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+												  <input id="weightGood" step="step3" type="text" name="{{addForm.weightGood.name}}" value="{% if not addForm.weightGood.errors and addForm.weightGood.value %} {{addForm.weightGood.value}} {% endif %}" class="form-control">
+												</div>
+												<span class="help-block">{{addForm.weightGood.errors}}</span>
+												<span class="help-block col-sm-8">Give a round amount in kilograms</span>
+											  </div>
+											</div>
+											<div class="col-md-6">
+												<div id="step4b" class="form-group">
+												  <label class="control-label" for="unitPrice">Commission</label>
+												  <div class="controls">
+													<div class="input-group col-sm-4">
+													  <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
+													  <input id="unitPrice" step="step4" type="text" name="{{addForm.custom_price.name}}" value="{% if not addForm.custom_price.errors and addForm.custom_price.value %} {{addForm.custom_price.value}} {% endif %}" class="form-control" disabled="true">
+													  <input type="hidden" name="{{addForm.unit_price.name}}" value="{% if not addForm.unit_price.errors and addForm.unit_price.value %} {{addForm.unit_price.value}} {% endif %}">
+													</div>
+													<span class="help-block col-sm-8">{{addForm.custom_price.errors}}</span>
+												  </div>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="form-group {% if not addForm.weightGood2.errors %} hidden {% endif %}">
+											  <label class="control-label" for="weightGood"> Available Weight for Buyers(kg)</label>
+											  <div class="controls">
+												<div class="input-group col-sm-4">
+												  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+												  <input id="weightGood2" step="step3" type="text" name="{{addForm.weightGood2.name}}" value="{% if not addForm.weightGood2.errors and addForm.weightGood2.value %} {{addForm.weightGood2.value}} {% endif %}" class="form-control">
+												</div>
+												<span class="help-block col-sm-8">Give a round amount in kilograms</span>
+												<span class="help-block">{{addForm.weightGood2.errors}}</span>
+											  </div>
+											</div>
+											<a  step-toggle="next" step-display="step4" step-disable="step3" class="btn btn-lg btn-success pull-right "> Next </a>
+											<a class="btn btn-lg btn-danger {% if addForm.errors %} hidden {% endif %}" step-toggle="back" step-hide="step3" step-enable="step2" > Back </a>
+										</div>	
+									</div>
+									<div id="step4" class="row hidden">
+										<a class="btn btn-lg btn-danger pull-right" step-toggle="back" step-hide="step4" step-enable="step3" > Back </a>
+										<div class="form-actions">
+										  <button type="submit" class="btn btn-primary">Done !</button>
+										  <button type="reset" class="btn btn-default">Cancel</button>
+										  <button id="changePrice" input-enable="unitPrice" class="btn btn-info pull-right">Change commission ?</button>
+										</div>
+									</div>	
+								</form>   
 
+							</div>
+						</div>
+					</div>
+				
+				<div class="col-lg-3 col-md-4 col-sm-4">
+					<div style="position:fixed;" class="main-box clearfix">
+						<header class="main-box-header clearfix">
+							<h2>Calculated Commission </h2>
+						</header>
+						
+						<div id="priceDisplay" class="main-box-body clearfix">
+						
+						</div>
+					</div>
 				</div>
 			</div>
 		</div><!--/col-->
+    </div>
 </div>
 {% endblock %}
 {% endif %}

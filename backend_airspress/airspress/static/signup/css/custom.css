@@ -74,9 +74,12 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3c3c3c', en
 filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 background-repeat: repeat-x;
 }
+/* Navbar */
+#header-navbar .nav.navbar-nav  li:hover, li:active, li:focus{background-color:#d28206; color:#fff;}
+#header-navbar .nav.navbar-nav  li  a:hover, a:active, a:focus{background-color:#d28206; color:#fff;}
 /* Dropdown Menu */
-.btn-group ul.dropdown-menu{background-color:#e81;}
-
+#header-navbar .nav.navbar-nav > li > a{color:#fff}
+#header-navbar .dropdown-menu > li > a{color:#e81}
 /* Modals */
 #loginModal .modal-content{min-height:100%}
 #loginModal .modal-body{max-height:100%}
@@ -89,8 +92,9 @@ border-radius: 3px;}
 .modal-body .fa{font-size:14px;}
 .modal-body .footer{text-align:center}
 .btn.btn-signup{background-color:#E89C39;border-color:#e58811;color:#f9f9f9; display:block; margin-left:auto; margin-right:auto;}
-.alert{padding:5px;margin-top:5px;padding-left:15px;padding-right:15px;}
-
+.alert{padding:5px;margin-top:5px;padding-left:15px;padding-right:25px;}
+/* Forms */
+#search_form label h2{font-family:'Museo-500'; font-weight:bold;}
 
 
 /* tabs */
@@ -104,8 +108,10 @@ border-radius: 3px;}
 	background-color:#FA9309;
 	border-color:#E28409;
 }
-
-
+.noborder{border-bottom:none !important;}
+p .btn.btn-primary:hover{background-color:#d28206; border-bottom-color:#e81}
+/* Headers*/
+h1,h2,h3,h4,h6,header{font-family:'Museo-500'}
 /* ICONS */
 ul.dropdown-menu i.fa{font-size:1.1em;}
 .fa.small{font-size:83%}
@@ -247,3 +253,5 @@ li span{font-size: 30px;}
 /* media queries END ! */
 /* media queries END ! */
 p.errors{margin:0;}
+
+/* custom.css */

@@ -4,6 +4,8 @@ from parse_rest.query import QueryResourceDoesNotExist
 from parse_rest.core import ResourceRequestNotFound
 from signup.backend_parse import passRequest, referral
 from string import split
+from datetime import timedelta
+from django.utils import timezone
 #register to Parse
 register(settings.APPLICATION_ID, settings.REST_API_KEY, master_key=settings.MASTER_KEY)#settings.REST_API_KEY
 #from parse_rest.connection import ParseBatcher
@@ -38,6 +40,12 @@ def is_logged_in(request):# return the current user if User is still logged in.
     except KeyError:
         return False
     if cUser is not None:
+        red_level = 300 # 5 mins is red level
+        expiration_in = abs(request.session.get_expiry_date() - timezone.now())
+        
+        if expiration_in.total_seconds() <= red_level:
+            print "Timeout in less than five"
+            request.session.set_expiry(3600)
         objID = cUser['objectId']
         if objID:
             cUserin = User.Query.get(objectId = objID) # unless we do that we can't operate it as a ParseUser

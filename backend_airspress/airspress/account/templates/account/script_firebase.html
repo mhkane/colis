@@ -42,8 +42,10 @@ ref.authWithCustomToken(AUTH_TOKEN, function(error, authData) {
     console.log("Login Succeeded!", authData);
   }
 });
-
-// Send Messages on event Click or Keypress
+// Conversation kept on viewport
+document.getElementById("WrapperConversation1").style.maxHeight = (this.innerHeight - 80) + 'px';
+this.onresize = function(){document.getElementById("WrapperConversation1").style.maxHeight = (this.innerHeight - 80) + 'px';};
+// Send Messages on event Click or ENTER Keypress
 document.getElementById('SendMessage1').onclick = function(e){
 	// Catch Submit and Halt it
 	e.preventDefault();
@@ -57,7 +59,7 @@ document.getElementById('SendMessage1').onclick = function(e){
 };
 document.getElementById('NewMessage1').onkeydown = function Shidori(e) {
     if (e.keyCode == 13 || e.which == 13) {
-	// Catch Submit and Halt it
+	// Catch ENTER and Halt it
 	e.preventDefault();
 	var newMessageText = document.getElementById('NewMessage1').value;
 	// Send to Firebase
@@ -86,10 +88,10 @@ ref.limitToLast(10).on("child_added", function(snapshot) {
 							<div class="time hidden-xs">';
   var part11 = '<div class="conversation-item item-right clearfix">\
 						<div class="conversation-user">\
-							<img src=" {% if not dealInfo.istraveler %} {{reqUser.picture}} {% else %} {% firstof travelUser.picture myPicture %} {% endif %} " alt=""/>\
+							<img src=" {% if not dealInfo.istraveler %} {% firstof reqUser.picture myPicture %} {% else %} {{travelUser.picture}} {% endif %} " alt=""/>\
 						</div>\
 						<div class="conversation-body">\
-							<div class="name"> {% if not dealInfo.istraveler %} {{reqUser.username}} {% else %} {% firstof travelUser.username greetings %} {% endif %} </div>\
+							<div class="name"> {% if not dealInfo.istraveler %} {% firstof reqUser.username greetings %} {% else %}  {{travelUser.username }} {% endif %} </div>\
 							<div class="time hidden-xs">';	
   var part2 = '</div>\
 							<div class="text">';
@@ -105,7 +107,8 @@ ref.limitToLast(10).on("child_added", function(snapshot) {
   conversation.innerHTML += snippet;
   
   //Scroll to the Bottom of conversation
-  conversation.scrollTop = conversation.height
-  wrapper.scrollTop = wrapper.height
+  conversation.scrollTop = conversation.scrollHeight;
+  wrapper.scrollTop = wrapper.scrollHeight;
+  wrapper.style.maxHeight = window.innerHeight;
 });};
 </script>

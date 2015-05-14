@@ -1,0 +1,287 @@
+{% load staticfiles %}
+{% load compress %}
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	{% compress css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/bootstrap.min.css' %}" />
+	{% endcompress %}
+	{% compress css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'account/css/flat-ui.min.css' %}" />
+	{% endcompress %}
+	{% compress css %}
+	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/font-awesome.min.css' %}" />
+	{% endcompress %}
+	{% compress css %}
+	{% block stylesheet %} {% endblock stylesheet %}
+	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom-ui.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/datepicker3.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'trips/css/jquery.raty.css' %}">
+	{% block stylesheet_bottom %} 	
+	<!-- libraries -->
+	<link rel="stylesheet" type="text/css" href="{% static 'account/css/libs/nanoscroller.css' %}" />
+
+	<!-- global styles -->
+	<link rel="stylesheet" type="text/css" href="{% static 'account/css/compiled/theme_styles.css' %}" />
+	
+	{% endblock stylesheet_bottom %}
+	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom.css' %}" />
+	{% endcompress %}
+	{% block stylesheet_uncomp %}
+	
+	{% endblock stylesheet_uncomp %}
+	
+	{% block head_jscript_uncomp %}  {% endblock %}
+	
+	{% compress js %}
+	{% block head_jscript %}  {% endblock %}
+	{% endcompress %}
+	
+	
+	<title> {% block title %} Airspress - A peer-to-peer delivery service{% endblock %} </title>
+</head>
+
+<body {% block onloader %} {% endblock %}>
+	<div id="theme-wrapper">
+		<header class="navbar" style="background-color:#e81; max-height:60px;" id="header-navbar">
+			<div class="container">
+				<a href="index.html" id="logo" style="background-color:#e82" class="navbar-brand">
+					<img src="img/logo.png" alt="" class="normal-logo logo-white"/>
+					<img src="img/logo-black.png" alt="" class="normal-logo logo-black"/>
+					<img src="img/logo-small.png" alt="" class="small-logo hidden-xs hidden-sm hidden"/>
+				</a>
+				
+				<div class="clearfix">
+					<button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="fa fa-bars"></span>
+					</button>
+					
+	
+					
+					<div class="nav-no-collapse pull-right" id="header-nav">
+						<ul class="nav navbar-nav pull-right">
+							
+							<li class="hidden-xs">
+								<a class="btn dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-warning"></i>
+									<span class="count">8</span>
+								</a>
+								<ul class="dropdown-menu notifications-list">
+									<li class="pointer">
+										<div class="pointer-inner">
+											<div class="arrow"></div>
+										</div>
+									</li>
+									<li class="item-header">You have 6 new notifications</li>
+									<li class="item">
+										<a href="#">
+											<i class="fa fa-comment"></i>
+											<span class="content">New comment on ‘Awesome P...</span>
+											<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+										</a>
+									</li>
+									<li class="item">
+										<a href="#">
+											<i class="fa fa-plus"></i>
+											<span class="content">New user registration</span>
+											<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+										</a>
+									</li>
+									<li class="item">
+										<a href="#">
+											<i class="fa fa-envelope"></i>
+											<span class="content">New Message from George</span>
+											<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+										</a>
+									</li>
+									<li class="item">
+										<a href="#">
+											<i class="fa fa-shopping-cart"></i>
+											<span class="content">New purchase</span>
+											<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+										</a>
+									</li>
+									<li class="item">
+										<a href="#">
+											<i class="fa fa-eye"></i>
+											<span class="content">New order</span>
+											<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+										</a>
+									</li>
+									<li class="item-footer">
+										<a href="#">
+											View all notifications
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li class="dropdown hidden-xs">
+								<a class="btn dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-envelope-o"></i>
+									<span class="count">16</span>
+								</a>
+								<ul class="dropdown-menu notifications-list messages-list">
+									<li class="pointer">
+										<div class="pointer-inner">
+											<div class="arrow"></div>
+										</div>
+									</li>
+									<li class="item first-item">
+										<a href="#">
+											<img src="img/samples/messages-photo-1.png" alt=""/>
+											<span class="content">
+												<span class="content-headline">
+													George Clooney
+												</span>
+												<span class="content-text">
+													Look, just because I don't be givin' no man a foot massage don't make it 
+													right for Marsellus to throw...
+												</span>
+											</span>
+											<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+										</a>
+									</li>
+									<li class="item">
+										<a href="#">
+											<img src="img/samples/messages-photo-2.png" alt=""/>
+											<span class="content">
+												<span class="content-headline">
+													Emma Watson
+												</span>
+												<span class="content-text">
+													Look, just because I don't be givin' no man a foot massage don't make it 
+													right for Marsellus to throw...
+												</span>
+											</span>
+											<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+										</a>
+									</li>
+									<li class="item">
+										<a href="#">
+											<img src="img/samples/messages-photo-3.png" alt=""/>
+											<span class="content">
+												<span class="content-headline">
+													Robert Downey Jr.
+												</span>
+												<span class="content-text">
+													Look, just because I don't be givin' no man a foot massage don't make it 
+													right for Marsellus to throw...
+												</span>
+											</span>
+											<span class="time"><i class="fa fa-clock-o"></i>13 min.</span>
+										</a>
+									</li>
+									<li class="item-footer">
+										<a href="#">
+											View all messages
+										</a>
+									</li>
+								</ul>
+							</li>
+							<li class="hidden-xs">
+								<a class="btn">
+									<i class="fa fa-cog"></i>
+								</a>
+							</li>
+							<li class="dropdown profile-dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<img src="img/samples/scarlet-159.png" alt=""/>
+									<span class="hidden-xs">Scarlett Johansson</span> <b class="caret"></b>
+								</a>
+								<ul class="dropdown-menu">
+									<li><a href="user-profile.html"><i class="fa fa-user"></i>Profile</a></li>
+									<li><a href="#"><i class="fa fa-cog"></i>Settings</a></li>
+									<li><a href="#"><i class="fa fa-envelope-o"></i>Messages</a></li>
+									<li><a href="#"><i class="fa fa-power-off"></i>Logout</a></li>
+								</ul>
+							</li>
+							<li class="hidden-xxs">
+								<a class="btn">
+									<i class="fa fa-power-off"></i>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</header>
+		<div id="page-wrapper" class="container">
+			<div class="row">
+				
+				<div style="margin-left:0;" id="content-wrapper">
+					<div class="row">
+						<div class="col-lg-12">
+							
+							<div class="row">
+								<div class="col-lg-12">
+								{% block content %}
+									<div class="main-box clearfix">
+										<header class="main-box-header clearfix">
+											<h2>Box Header</h2>
+										</header>
+										
+										<div class="main-box-body clearfix">
+											Content...
+										</div>
+									</div>
+									{% endblock content %}
+								</div>
+							</div>
+							
+						</div>
+					</div>
+					
+					<footer id="footer-bar" class="row">
+						<p id="footer-copyright" class="col-xs-12">
+							&copy; 2015 <a href="" target="_blank"></a>
+						</p>
+					</footer>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <!-- jQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAo_PT60oc_CGiUYJcI4gsYYa5UGZSBxp8&libraries=geometry,places&sensor=false&language=en-US"></script>
+
+	<script type="text/javascript" src="{% static 'account/js/flat-ui.min.js' %}"></script>
+	<script src="{% static 'account/js/jquery.nanoscroller.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'signup/js/sidebar.js' %}"></script>
+	<script type="text/javascript" src="{% static 'signup/js/bootstrap-datepicker.js' %}"></script>
+	<script type="text/javascript" src="{% static 'account/js/jquery.raty.js' %}"></script>
+	
+	<script> $('.datepicker').datepicker({
+      format: 'mm-dd-yyyy',
+	  autoclose:true,
+	  orientation: 'top'
+    });
+	</script>
+	<script type="text/javascript" src="{% static 'signup/js/citySearch.js' %}"></script>
+	<script type="text/javascript" src="{% static 'signup/js/currencySel.js' %}"></script>
+	{% block jscript %} 
+	
+		<!-- scripts -->
+	<script src="{% static 'account/js/scripts.js' %}"></script>
+	<script src="{% static 'account/js/pace.min.js' %}"></script>
+	{% endblock jscript %}
+
+	<script>
+	 $(document).ready(function(){
+  // $('#currency').on('change', updateCurrency);
+  $('body').on('click', '.modal-trigger', displayModal);
+  // $('body').on('click', '.deleter', deleteObject);
+   $('body').on('submit', '#modal-form', saveForm);
+ });
+ 
+ </script>
+
+</body>
+</html>

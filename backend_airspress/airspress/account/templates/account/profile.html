@@ -1,8 +1,8 @@
 {% extends "trips/account_base.html" %}
-{% load compress %}
+
 {% load staticfiles %}
 <!-- We include base template for account related pages. And we fill the blocks -->
-{% block title %} Add a trip {% endblock title %}
+{% block title %} {% firstof userinfo.screen_name userinfo.username %}{% endblock title %}
 <!-- We load the Autocomplete widget by setting onload attribute -->
 {% block onloader %}  {% endblock onloader %}
 <!-- 'greetings' is always the username of the logged-in user  -->
@@ -28,7 +28,6 @@
 
 {% block jscript %} 
 
-	<script src="{% static 'account/js/jquery.nanoscroller.min.js' %}"></script>
 	
 	<!-- this page specific scripts -->
 	<script src="{% static 'account/js/jquery.slimscroll.min.js' %}"></script>
@@ -44,6 +43,8 @@
 							// Display Conversation On Profile Page											  
 							function displayChat() {document.getElementById("displayChat").click();
 													$('#navtab-chat').removeClass("hidden");
+													
+													document.getElementById("WrapperConversation1").scrollIntoView(false);
 							};
   </script> 
   
@@ -66,7 +67,7 @@
 										
 										<div class="main-box-body clearfix">
 											<div class="profile-status">
-												<i class="fa fa-circle small"></i> {% if userinfo.is_verified %} Verified {% else %} Not Verified {% endif %}
+												{% if userinfo.is_verified %} <i class="fa fa-check small"></i> Verified {% else %} <i style="color:red;" class="fa fa-times small"></i>  Not Verified {% endif %}
 											</div>
 											{% if userinfo.pPicture %}
 											<img alt="User Pic" src="{{ userinfo.pPicture }}" class="profile-img img-responsive center-block">
@@ -231,7 +232,7 @@
 												</div>
 												
 												<div class="tab-pane fade" id="tab-chat">
-													<div class="conversation-wrapper" id="WrapperConversation1">
+													<div style="overflow:scroll;" class="conversation-wrapper" id="WrapperConversation1">
 														<div class="conversation-content">
 															<div class="conversation-inner" id="Conversation1">
 															

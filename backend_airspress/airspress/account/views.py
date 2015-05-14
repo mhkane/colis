@@ -2,19 +2,19 @@ from django.shortcuts import render
 from signup.schemes import is_logged_in, User, handle_uploaded_file, sign_in,\
     change_password
     
-from django.http.response import HttpResponseRedirect, HttpResponseForbidden
+from django.http.response import HttpResponseRedirect, HttpResponseForbidden,\
+    HttpResponseBadRequest
 from django.core.urlresolvers import reverse
-from trips.forms import addForm, editproForm, reviewForm
+from trips.forms import addForm, reviewForm
 from trips.crtrips import tripCreate
 from trips.crtrips import trip
 from account.actions import request as trequests, getdeal, ref_create,\
     tripReview, get_profile_pic, get_user_info
-from trips.views import fbPicture
 from parse_rest.installation import Push
 from account.forms import referralForm, settings_form_general,\
     settings_form_picture, settings_form_password
 from parse_rest.query import QueryResourceDoesNotExist
-from signup.backend_parse import reviews, Item
+from signup.backend_parse import review, Item
 from parse_rest.core import ResourceRequestNotFound
 from texto_airspress.schemes import auth_client, create_conversation
 # Create your views here.
@@ -35,7 +35,7 @@ def addTrip(request):
         #Preparing search form on page
             else:
                 print addView.errors
-                alert['type']='error'
+                alert['type']='danger'
                 alert['text']='Correct the information you entered. Some fields have errors..'
             return render(request, 'trips/addtrip.html', {'alert':alert,'greetings':cUser.username, 'addForm':addView})             
         else:
@@ -51,10 +51,13 @@ def myTrips(request, key):
     '''
     k=0
     ownTrips = {}
-    aUser = User.Query.get(username=key)
+    try:
+        aUser = User.Query.get(username=key)
+    except:
+        return HttpResponseBadRequest() 
     cUser = is_logged_in(request)
     if cUser:
-        TripObj = trip.Query.filter(traveler=aUser)
+        TripObj = trip.Query.filter(traveler=aUser).order_by('createdAt')
         for anyTrip in TripObj :
                 k = k + 1
                 pub_date = ''
@@ -78,7 +81,8 @@ def myTrips(request, key):
                  'depDate':departDate, 'cityDep':destLocation, 
                  'cityArr':oriLocation, 'availCap':availCap, 'totalCap':totalCap}
                 print ownTrips
-        return render(request, 'trips/mytrips.html', {'ownTrips':ownTrips,'greetings':cUser.username,})
+        return render(request, 'trips/mytrips.html', {'ownTrips':ownTrips,'greetings':cUser.username,
+                                                      'myPciture':get_profile_pic(cUser.objectId)})
     return HttpResponseRedirect(reverse('signup:index'))
 
 def requestedTrips(request):
@@ -89,39 +93,106 @@ def requestedTrips(request):
     reqTrips = {}
     cUser = is_logged_in(request)
     if cUser:
-        ReqObj = trequests.Query.filter(Requester=cUser)
-        for anyReq in ReqObj :
-                reqIdo = anyReq.objectId
-                optionBtn = 'View Details'
-                if anyReq.accepted:
-                    optionBtn='Go to payment'
-                k = k + 1
-                pub_date = ''
-                departDate = ''
-                destLocation = ''
-                oriLocation = ''
-                availCap = ''
-                reqWeight = ''
-                traveler = ''
-                try:
-                    pub_date = anyReq.createdAt
-                    departDate = anyReq.tripId.departureDate.date()
-                    destLocation = anyReq.tripId.toLocation
-                    oriLocation = anyReq.tripId.fromLocation
-                    reqWeight = anyReq.weightRequested
-                    traveler = anyReq.tripId.traveler.username
-                    availCap = anyReq.tripId.availCapacity
-                except AttributeError:
-                    pass
+        try:
+            ReqObj = trequests.Query.filter(Requester=cUser)
             
-                reqTrips['objTrip'+str(k)] = {'pubdate':pub_date, 
-                 'depDate':departDate, 'cityDep':destLocation, 
-                 'cityArr':oriLocation,'requestWeight':reqWeight, 
-                 'availCap':availCap, 'traveler':traveler, 'reqIdo':reqIdo, 'optionBtno':optionBtn}
-        return render(request, 'trips/mytrips.html', {'reqTrips':reqTrips,'greetings':cUser.username,})
+            for anyReq in ReqObj :
+                    reqIdo = anyReq.objectId
+                    optionBtn = 'View Details'
+                    status ={'type':'warning','text':"Pending Approval"}
+                    
+                    k = k + 1
+                    pub_date = ''
+                    departDate = ''
+                    destLocation = ''
+                    oriLocation = ''
+                    availCap = ''
+                    reqWeight = ''
+                    traveler = ''
+                    try:
+                        pub_date = anyReq.createdAt
+                        departDate = anyReq.tripId.departureDate.date()
+                        destLocation = anyReq.tripId.toLocation
+                        oriLocation = anyReq.tripId.fromLocation
+                        reqWeight = anyReq.weightRequested
+                        traveler = anyReq.tripId.traveler.username
+                        availCap = anyReq.tripId.availCapacity
+                        if anyReq.accepted:
+                            optionBtn='View AirDeal'
+                            status = {'type':'success','text':'In Progress'}
+                        if anyReq.completed:
+                            status = status = {'type':'success','text':"Completed"}   
+                    except AttributeError:
+                        pass
+                    reqTrips['objTrip'+str(k)] = {'pubdate':pub_date, 
+                     'depDate':departDate, 'cityDep':destLocation, 
+                     'cityArr':oriLocation,'requestWeight':reqWeight, 
+                     'availCap':availCap, 'traveler':traveler, 'reqId':reqIdo,
+                      'optionBtn':optionBtn, 'status':status}
+        except: 
+            pass            
+        return render(request, 'trips/in_out_requests.html', {'traveler':False,'request_trips':reqTrips,'greetings':cUser.username,
+                                                      'myPicture':get_profile_pic(cUser.objectId)})
     return HttpResponseRedirect(reverse('signup:index'))    
-                
-def deals(request, key):
+
+def otRequests(request):
+    k=0
+    reqTrips = {}
+    cUser = is_logged_in(request)
+    if cUser:
+        try:
+            his_trips = trip.Query.filter(traveler=cUser)
+        except QueryResourceDoesNotExist:
+            pass
+        try:
+            ReqObj = trequests.Query.filter(tripId__in=his_trips)
+            for anyReq in ReqObj :
+                    k = k + 1
+                    optionBtn = 'View Details'
+                    pub_date = ''
+                    departDate = ''
+                    destLocation = ''
+                    oriLocation = ''
+                    availCap = ''
+                    reqWeight = ''
+                    requester = ''
+                    reqId=''
+                    status ={'type':'warning','text':"Pending Approval"}
+                    try:
+                        pub_date = anyReq.createdAt
+                        departDate = anyReq.tripId.departureDate.date()
+                        destLocation = anyReq.tripId.toLocation
+                        oriLocation = anyReq.tripId.fromLocation
+                        reqWeight = anyReq.weightRequested
+                        requester = anyReq.Requester.username
+                        availCap = anyReq.tripId.availCapacity
+                        reqId= anyReq.objectId
+                        if anyReq.accepted:
+                            optionBtn='View AirDeal'
+                            status = {'type':'success','text':'In Progress'}
+                        if anyReq.completed:
+                            status = status = {'type':'success','text':"Completed"}     
+                    except AttributeError:
+                        pass
+                    if reqId:
+                        reqTrips['objTrip'+str(k)] = {'pubdate':pub_date, 
+                         'depDate':departDate, 'cityDep':destLocation, 
+                         'cityArr':oriLocation,'requestWeight':reqWeight, 
+                         'availCap':availCap, 'requester':requester, 'reqId':reqId, 
+                         'optionBtn':optionBtn, 'status':status}
+                    print reqTrips
+        except (AttributeError, QueryResourceDoesNotExist):
+            pass            
+        return render(request, 'trips/in_out_requests.html', {'traveler':True,'request_trips':reqTrips,'greetings':cUser.username,
+                                                      'myPicture':get_profile_pic(cUser.objectId)})
+    return HttpResponseRedirect(reverse('signup:index'))
+
+#some views share a lot of context with this one
+# so i ended up placing some hooks to catch the signal hehe.
+# Hence external_alert and other external_* are totaly useless to
+# the view by itself, they just serve as hooks for other "children" views(there is not really such thing
+# as a children view, i'm just talking with pictures) .                
+def deals(request, key, external_alert={}, external_context=False):
     '''
     When a request is accepted a deal page can be accessed where users can see each other contact info
     and confirm delivery and pay for the transaction via a Paypal payment button; this is the "View Details".
@@ -189,7 +260,8 @@ def deals(request, key):
                     pass
                 
             else:
-                return HttpResponseForbidden() 
+                return HttpResponseForbidden()
+            print reqAccepted 
             #if everything so far is ok and nothing forbidden
             # we fetch the conversations between the 2 users
             # on this deal
@@ -210,7 +282,7 @@ def deals(request, key):
                 except (AttributeError,QueryResourceDoesNotExist):
                     pass
             # reviews on this deal
-            deal_reviews = reviews.Query.filter(reviewedRequest=aRequest)
+            deal_reviews = review.Query.filter(reviewedRequest=aRequest)
             reviews_dict = {}
             k=0
             for deal_review in deal_reviews:
@@ -226,70 +298,64 @@ def deals(request, key):
             review_form = reviewForm()
             #if not reqAccepted:
             #     return Http404()
-            return render(request, 'account/deals.html',
-                      {'dealInfo':reqAccepted,'reqUser':req_user_dic, 'firebase_node':chat_node+"/"+key,
-                        'travelUser':travel_user_dic,'review_form':review_form,
+            context_dic = {'alert':external_alert,'dealInfo':reqAccepted,'reqUser':req_user_dic, 
+                           'firebase_node':chat_node+"/"+key,'travelUser':travel_user_dic,'review_form':review_form,
                         'myPicture':get_profile_pic(cUser.objectId),'greetings':cUser.username,'current_user_id':cUser.objectId,
-                        'firebase_token':messaging_token,'reviews':reviews_dict,'requested_items':items_dict, 'rqkey':key})
+                        'firebase_token':messaging_token,'reviews':reviews_dict,'requested_items':items_dict, 'rqkey':key}
+            
+            return render(request, 'account/deals.html', context_dic)
     return HttpResponseRedirect(reverse('trips:index')) # We aren't redirecting to signup:index to avoid a certain lag on signup page
 
-def otRequests(request):
-    k=0
-    reqTrips = {}
+
+
+def confirm_delivery(request, key):
+    alert={}
     cUser = is_logged_in(request)
     if cUser:
-        his_trips = trip.Query.filter(traveler=cUser)
-        ReqObj = trequests.Query.filter(tripId__in=his_trips)
-        for anyReq in ReqObj :
-                k = k + 1
-                optionBtn = 'Accept'
-                pub_date = ''
-                departDate = ''
-                destLocation = ''
-                oriLocation = ''
-                availCap = ''
-                reqWeight = ''
-                requester = ''
-                reqId=''
-                try:
-                    pub_date = anyReq.createdAt
-                    departDate = anyReq.tripId.departureDate.date()
-                    destLocation = anyReq.tripId.toLocation
-                    oriLocation = anyReq.tripId.fromLocation
-                    reqWeight = anyReq.weightRequested
-                    requester = anyReq.Requester.username
-                    availCap = anyReq.tripId.availCapacity
-                    reqId= anyReq.objectId
-                    if anyReq.accepted:
-                        optionBtn='View Details'
-                except AttributeError:
-                    pass
-                if reqId:
-                    reqTrips['objTrip'+str(k)] = {'pubdate':pub_date, 
-                     'depDate':departDate, 'cityDep':destLocation, 
-                     'cityArr':oriLocation,'requestWeight':reqWeight, 
-                     'availCap':availCap, 'requester':requester, 'reqId':reqId, 'optionBtn':optionBtn}
-                print reqTrips
-        return render(request, 'trips/mytrips.html', {'otRequest':reqTrips,'greetings':cUser.username,})
-    return HttpResponseRedirect(reverse('signup:index'))    
+        try:
+            this_deal = trequests.Query.get(objectId = key)
+            requester = this_deal.Requester
+            if cUser.username == requester.username:
+                this_deal.deliveryStatus = True
+                this_deal.save()
+                alert = {'type':'success', 'text':'This Airdeal is marked as delivered. Please leave a review on the traveler.'}
+                
+        except AttributeError:
+            alert = {'type':'danger', 'text':'There was an error with the server ...'}
+        print alert    
+        return deals(request, key, external_alert=alert)
+    return HttpResponseRedirect(reverse('signup:index'))
+            
 def reviewTrip(request,key):
     alert={}
+    context_dic={}
     cUser = is_logged_in(request)
     if cUser:
         if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
             review_form = reviewForm(request.POST)
             if review_form.is_valid():
                 new_review = tripReview(cUser, review_form, key)
+                if new_review:
+                    context_dic['review']=new_review
                 
             else:
                 print review_form.errors
-            return render(request, 'trips/reviews.html', 
-                    {'key':key,'review':new_review,'alert':alert,'greetings':cUser.username, 
-                    'reviewForm':review_form, 'myPicture':get_profile_pic(cUser.objectId)})             
+            
+            context_dic.update({'key':key,'alert':alert,'greetings':cUser.username, 
+                    'review_form':review_form, 'myPicture':get_profile_pic(cUser.objectId)}) 
+            
+            return render(request, 'account/reviews_readonly.html', context_dic)             
         else:
             return HttpResponseRedirect(reverse('account:deals',kwargs={'key':key}))
     else:
         return HttpResponseRedirect(reverse('trips:index'))
+
+#    
+#--------------------------------------------------------------------------------------
+# This is the User Profile related zone.
+# Profile Edition, Profile Display and Referral are dealt with here
+# Have a nice time playing with that !
+#    
 def profileView(request, key):
     cUser = is_logged_in(request)
     if cUser:
@@ -301,7 +367,7 @@ def profileView(request, key):
         anyBio = ''
         anyRating = ''
         total_reviews = 0
-        total_deliveries = total_reviews
+        total_deliveries = 0
         total_orders = 0
         is_verified = ''
         is_cuser = False
@@ -315,13 +381,13 @@ def profileView(request, key):
             pPicture = get_profile_pic(anyUser.objectId)
             anyName = anyUser.username
             anyMail = anyUser.email
-            anyReview = reviews.Query.filter(reviewedUser=anyUser)
+            anyReviews = review.Query.filter(reviewedUser=anyUser)
             k=0
-            for review in anyReview:
+            for any_review in anyReviews:
                 k = k+1
-                reviews_dict['review'+str(k)] = {'sender':{'name':review.reviewer.username,
-                                                           'picture':get_profile_pic(review.reviewer.objectId)},
-                                                 'rating':review.rating,'text':review.reviewText, 'pub_date':review.createdAt.date()}
+                reviews_dict['review'+str(k)] = {'sender':{'name':any_review.reviewer.username,
+                                                           'picture':get_profile_pic(any_review.reviewer.objectId)},
+                                                 'rating':any_review.rating,'text':any_review.reviewText, 'pub_date':any_review.createdAt.date()}
             is_verified = anyUser.emailVerified
             anyRating = anyUser.userRating
             total_reviews = anyUser.totalReviews

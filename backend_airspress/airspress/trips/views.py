@@ -1,17 +1,15 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
-from signup.schemes import User, currentUser#ParseUser
+from signup.schemes import User #ParseUser
 from trips.crtrips import trip, tripFind, tripRequest
 from signup.schemes import is_logged_in
 from trips.forms import searchForm, requestForm
 from string import split
 from account.actions import get_profile_pic
-#
-#
-#    Current = User.login_auth(auth_data)
-#Tripy = trip(departureDate=  , fromLocation= , text=  , toLocation= )
-#Tripy.traveler = CurrentUser
+from datetime import datetime
+
+
 def fbPicture(request):
     try:
         pPicture = request.session['pPicture']
@@ -21,8 +19,8 @@ def fbPicture(request):
 def activeTrips(request):
     cUser = is_logged_in(request)
     if cUser:
-        myPicture = fbPicture(request)
-        allTrips = trip.Query.all()
+        myPicture = fbPicture(request) or get_profile_pic(cUser.objectId)
+        allTrips = trip.Query.filter(departureDate__gte=datetime.now()).order_by("-createdAt")
         page_one = allTrips.limit(10)
         k = 0
         tripDict = {}
@@ -35,7 +33,10 @@ def activeTrips(request):
             oriLocation = ''
             travelerId = False
             tripId = ''
-            pPicture = ''
+            available_weight = 0
+            total_weight = 0
+            user_rating = 0
+            pPicture=''
             try:
                 pub_date = anyTrip.createdAt
                 travelerId  = anyTrip.traveler.objectId
@@ -43,7 +44,12 @@ def activeTrips(request):
                 destLocation = anyTrip.toLocation
                 oriLocation = anyTrip.fromLocation
                 tripId = anyTrip.objectId
-                pPicture = User.Query.get(objectId=travelerId).profilePicture.url 
+                pPicture = get_profile_pic(travelerId)
+                available_weight = anyTrip.availCapacity
+                total_weight = anyTrip.totalCapacity
+                traveler = User.Query.get(objectId=travelerId)
+                unit_price = anyTrip.unitPriceUsd
+                user_rating = traveler.userRating
             except AttributeError:
                 pass
             
@@ -59,10 +65,12 @@ def activeTrips(request):
                     oriCountry = areas_ori_location[-1]
                     oriCity = areas_ori_location[0]
                     tripDict['objTrip'+str(k)] = {'pub_date':pub_date, 
-                    'travelerUser':travelerUser, 
-                    'departDate':{'month':departDate.strftime("%B")[:3], 'day':departDate.day},
-                    'destLocation':{'city':destCity,'country':destCountry}, 
-                    'oriLocation':{'city':oriCity,'country':oriCountry}, 'tripId':tripId, 'pPicture':pPicture,}
+                                'travelerUser':travelerUser, 'travelerRating':user_rating,
+                                'departDate':{'month':departDate.strftime("%B"), 'day':departDate.day},
+                                'destLocation':{'city':destCity,'country':destCountry}, 
+                                'oriLocation':{'city':oriCity,'country':oriCountry}, 
+                                'available':available_weight,'total':total_weight,
+                                'unit_price':unit_price,'tripId':tripId, 'pPicture':pPicture,}
                     #once the context dict created we can use render()
                     print(tripDict)
                     print k
@@ -77,7 +85,8 @@ def activeTrips(request):
         else:
             searchView = searchForm()
             
-        return render(request, 'trips/voyage.html', {'tripDict':tripDict,'greetings':cUser.username, 'searchForm':searchView, 'myPicture':myPicture})
+        return render(request, 'trips/voyage.html', {'tripDict':tripDict,'greetings':cUser.username, 
+                                                     'myPicture':get_profile_pic(cUser.objectId),'searchForm':searchView})
     return HttpResponseRedirect(reverse('signup:index'))
 
 def searchTrips(request):
@@ -88,7 +97,7 @@ def searchTrips(request):
     tripDict={}
     cUser = is_logged_in(request)
     if cUser:
-        myPicture = cUser.profilePicture.url
+        myPicture = get_profile_pic(cUser.objectId)
         if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
             searchView = searchForm(request.POST)
             if searchView.is_valid():
@@ -97,7 +106,8 @@ def searchTrips(request):
         #Preparing search form on page
             else:
                 print searchView.errors
-            return render(request, 'trips/voyage.html', {'tripDict':tripDict,'greetings':cUser.username, 'searchForm':searchView,'myPicture':myPicture})             
+            return render(request, 'trips/voyage.html', {'tripDict':tripDict,'greetings':cUser.username, 
+                                                         'searchForm':searchView,'myPicture':myPicture})             
         else:
             searchView = searchForm()
     else:

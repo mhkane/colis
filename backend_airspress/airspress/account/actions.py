@@ -10,7 +10,7 @@ from airspress.settings import FILE_UPLOAD_DIR
 from django.core.urlresolvers import reverse
 from parse_rest.query import QueryResourceDoesNotExist
 from decimal import Decimal
-from signup.backend_parse import reviews, referral
+from signup.backend_parse import review, referral
 
 class request(ParseObject):
     pass
@@ -35,17 +35,30 @@ def getdeal(travelUser, reqUser, aRequest, aTrip):
     reqUser_pic = ''
     traveler_pic=''
     try:
-        reqUser_pic = reqUser.profilePicture.url
-        traveler_pic = travelUser.profilePicture.url
+        reqUser_pic = get_profile_pic(reqUser.objectId)
+        traveler_pic = get_profile_pic(travelUser.objectId)
+        reqAccepted['isaccepted'] = aRequest.accepted
         reqAccepted['ispayed']= aRequest.paymentStatus
         reqAccepted['isdeliv']= aRequest.deliveryStatus
     except AttributeError:
         pass
-    reqAccepted = {'pubdate':pub_date, 'arrDate':arriDate,
+    buyer_reviewed = True
+    traveler_reviewed = True
+    try:
+        try:
+            buyer_reviewed = aRequest.purchaserReview
+        except AttributeError:
+            buyer_reviewed = False    
+            traveler_reviewed = aRequest.travelerReview
+    except AttributeError:
+        traveler_reviewed = False
+    
+           
+    reqAccepted.update({'pubdate':pub_date, 'arrDate':arriDate,
              'depDate':departDate, 'cityDep':oriLocation, 
              'cityArr':destLocation,
-             'traveler':{'username':travelUser.username,'picture':traveler_pic},
-             'reqUser':{'username':reqUser.username,'picture':reqUser_pic}}
+             'traveler':{'username':travelUser.username,'picture':traveler_pic,'isreviewed':traveler_reviewed},
+             'reqUser':{'username':reqUser.username,'picture':reqUser_pic,'isreviewed':buyer_reviewed}})
     # send notification
     print reqAccepted
     return reqAccepted
@@ -143,13 +156,13 @@ def get_user_info(cUser, request, user_id='',username=''):
             pPicture = get_profile_pic(anyUser.objectId)
             anyName = anyUser.username
             anyMail = anyUser.email
-            anyReview = reviews.Query.filter(reviewedUser=anyUser)
+            anyReviews = review.Query.filter(reviewedUser=anyUser)
             k=0
-            for review in anyReview:
+            for any_review in anyReviews:
                 k = k+1
-                reviews_dict['review'+str(k)] = {'sender':{'name':review.reviewer.username,
-                                                           'picture':get_profile_pic(review.reviewer.objectId)},
-                                                 'rating':review.rating,'text':review.reviewText, 'pub_date':review.createdAt.date()}
+                reviews_dict['review'+str(k)] = {'sender':{'name':any_review.reviewer.username,
+                                                           'picture':get_profile_pic(any_review.reviewer.objectId)},
+                                                 'rating':any_review.rating,'text':any_review.reviewText, 'pub_date':any_review.createdAt.date()}
             is_verified = anyUser.emailVerified
             anyRating = anyUser.userRating
             total_reviews = anyUser.totalReviews
@@ -179,33 +192,46 @@ def get_user_info(cUser, request, user_id='',username=''):
     return proDict
 
 # A function to handle review and save them to Parse
-def tripReview(cUser, review, key):
+def tripReview(cUser, review_form, key):
     ''' Takes every review and saves relevent information'''
     # 'request' variable used here is a ParseObject, not to confuse with a view request 
-    from signup.backend_parse import reviews
     dealer = ''
     try:
         reviewedRequest = request.Query.get(objectId=key)
-        traveler = reviewedRequest.traveler
-        requester = reviewedRequest.requester
+        traveler = reviewedRequest.tripId.traveler
+        requester = reviewedRequest.Requester
         is_accepted = reviewedRequest.accepted
-    except (AttributeError, QueryResourceDoesNotExist):
-        return False
-    if is_accepted:
-        if traveler==cUser:
-            dealer = requester
-        elif requester==cUser:
-            dealer = traveler
+        if is_accepted:
+            if traveler.username == cUser.username:
+                dealer = requester
+            elif requester.username == cUser.username:
+                dealer = traveler
+            else:
+                return False 
+    
+       
         try:
-            new_review = reviews(reviewedRequest=reviewedRequest, reviewer=cUser, reviewText=review.cleaned_data['text'], rating=Decimal(review.cleaned_data['rating']),
-            reviewedUser= dealer)
-            new_review.save()
-            new_review={'sender':{'name':new_review.reviewer.username,
-                                'picture':get_profile_pic(new_review.reviewer.objectId)},'text':new_review.reviewText,
-                                'rating':new_review.rating,'pubDate':new_review.createdAt.date()}  
-            return new_review
+            new_review_obj = review( reviewText=review_form.cleaned_data['text'], rating=review_form.cleaned_data['rating'])
+            new_review_obj.save()
+            new_review_obj.reviewedRequest = reviewedRequest 
+            new_review_obj.reviewer = cUser
+            new_review_obj.reviewedUser = dealer
+            new_review_obj.save()
+            if requester.username == cUser.username:
+                reviewedRequest.purchaserReview = new_review_obj
+            else:
+                reviewedRequest.travelerReview = new_review_obj
+            reviewedRequest.save()   
+            new_review_dic={'sender':{'name':new_review_obj.reviewer.username,
+                                'picture':get_profile_pic(new_review_obj.reviewer.objectId)},'text':new_review_obj.reviewText,
+                                'rating':new_review_obj.rating,'pubDate':new_review_obj.createdAt}  
+            return new_review_dic
         except (AttributeError, QueryResourceDoesNotExist):
             pass
+        
+    except (AttributeError, QueryResourceDoesNotExist):
+        pass
+    
     return False
 
 def ref_create(referralView, cUser, request):

@@ -17,17 +17,17 @@ def auth_server(node):
     return f
 # create conversation channel for a deal
 def create_conversation(channel_id, members_list, source=None):
-    channel = ""
-    node = ""
-    users = ""
+    channel = "deals"
+    node = "data/airdeals/"
+    users ="dealers"
     if source=="direct_messaging":
         node = "data/directMessaging/"
         channel = "conversations"
-        users = "users"
+        users = "members"
         
-    reference = auth_server(node if node else "data/airdeals/")
-    channel_ref = reference.child(channel if channel else "deals")
-    users_ref = reference.child(users if users else "dealers")
+    reference = auth_server(node)
+    channel_ref = reference.child(channel)
+    users_ref = reference.child(users)
     
     
     # update with deal info
