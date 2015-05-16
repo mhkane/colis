@@ -9,6 +9,9 @@
     list-style: outside none none;
     margin-bottom: -14px;
 }
+.twodates li .fa-map-marker{
+	font-size:0.8em;
+}
 .linediv span {
     display: inline-block;
     margin: 0 auto;
@@ -16,10 +19,10 @@
     text-align: center;
 }
 .country {
-    font-size: 0.8em;
+    font-size: 0.9em;
 }
 .fromCity, .toCity {
-    font-size: 1.35em;
+    font-size: 1em;
 }
 .price-details {
     text-align: center;
@@ -37,11 +40,12 @@
 
 li.date{    
     padding: 10px;
-	padding-left: 60%;
 }
  li .calendar {
 	width: 46px; 
 	font-size: 0.8em; 
+	margin-left:auto;
+	margin-right:auto;
 }
  li .calendar span { 
 	display: block; 
@@ -75,5 +79,8 @@ li .calendar .day {
 }
 .star-on-png:before {
     font-size: 0.5em;
+}
+.cancel-on-png, .cancel-off-png, .star-on-png, .star-off-png, .star-half-png {
+font-size: 1.3em;
 }
 p a.btn{background-color:#e80;}

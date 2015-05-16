@@ -1383,7 +1383,7 @@ h3 .small {
 }
 
 /* BUTTONS */
-.btn {
+.btn:not(.btn-success) {
   border: none;
   padding: 6px 12px;
   border-bottom: 4px solid;
@@ -1395,6 +1395,7 @@ h3 .small {
   /* stops bg color from leaking outside the border: */
 }
 .btn.btn-primary{border-bottom:2px solid; border-color:#d28206;}
+.
 .btn-default,
 .wizard-cancel,
 .wizard-back {

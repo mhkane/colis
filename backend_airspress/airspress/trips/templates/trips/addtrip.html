@@ -30,11 +30,91 @@
 	<script src="{% static 'account/js/scripts.js' %}"></script>
 	<script src="{% static 'account/js/pace.min.js' %}"></script>
 <script> 
+
+	// Form Avoid Submit on Return keypress when not appropriate
+	var location_being_changed;
+    var inputs = document.querySelectorAll('input[type="text"]');
+	// var nexts = document.querySelectorAll('[step-toggle="next"]');
+	for (var i = 0; i < inputs.length; i++){
+		var input = inputs[i];
+		var inputId = input.id;
+		if (inputId.indexOf('location') > -1){
+			autocomplete = new google.maps.places.Autocomplete(input);
+			onPlaceChange = function () {
+								location_being_changed = false;
+							}
+
+			google.maps.event.addListener( this.autocomplete,
+										   'place_changed',
+										   onPlaceChange );
+
+			google.maps.event.addDomListener(input, 'keydown', function (e) {
+				if (e.keyCode === 13) {
+					if (location_being_changed) {
+						e.preventDefault();
+						e.stopPropagation();
+					} else {
+						e.preventDefault();
+						e.stopPropagation();
+						if (this.id == 'location1'){
+							document.getElementById('location2').focus();
+							document.getElementById('location2').select();
+						} else {
+							document.querySelector('*[step-display="step3"]').click();
+							next = this.tabIndex + 1;
+							try {
+								nextInput = document.querySelector('input[tabindex="'+next+'"]');
+								nextInput.focus();
+								nextInput.select()
+							} catch(err) {
+								return
+							}
+						}	
+					}
+				} else {
+					// means the user is probably typing
+					location_being_changed = true;
+				}
+			});
+		} else {
+			function blockSubmit(e){
+				if (e.keyCode === 13) {
+					e.preventDefault();
+					try {
+						document.querySelector('*[step-disable='+input.getAttribute("step")+']').click();
+						
+					} catch(err) {
+						return
+					} finally {
+						next = this.tabIndex + 1;
+						try{
+							nextInput = document.querySelector('input[tabindex="'+next+'"]');
+							nextInput.focus();
+							nextInput.select()
+						}catch(err){
+							return
+						}
+					}
+				}	
+			}
+			if (document.addEventListener){	
+				input.addEventListener("keydown", blockSubmit, false);
+			} else if (document.attachEvent) {
+				input.addEventListener("onkeydown", blockSubmit, false);
+			}
+												
+		
+		}
+	
+	};
+    
 	// return trip activation
 	function returnTrip(e) {
 			var backtrip_date = document.querySelector('#backtrip');
 			var backtrip_weight = document.querySelector('#weightGood2');
 				if (document.getElementById("checkbox1").checked){
+						var state = true;
+						document.getElementById("checkbox1").value = state;
 						backtrip_date.classList.remove('hidden');
 						backtrip_weight.classList.remove('hidden');
 				} else {backtrip_date.classList.add('hidden');
@@ -129,19 +209,18 @@
 									<div class = "row">
 										<div class="col-md-6">
 											<div class="form-group">
-											  <label class="control-label" for="departure">Departure Date - Arrival Date</label>
+											  <label class="control-label" for="departure">Departure Date</label>
 											  <div class="controls">
-												<div class="input-group input-daterange datepicker add-trip-dates">
+												<div class="input-group  add-trip-dates">
 												  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-												  <input step="step1" id="departure" placeholder="Select a departure date" type="text" name="{{ addForm.depDate.name }}" class="form-control">
-												  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-												  <input step="step1" placeholder="Select an arrival date" type="text"  name="{{ addForm.arrivDate.name }}" class="form-control">
+												  <input step="step1" tabindex="1" id="departure" placeholder="Select a departure date" type="text" name="{{ addForm.depDate.name }}" class="form-control datepicker">
+												  
 												</div>
-												{{addForm.arrivDate.errors}} {{addForm.depDate.errors}}
+												 {{addForm.depDate.errors}}
 											  </div>
 											</div>
 											<label  class="checkbox" for="checkbox1" style=" display: inline-block; margin-right:auto;">
-												  <input step="step1" name="{{addForm.return_check.name}}" type="checkbox" data-toggle="checkbox" value="" id="checkbox1"  onclick="returnTrip()" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+												  <input step="step1" name="{{addForm.return_check.name}}" type="checkbox" data-toggle="checkbox" value="" id="checkbox1" onclick="returnTrip()" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
 												  <span style="padding-left:1.9em;">I also want to add my return trip </span>
 											</label>
 											<a class="btn btn-lg btn-success pull-right {% if addForm.errors %} hidden {% endif %}" step-toggle="next" step-display="step2" step-disable="step1" > Next </a>
@@ -149,16 +228,14 @@
 										</div>
 										<div id="backtrip" class="col-md-6 {% if not addForm.arrivDate2.errors and not addForm.depDate2.errors %} hidden {% endif %}">
 											<div class="form-group">
-											  <label class="control-label" for="departure">Return Trip: Departure Date - Arrival Date</label>
+											  <label class="control-label" for="departure">Return Trip: Departure Date</label>
 											  <div class="controls">
-												<div class="input-group input-daterange datepicker add-trip-dates">
+												<div class="input-group add-trip-dates">
 												  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-												  <input step="step1" id="departure" placeholder="Select a departure date" type="text" name="{{ addForm.depDate2.name }}" class="form-control">
-												  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-												  <input step="step1" placeholder="Select an arrival date" type="text"  name="{{ addForm.arrivDate2.name }}" class="form-control">
+												  <input step="step1" tabindex="2" id="departure" placeholder="Select a departure date" type="text" name="{{ addForm.depDate2.name }}" class=" datepicker form-control">
 												</div>
 												<div class="help-block">
-													{{addForm.arrivDate2.errors}} {{addForm.depDate2.errors}}
+													 {{addForm.depDate2.errors}}
 												</div>
 											  </div>
 											</div>
@@ -171,7 +248,7 @@
 										  <div class="controls">
 											<div class="input-group col-sm-4">
 											  <span class="input-group-addon"><i class="fa fa-plane"></i></span>
-											  <input step="step2" type="text" id="location1" class="form-control">
+											  <input step="step2" tabindex="3" type="text" id="location1" class="form-control">
 												<input name="{{addForm.cityDep.name}}" value="{% if not addForm.cityDep.errors and addForm.cityDep.value %} {{addForm.cityDep.value}} {% endif %}" type="hidden">
 												<input name="location_lat1" type="hidden">
 												<input name="location_lng1" type="hidden">
@@ -187,7 +264,7 @@
 										  <div class="controls">
 											<div class="input-group col-sm-4">
 											  <span class="input-group-addon"><i class="glyphicon glyphicon-plane"></i></span>
-											  <input step="step2" type="text" id="location2" class="form-control">
+											  <input step="step2" tabindex="4" type="text" id="location2" class="form-control">
 												<input name="location_lat2" type="hidden">
 												<input name="location_lng2" type="hidden">
 												<input name="{{addForm.cityArr.name}}" value="{% if not addForm.cityArr.errors and addForm.cityArr.value %} {{addForm.cityArr.value}} {% endif %}" type="hidden">
@@ -207,7 +284,7 @@
 											  <div class="controls">
 												<div class="input-group col-sm-4">
 												  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-												  <input id="weightGood" step="step3" type="text" name="{{addForm.weightGood.name}}" value="{% if not addForm.weightGood.errors and addForm.weightGood.value %} {{addForm.weightGood.value}} {% endif %}" class="form-control">
+												  <input id="weightGood" tabindex="5" step="step3" type="text" name="{{addForm.weightGood.name}}" value="{% if not addForm.weightGood.errors and addForm.weightGood.value %} {{addForm.weightGood.value}} {% endif %}" class="form-control">
 												</div>
 												<span class="help-block">{{addForm.weightGood.errors}}</span>
 												<span class="help-block col-sm-8">Give a round amount in kilograms</span>

@@ -15,4 +15,4 @@ class settings_form_general(forms.Form):
     time_zone = forms.CharField(required=False)
 # profile picture setting
 class settings_form_picture(forms.Form):
-    profile_picture = forms.ImageField(help_text="2mb max.")
+    profile_picture = forms.ImageField(help_text="2mb max.", required=False)

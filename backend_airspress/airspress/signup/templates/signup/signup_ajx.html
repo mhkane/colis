@@ -5,26 +5,24 @@
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 	   </div>
       <div class="modal-body">
+	  {% if alert.type %}
 		{% include "trips/alerts.html" %}
+	  {% endif %}
 		{% if not ref_regView %}
-		{% if registerView.non_field_errors %}<div class="alert alert-danger">{{ registerView.non_field_errors }}</div>{% endif %}
-		<form class="signup-form" action="/register/student/" method="post">
+		{% if registerView.non_field_errors or registerView.errors and not alert.type %}<div class="alert alert-danger">{% firstof registerView.non_field_errors " Correct errors on next page.." %}</div> {% endif %}
+		<form class="signup-form" id="signupForm" action="/register/student/" method="post">
 		{% csrf_token %}
 					<div class="tab-content">
-							<div class="tab-pane active">
+							<div class="tab-pane active" id="signup1">
 								<div class="form-group">
+								
 												<label>Select your institution in the list :</label>
 												<select name="{{registerView.login_institution.name}}" class="form-control">
 													{% for value, text in registerView.login_institution.field.choices %}
 														<option value="{{ value }}">{{ text }}</option>
 													{% endfor %}
-	<!-- 												<option value="École Polytechnique de Montréal">École Polytechnique de Montréal</option>
-													<option value="HEC Rabat">HEC Rabat</option>
-													<option>Massachussets Institute of Technology</option>
-													<option>Université Laval</option> -->
-												 
 												</select>
-								{% if registerView.login_institution.errors %}<div class="">{{ registerView.login_institution.errors }}</div>{% endif %}
+								{% if registerView.login_institution.errors %}<small class="help-block">{{ registerView.login_institution.errors }}</small>{% endif %}
 
 							   </div>
 								<a class="btn btn-lg btn-success" href="#signup2" data-toggle="tab"> Next </a>
@@ -33,19 +31,19 @@
 						   <div class="tab-pane fade" id="signup2">
 							<div class="form-group">
 								<input type="text" name="{{registerView.login_name.name}}" {% if registerView.login_name.value %} value="{{registerView.login_name.value}}" {% endif %} class="form-control" placeholder="Full name">
-							{% if registerView.login_name.errors %}<div class="">{{ registerView.login_name.errors }}</div>{% endif %}
+							{% if registerView.login_name.errors %}<small class="help-block">{{ registerView.login_name.errors }}</small>{% endif %}
 
 							</div>
 							<div class="form-group">
 								<input type="text" name="{{registerView.login_email.name}}" {% if registerView.login_email.value %} value="{{registerView.login_email.value}}" {% endif %} class="form-control" placeholder="Email address">
 								<span class="form-control-feedback fui-user"></span>
-							{% if registerView.login_email.errors %}<div class="">{{ registerView.login_email.errors }}</div>{% endif %}
+							{% if registerView.login_email.errors %}<small class="help-block">{{ registerView.login_email.errors }}</small>{% endif %}
 								
 							</div>
 							<div class="form-group">
 								<input id="InputPassword1" type="password" name="{{registerView.login_password.name}}" {% if registerView.login_password.value %} value="{{registerView.login_password.value}}" {% endif %} class="form-control" placeholder="Password" data-indicator="pwindicator">
 								<span class="form-control-feedback fui-lock"></span>
-							{% if registerView.login_password.errors %}<div class="">{{ registerView.login_password.errors }}</div>{% endif %}
+							{% if registerView.login_password.errors %}<small class="help-block">{{ registerView.login_password.errors }}</small>{% endif %}
 									<div id="pwindicator" class="pwdindicator">
 										<div class="bar"></div>
 										<div class="pwdstrength-label"></div>
@@ -54,10 +52,10 @@
 							<div class="form-group">
 								<input id="InputPassword2" type="password" name="{{registerView.login_password_conf.name}}" {% if registerView.login_password_conf.value %} value="{{registerView.login_password_conf.value}}" {% endif %} class="form-control" placeholder="Retype password">
 								<span class="form-control-feedback fui-lock"></span>
-							{% if registerView.login_password_conf.errors %}<div class="">{{ registerView.login_password_conf.errors }}</div>{% endif %}
+							{% if registerView.login_password_conf.errors %}<small class="help-block">{{ registerView.login_password_conf.errors }}</small>{% endif %}
 							</div>
 							<a class="btn btn-lg btn-success" href="#signup3" data-toggle="tab"> Next </a>
-						
+							<a href="#signup1" data-toggle="tab" class="btn btn-danger btn-lg">Back</a>
 						</div>
 						<div class="tab-pane fade" id="signup3">
 							<div class="well">
@@ -68,10 +66,10 @@
 							</div>
 							<div class="footer">
 								<label class="checkbox" for="checkbox1" style=" display: inline-block; margin-right:auto;">
-									  <input name="{{registerView.tos_check.name}}" type="checkbox" data-toggle="checkbox" value="" id="checkbox1" required="" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
+									  <input name="{{registerView.tos_check.name}}" type="checkbox" data-toggle="checkbox" value="" id="checkbox1" required="true" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
 									  <span style="padding-left:1.9em;">I agree with the Terms of Services</span>
 								</label>
-								<button type="submit" class="btn btn-signup btn-lg">Sign me up</button>
+								<button type="submit" id="signupButton" class="btn btn-signup btn-lg">Sign me up</button>
 
 								
 							</div>
@@ -79,31 +77,31 @@
 					</div>
 	   </form>
        {% else %}
-		{% if ref_regView.non_field_errors %}<div class="alert alert-danger">{{ ref_regView.non_field_errors }}</div>{% endif %}
+		{% if ref_regView.non_field_errors and not alert.type %}<div class="alert alert-danger">{{ ref_regView.non_field_errors }}</div>{% endif %}
 		<form class="auth-form" action="/register/referral/" method="post">
 		{% csrf_token %}
 						    
 							<<div class="tab-pane fade" id="signup2">
 							<div class="form-group">
 								<input type="text" name="{{ref_regView.login_name.name}}" {% if ref_regView.login_name.value %} value="{{ref_regView.login_name.value}}" {% endif %} class="form-control" placeholder="Full name">
-							{% if ref_regView.login_name.errors %}<div class="">{{ ref_regView.login_name.errors }}</div>{% endif %}
+							{% if ref_regView.login_name.errors %}<small class="help-block">{{ ref_regView.login_name.errors }}</small>{% endif %}
 
 							</div>
 							<div class="form-group">
 								<input type="text" name="{{ref_regView.login_email.name}}" {% if ref_regView.login_email.value %} value="{{ref_regView.login_email.value}}" {% endif %} class="form-control" placeholder="Email address">
 								<span class="form-control-feedback fui-user"></span>
-							{% if ref_regView.login_email.errors %}<div class="">{{ ref_regView.login_email.errors }}</div>{% endif %}
+							{% if ref_regView.login_email.errors %}<small class="help-block">{{ ref_regView.login_email.errors }}</small>{% endif %}
 								
 							</div>
 							<div class="form-group">
 								<input type="password" name="{{ref_regView.login_password.name}}" {% if ref_regView.login_password.value %} value="{{ref_regView.login_password.value}}" {% endif %} class="form-control" placeholder="Password">
 								<span class="form-control-feedback fui-lock"></span>
-							{% if ref_regView.login_password.errors %}<div class="">{{ ref_regView.login_password.errors }}</div>{% endif %}
+							{% if ref_regView.login_password.errors %}<small class="help-block">{{ ref_regView.login_password.errors }}</small>{% endif %}
 							</div>
 							<div class="form-group">
 								<input type="password" name="{{ref_regView.login_password_conf.name}}" {% if ref_regView.login_password_conf.value %} value="{{ref_regView.login_password_conf.value}}" {% endif %} class="form-control" placeholder="Retype password">
 								<span class="form-control-feedback fui-lock"></span>
-							{% if ref_regView.login_password_conf.errors %}<div class="">{{ ref_regView.login_password_conf.errors }}</div>{% endif %}
+							{% if ref_regView.login_password_conf.errors %}<small class="help-block">{{ ref_regView.login_password_conf.errors }}</small>{% endif %}
 							</div>
 							<a class="btn btn-lg btn-success" href="#signup3" data-toggle="tab"> Next </a>
 							<a href="#loginModal" data-toggle="modal" class="text-center">I already have a membership</a>
@@ -121,7 +119,7 @@
 									  I agree with the Terms of Services
 								</label>
 								<button type="submit" class="btn btn-signup btn-lg">Sign me up</button>
-
+								<a href="#signup2" data-toggle="tab" class="btn btn-danger btn-lg">Back</a>
 								
 							</div>
 						</div>

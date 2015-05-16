@@ -1,4 +1,4 @@
-function distancePrice(unitPrice){
+function distancePrice(){
 	// Get the two locations geographical constants
 	var latitude_dep = document.querySelector('input[name="location_lat1"]').value
 	var longitude_dep = document.querySelector('input[name="location_lng1"]').value

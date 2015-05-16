@@ -10,7 +10,7 @@ class searchForm(forms.Form):
 class addForm(forms.Form):
     # first trip
     depDate = forms.DateField( input_formats=settings.DATE_INPUT_FORMATS)
-    arrivDate = forms.DateField( input_formats=settings.DATE_INPUT_FORMATS)
+    arrivDate = forms.DateField( input_formats=settings.DATE_INPUT_FORMATS, required=False)
     weightGood = forms.IntegerField()
     # backtrip
     depDate2 = forms.DateField( input_formats=settings.DATE_INPUT_FORMATS, required=False)
@@ -33,11 +33,9 @@ class addForm(forms.Form):
         if is_coming_back:
             msg = 'This field is required because you have roundtrip option selected'
             if not depart:
-                self.add_error('depDate2', msg)
-            if not arrival:
-                self.add_error('arrivDate2', msg)
+                self._errors['depDate2'] =  self.error_class([msg])
             if not weight:
-                self.add_error('weightGood2', msg)
+                self._errors['weightGood2'] = self.error_class([msg])
         return cleaned_data
         
 class requestForm(forms.Form):

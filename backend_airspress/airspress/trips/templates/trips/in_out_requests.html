@@ -68,7 +68,7 @@
 															<td class="text-center">
 																{{ v.pubdate }}
 															</td>
-															<td>{% firstof v.requester v.traveler}</td>
+															<td>{% firstof v.requester v.traveler %}</td>
 															<td class="text-center">{{ v.depDate }}</td>
 															<td class="text-right">{{ v.cityDep }}</td>
 															<td class="text-right">{{ v.cityArr }}</td>
@@ -85,8 +85,8 @@
 														</tr>
 														{% empty %}
 														<tr>
-														  <td style="height:15em;width:100%;margin:auto; display:block;">
-															<h2 style="font-size: 3em; position:absolute; top:50%; margin:0; margin-right:-50%; left:50%; transform:translate(-50%,-50%)">
+														  <td style="height:15em;width:100%;margin:auto; overflow:auto; display:block;">
+															<h2 style="font-size: 0.7em; max-width:100%; position:absolute; top:50%; margin:0; margin-right:-50%; left:50%; transform:translate(-50%,-50%)">
 															  {% if traveler %} You did not receive any requests yet. {% else %} You did not make any requests yet.{% endif %} 
 															</h2>
 														  </td>

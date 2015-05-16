@@ -15,11 +15,12 @@
 {% block jscript %}
 
 		<!-- scripts -->
-<script src="{% static 'account/js/scripts.js' %}"></script>
-<script src="{% static 'account/js/pace.min.js' %}"></script>
 <script type="text/javascript">$('.rating-stars').raty({ starType: 'i', score: function() {
     return $(this).attr('data-score');
-  }, readOnly: true });</script>
+  }, readOnly: true });</script>		
+<script src="{% static 'account/js/scripts.js' %}"></script>
+<script src="{% static 'account/js/pace.min.js' %}"></script>
+
  {% endblock jscript %}
 <!-- This block will contain everything that is not on the user sidebar: list of trips or trip details or other user profiles...etc -->
     {% block content %}
@@ -77,49 +78,74 @@
 	<div class="row">	
 		<div class="row">
 		{% for k, v in tripDict.items %}
-		<div class=" col-md-4 col-lg-4 trip-container">
-			<div class="thumbnail bootsnipp-thumb">
-			  <div class="row firstin">
-				<div class="col-md-4 col-lg-4 travelUser">
-						<a href="{% url 'account:profile' v.travelerUser %}"> <img class="img-circle" alt="" src="{{v.pPicture}}" style="width: 80px; height: 80px;">
-							  <span style="overflow:hidden;">{{v.travelerUser}}</span>
-						</a>
-						<div class="rating-stars" data-score="{{v.travelerRating}}"></div>
-					
-						</div>
-						<div class="col-md-8 twodates pull-right">
-						<ul> 
-								<li><i class="fa fa-map-marker">&nbsp;</i><strong class="fromCity">{{ v.oriLocation.city }}<span class="country">, {{ v.oriLocation.country }}</span></strong></li> 
-								<li class="linediv"><span><i class="fa fa-plane fa-rotate-180"></i></span></li>
-								<li><i class="fa fa-map-marker">&nbsp;</i><strong class="toCity">{{ v.destLocation.city }}<span class="country">, {{ v.destLocation.country }}</span></strong></li>
-								
-						</ul>
-						</div>
-						</div>
-						<div class="row">
-						<div class="col-md-7 price-details"> 
-								<p class="unit-price"> <strong><span class="greater">{{ v.unit_price }} $</span> per Kg</strong> <i class="fa fa-cube"></i></p>
-							</div>
-						<div style="text-align:center" class="col-md-5">
-								<li style="list-style:none; margin:auto;" class="date">
-									 <div class="calendar event_date"> 
-									<span class="month">{{ v.departDate.month }}</span> 
-									<span class="day">{{ v.departDate.day }}</span> 
+				<div class=" col-sm-6 col-md-4 col-lg-4 trip-container">
+					<div class="thumbnail bootsnipp-thumb">
+						<div class="row firstin">
+							<div class="row">
+								<div class="col-sm-12 col-md-4 col-lg-4 travelUser">
+									<a href="{% url 'account:profile' v.travelerUser %}"> <img class="img-circle" alt="" src="{{v.pPicture}}" style="width: 80px; height: 80px;">
+										  <span style="overflow:hidden;">{{ v.travelerUser|truncatechars:9 }}</span>
+									</a>
+									<div class="rating-stars" data-score="{{v.travelerRating}}" >
 									</div>
-							   </li>
-						</div>	
+								</div>	
+								<div class="col-sm-12 col-md-8 twodates">
+									<div class="row">
+										<div class="col-md-12">						
+											<ul> 
+												<li>
+													<i class="fa fa-map-marker" style="font-size: 1em;">&nbsp;</i>
+													<strong class="fromCity">{{ v.oriLocation.city }}<span class="country">, {{ v.oriLocation.country }}</span></strong>
+												</li> 
+												
+												<li>
+													<i class="fa fa-map-marker">&nbsp;</i>
+													<strong class="toCity">{{ v.destLocation.city }}<span class="country">, {{ v.destLocation.country }}</span></strong>
+												</li>
+																		
+											</ul>
+										</div>
+									</div>
+															
+								</div>
+							</div>
+							
+							<div class="row">
+									<div class="col-md-12">											
+										<div style="" class="col-xs-4 col-sm-4 col-md-4">
+											<li style="list-style:none; " class="date">
+												 <div class="calendar event_date"> 
+												<span class="month">{{ v.departDate.month|truncatechars:3 }}</span> 
+												<span class="day">{{ v.departDate.day }}</span> 
+												</div>
+										   </li>
+										</div>
+										<div class="col-xs-4 col-sm-4 col-md-4 price-details"> 
+															<p class="unit-price"> <strong><span class="greater">{{ v.unit_price }} $</span> per Kg</strong> <i class="fa fa-cube"></i></p>
+										</div>
+									<!-- Prices and buttons -->
+										<div class="col-xs-4 col-md-4">		
+											<p class=" col-md-12 available" ">
+												<i class="fa fa-suitcase">&nbsp;</i> <strong class="greater">{{v.available}}</strong> /{{v.total}} Available
+											</p>
+										
+										</div>	
+												
+									</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-12 col-md-12">
+											<p>
+											<a href="{% url 'trips:request' v.tripId %}" data-target="#modal" class="btn btn-primary btn-embossed btn-sm btn-block modal-trigger">Request</a>
+											</p>
+														
+								</div>
+
+							</div>
 						</div>
-					
-						<!-- Prices and buttons -->
-					<div class="row">	
-						<p class=" col-md-7 available"><i class="fa fa-suitcase">&nbsp;</i> <strong class="greater">{{v.available}}</strong> /{{v.total}} Available</p>
-						<div class="col-md-5 pull-right">
-							<p><a href="{% url 'trips:request' v.tripId %}" data-target="#modal" class="btn btn-primary btn-embossed btn-sm btn-block modal-trigger">Request</a></p>
-						</div>
-						
-					</div>
 					</div>	
-					</div>
+				</div>	
+					
 			
 		{% if forloop.counter|divisibleby:3 %} 
 			</div>

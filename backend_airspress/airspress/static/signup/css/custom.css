@@ -6,6 +6,9 @@ html,body
     height:100%;
 }
 body{background-color: rgba(0,0,0,0.03);}
+h1{font-size:2.2em;}
+h2{font-size:1.8em}
+h3{font-size:1.6em}
 .navbar-static-top{position:fixed;right:0;left:0; background-color:#e7962e; height:50px;border-bottom: 1px solid #ddd;
 box-shadow: 0 3px 2px -2px rgba(200,200,200,0.3);
 }
@@ -29,13 +32,14 @@ div.modal-dialog.modal-sm{height:350px}
 .board-right{float:right;width:20%;}
 
 ul{list-style-type:none;}
-.btn-search{margin-top:10px}
+
+/* trip listings */
 .travelUser{text-align:center; }
-.travelUser span{display:block; text-align:center}
+.travelUser span{display:inline-block; text-align:center}
 .firstin .travelUser img{background-image:url("../img/imgnofound.gif"); background-size:100% 100%;}
 .pull-right{margin-bottom:15px;}
 .errorlist{font-size:9px; margin:0;margin-top:5px;color:red;}
-.twodates{overflow:hidden; padding-left:0;padding-right:0;width:63%;}
+.twodates{overflow:hidden; padding-left:0;padding-right:0;}
 .twodates ul{padding-left:5px;}
 .twodates p{margin-bottom:0;}
 .twodates .col-md-6{padding-right:0;}
@@ -44,8 +48,10 @@ ul{list-style-type:none;}
 	margin-left:0;
 }
 .price-details{overflow:auto;}
-p.unit-price{text-align:center; padding-top:15%; font-family: Museo-500; font-size:14px; color:green;}
+p.unit-price{text-align:center; font-family: Museo-500; font-size:14px; color:green;}
 div.caption{padding-right:5px;}
+/* form search trip */
+.btn-search{margin-top:10px}
 .format-add-trip{margin-left:150px;}
 .form-add-trip .form-group {padding-top:30px;}
 .form-req-trip .help-block {margin-bottom:0;}
@@ -54,6 +60,7 @@ div.caption{padding-right:5px;}
 form .comment{width:80%;}
 .form-add-trip .form-group .input-group{width:90%;}
 .form-add-trip .fa {font-size:14px;}
+#search_form label h2{font-family:'Museo-500'; font-weight:bold;}
 /* Navbar */
 a.navbar-brand{margin-left:50px;}
 nav.navbar-static-top .container{width:100%; margin-right:0; padding-left:0;}
@@ -74,9 +81,8 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3c3c3c', en
 filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 background-repeat: repeat-x;
 }
-/* Navbar */
-#header-navbar .nav.navbar-nav  li:hover, li:active, li:focus{background-color:#d28206; color:#fff;}
-#header-navbar .nav.navbar-nav  li  a:hover, a:active, a:focus{background-color:#d28206; color:#fff;}
+#header-navbar .nav.navbar-nav  li:hover, #header-navbar .nav.navbar-nav  li:active,#header-navbar .nav.navbar-nav  li:focus{background-color:#d28206; color:#fff;}
+#header-navbar .nav.navbar-nav  li  a:hover, #header-navbar .nav.navbar-nav  a:active, #header-navbar .nav.navbar-nav  a:focus{background-color:#d28206; color:#fff;}
 /* Dropdown Menu */
 #header-navbar .nav.navbar-nav > li > a{color:#fff}
 #header-navbar .dropdown-menu > li > a{color:#e81}
@@ -93,9 +99,6 @@ border-radius: 3px;}
 .modal-body .footer{text-align:center}
 .btn.btn-signup{background-color:#E89C39;border-color:#e58811;color:#f9f9f9; display:block; margin-left:auto; margin-right:auto;}
 .alert{padding:5px;margin-top:5px;padding-left:15px;padding-right:25px;}
-/* Forms */
-#search_form label h2{font-family:'Museo-500'; font-weight:bold;}
-
 
 /* tabs */
 .nav.nav-tabs > li > a{color:#fff;}
@@ -116,9 +119,61 @@ h1,h2,h3,h4,h6,header{font-family:'Museo-500'}
 ul.dropdown-menu i.fa{font-size:1.1em;}
 .fa.small{font-size:83%}
 .fa.fa-times{font: 14px/1 FontAwesome; color:white;}
-
+/* images */
+#user-profile  .main-box-body .profile-img{max-width:80%;}
 
 /* media queries */
+@media screen and (max-width: 950px) {
+ul.dropdown-menu i{font-size:1.1em;}
+ul.dropdown-menu i.fa{font-size:0.7em;}
+ul.dropdown-menu span.glyphicon{font-size:0.7em}
+}
+@media (max-width: 768px) {
+.navbar-nav>li.open>.dropdown-menu{margin-left:-200%;}
+}
+@media screen and (max-width: 400px) {
+.navbar-nav>li.open>.dropdown-menu{margin-left:-200%;}
+
+}
+@media (max-width: 320px){
+#logo img{
+margin-left: auto;
+margin-right: auto;
+display: block !important;
+float: none !important;
+}
+#logo {
+width: 100% !important;
+margin-left: 15px;
+float: none !important;
+display: block !important;
+}
+#header-nav{
+float: none !important;
+}
+#header-nav ul.navbar.navbar-right{
+width: 100% !important;
+float: none !important;
+display: block !important;
+margin-left: auto !important;
+margin-right: auto !important;
+}
+}
+@media (max-width: 774px){
+.col-md-4 .main-box{position:relative !important;}
+.row.firstin .twodates{
+float: none !important;
+margin-left: auto;
+margin-right: auto;
+}
+.row.firstin .twodates li {
+text-align:center;
+width:100%;
+}
+}
+
+
+/* UNUSED */
 @media (min-width: 768px){
 /*!
  * This code partly reuse : The Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
@@ -254,4 +309,4 @@ li span{font-size: 30px;}
 /* media queries END ! */
 p.errors{margin:0;}
 
-/* custom.css */
+/* file end custom.css */

@@ -1,6 +1,7 @@
 {% extends "trips/account_base.html" %}
 
 {% load staticfiles %}
+{% load compress %}
 <!-- We include base template for account related pages. And we fill the blocks -->
 {% block title %} {% firstof userinfo.screen_name userinfo.username %}{% endblock title %}
 <!-- We load the Autocomplete widget by setting onload attribute -->
@@ -27,30 +28,33 @@
 {% endblock stylesheet_uncomp %}
 
 {% block jscript %} 
-
+	<script>
+		// Display Conversation On Profile Page											  
+								function displayChat() {document.getElementById("displayChat").click();
+														$('#navtab-chat').removeClass("hidden");
+														
+														document.getElementById("WrapperConversation1").scrollIntoView(false);
+								};
+								
+	</script>
 	
 	<!-- this page specific scripts -->
 	<script src="{% static 'account/js/jquery.slimscroll.min.js' %}"></script>
 	<script src="{% static 'account/js/jquery.magnific-popup.min.js' %}"></script>
-	
+	{% compress js %}
 	<!-- scripts -->
+	{% include 'account/script_firebase.html' %} 
 	<script src="{% static 'account/js/scripts.js' %}"></script>
 	<script src="{% static 'account/js/pace.min.js' %}"></script>
 	
-<script type="text/javascript">$('.rating-stars').raty({ starType: 'i', score: function() {
+	<script type="text/javascript">$('.rating-stars').raty({ starType: 'i', score: function() {
 																				return $(this).attr('data-score');
 																			  }, readOnly: true });
-							// Display Conversation On Profile Page											  
-							function displayChat() {document.getElementById("displayChat").click();
-													$('#navtab-chat').removeClass("hidden");
-													
-													document.getElementById("WrapperConversation1").scrollIntoView(false);
-							};
-  </script> 
-  
+	</script> 
+	{% endcompress %}
  {% endblock jscript %}
  
- {% block head_jscript %} {% include 'account/script_firebase.html' %} {% endblock %}
+ {% block head_jscript %}  {% endblock %}
 {% block head_jscript_uncomp %} <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script> {% endblock %}
 
 <!-- This block will contain everything that is not on the user sidebar: list of trips or trip details or other user profiles...etc -->
@@ -61,7 +65,7 @@
 				<div class="row" id="user-profile">
 								<div class="col-lg-3 col-md-4 col-sm-4">
 									<div class="main-box clearfix">
-										<header class="main-box-header clearfix">
+										<header style="overflow:hidden" class="main-box-header clearfix">
 											<h2>{% firstof userinfo.screen_name userinfo.username %}</h2>
 										</header>
 										
@@ -70,7 +74,7 @@
 												{% if userinfo.is_verified %} <i class="fa fa-check small"></i> Verified {% else %} <i style="color:red;" class="fa fa-times small"></i>  Not Verified {% endif %}
 											</div>
 											{% if userinfo.pPicture %}
-											<img alt="User Pic" src="{{ userinfo.pPicture }}" class="profile-img img-responsive center-block">
+											<img alt="User Pic" style="max-width:80%" src="{{ userinfo.pPicture }}" class="profile-img img-responsive center-block">
 											{% else %}
 											<img alt="User Pic" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="profile-img img-responsive center-block">
 											{% endif %}
@@ -138,6 +142,7 @@
 													<div class="table-responsive">
 														<table class="table">
 															<tbody>
+															{% if userinfo.trips %}
 																<tr>
 																	<td class="text-center">
 																		<i class="fa fa-comment"></i>
@@ -195,7 +200,16 @@
 																		2014/08/08 12:08
 																	</td>
 																</tr>
+																{% else %}
+																<tr>
+																  <td style="height:15em;width:100%;margin:auto; display:block;">
+																	<h2 style="font-size: 1em; position:absolute; top:50%; margin:0; margin-right:-50%; left:50%; transform:translate(-50%,-50%)">
+																	   Still Building This Section, Guys...
+																	</h2>
+																  </td>
+																</tr>
 																
+																{% endif %}
 															</tbody>
 														</table>
 													</div>

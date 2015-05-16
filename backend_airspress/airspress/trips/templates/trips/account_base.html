@@ -8,6 +8,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+    <!-- all favicons -->
+	<link rel="shortcut icon" href="{% static 'signup/favicons/favicon.ico' %}">
+	<link rel="icon" sizes="16x16 32x32 64x64" href="{% static 'signup/favicons/favicon.ico' %}">
+	<link rel="icon" type="image/png" sizes="196x196" href="{% static 'signup/favicons/favicon-192.png' %}">
+	<link rel="icon" type="image/png" sizes="160x160" href="{% static 'signup/favicons/favicon-160.png' %}">
+	<link rel="icon" type="image/png" sizes="96x96" href="{% static 'signup/favicons/favicon-96.png' %}">
+	<link rel="icon" type="image/png" sizes="64x64" href="{% static 'signup/favicons/favicon-64.png' %}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'signup/favicons/favicon-32.png' %}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'signup/favicons/favicon-16.png' %}">
+	<link rel="apple-touch-icon" href="{% static 'signup/favicons/favicon-57.png' %}">
+	<link rel="apple-touch-icon" sizes="114x114" href="{% static 'signup/favicons/favicon-114.png' %}">
+	<link rel="apple-touch-icon" sizes="72x72" href="{% static 'signup/favicons/favicon-72.png' %}">
+	<link rel="apple-touch-icon" sizes="144x144" href="{% static 'signup/favicons/favicon-144.png' %}">
+	<link rel="apple-touch-icon" sizes="60x60" href="{% static 'signup/favicons/favicon-60.png' %}">
+	<link rel="apple-touch-icon" sizes="120x120" href="{% static 'signup/favicons/favicon-120.png' %}">
+	<link rel="apple-touch-icon" sizes="76x76" href="{% static 'signup/favicons/favicon-76.png' %}">
+	<link rel="apple-touch-icon" sizes="152x152" href="{% static 'signup/favicons/favicon-152.png' %}">
+	<link rel="apple-touch-icon" sizes="180x180" href="{% static 'signup/favicons/favicon-180.png' %}">
+	<meta name="msapplication-TileColor" content="#FFFFFF">
+	<meta name="msapplication-TileImage" content="{% static 'signup/favicons/favicon-144.png' %}">
+	<meta name="msapplication-config" content="{% static 'signup/favicons/browserconfig.xml' %}">
+	<!-- all favicons END -->
+
 	{% compress css %}
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/bootstrap.min.css' %}" />
 	{% endcompress %}
@@ -50,16 +73,12 @@
 <div id="theme-wrapper">
     <header style="background-color:#e82;" class="navbar" id="header-navbar">
 			<div class="container">
-				<a style="background-color:#e82" href="/trips/" id="logo" class="navbar-brand">
-					<img src="{% static 'signup/img/mini-logo.png' %}" alt="AirSpress" title="Ship for Cheap" class="normal-logo logo-white"/>
+				<a style="background-color:#e82; width:1.5em" href="/trips/" id="logo" class="navbar-brand">
+					<img src="{% static 'signup/img/mini-logo.png' %}" alt="AirSpress" title="Ship for Cheap" style="display:flex;" class="hidden-sm normal-logo logo-white"/>
 					
 				</a>
 				
 				<div class="clearfix">
-				<button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="fa fa-bars"></span>
-				</button>
 				<div style="margin-bottom: 0;" class="nav-no-collapse pull-right" id="header-nav">
 					<ul style="margin-bottom: 0;" class="nav navbar-nav pull-right">
 						<li>
@@ -74,7 +93,7 @@
 						</li>
 						<li class="dropdown profile-dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<img src="{{myPicture}}" alt=""/>
+								<img src="{{myPicture}}" alt="" />
 								<span class="hidden-xs">{{greetings}}</span> <b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu brand-color">
@@ -132,6 +151,16 @@
 
 	<script type="text/javascript" src="{% static 'account/js/flat-ui.min.js' %}"></script>
 	<script src="{% static 'account/js/jquery.nanoscroller.min.js' %}"></script>
+	<script src="{% static 'signup/js/flowtype.js' %}"></script>
+	<script type="text/javascript">
+		$('body').flowtype({
+			 minimum   : 250,
+			 maximum   : 1200,
+			 minFont   : 12,
+			 maxFont   : 20,
+			 fontRatio : 30
+			});
+	</script>
 	<script type="text/javascript" src="{% static 'signup/js/sidebar.js' %}"></script>
 	<script type="text/javascript" src="{% static 'signup/js/bootstrap-datepicker.js' %}"></script>
 	<script type="text/javascript" src="{% static 'account/js/jquery.raty.js' %}"></script>
@@ -142,14 +171,14 @@
 	  orientation: 'top'
     });
 	</script>
-	<script type="text/javascript" src="{% static 'signup/js/citySearch.js' %}"></script>
-	<script type="text/javascript" src="{% static 'signup/js/currencySel.js' %}"></script>
 	{% block jscript %} 
 	
 		<!-- scripts -->
-	<script src="{% static 'account/js/scripts.js' %}"></script>
-	<script src="{% static 'account/js/pace.min.js' %}"></script>
+		<script src="{% static 'account/js/scripts.js' %}"></script>
+		<script src="{% static 'account/js/pace.min.js' %}"></script>
 	{% endblock jscript %}
+	<script type="text/javascript" src="{% static 'signup/js/citySearch.js' %}"></script>
+	<script type="text/javascript" src="{% static 'signup/js/currencySel.js' %}"></script>
 
 	<script>
 	 $(document).ready(function(){

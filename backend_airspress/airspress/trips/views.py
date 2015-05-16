@@ -8,6 +8,7 @@ from trips.forms import searchForm, requestForm
 from string import split
 from account.actions import get_profile_pic
 from datetime import datetime
+from django.utils import timezone
 
 
 def fbPicture(request):
@@ -20,7 +21,7 @@ def activeTrips(request):
     cUser = is_logged_in(request)
     if cUser:
         myPicture = fbPicture(request) or get_profile_pic(cUser.objectId)
-        allTrips = trip.Query.filter(departureDate__gte=datetime.now()).order_by("-createdAt")
+        allTrips = trip.Query.filter(departureDate__gte=timezone.now()).order_by("-createdAt")
         page_one = allTrips.limit(10)
         k = 0
         tripDict = {}

@@ -246,7 +246,8 @@ border-color: #FD9D09;
 
 /* Blue Section - Picton */
 #picton {
-	background: #59ABE3;
+	/*background: #59ABE3;*/
+	background:#e57100;
 	width: 100%;
 	padding-top: 100px;
 	padding-bottom: 100px;
@@ -264,7 +265,8 @@ border-color: #FD9D09;
 
 /* Blue Section - Curious */
 #curious {
-	background: #3498DB;
+	/* background: #3498DB; */
+	background: #DB9934;
 	width: 100%;
 	padding-top: 100px;
 	padding-bottom: 100px;
@@ -397,4 +399,93 @@ row.nopadding h1,h2,h3,h4{font-family:'Museo-500';}
 #c p {
 	color: white;
 	font-size: 13px;
+}
+/* Forms */
+.errorlist{font-size:9px; margin:0;margin-top:5px;color:red;list-style: none;
+display: inline;
+}
+@media (min-width: 774px){
+.login-form  .form-group{
+min-width: 260px;
+margin-left: -16px;
+margin-right: auto;
+}
+.login-form  .form-group input{
+margin-left: auto !important;
+margin-right: auto !important;
+width:250px;
+}
+.modal-content{
+font-size:18px !important;
+
+}
+}
+/* Password Meter */
+#pwindicator {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  width: 150px;
+}
+
+.pwdindicator .bar {
+  height: 4px;
+}
+.pwdindicator.pw-very-weak .bar {
+  background: #fb241f;
+  width: 30px;
+}
+.pwdindicator.pw-very-weak .pwdstrength-label {
+  color: #fb241f;
+}
+.pwdindicator.pw-weak .bar {
+  background: #e74c3c;
+  width: 60px;
+}
+.pwdindicator.pw-weak .pwdstrength-label {
+  color: #e74c3c;
+}
+.pwdindicator.pw-mediocre .bar {
+  background: #f1c40f;
+  width: 90px;
+}
+.pwdindicator.pw-mediocre .pwdstrength-label {
+  color: #f1c40f;
+}
+.pwdindicator.pw-strong .bar {
+  background: #f3b31a;
+  width: 120px;
+}
+.pwdindicator.pw-strong .pwdstrength-label {
+  color: #f3b31a;
+}
+.pwdindicator.pw-very-strong .bar {
+  background: #2ecc71;
+  width: 150px;
+}
+.pwdindicator.pw-very-strong .pwdstrength-label {
+  color: #2ecc71;
+}
+
+
+/* Media Queries */
+@media screen and (max-width: 950px) {
+img{width:2.5em;}
+#homepage .row.nopadding img{width:10em;}
+#homepage .navbar-brand{float:none;}
+#homepage .navbar-brand img{
+margin-left: auto;
+margin-right: auto;
+}
+h1{font-size:2.2em;}
+h2{font-size:1.8em}
+h3{font-size:1.6em}
+#h h1{font-size:2.2em}
+#homepage .btn-register{
+float: none;
+display:block;
+position: relative;
+margin-left: auto;
+margin-top: -2%;
+margin-right: auto;
+}
 }

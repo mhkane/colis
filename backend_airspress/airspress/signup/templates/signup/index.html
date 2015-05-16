@@ -6,12 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="assets/img/favicon.ico">
+	{% load staticfiles %}
+    <!-- all favicons -->
+	<link rel="shortcut icon" href="{% static 'signup/favicons/favicon.ico' %}">
+	<link rel="icon" sizes="16x16 32x32 64x64" href="{% static 'signup/favicons/favicon.ico' %}">
+	<link rel="icon" type="image/png" sizes="196x196" href="{% static 'signup/favicons/favicon-192.png' %}">
+	<link rel="icon" type="image/png" sizes="160x160" href="{% static 'signup/favicons/favicon-160.png' %}">
+	<link rel="icon" type="image/png" sizes="96x96" href="{% static 'signup/favicons/favicon-96.png' %}">
+	<link rel="icon" type="image/png" sizes="64x64" href="{% static 'signup/favicons/favicon-64.png' %}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'signup/favicons/favicon-32.png' %}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'signup/favicons/favicon-16.png' %}">
+	<link rel="apple-touch-icon" href="{% static 'signup/favicons/favicon-57.png' %}">
+	<link rel="apple-touch-icon" sizes="114x114" href="{% static 'signup/favicons/favicon-114.png' %}">
+	<link rel="apple-touch-icon" sizes="72x72" href="{% static 'signup/favicons/favicon-72.png' %}">
+	<link rel="apple-touch-icon" sizes="144x144" href="{% static 'signup/favicons/favicon-144.png' %}">
+	<link rel="apple-touch-icon" sizes="60x60" href="{% static 'signup/favicons/favicon-60.png' %}">
+	<link rel="apple-touch-icon" sizes="120x120" href="{% static 'signup/favicons/favicon-120.png' %}">
+	<link rel="apple-touch-icon" sizes="76x76" href="{% static 'signup/favicons/favicon-76.png' %}">
+	<link rel="apple-touch-icon" sizes="152x152" href="{% static 'signup/favicons/favicon-152.png' %}">
+	<link rel="apple-touch-icon" sizes="180x180" href="{% static 'signup/favicons/favicon-180.png' %}">
+	<meta name="msapplication-TileColor" content="#FFFFFF">
+	<meta name="msapplication-TileImage" content="{% static 'signup/favicons/favicon-144.png' %}">
+	<meta name="msapplication-config" content="{% static 'signup/favicons/browserconfig.xml' %}">
+	<!-- all favicons END -->
 
         <title>AirSpress- Peer-to-Peer Delivery Service</title>
 
 		<!-- Core -->
-	{% load staticfiles %}
+	
 	{% load compress %}
 	{% compress css %}
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/bootstrap.min.css' %}" />
@@ -27,8 +49,7 @@
     <link type="text/css" href="{% static 'signup/css/custom-animations.css' %}" rel="stylesheet"/>
     <link type="text/css" href="{% static 'signup/css/style.css' %}" rel="stylesheet"/>
 	{% endcompress %}
-    <!-- JQuery -->
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    
 
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -38,13 +59,13 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body id="homepage">
 
 	<! -- ********** HEADER ********** -->
 	<div id="h">
 		<div class="container">
 			<div class="row">
-				<a class="navbar-brand page-scroll" href="#page-top"><img src="{% static 'signup/img/logo-bright.png' %}" alt="AirSpress"></a>
+				<a class="navbar-brand page-scroll" href="#page-top"><img style="max-width:2.5em;" src="{% static 'signup/img/logo-bright.png' %}" alt="AirSpress"></a>
 			    <li><button class="btn btn-lg btn-info btn-register btn-embossed" href="#" data-toggle="modal" data-target=".bs-modal-sm" style="font-weight:bold; width:100px; font-family:'Museo-500';">Login</button></li>
 			    <div class="col-md-10 col-md-offset-1 mt">
 			    	<h3>LET'S SHOP</h3>
@@ -65,12 +86,12 @@
 				<h4>The end of high shipping costs</h4>
 				<p>Have you ever thought of acquiring any item which is hard to obtain in your country of residence ?</p>
 				<p>You probably didn’t buy it given the high cost of international shipping.</p>
-				<p>With Airspress, we designed a platform which will enable us to reduce the cost of international shipping, together.</p>
+				<p>With Airspress, we designed a platform which will enable us, together, to reduce the cost of international shipping.</p>
 				
 			</div>
 			
 			<div class="col-md-6 pull-right">
-				<img src="{% static 'signup/img/typical_airspresser.png' %}" style="max-width:30em" class="img-responsive alignright" alt="" data-effect="slide-right">
+				<img src="{% static 'signup/img/typical_airspresser.png' %}" style="max-width:20em" class="img-responsive alignright" alt="" data-effect="slide-right">
 			</div>
 		</div><! --/row -->
 	</div><! --/container -->
@@ -80,13 +101,13 @@
 	<div id="picton">
 		<div class="row nopadding">
 			<div class="col-md-6 pull-left">
-				<img src="{% static 'signup/img/peace.png' %}" class="img-responsive alignleft" alt="" data-effect="slide-left">
+				<img src="{% static 'signup/img/peace.png' %}" style="max-width:20em" class="img-responsive alignleft" alt="" data-effect="slide-left">
 			</div>
 			<div class="col-md-5 mt">
 				<h4>Simple and effective</h4>
 				<p>As a buyer, you can place orders with travelers.</p>
-				<p>As a traveler, Airspress will allow you to publish your trip information and be put in touch</p>
-				<p>with people interested in placing orders with you in order to monetize the free space in your luggage.</p>
+				<p>As a traveler, Airspress will allow you to publish your trip information and be put in touch 
+				with people interested in placing orders with you in order to monetize the free space in your luggage.</p>
 				
 			</div>
 	
@@ -100,13 +121,13 @@
 			<div class="col-md-5 col-md-offset-1 mt">
 				<h4>A whole opportunity...</h4>
 				<p>We are a peer-to-peer ordering platform harnessing the flow of travelers</p>
-				<p>in order to simplify the process of acquiring items unavailable where you live.</p>
-				<p>With Airspress, your trips visibility will increase and	you will be able to better manage your orders</p>
-				<p>and shopping commodities sold in other countries will become far easier and less onerous.</p>
+				<p>in order to simplify the process of acquiring any items unavailable where you live. Or just any item.</p>
+				<p>With Airspress, your trips visibility will increase and	you will be able to better any friends, relatives and now Airspress community people orders.</p>
+				<p>And shopping commodities sold in other countries will become far easier and less onerous.</p>
 			</div>
 			
 			<div class="col-md-6 pull-right">
-				<img src="assets/img/shot03.png" class="img-responsive alignright" alt="" data-effect="slide-right">
+				<!-- <img src="assets/img/shot03.png" class="img-responsive alignright" alt="" data-effect="slide-right"> -->
 			</div>
 		</div><! --/row -->
 	</div><! --/curious -->
@@ -119,7 +140,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2 centered">
-					<h4 class="mb">This a pilot version. Invite us to your school</h4>
+					<h4 class="mb">This a pilot version. Invite us in your school</h4>
 				
 				</div>
 
@@ -162,17 +183,50 @@
 <div class="modal fade bs-modal-sm" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
 		{% include "signup/signin_ajx.html" %}
 	 </div>
+	 <!-- JQuery -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	 {% compress js %} 
 	 <script type="text/javascript" src="{% static 'account/js/flat-ui.min.js' %}"></script>
 	 {% endcompress %}
+	<script src="{% static 'signup/js/flowtype.js' %}"></script>
+	<script type="text/javascript">
+		$('body').flowtype({
+			 minimum   : 250,
+			 maximum   : 1200,
+			 minFont   : 11,
+			 maxFont   : 35,
+			 fontRatio : 30
+			});
+	</script>
 	{% compress js %} 
 	 <script src="{% static 'signup/js/modal-auth.js' %}"></script>
 	 <script src="{% static 'signup/js/jquery.pwstrength.js' %}"></script>
 	 <script type="text/javascript">
+		function checkForm(){
+			event.preventDefault();
+			var box = document.getElementById("checkbox1");
+			if (box.checked){
+				var state = true;
+				document.getElementById("checkbox1").value = state;
+				var form = document.getElementById("signupForm");
+				ajaxSend(form);
+			} else {
+				alert('You must accept the Terms and Conditions.');
+			}
+			calForce();
+		}	
+		document.getElementById("signupButton").onclick = checkForm;
 		  //password strength meter
+		function calForce(){  
 				$('#InputPassword1').pwstrength({
 					label: '.pwdstrength-label'
 				});
+		}
+		$('document').ready(function(){
+			// anything you need to initialize goes here
+			calForce();
+		
+		});	
 	 </script> 
 	 {% block homepage_js %}
 	 

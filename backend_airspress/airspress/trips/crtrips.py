@@ -8,6 +8,7 @@ from moneyed.classes import Money
 from string import split
 from signup.backend_parse import Item
 from decimal import Decimal
+from parse_rest.query import QueryResourceDoesNotExist
 register(settings.APPLICATION_ID, settings.REST_API_KEY)#settings.REST_API_KEY
 from parse_rest.datatypes import Object as ParseObject
 from parse_rest.user import User
@@ -110,13 +111,13 @@ def tripCreate(request, cUser, addView):
     cityArr = addView.cleaned_data['cityArr']
     cityDep = addView.cleaned_data['cityDep']
     depDate = addView.cleaned_data['depDate']
-    arrivDate = addView.cleaned_data['arrivDate']
+    arrivDate = depDate
     weightGood = addView.cleaned_data['weightGood']
     distance = addView.cleaned_data['distance']  #must be evaluated with another form field
     unitPrice = addView.cleaned_data['unit_price']#priceCalc(weightGood, distance)
     customPrice = addView.cleaned_data['custom_price']
     if customPrice:
-        unitPrice = customPrice
+        unitPrice =str(customPrice)
     else :
         unitPrice = unit_price_calc(distance)
             
@@ -135,10 +136,17 @@ def tripCreate(request, cUser, addView):
         new_trips = []
         for k in range(len(dep_dates)-1):
             try:
+                depDate = dep_dates[k]
+                arrivDate = arriv_dates[k]
+                weightGood = weight_goods[k]
+            except:
+                pass     
+            try:
                 new_trips[k] = trip(departureDate = depDate, arrivalDate = arrivDate, fromLocation = cityDep, 
                             toLocation = cityArr, availCapacity = weightGood, totalCapacity=weightGood, unitPriceUsd = unitPrice)
                 new_trips[k].traveler = User.Query.get(objectId=cUser.objectId)
-            except AttributeError:
+                new_trips[k].save()
+            except (AttributeError, KeyError):
                 pass
         batcher = ParseBatcher()
         if new_trips:
@@ -176,15 +184,19 @@ def tripCreate(request, cUser, addView):
 
 def tripRequest(cUser, reqView, key):
     alert={}
-    tripnow = trip.Query.get(objectId=key)
-    numReq = trequests.Query.filter(Requester=cUser, tripId=tripnow).count()
+    had_requested = False
+    try:
+        tripnow = trip.Query.get(objectId=key)
+        had_requested = trequests.Query.get(Requester=cUser, tripId=tripnow)
+    except (QueryResourceDoesNotExist):
+        pass
     print numReq#remove
     try:
         if cUser.objectId == tripnow.traveler.objectId:
             alert['text'] = "Buddy, you can't own the penthouse and lease it to yourself, yeah ? =D !"
             alert['type'] = "warning"
             return alert
-        elif numReq>0:
+        elif had_requested:
             alert['text'] = "You can't request more than once ;)"
             alert['type'] = "warning"
             return alert     
@@ -249,11 +261,10 @@ def unit_price_calc(distance):
             prices = groups[-1]
             break
     price = str(Money(amount=price,currency='USD'))
-    for string in price:
-        if not string.isnumeric():
-            price.remove(string)
+    digit_list = [digit for digit in price if digit.isdigit() or digit == '.']
+    price = ''.join(digit_list)
     try:
         price = Decimal(price)
     except:
         price = 0        
-    return price
+    return str(price)

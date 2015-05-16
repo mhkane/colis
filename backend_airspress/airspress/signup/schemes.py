@@ -9,8 +9,6 @@ from django.utils import timezone
 #register to Parse
 register(settings.APPLICATION_ID, settings.REST_API_KEY, master_key=settings.MASTER_KEY)#settings.REST_API_KEY
 #from parse_rest.connection import ParseBatcher
-# Object Alias to differentiate from python objects
-from parse_rest.datatypes import Object as ParseObject
 #We override Django User class
 from parse_rest.user import User as ParseUser
 
@@ -116,7 +114,7 @@ def re_validation(registerView, provider_name, referral_id=''):
         
     else:
         alert={'type':'warning','text':'You should use an "'+domain_mail+'" email address'}
-
+    print alert    
     return alert
 
 def sign_in(request, login_dic=None, loginView=None, provider_name='student'):
@@ -191,7 +189,7 @@ def change_password(new_password, userid):
     return result
 
     
-import airspress.settings
+
 def verify_email(userid):
     import json,httplib
     connection = httplib.HTTPSConnection('api.parse.com', 443)
@@ -214,6 +212,7 @@ def save_user_pic( account, fbId=None, filepath=None, filetype='image/jpeg', fil
     and associate it with an User. Needs some revamping so we can upload pics
     in messages and requests as well.
     '''
+    from airspress.settings import APPLICATION_ID, REST_API_KEY
     import urllib2
     import httplib
     import json
@@ -231,8 +230,8 @@ def save_user_pic( account, fbId=None, filepath=None, filetype='image/jpeg', fil
         connection.request('POST', '/1/files/pic1.'+str(filext), 
            urllib2.urlopen(urlpic).read(), 
             {
-             "X-Parse-Application-Id": airspress.settings.APPLICATION_ID,
-               "X-Parse-REST-API-Key": airspress.settings.REST_API_KEY, 
+             "X-Parse-Application-Id": APPLICATION_ID,
+               "X-Parse-REST-API-Key": REST_API_KEY, 
                 "Content-Type": str(filetype)
              })
         picture = json.loads(connection.getresponse().read())
@@ -243,8 +242,8 @@ def save_user_pic( account, fbId=None, filepath=None, filetype='image/jpeg', fil
         connection.request('POST', '/1/files/pic1.'+str(filext), 
         open(filepath,'rb').read(), 
         {
-         "X-Parse-Application-Id": airspress.settings.APPLICATION_ID,
-           "X-Parse-REST-API-Key": airspress.settings.REST_API_KEY, 
+         "X-Parse-Application-Id": APPLICATION_ID,
+           "X-Parse-REST-API-Key": REST_API_KEY, 
             "Content-Type": str(filetype)
          })
         picture = json.loads(connection.getresponse().read())
@@ -257,8 +256,8 @@ def save_user_pic( account, fbId=None, filepath=None, filetype='image/jpeg', fil
              "__type": "File"
            }
          }), {
-           "X-Parse-Application-Id": airspress.settings.APPLICATION_ID,
-           "X-Parse-REST-API-Key": airspress.settings.REST_API_KEY,
+           "X-Parse-Application-Id": APPLICATION_ID,
+           "X-Parse-REST-API-Key": REST_API_KEY,
            "X-Parse-Session-Token": account.sessionToken,
            "Content-Type": "application/json"
          })
