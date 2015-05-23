@@ -8,6 +8,7 @@
 .twodates li {
     list-style: outside none none;
     margin-bottom: -14px;
+	padding-bottom:18px;
 }
 .twodates li .fa-map-marker{
 	font-size:0.8em;
@@ -80,7 +81,7 @@ li .calendar .day {
 .star-on-png:before {
     font-size: 0.5em;
 }
-.cancel-on-png, .cancel-off-png, .star-on-png, .star-off-png, .star-half-png {
+.travelUser .cancel-on-png, .travelUser .cancel-off-png,.travelUser  .star-on-png, .travelUser .star-off-png,.travelUser  .star-half-png {
 font-size: 1.3em;
 }
 p a.btn{background-color:#e80;}

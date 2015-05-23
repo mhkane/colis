@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load static from staticfiles %}
 {% load compress %}
 <!DOCTYPE html>
 <html lang="en">
@@ -9,26 +9,26 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- all favicons -->
-	<link rel="shortcut icon" href="{% static 'signup/favicons/favicon.ico' %}">
-	<link rel="icon" sizes="16x16 32x32 64x64" href="{% static 'signup/favicons/favicon.ico' %}">
-	<link rel="icon" type="image/png" sizes="196x196" href="{% static 'signup/favicons/favicon-192.png' %}">
-	<link rel="icon" type="image/png" sizes="160x160" href="{% static 'signup/favicons/favicon-160.png' %}">
-	<link rel="icon" type="image/png" sizes="96x96" href="{% static 'signup/favicons/favicon-96.png' %}">
-	<link rel="icon" type="image/png" sizes="64x64" href="{% static 'signup/favicons/favicon-64.png' %}">
-	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'signup/favicons/favicon-32.png' %}">
-	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'signup/favicons/favicon-16.png' %}">
-	<link rel="apple-touch-icon" href="{% static 'signup/favicons/favicon-57.png' %}">
-	<link rel="apple-touch-icon" sizes="114x114" href="{% static 'signup/favicons/favicon-114.png' %}">
-	<link rel="apple-touch-icon" sizes="72x72" href="{% static 'signup/favicons/favicon-72.png' %}">
-	<link rel="apple-touch-icon" sizes="144x144" href="{% static 'signup/favicons/favicon-144.png' %}">
-	<link rel="apple-touch-icon" sizes="60x60" href="{% static 'signup/favicons/favicon-60.png' %}">
-	<link rel="apple-touch-icon" sizes="120x120" href="{% static 'signup/favicons/favicon-120.png' %}">
-	<link rel="apple-touch-icon" sizes="76x76" href="{% static 'signup/favicons/favicon-76.png' %}">
-	<link rel="apple-touch-icon" sizes="152x152" href="{% static 'signup/favicons/favicon-152.png' %}">
-	<link rel="apple-touch-icon" sizes="180x180" href="{% static 'signup/favicons/favicon-180.png' %}">
+	<link rel="shortcut icon" href="{% static 'signup/img/favicons/favicon.ico' %}">
+	<link rel="icon" sizes="16x16 32x32 64x64" href="{% static 'signup/img/favicons/favicon.ico' %}">
+	<link rel="icon" type="image/png" sizes="196x196" href="{% static 'signup/img/favicons/favicon-192.png' %}">
+	<link rel="icon" type="image/png" sizes="160x160" href="{% static 'signup/img/favicons/favicon-160.png' %}">
+	<link rel="icon" type="image/png" sizes="96x96" href="{% static 'signup/img/favicons/favicon-96.png' %}">
+	<link rel="icon" type="image/png" sizes="64x64" href="{% static 'signup/img/favicons/favicon-64.png' %}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'signup/img/favicons/favicon-32.png' %}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'signup/img/favicons/favicon-16.png' %}">
+	<link rel="apple-touch-icon" href="{% static 'signup/img/favicons/favicon-57.png' %}">
+	<link rel="apple-touch-icon" sizes="114x114" href="{% static 'signup/img/favicons/favicon-114.png' %}">
+	<link rel="apple-touch-icon" sizes="72x72" href="{% static 'signup/img/favicons/favicon-72.png' %}">
+	<link rel="apple-touch-icon" sizes="144x144" href="{% static 'signup/img/favicons/favicon-144.png' %}">
+	<link rel="apple-touch-icon" sizes="60x60" href="{% static 'signup/img/favicons/favicon-60.png' %}">
+	<link rel="apple-touch-icon" sizes="120x120" href="{% static 'signup/img/favicons/favicon-120.png' %}">
+	<link rel="apple-touch-icon" sizes="76x76" href="{% static 'signup/img/favicons/favicon-76.png' %}">
+	<link rel="apple-touch-icon" sizes="152x152" href="{% static 'signup/img/favicons/favicon-152.png' %}">
+	<link rel="apple-touch-icon" sizes="180x180" href="{% static 'signup/img/favicons/favicon-180.png' %}">
 	<meta name="msapplication-TileColor" content="#FFFFFF">
-	<meta name="msapplication-TileImage" content="{% static 'signup/favicons/favicon-144.png' %}">
-	<meta name="msapplication-config" content="{% static 'signup/favicons/browserconfig.xml' %}">
+	<meta name="msapplication-TileImage" content="{% static 'signup/img/favicons/favicon-144.png' %}">
+	<meta name="msapplication-config" content="{% static 'signup/img/favicons/browserconfig.xml' %}">
 	<!-- all favicons END -->
 
 	{% compress css %}
@@ -87,7 +87,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="">
+							<a href="/faq/">
 								<i class="fa fa-question-circle"></i>&nbsp;FAQ
 							</a>
 						</li>
@@ -105,6 +105,7 @@
 										<a href="/account/mytrips/requested_trips/">Requested Trips</a>
 									</li>
 									<li><a href="/account/mytrips/add">Add a trip</a></li>
+									<li><a href="{% url 'account:inbox' %}">Inbox</a></li>
 									<li class='logout-btn'> 
 									   <a href="/logout"> Logout <span class="glyphicon glyphicon-log-out pull-right"></span></a>
 									</li>
@@ -123,7 +124,7 @@
 		</header>
 		
         <!-- Page Content -->
-        <div style="margin-left:0;" id="content-wrapper">
+        <div style="margin-left:0;" id="content-wrapper" class="{% block parent_class %} {% endblock parent_class %}">
             <div class="container-fluid">
 			{% block content %}
                 <div class="row">
@@ -161,7 +162,7 @@
 			 fontRatio : 30
 			});
 	</script>
-	<script type="text/javascript" src="{% static 'signup/js/sidebar.js' %}"></script>
+	{% include 'signup/session_security.html' %}
 	<script type="text/javascript" src="{% static 'signup/js/bootstrap-datepicker.js' %}"></script>
 	<script type="text/javascript" src="{% static 'account/js/jquery.raty.js' %}"></script>
 	

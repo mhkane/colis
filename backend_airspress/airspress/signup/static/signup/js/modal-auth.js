@@ -1,20 +1,8 @@
-function ajaxSend(form){
-	$.ajax({ 
-    type: $(form).attr('method'), 
-    url: form.action, 
-    data: $(form).serialize(),
-    context: form,
-    success: function(data, status, xhr) {
-        if (xhr.status == 278){
-		window.location.replace(xhr.getResponseHeader("Location"));
-		} else {
-	  $('#signupModal').html(data);
-		}
-    }
-    });
-	
-}
+
 $(document).on('submit', '.signup-form', function(){
+document.getElementById("checkbox1").checkValidity();
+var state = true;
+document.getElementById("checkbox1").value = state;
 $.ajax({ 
     type: $(this).attr('method'), 
     url: this.action, 
@@ -40,7 +28,7 @@ $.ajax({
         if (xhr.status == 278){
 		window.location.replace(xhr.getResponseHeader("Location"));
 		} else {
-	  $('#loginModal').html(data);
+	  $($(this).attr('modal')).html(data);
 		}
     }
     });

@@ -1385,7 +1385,7 @@ h3 .small {
 /* BUTTONS */
 .btn:not(.btn-success) {
   border: none;
-  padding: 6px 12px;
+  /*padding: 6px 12px; OVERRIDED*/
   border-bottom: 4px solid;
   -webkit-transition: border-color 0.1s ease-in-out 0s, background-color 0.1s ease-in-out 0s;
           transition: border-color 0.1s ease-in-out 0s, background-color 0.1s ease-in-out 0s;
@@ -1394,8 +1394,8 @@ h3 .small {
   background-clip: padding-box;
   /* stops bg color from leaking outside the border: */
 }
-.btn.btn-primary{border-bottom:2px solid; border-color:#d28206;}
-.
+.btn.btn-primary{border-bottom:2px solid; }
+.btn.btn-primary:not(.btn-success){border-color:#d28206;}
 .btn-default,
 .wizard-cancel,
 .wizard-back {
@@ -1453,9 +1453,9 @@ h3 .small {
   border: none;
 }
 
-.btn-danger {
+.btn.btn-danger {
   background-color: #e74c3c;
-  border-color: #c0392b;
+  border-color: #c0392b !important;
 }
 
 .btn-danger:hover,

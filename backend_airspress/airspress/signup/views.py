@@ -318,3 +318,20 @@ def switch_pass(request):
             alert={'type':'danger','text':'There seem to be a problem. Try again later.'}
             return render(request,'signup/password_change.html', {'alert':alert})
     return HttpResponseRedirect(reverse('signup:index'))
+def email_verification(request):
+    site = lambda: get_current_site(request)
+    protocol = 'https' if request.is_secure() else 'http'
+    url_part = request.build_absolute_uri()
+    domain_here = '{0}://{1}'.format(protocol,site)
+    url_part.replace(domain_here,'')
+    real_domain = "https://www.parse.com/apps/airspress--3/"
+    real_domain += url_part
+    r = request(real_domain)
+    r.text.lower()
+    print site, url_part, real_domain
+    email_verified = True
+    if not 'successfully' in r.text:
+        email_verified = False
+        r.text
+    return render(request,'signup/email_verified.html',{'email_verified':email_verified,'site':domain_here} )
+    

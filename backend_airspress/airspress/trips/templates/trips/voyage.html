@@ -1,5 +1,6 @@
 {% extends "trips/account_base.html" %}
 {% load staticfiles %}
+{% load stringops %}
 <!-- We include base template for account related pages. And we fill the blocks -->
 {% block title %} Trips {% endblock title %}
 <!-- We load the Autocomplete widget by setting onload attribute -->
@@ -10,10 +11,11 @@
 <!-- stylesheets -->
 {% block stylesheet%}
 <link rel="stylesheet" type="text/css" href="{% static 'trips/css/listing.css' %}" /> 
+<link rel="stylesheet" type="text/css" href="{% static 'account/css/materialize.min.css' %}" /> 
 {% endblock stylesheet %}
 <!-- JS scripts and files -->
 {% block jscript %}
-
+<script type="text/javascript" src="{% static 'account/js/materialize.min.js' %}"></script>
 		<!-- scripts -->
 <script type="text/javascript">$('.rating-stars').raty({ starType: 'i', score: function() {
     return $(this).attr('data-score');
@@ -24,16 +26,16 @@
  {% endblock jscript %}
 <!-- This block will contain everything that is not on the user sidebar: list of trips or trip details or other user profiles...etc -->
     {% block content %}
-
-		 <form id="search_Form" class="row" method="post" action="/trips/search/">
+	`<div class="row container" id="findRow">
+		 <form id="search_Form" class="row main-box" method="post" action="/trips/search/">
             {% csrf_token %}	
 			<div class="col-sm-4"> 
-			<label class="form-label"><h2>Départs</h2></label>
+			<label class="form-label"><h2>Departures Range</h2></label>
 			<div class="form-inline">
 			  <fieldset class="form-group">
-				<div style="background-color:#e81;" class="input-daterange input-group datepicker">
+				<div class="input-daterange input-group datepicker">
 					  <input type="text" class="input-sm form-control" name="{{ searchForm.depDate1.name}}" id="id_{{ searchForm.depDate1.name }}" /> 
-				       <span style="background-color:#e81;" class="input-group-addon">to</span>
+				       <span style="color:#e81;background-color: transparent;border-color:#5aa;font-size: 0.8em;" class="input-group-addon">to</span>
 								<input type="text" class="input-sm form-control" name="{{ searchForm.depDate2.name}}" />
 						
 				</div>
@@ -72,6 +74,7 @@
             <input type="submit" class="btn btn-primary pull-right btn-search noborder" value="Find a traveler" />
 			</div>
         </form>
+	</div>	
 			<!-- Modal --> <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
 
 					</div><!-- /.modal --> 
@@ -93,14 +96,14 @@
 									<div class="row">
 										<div class="col-md-12">						
 											<ul> 
-												<li>
-													<i class="fa fa-map-marker" style="font-size: 1em;">&nbsp;</i>
-													<strong class="fromCity">{{ v.oriLocation.city }}<span class="country">, {{ v.oriLocation.country }}</span></strong>
+												<li style="padding-bottom:8px;">
+													
+													<p style="display:inline-block; line-height:0.8;" class="fromCity">&nbsp;<i class="fa fa-map-marker" style="font-size: 1em;">&nbsp;</i>{{ v.oriLocation.city }}<span class="country">, {{ v.oriLocation.country }}</span></p>
 												</li> 
 												
 												<li>
-													<i class="fa fa-map-marker">&nbsp;</i>
-													<strong class="toCity">{{ v.destLocation.city }}<span class="country">, {{ v.destLocation.country }}</span></strong>
+													
+													<p style="display:inline-block; line-height:0.8;" class="toCity">&nbsp;<i class="fa fa-map-marker">&nbsp;</i>{{ v.destLocation.city }}<span class="country">, {{ v.destLocation.country }}</span></p>
 												</li>
 																		
 											</ul>
@@ -115,7 +118,7 @@
 										<div style="" class="col-xs-4 col-sm-4 col-md-4">
 											<li style="list-style:none; " class="date">
 												 <div class="calendar event_date"> 
-												<span class="month">{{ v.departDate.month|truncatechars:3 }}</span> 
+												<span class="month">{{ v.departDate.month|nodottruncatechars:3 }}</span> 
 												<span class="day">{{ v.departDate.day }}</span> 
 												</div>
 										   </li>

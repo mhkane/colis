@@ -37,11 +37,11 @@ def is_logged_in(request):# return the current user if User is still logged in.
         cUser = currentUser(saken)
     except KeyError:
         return False
-    if cUser is not None:
+    if cUser:
         red_level = 300 # 5 mins is red level
-        expiration_in = abs(request.session.get_expiry_date() - timezone.now())
+        expiration_in = request.session.get_expiry_age()
         
-        if expiration_in.total_seconds() <= red_level:
+        if expiration_in <= red_level:
             print "Timeout in less than five"
             request.session.set_expiry(3600)
         objID = cUser['objectId']
@@ -280,6 +280,8 @@ def handle_uploaded_file(source, cUser):
     This is a helper for the uploader; creates a local tempfile to host user-uploaded file
     on server before it's sent to Parse.com
     '''
+    if not source:
+        return False
     import os
     fd, filepath = tempfile.mkstemp(prefix=source.name, dir=FILE_UPLOAD_DIR)
     with open(filepath, 'wb+') as dest:

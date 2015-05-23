@@ -1,0 +1,13 @@
+south
+six
+authomatic
+psycopg2
+py-moneyed
+paypalrestsdk
+requests
+https://github.com/dgrtwo/ParsePy/archive/master.zip
+django-compress
+Pillow
+firebase-token-generator
+https://github.com/mikexstudios/python-firebase/archive/master.zip
+django-session-security

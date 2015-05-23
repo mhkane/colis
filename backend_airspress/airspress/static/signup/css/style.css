@@ -359,7 +359,7 @@ footer ul.quicklinks {
     font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
     line-height: 40px;
 }
-
+ul{list-style:none;}
 ul.social-buttons {
     margin-bottom: 0;
 }

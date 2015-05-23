@@ -304,26 +304,26 @@
 												</div>
 											</div>
 										</div>
-										<div class="row">
-											<div class="form-group {% if not addForm.weightGood2.errors %} hidden {% endif %}">
-											  <label class="control-label" for="weightGood"> Available Weight for Buyers(kg)</label>
+										<div id="weightGood2" class="row {% if not addForm.weightGood2.errors %} hidden {% endif %}">
+											<div class="form-group col-md-6 ">
+											  <label class="control-label" for=""> Return Trip: Available Weight for Buyers(kg)</label>
 											  <div class="controls">
 												<div class="input-group col-sm-4">
 												  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-												  <input id="weightGood2" step="step3" type="text" name="{{addForm.weightGood2.name}}" value="{% if not addForm.weightGood2.errors and addForm.weightGood2.value %} {{addForm.weightGood2.value}} {% endif %}" class="form-control">
+												  <input  step="step3" type="text" name="{{addForm.weightGood2.name}}" value="{% if not addForm.weightGood2.errors and addForm.weightGood2.value %} {{addForm.weightGood2.value}} {% endif %}" class="form-control">
 												</div>
 												<span class="help-block col-sm-8">Give a round amount in kilograms</span>
 												<span class="help-block">{{addForm.weightGood2.errors}}</span>
 											  </div>
 											</div>
-											<a  step-toggle="next" step-display="step4" step-disable="step3" class="btn btn-lg btn-success pull-right "> Next </a>
-											<a class="btn btn-lg btn-danger {% if addForm.errors %} hidden {% endif %}" step-toggle="back" step-hide="step3" step-enable="step2" > Back </a>
 										</div>	
+										<a  step-toggle="next" step-display="step4" step-disable="step3" class="{% if not addForm.weightGood2.errors %} hidden {% endif %} btn btn-lg btn-success pull-right "> Next </a>
+										<a class="btn btn-lg btn-danger {% if addForm.errors %} hidden {% endif %}" step-toggle="back" step-hide="step3" step-enable="step2" > Back </a>
 									</div>
 									<div id="step4" class="row hidden">
 										<a class="btn btn-lg btn-danger pull-right" step-toggle="back" step-hide="step4" step-enable="step3" > Back </a>
 										<div class="form-actions">
-										  <button type="submit" class="btn btn-primary">Done !</button>
+										  <button type="submit" class="btn btn-primary btn-success">Done !</button>
 										  <button type="reset" class="btn btn-default">Cancel</button>
 										  <button id="changePrice" input-enable="unitPrice" class="btn btn-info pull-right">Change commission ?</button>
 										</div>

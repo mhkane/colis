@@ -7,6 +7,8 @@ import airspress
 from parse_rest.installation import Push
 from account.actions import notif_mail
 from signup.schemes import change_password
+from parse_rest.connection import ParseBatcher
+from texto_airspress.schemes import retrieve_conversation
 cityDep = 'The bottom'
 cityArr = 'The top'
 depDate1=timezone.now()
@@ -54,6 +56,26 @@ depDate2=adata
 #                                  "badge": "Increment"}, where={"appUser":{"__type":"Pointer","className":"_User","objectId":"LKfygJctc7"}})
 # k=change_password('marsiale','9lTLf3GPg1')
 # print k
-from trips.crtrips import priceCalc
+# from trips.crtrips import priceCalc
+# 
+# print priceCalc(5,25)
+import re
+ 
+tokenize = lambda x: [i for i in re.findall(r'\w+', unicode(x).lower(), flags= re.UNICODE) if i]
+ 
+list=[]
+alltrips = trip.Query.all()
+for atrip in alltrips:
+    citydep = unicode(atrip.fromLocation)
+    cityarr = unicode(atrip.toLocation)
+    atrip.toLocationTokens = tokenize(cityarr)
+    atrip.fromLocationTokens = tokenize(citydep)
+    list.append(atrip)
+    print atrip.fromLocationTokens, atrip.toLocationTokens
+       
+s = ParseBatcher().batch_save(list)
+print s
+# convos = retrieve_conversation('9lTLf3GPg1')  
+# print convos
 
-print priceCalc(5,25)
+

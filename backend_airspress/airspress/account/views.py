@@ -3,20 +3,21 @@ from signup.schemes import is_logged_in, User, handle_uploaded_file, sign_in,\
     change_password
     
 from django.http.response import HttpResponseRedirect, HttpResponseForbidden,\
-    HttpResponseBadRequest
+    HttpResponseBadRequest, HttpResponseNotFound
 from django.core.urlresolvers import reverse
 from trips.forms import addForm, reviewForm
 from trips.crtrips import tripCreate
 from trips.crtrips import trip
 from account.actions import request as trequests, getdeal, ref_create,\
-    tripReview, get_profile_pic, get_user_info
+    tripReview, get_profile_pic, get_user_info, notify
 from parse_rest.installation import Push
 from account.forms import referralForm, settings_form_general,\
     settings_form_picture, settings_form_password
 from parse_rest.query import QueryResourceDoesNotExist
 from signup.backend_parse import review, Item
 from parse_rest.core import ResourceRequestNotFound
-from texto_airspress.schemes import auth_client, create_conversation
+from texto_airspress.schemes import auth_client, create_conversation,\
+    retrieve_conversation
 # Create your views here.
 def addTrip(request):
     '''
@@ -191,7 +192,7 @@ def otRequests(request):
 # so i ended up placing some hooks to catch the signal hehe.
 # Hence external_alert and other external_* are totaly useless to
 # the view by itself, they just serve as hooks for other "children" views(there is not really such thing
-# as a children view, i'm just talking with pictures) .                
+# as a children view, i'm just "talking with pictures" here) .                
 def deals(request, key, external_alert={}, external_context=False):
     '''
     When a request is accepted a deal page can be accessed where users can see each other contact info
@@ -203,10 +204,8 @@ def deals(request, key, external_alert={}, external_context=False):
     cUser = is_logged_in(request)
     if cUser:
         aRequest = trequests.Query.get(objectId=key)
-        reqWeight = ''
         travelUser=''
         reqUser=''
-        istraveler = False
         try:
             ## Traveler
             travelUser = aRequest.tripId.traveler
@@ -214,38 +213,26 @@ def deals(request, key, external_alert={}, external_context=False):
             reqUser = aRequest.Requester
             ##
             aTrip = aRequest.tripId
-            availCap = aRequest.tripId.availCapacity
-            reqWeight = aRequest.weightRequested
+            
         except AttributeError:
-            pass
-            #return render(request, 'trips/modals.html', {'alert':{'text':'This request does not exist !', 'type':'warning'}})
+            return HttpResponseNotFound()
+            
         if travelUser and reqUser:
             #creating a dict object that will be used in templates
             travel_user_dic = {'username':travelUser.username}
             req_user_dic = {'username':reqUser.username}
-            try:
-                travel_user_dic['picture']=get_profile_pic(travelUser.objectId)
-                req_user_dic['picture']=get_profile_pic(reqUser.objectId)
-            except (AttributeError, QueryResourceDoesNotExist):
-                req_user_dic['picture']=''
-                travel_user_dic['picture']=''
+           
+            travel_user_dic['picture']=get_profile_pic(travelUser.objectId)
+            req_user_dic['picture']=get_profile_pic(reqUser.objectId)
+            
             #  get the deal info associated with the airdeal request 
             reqAccepted= getdeal(travelUser, reqUser, aRequest, aTrip)
+            
             # who is visiting the deal page ?
             if travelUser.objectId == cUser.objectId :
                 #if it is traveler it means:
-                #we must push a notification if it's a first visit 
-                #( a first visit is equivalent to clicking on "accept the request" button)
-                try:
-                    if not aRequest.accepted:
-                        aRequest.accepted= True
-                        push_alert = travelUser.username + ' accepted your request!'
-                        Push.alert({"alert": push_alert,
-                                 "badge": "Increment"}, where={"appUser":{"__type":"Pointer","className":"_User","objectId":reqUser.objectId}})
-                        aRequest.tripId.availCapacity =  availCap - reqWeight
-                        aRequest.save()
-                except AttributeError:
-                    pass
+                #we must push a notification he clicks on "accept the request" button
+                
                 
                 reqAccepted['istraveler']=True
                 # reqAccepted dict contains all specific info for the deal 
@@ -253,11 +240,7 @@ def deals(request, key, external_alert={}, external_context=False):
                 
             elif reqUser.objectId == cUser.objectId:
                 reqAccepted['istraveler']= False
-                try:
-                    if not aRequest.accepted:
-                        reqAccepted['isaccepted']=False
-                except AttributeError:
-                    pass
+                
                 
             else:
                 return HttpResponseForbidden()
@@ -293,7 +276,7 @@ def deals(request, key, external_alert={}, external_context=False):
                                 'rating':deal_review.rating,'pubDate':deal_review.createdAt.date()}  
                 except (AttributeError, QueryResourceDoesNotExist):
                     pass  
-            # TODO use firebase cloud functions and retrieve user_messages
+            
             
             review_form = reviewForm()
             #if not reqAccepted:
@@ -307,7 +290,37 @@ def deals(request, key, external_alert={}, external_context=False):
     return HttpResponseRedirect(reverse('trips:index')) # We aren't redirecting to signup:index to avoid a certain lag on signup page
 
 
-
+def accept_request(request, key):
+    alert={}
+    cUser = is_logged_in(request)
+    if cUser:
+        try:
+            this_deal = trequests.Query.get(objectId = key)
+            traveler = this_deal.traveler
+            if cUser.username == traveler.username:
+                try:
+                    if not this_deal.accepted:
+                        this_deal.accepted= True
+                        
+                        this_deal.tripId.availCapacity =  this_deal.tripId.availCapacity - this_deal.tripId.weightRequested
+                        this_deal.save()
+                except AttributeError:
+                    this_deal.accepted= True
+                    this_deal.tripId.availCapacity =  this_deal.tripId.availCapacity - this_deal.tripId.weightRequested
+                    this_deal.save()
+                    
+                origin = traveler.name
+                target = this_deal.Requester.name
+                target_id = this_deal.Requester.objectId
+                email = this_deal.Requester.email
+                alert = {'type':'success', 'text':'Deal is accepted. Now it''s an Airdeal!'}
+                
+                notify("accept_request",origin,target,target_id,email)
+        except AttributeError:
+            alert = {'type':'danger', 'text':'There was an error with the server ...'}
+        print alert    
+        return deals(request, key, external_alert=alert)
+    return HttpResponseRedirect(reverse('signup:index'))
 def confirm_delivery(request, key):
     alert={}
     cUser = is_logged_in(request)
@@ -318,14 +331,30 @@ def confirm_delivery(request, key):
             if cUser.username == requester.username:
                 this_deal.deliveryStatus = True
                 this_deal.save()
-                alert = {'type':'success', 'text':'This Airdeal is marked as delivered. Please leave a review on the traveler.'}
+                alert = {'type':'success', 'text':'This Airdeal is marked as delivered. Please leave a review for the traveler.'}
                 
         except AttributeError:
             alert = {'type':'danger', 'text':'There was an error with the server ...'}
         print alert    
         return deals(request, key, external_alert=alert)
     return HttpResponseRedirect(reverse('signup:index'))
-            
+def confirm_payment(request, key):
+    alert={}
+    cUser = is_logged_in(request)
+    if cUser:
+        try:
+            this_deal = trequests.Query.get(objectId = key)
+            traveler = this_deal.traveler
+            if cUser.username == traveler.username:
+                this_deal.paymentStatus = True
+                this_deal.save()
+                alert = {'type':'success', 'text':'This Airdeal is marked as paid. Please leave a review for the buyer.'}
+                
+        except AttributeError:
+            alert = {'type':'danger', 'text':'There was an error with the server ...'}
+        print alert    
+        return deals(request, key, external_alert=alert)
+    return HttpResponseRedirect(reverse('signup:index'))            
 def reviewTrip(request,key):
     alert={}
     context_dic={}
@@ -337,7 +366,18 @@ def reviewTrip(request,key):
                 new_review = tripReview(cUser, review_form, key)
                 if new_review:
                     context_dic['review']=new_review
-                
+                    cUser.totalReviews.increment()
+                try:
+                    this_deal = trequests.Query.get(objectId=key)
+                    if this_deal.purchaserReview and this_deal.travelerReview:
+                        this_deal.completeStatus = True
+                        this_deal.save()
+                        this_deal.traveler.totalDeliveries.increment()
+                        this_deal.Requester.totalOrders.increment()
+                        this_deal.traveler.save()
+                        this_deal.Requester.save()
+                except AttributeError:
+                    pass        
             else:
                 print review_form.errors
             
@@ -359,70 +399,25 @@ def reviewTrip(request,key):
 def profileView(request, key):
     cUser = is_logged_in(request)
     if cUser:
-        any_user_id=''
-        screen_name=''
-        pPicture=''
-        anyName = ''
-        anyMail = ''
-        anyBio = ''
-        anyRating = ''
-        total_reviews = 0
-        total_deliveries = 0
-        total_orders = 0
-        is_verified = ''
-        is_cuser = False
-        reviews_dict={}
+        proDict = get_user_info(cUser, request, username=key)
+        any_user_id=proDict.get('id', '') or User.Query.get(username = proDict.get('username','').objectId)
+        is_cuser = proDict.get('is_cuser',False)
         chat_token=''
         chat_node=''
         source_id=''
-        try:
-            anyUser = User.Query.get(username=key)
-            any_user_id = anyUser.objectId
-            pPicture = get_profile_pic(anyUser.objectId)
-            anyName = anyUser.username
-            anyMail = anyUser.email
-            anyReviews = review.Query.filter(reviewedUser=anyUser)
-            k=0
-            for any_review in anyReviews:
-                k = k+1
-                reviews_dict['review'+str(k)] = {'sender':{'name':any_review.reviewer.username,
-                                                           'picture':get_profile_pic(any_review.reviewer.objectId)},
-                                                 'rating':any_review.rating,'text':any_review.reviewText, 'pub_date':any_review.createdAt.date()}
-            is_verified = anyUser.emailVerified
-            anyRating = anyUser.userRating
-            total_reviews = anyUser.totalReviews
-            total_deliveries = anyUser.totalDeliveries
-            total_orders = anyUser.totalOrders
-            anyBio = anyUser.userBio
-            screen_name = anyUser.screenName
-        except (AttributeError, QueryResourceDoesNotExist):
-            pass
-        if not anyRating:
-            anyRating = 0
+       
         
-        if anyName == cUser.username :
-            is_cuser = True
-        else:
+        if not is_cuser : 
             # Bring in the instant chat
-            # source_id is used as a unique idenifier of conversation
-            source_id = cUser.objectId + "-"+any_user_id
+            # source_id is used as a unique identifier of conversation
+            # hence the use of sorting is an obvious attempt to maintain same source
+            # disregarding which one of the two parties is the current user
+            source_id = ''.join(sorted(cUser.objectId + "-"+any_user_id))
             chat_token = auth_client(cUser.objectId, "chat", source_id)
             chat_node = create_conversation(source_id, [cUser.objectId, any_user_id], "direct_messaging")
-         
-        # crunch down the long usernames; this is the sick messy way
-        # we can implement the slick Messi way afterwards ;-)
-        crunch_name =''
-        for delim in ['.','@','_']:
-            if delim in anyName:
-                crunch_name += anyName
-                crunch_name = crunch_name.split(delim, 1)[0]
         
-        
-        # let's get everything in a dict object
-        proDict={'username':anyName, 'short_username':crunch_name, 'screen_name':screen_name,'is_verified':is_verified, 'is_cuser':is_cuser, 'email':anyMail, 'Bio':anyBio, 
-                 'rating':anyRating, 'total_deliveries':total_deliveries, 'total_orders':total_orders, 'pPicture':pPicture,
-                 'total_reviews':total_reviews, 'reviews':reviews_dict}
         referral_form = referralForm()
+        
         if request.is_ajax():
             return render(request, 'trips/modals.html', {'userinfo':proDict, 'greetings':cUser.username, 
                                                          'myPicture':get_profile_pic(cUser.objectId)})
@@ -430,6 +425,7 @@ def profileView(request, key):
                         'myPicture':get_profile_pic(cUser.objectId), 'referral_form':referral_form}
         if chat_node:
             context_dic['firebase_token']=chat_token
+            context_dic['source_id'] = source_id
             context_dic['firebase_node']=chat_node+"/"+source_id
             context_dic['current_user_id'] = cUser.objectId
         return render(request, 'account/profile.html', context_dic)
@@ -439,20 +435,26 @@ def edit_profile(request, section):#todo last man standing
     cUser = is_logged_in(request)
     if cUser:
         proDict = get_user_info(cUser, request, user_id=cUser.objectId)
-        saken = request.session['lsten']
         if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
             context_dic={}
             if section == 'general':
                 general_form = settings_form_general(request.POST)
-                profile_picture_form = settings_form_picture(request.POST, request.FILES)
+                profile_picture_form = settings_form_picture( request.POST, request.FILES)
                 if general_form.is_valid():
-                    cUser.screenName = general_form.cleaned_data['screen_name']
-                    cUser.timeZone = general_form.cleaned_data['time_zone']
+                    try:
+                        #update on Parse
+                        cUser.screenName = general_form.cleaned_data.get('screen_name', False) or cUser.screenName
+                        
+                        cUser.timeZone = general_form.cleaned_data.get('time_zone', False) or cUser.timeZone
+                   
+                    except AttributeError:
+                        pass
                     cUser.save()
+                    
                 else:
                     print general_form.errors  
                 if profile_picture_form.is_valid():
-                    profile_picture = handle_uploaded_file(request.FILES['profile_picture'], cUser)
+                    profile_picture = handle_uploaded_file(profile_picture_form.cleaned_data.get('profile_picture', False), cUser)
                 else:
                     print profile_picture_form.errors
                     
@@ -462,6 +464,12 @@ def edit_profile(request, section):#todo last man standing
                         del request.session['userinfo']
                     except:
                         pass
+                #immediately update userinfo dict
+                try:
+                    proDict.update({'pPicture':get_profile_pic(cUser.objectId)})
+                    proDict.update({'screen_name':cUser.screenName}) 
+                except AttributeError:
+                    pass       
                 context_dic = {'greetings':cUser.username,'myPicture':get_profile_pic(cUser.objectId), 
                                 'userinfo':proDict,'general_form':general_form,'pic_form':profile_picture_form}
                 context_dic['password_form']=settings_form_password()
@@ -499,7 +507,52 @@ def edit_profile(request, section):#todo last man standing
     
     return HttpResponseRedirect(reverse('signup:index'))
             
+def inbox(request):
+    cUser = is_logged_in(request)
+    if cUser:
+        conversations = retrieve_conversation(cUser.objectId) 
+
+        context_dic = { 'greetings':cUser.username,
+                        'myPicture':get_profile_pic(cUser.objectId),
+                        'conversations':conversations}
+        return render(request, 'account/inbox.html', context_dic)
+    return HttpResponseRedirect(reverse('signup:index'))
+  
+def instant_messaging(request,key):
+    #key is here the username of the other party in the conversation
+    #that's about how the url for instant messaging view is formatted    
+    cUser = is_logged_in(request)
     
+    if cUser:
+        any_user_id = ''
+        pPicture = ''
+        try:
+            any_user = User.Query.get(username=key)
+            any_user_id = any_user.objectId
+            pPicture = any_user.profilePicture.url   
+        except (AttributeError, QueryResourceDoesNotExist):
+            pass
+        source_id = request.GET.get('source',False)
+        # Bring in the instant chat
+        # source_id is used as a unique identifier of conversation
+        # hence the use of sorting is an obvious attempt to maintain same source_id
+        # disregarding which one of the two parties is the current user.
+        # we virtually create conversation everytime even after first creation
+        # so that we don't have to check for existence
+        
+        if not source_id:
+            source_id = ''.join(sorted(cUser.objectId + "-"+any_user_id))
+        chat_token = auth_client(cUser.objectId, "chat", source_id)
+        chat_node = create_conversation(source_id, [cUser.objectId, any_user_id], "direct_messaging")
+        context_dic={'greetings':cUser.username,'myPicture':get_profile_pic(cUser.objectId),
+                     'userinfo':{'username':key,'pPicture':pPicture}}
+        if chat_node:
+            context_dic['firebase_token']=chat_token
+            context_dic['source_id'] = source_id
+            context_dic['firebase_node']=chat_node+"/"+source_id
+            context_dic['current_user_id'] = cUser.objectId
+        return render(request, 'account/messaging.html', context_dic)
+    return HttpResponseRedirect(reverse('signup:index'))      
 def referral(request):
     cUser = is_logged_in(request)
     alert = {}
@@ -523,5 +576,7 @@ def referral(request):
             context_dic['referral_form']=referralView
             return render(request, 'account/profile.html', context_dic)
     return HttpResponseRedirect(reverse('signup:index'))
-    
+
+
+        
                             

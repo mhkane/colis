@@ -1,0 +1,174 @@
+{% extends 'trips/account_base.html' %}
+{% load staticfiles %}
+{% load stringops %}
+		{% block parent_class %} email-inbox-wrapper {% endblock parent_class %}
+{% block jscript %} 
+		
+<!-- scripts -->
+<script src="{% static 'account/js/scripts.js' %}"></script>
+<script src="{% static 'account/js/pace.min.js' %}"></script>
+<script>
+	$(document).ready(function() {
+		
+		
+		$(".has-tooltip").each(function (index, el) {
+			$(el).tooltip({
+				placement: $(this).data("placement") || 'bottom'
+			});
+		});
+		
+		setHeightEmailContent();
+		
+		initEmailScroller();
+		
+		$(".clickable-row > div:not(.chbox,.star)").click(function(e) {
+			if ((e.target instanceof HTMLAnchorElement) == true) {
+				return;
+			}
+			
+			var href = $(this).parent().data('href');
+			
+			if (href != '' && typeof href != 'undefined') {
+				window.document.location = href;
+			}
+		});
+	});
+	
+	$(window).smartresize(function(){
+		setHeightEmailContent();
+		
+		initEmailScroller();
+	});
+	
+	function setHeightEmailContent() {
+		if ($( document ).width() >= 992) {
+			var windowHeight = $(window).height();
+			var staticContentH = $('#header-navbar').outerHeight() + $('#email-header').outerHeight();
+			staticContentH += ($('#email-box').outerHeight() - $('#email-box').height());
+	
+			$('#email-content').css('height', windowHeight - staticContentH);
+		}
+		else {
+			$('#email-content').css('height', '');
+		}
+	}
+	
+	function initEmailScroller() {
+		if ($( document ).width() >= 992) {
+			$('#email-navigation').nanoScroller({
+		    	alwaysVisible: false,
+		    	iOSNativeScrolling: false,
+		    	preventPageScrolling: true,
+		    	contentClass: 'email-nav-nano-content'
+		    });
+			
+			$('#email-content').nanoScroller({
+		    	alwaysVisible: false,
+		    	iOSNativeScrolling: false,
+		    	preventPageScrolling: true,
+		    	contentClass: 'email-content-nano-content'
+		    });
+		}
+	}
+	</script> {% endblock jscript %}
+{% block content %}		
+			<div class="row" style="min-height:80vh;opacity: 1;">
+						<div class="col-lg-12">
+							
+							<div id="email-box" class="clearfix">
+								<div class="row">
+									<div style="min-height:10vh" class="col-lg-12">
+											
+										<div id="email-header-mobile" class="visible-xs visible-sm clearfix">
+											<div id="email-header-title-mobile" class="pull-left">
+												<i class="fa fa-inbox"></i> Inbox
+											</div>
+										</div>
+											
+										<header id="email-header" class="clearfix">
+											<div id="email-header-title" class="visible-md visible-lg">
+												<i class="fa fa-inbox"></i> Inbox
+											</div>
+											
+											<div id="email-header-tools">
+											
+									
+											</div>
+											
+											<!--<div id="email-header-pagination" class="pull-right">
+												<div class="btn-group pagination pull-right">
+													<button class="btn btn-primary" type="button" title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Previous">
+														<i class="fa fa-chevron-left"></i>
+													</button>
+													<button class="btn btn-primary" type="button" title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Next">
+														<i class="fa fa-chevron-right"></i>
+													</button>
+												</div>
+												
+												<div class="num-items pull-right hidden-xs">
+													1-50 from 5,912
+												</div>
+											</div> -->
+											
+										</header>
+									</div>
+								</div>
+								
+								<div class="row">
+									<div class="col-lg-12">
+										<div id="email-navigation" class="email-nav-nano hidden-xs hidden-sm has-scrollbar">
+											<div class="email-nav-nano-content" tabindex="0" style="margin-right: -17px;">
+												
+												
+												<ul id="email-nav-items" style="width:90%" class="clearfix">
+													<li class="active">
+														<a href="#">
+															<i style="font-size:0.8em" class="fa fa-inbox"></i>
+															Inbox 
+															<span class="label label-primary pull-right">{{conversations|length}}</span>
+														</a>
+													</li>
+												</ul>
+												
+												
+											</div>
+											
+										<div class="nano-pane" style="display: none;"><div class="nano-slider" style="height: 516px; transform: translate(0px, 0px);"></div></div></div>
+										<div id="email-content" style="min-height:50vh;" class="email-content-nano has-scrollbar">
+											<div class="email-content-nano-content" tabindex="0" style="margin-right: -17px;">
+												<ul id="email-list">
+												{% for k,v in conversations.items %}
+													<li class="unread clickable-row" data-href="{% url 'account:talk' v.other_name %}?source={{v.source_id}}">
+											
+														<div class="name">
+															{{v.senderName|nodottruncatechars:6}}
+														</div>
+														<div class="message">
+															
+															<span class="body">{{v.text|truncatechars:30}}</span>
+														</div>
+														<div class="meta-info">
+															<a href="#" class="attachment">
+																<img src="{{v.pPicture}}" class="img-circle img-responsive" style="height:40px; width:40px;"/>
+															</a>
+															<span class="date"></span>
+														</div>
+													</li>
+												{% empty %}
+													<h2 style="font-size: 0.7em; max-width:100%; position:absolute; top:50%; margin:0; margin-right:-50%; left:50%; transform:translate(-50%,-50%)">
+															  No conversations to show.
+													</h2>
+												{% endfor %}	
+												
+												</ul>
+											</div>
+										<div class="nano-pane" style="display: none;"><div class="nano-slider" style="height: 243px; transform: translate(0px, 0px);"></div></div></div>
+									</div>
+								</div>
+								
+							</div>
+							
+						</div>
+					</div>
+					
+{% endblock content %}				

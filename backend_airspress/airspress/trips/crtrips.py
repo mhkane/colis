@@ -26,31 +26,43 @@ def tripFind(request, cUser, searchView):
     depDate1 = searchView.cleaned_data['depDate1']
     depDate2 = searchView.cleaned_data['depDate2']
     print depDate2, depDate1 #remove
-    if depDate1 is None:
+    if not depDate1:
         depDate1 = timezone.now()
     else:
-        depDate1 = datetime.datetime.combine(depDate1, datetime.time())
-    if depDate2 is None:
-        depDate2 = depDate1 + datetime.timedelta(days=90)
+        depDate1 = datetime.datetime.combine(depDate1, datetime.time.min)
+    if not depDate2:
+        
+        depDate2 = datetime.datetime.combine(depDate1 + datetime.timedelta(days=90), datetime.time.max)
     else:
-        depDate2 = datetime.datetime.combine(depDate2, datetime.time())
-    allTrips = trip.Query.filter(objectId='')
+        depDate2 = datetime.datetime.combine(depDate2, datetime.time.max)
+    
     #Different queries depending if cities are left blank or not
-    print depDate1, depDate2#remove
-    if not cityDep and not cityArr :
-            allTrips = trip.Query.filter( departureDate__gte = depDate1, 
-                                    departureDate__lte = depDate2).order_by('-departureDate')
-    elif not cityDep:
-            allTrips = trip.Query.filter( departureDate__gte = depDate1,toLocation=cityArr, 
-                                     departureDate__lte = depDate2).order_by('-departureDate')
-    elif not cityArr:
-            allTrips = trip.Query.filter( departureDate__gte = depDate1, 
-                                    fromLocation=cityDep, departureDate__lte = depDate2).order_by('-departureDate')
-    else:
-            allTrips = trip.Query.filter(fromLocation=cityDep, toLocation= cityArr, 
-                                         departureDate__gte = depDate1, departureDate__lte = depDate2).order_by('-departureDate')
+    print cityDep, depDate1, depDate2#remove
+    try:
+        if not cityDep and not cityArr :
+                allTrips = trip.Query.filter( departureDate__gte = depDate1, 
+                                        departureDate__lte = depDate2).order_by('-departureDate')
+        elif not cityDep:
+                allTrips = trip.Query.filter( departureDate__gte = depDate1,toLocationTokens__all=process_for_search(cityArr), 
+                                         departureDate__lte = depDate2).order_by('-departureDate')
+        elif not cityArr:
+                allTrips = trip.Query.filter( departureDate__gte = depDate1, 
+                                        fromLocationTokens__all=process_for_search(cityDep), departureDate__lte = depDate2).order_by('-departureDate')
+        else:
+                allTrips = trip.Query.filter(fromLocationTokens__all=process_for_search(cityDep), toLocationTokens__all= process_for_search(cityArr), 
+                                             departureDate__gte = depDate1, departureDate__lte = depDate2).order_by('-departureDate')
+    except:
+        return False
     print allTrips#remove
+    count_trips = allTrips.count()
     page_one = allTrips.limit(10)
+    #per_page = 10
+    #cut_page = 10
+    #while count_trips>0:
+    #
+    #    count_trips -= per_page
+    #    
+    
     k = 0
     tripDict = {}
     for anyTrip in page_one :
@@ -91,9 +103,13 @@ def tripFind(request, cUser, searchView):
                 areas_ori_location = split(oriLocation,',') 
                 areas_dest_location = split(destLocation,',')
                 destCountry = areas_dest_location[-1]
-                destCity = areas_dest_location[1]
+                destCity = areas_dest_location[0]
                 oriCountry = areas_ori_location[-1]
-                oriCity = areas_ori_location[1]
+                oriCity = areas_ori_location[0]
+                if len(areas_dest_location) > 2:
+                        destCountry =  areas_dest_location[1]+ ', ' + destCountry
+                if len(areas_ori_location) > 2:
+                        oriCountry = areas_ori_location[1]+ ', ' + oriCountry
                 tripDict['objTrip'+str(k)] = {'pub_date':pub_date, 
                 'travelerUser':travelerUser, 'travelerRating':user_rating,
                 'departDate':{'month':departDate.strftime("%B"), 'day':departDate.day},
@@ -104,14 +120,16 @@ def tripFind(request, cUser, searchView):
                 #once the context dict created we can use render()
                 print(tripDict)
                 print k+1
-
+    #        cut_page += per_page    
+    #       page = allTrips.skip(cut_page).limit(per_page)
+    #       count_page = page.count()
     return tripDict
 def tripCreate(request, cUser, addView):
     print addView.cleaned_data
     cityArr = addView.cleaned_data['cityArr']
     cityDep = addView.cleaned_data['cityDep']
     depDate = addView.cleaned_data['depDate']
-    arrivDate = depDate
+    
     weightGood = addView.cleaned_data['weightGood']
     distance = addView.cleaned_data['distance']  #must be evaluated with another form field
     unitPrice = addView.cleaned_data['unit_price']#priceCalc(weightGood, distance)
@@ -123,37 +141,51 @@ def tripCreate(request, cUser, addView):
             
     is_coming_back = addView.cleaned_data['return_check']
     depDate = datetime.datetime.combine(depDate, datetime.time.min)
-    arrivDate = datetime.datetime.combine(arrivDate, datetime.time.min)
+    
     print depDate
-    print arrivDate#remove
+  
     if is_coming_back:
         depart = datetime.datetime.combine(addView.cleaned_data['depDate2'], datetime.time.min)
-        arrival = datetime.datetime.combine(addView.cleaned_data['arrivDate2'], datetime.time.min)
-        dep_dates = [depDate].append(depart)
-        arriv_dates = [arrivDate].append(arrival)
+        dep_dates = []
+        dep_dates.append(depart)
+        dep_dates.append(depDate)
         weight = addView.cleaned_data['weightGood2']
-        weight_goods = [weightGood].append(weightGood)
+        weight_goods = []
+        weight_goods.append(weightGood)
+        weight_goods.append(weight)
         new_trips = []
         for k in range(len(dep_dates)-1):
             try:
-                depDate = dep_dates[k]
-                arrivDate = arriv_dates[k]
-                weightGood = weight_goods[k]
+                dep_date = dep_dates[k]
+                weight_good = weight_goods[k]
             except:
                 pass     
             try:
-                new_trips[k] = trip(departureDate = depDate, arrivalDate = arrivDate, fromLocation = cityDep, 
-                            toLocation = cityArr, availCapacity = weightGood, totalCapacity=weightGood, unitPriceUsd = unitPrice)
+                city_dep_tokens = process_for_search(cityDep)
+                city_arr_tokens = process_for_search(cityArr)
+                # the form provided values contains states long and short names
+                # We want to keep both for search engine but we don't want to store
+                # the whole thing as a location so we strip the long name to only keep it
+                # the tokens
+                cityArr = cityArr.split(',')
+                if len(cityArr) == 4:
+                    cityArr.remove(2)
+                cityArr = ', '.join(cityArr)
+                new_trips[k] = trip(departureDate = dep_date, fromLocation = cityDep, 
+                            toLocation = cityArr, availCapacity = weight_good, totalCapacity=weight_good, unitPriceUsd = unitPrice,
+                            toLocationTokens = city_arr_tokens, fromLocationTokens = city_dep_tokens)
                 new_trips[k].traveler = User.Query.get(objectId=cUser.objectId)
                 new_trips[k].save()
-            except (AttributeError, KeyError):
+            except (AttributeError, KeyError, IndexError):
                 pass
         batcher = ParseBatcher()
         if new_trips:
             batcher.batch_save(new_trips)
+            return True
+        return False
     try:
         
-        newTrip = trip(departureDate = depDate, arrivalDate = arrivDate, fromLocation = cityDep, 
+        newTrip = trip(departureDate = depDate, fromLocation = cityDep, 
                     toLocation = cityArr, availCapacity = weightGood, totalCapacity=weightGood, unitPriceUsd = unitPrice)
         newTrip.traveler = User.Query.get(objectId=cUser.objectId)
     except AttributeError:
@@ -188,9 +220,9 @@ def tripRequest(cUser, reqView, key):
     try:
         tripnow = trip.Query.get(objectId=key)
         had_requested = trequests.Query.get(Requester=cUser, tripId=tripnow)
-    except (QueryResourceDoesNotExist):
+    except (QueryResourceDoesNotExist, AttributeError):
         pass
-    print numReq#remove
+    print had_requested#remove
     try:
         if cUser.objectId == tripnow.traveler.objectId:
             alert['text'] = "Buddy, you can't own the penthouse and lease it to yourself, yeah ? =D !"
@@ -206,7 +238,7 @@ def tripRequest(cUser, reqView, key):
 
         deliveryCity = tripnow.toLocation
         item_name = reqView.cleaned_data['item_name']
-        item_price = reqView.cleaned_data['item_price']
+        item_price = price_format(reqView.cleaned_data['item_price'])
         item_quantity = reqView.cleaned_data['item_quantity']
         shop_name = reqView.cleaned_data['shop_name']
         weightGood = reqView.cleaned_data['weightGood']
@@ -217,9 +249,9 @@ def tripRequest(cUser, reqView, key):
         
         newRequest.tripId = tripnow
         newRequest.Requester = cUser
+        items_total_price = priceCalc(item_quantity, item_price) 
+        new_item = Item(name=item_name, quantity=item_quantity, description=item_description, unitPrice=item_price, price=items_total_price)
         newRequest.save()
-        #items_total_price = priceCalc(item_quantity, item_price) 
-        new_item = Item(name=item_name, quantity=item_quantity, description=item_description, unitPrice=item_price)
         new_item.request = newRequest
         new_item.save()
         print newRequest
@@ -244,20 +276,19 @@ def isodate_to_tz_datetime(isodate):
     current_timezone = timezone.get_current_timezone()
     return current_timezone.localize(date, is_dst=None)
 def priceCalc(weight, unit_price):
-    price = weight * unit_price
-    price = Money(amount=price,currency='USD')
+    price = weight * Money(amount=unit_price,currency='USD')
     return str(price)
 def unit_price_calc(distance):
     price = 0
     km = 1000
-    max = 6000*km
+    max_distance = 6000*km
     groups = [1000*km, 2000*km, 4000*km, 6000*km]
     prices = [7, 10, 15, 17]
     for i in range(len(groups)-1):
         if distance < groups[i]:
             price = prices[i]
             break
-        elif distance > max:
+        elif distance > max_distance:
             prices = groups[-1]
             break
     price = str(Money(amount=price,currency='USD'))
@@ -268,3 +299,16 @@ def unit_price_calc(distance):
     except:
         price = 0        
     return str(price)
+def price_format(price, currency="USD"):
+    price = str(Money(amount=price,currency=currency))
+    digit_list = [digit for digit in price if digit.isdigit() or digit == '.']
+    price = ''.join(digit_list)
+    try:
+        price = Decimal(price)
+    except:
+        price = 0        
+    return str(price)
+def process_for_search(datastring):
+    import re
+    tokenize = lambda x: [i for i in re.findall(r'\w+', unicode(x).lower(), flags= re.UNICODE) if i]
+    return tokenize(datastring)

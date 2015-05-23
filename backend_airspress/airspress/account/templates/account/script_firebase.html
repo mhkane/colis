@@ -1,4 +1,5 @@
 <script type="text/javascript">
+// Notification
 // datetime
  function getDateTime() {
     var now     = new Date(); 
@@ -30,6 +31,7 @@
 window.onload = function(){
 // Get a reference to messages
 var ref = new Firebase("https://radiant-torch-2520.firebaseio.com/{% firstof firebase_node %}");
+var ref2 = new Firebase("https://radiant-torch-2520.firebaseio.com/data/directMessaging/conversations/{{source_id}}"); 
 // Define Generated Token
 var AUTH_TOKEN = "{{firebase_token}}";
 
@@ -40,6 +42,14 @@ ref.authWithCustomToken(AUTH_TOKEN, function(error, authData) {
     console.log("Login Failed!", error);
   } else {
     console.log("Login Succeeded!", authData);
+  }
+});
+
+ref2.authWithCustomToken(AUTH_TOKEN, function(error, authData) {
+  if (error) {
+    console.log("Inbox Failed!", error);
+  } else {
+    console.log("Inbox Succeeded!", authData);
   }
 });
 // Conversation kept on viewport
@@ -53,6 +63,8 @@ document.getElementById('SendMessage1').onclick = function(e){
 	// Send to Firebase
 	if (newMessageText !== ""){
 	ref.push({"sender":"{{current_user_id}}", "text": newMessageText, "pub_date":getDateTime()});
+	// update last message alias inbox
+	ref2.update({"inbox":{"senderId":"{{current_user_id}}", "senderName":"{{greetings}}","text": newMessageText, "pub_date":Firebase.ServerValue.TIMESTAMP}});
 	// Empty Textarea
 	document.getElementById('NewMessage1').value = '';
 	}
@@ -65,6 +77,8 @@ document.getElementById('NewMessage1').onkeydown = function Shidori(e) {
 	// Send to Firebase
 	if (newMessageText !== ""){
 	ref.push({"sender":"{{current_user_id}}", "text": newMessageText, "pub_date":getDateTime()});
+	// update last message alias inbox
+	ref2.update({"inbox":{"senderId":"{{current_user_id}}", "senderName":"{{greetings}}","text": newMessageText, "pub_date":Firebase.ServerValue.TIMESTAMP}});
 	// Empty Textarea
 	document.getElementById('NewMessage1').value = '';
 	}
@@ -81,17 +95,17 @@ ref.limitToLast(10).on("child_added", function(snapshot) {
   var snippet = '';
   var part1 = '<div class="conversation-item item-left clearfix">\
 						<div class="conversation-user">\
-							<img src=" {% if dealInfo.istraveler %} {{reqUser.picture}} {% else %} {% firstof travelUser.picture myPicture %} {% endif %} " alt=""/>\
+							<img class="hidden-xs" src=" {% if dealInfo.istraveler %} {{reqUser.picture}} {% else %} {% firstof travelUser.picture userinfo.pPicture %} {% endif %} " alt=""/>\
 						</div>\
 						<div class="conversation-body">\
-							<div class="name"> {% if dealInfo.istraveler %} {{reqUser.username}} {% else %} {% firstof travelUser.username greetings %} {% endif %} </div>\
+							<div class="name hidden-xs"> {% if dealInfo.istraveler %} {{reqUser.username}} {% else %} {% firstof travelUser.username userinfo.username %} {% endif %} </div>\
 							<div class="time hidden-xs">';
   var part11 = '<div class="conversation-item item-right clearfix">\
 						<div class="conversation-user">\
-							<img src=" {% if not dealInfo.istraveler %} {% firstof reqUser.picture myPicture %} {% else %} {{travelUser.picture}} {% endif %} " alt=""/>\
+							<img class="hidden-xs" src=" {% if not dealInfo.istraveler %} {% firstof reqUser.picture myPicture %} {% else %} {{travelUser.picture}} {% endif %} " alt=""/>\
 						</div>\
 						<div class="conversation-body">\
-							<div class="name"> {% if not dealInfo.istraveler %} {% firstof reqUser.username greetings %} {% else %}  {{travelUser.username }} {% endif %} </div>\
+							<div class="name hidden-xs"> {% if not dealInfo.istraveler %} {% firstof reqUser.username greetings %} {% else %}  {{travelUser.username }} {% endif %} </div>\
 							<div class="time hidden-xs">';	
   var part2 = '</div>\
 							<div class="text">';

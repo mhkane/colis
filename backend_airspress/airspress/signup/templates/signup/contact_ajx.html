@@ -1,0 +1,50 @@
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+       <div class='modal-header header'>
+	        Contact Us
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	   </div>
+      <div class="modal-body">
+	  {% if alert.type %}
+		{% include "trips/alerts.html" %}
+	{% endif %}
+		{% if contact_form.non_field_errors %}<div class="alert alert-danger">{{ contact_form.non_field_errors }}</div>{% endif %}
+		<form class="login-form" modal="#contactModal" action="/contact/" method="post">
+		{% csrf_token %}
+						
+							<div class="form-group">
+								<input type="text" name="name" {% if contact_form.name.value %} value="{{contact_form.name.value}}" {% endif %} class="form-control" placeholder="Name">
+								<span class="form-control-feedback fui-user"></span>
+							{% if contact_form.name.errors %}<div class="">{{ contact_form.name.errors }}</div>{% endif %}
+
+							</div>
+							<div class="form-group">
+								<input type="text" name="subject" {% if contact_form.subject.value %} value="{{contact_form.subject.value}}" {% endif %} class="form-control" placeholder="What do you want to talk about ?">
+								<span class="form-control-feedback fui-question-circle"></span>
+							{% if contact_form.subject.errors %}<small>{{ contact_form.subject.errors }}</small>{% endif %}
+							</div>
+							
+							<div class="form-group">
+								<input type="text" name="reply_email" {% if contact_form.reply_email.value %} value="{{contact_form.reply_email.value}}" {% endif %} class="form-control" placeholder="Give us an email address where to answer">
+								<span class="form-control-feedback fui-mail"></span>
+							{% if contact_form.reply_email.errors %}<div class="">{{ contact_form.reply_email.errors }}</div>{% endif %}
+
+							</div>
+							
+							<div class="form-group">
+								<textarea  name="message" rows="6" {% if contact_form.message.value %} value="{{contact_form.message.value}}" {% endif %} class="form-control" placeholder="Tell us something..."></textarea>
+								<span class="form-control-feedback fui-chat"></span>
+							{% if contact_form.message.errors %}<div class="">{{ contact_form.message.errors }}</div>{% endif %}
+							</div>
+
+						<div class="footer">
+
+							<button type="submit" class="btn btn-embossed btn-primary btn-large btn-block"><i class="fa fa-paper-plane">&nbsp;</i>Send</button>
+
+							
+						</div>
+	   </form>
+            
+        </div>
+		</div>
+	  </div>

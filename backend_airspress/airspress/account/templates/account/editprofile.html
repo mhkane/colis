@@ -7,7 +7,7 @@
 		
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/editprofile.css' %}" /> 
 	{% endblock stylesheet %}
-<!-- We load the Autocomplete widget by setting onload attribute -->
+<!-- We load the Autocomplete widget by setting onload attribute (Actually we never did that but that's an example of usefulness) -->
 {% block onloader %}  {% endblock onloader %}
 <!-- 'greetings' is always the username of the logged-in user  -->
 {% if greetings %}
@@ -52,6 +52,28 @@ $('.rating-stars').raty({ starType: 'i', score: function() {
 		$('#InputPassword2').pwstrength({
 			label: '.pwdstrength-label'
 		});
+// image upload preview
+function readURL(input) {
+
+	if (input.files && input.files[0]) {
+		var reader = new FileReader();
+
+		reader.onload = function (e) {
+			$('#uploadedFile').attr('src', e.target.result);
+		}
+		reader.onprogress = function(data) {
+            if (data.lengthComputable) {                                            
+                var progress = parseInt( ((data.loaded / data.total) * 100), 10 );
+                console.log(progress);
+            }
+        }
+		reader.readAsDataURL(input.files[0]);
+	}
+}
+
+$("#InputPicture").change(function(){
+	readURL(this);
+});		
 		</script> 
   
  {% endblock jscript %}

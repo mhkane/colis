@@ -1,46 +1,43 @@
-
-
-	
-			<header class="main-box-header clearfix">
-				<h2>{% firstof userinfo.screen_name userinfo.username %}</h2>
-			</header>
-			
-			<div class="main-box-body clearfix">
-				<div class="profile-status">
-					<i class="fa fa-circle small"></i> {% if userinfo.is_verified %} Verified {% else %} Not Verified {% endif %}
-				</div>
-				{% if userinfo.pPicture %}
-				<img alt="User Pic" src="{{ userinfo.pPicture }}" class="profile-img img-responsive center-block">
-				{% else %}
-				<img alt="User Pic" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="profile-img img-responsive center-block">
-				{% endif %}
-				
-				
-				<!--<div class="profile-label">
-					<span class="label label-danger">Admin</span>
-				</div> -->
-				
-				<div class="profile-stars">
-					<div class="rating-stars" data-score="{{userinfo.rating}}"></div>
-					<span>{{userinfo.total_reviews}} reviews</span>
-				</div>
-				
-				<div class="profile-since">
-					Member since: Jan 2012
-				</div>
-				
-				<div class="profile-details">
-					<ul class="fa-ul">
-						<li><i class="fa-li fa fa-plane small"></i>AirDeals (Traveler): <span>{{userinfo.total_deliveries}}</span></li>
-						<li><i class="fa-li fa fa-cube small"></i>AirDeals (Buyer): <span>{{userinfo.total_orders}}</span></li>
-					</ul>
-				</div>
-				{% if not userinfo.is_cuser %}
-				<div class="profile-message-btn center-block text-center">
-					<a href="#" class="btn btn-success">
-						<i class="fa fa-envelope"></i>
-						Send message
-					</a>
-				</div>
-				{% endif %}
-			</div>
+										<header style="overflow:hidden" class="main-box-header clearfix">
+											<h2>{% firstof userinfo.screen_name userinfo.username %}</h2>
+										</header>
+										
+										<div class="main-box-body clearfix">
+											<div class="profile-status">
+												{% if userinfo.is_verified %} <i class="fa fa-check small"></i> Verified {% else %} <i style="color:red;" class="fa fa-times small"></i>  Not Verified {% endif %}
+											</div>
+											{% if userinfo.pPicture %}
+											<img alt="User Pic" style="max-width:80%" src="{% if not userinfo.is_cuser %} {{ userinfo.pPicture }} {% else %} {% firstof myPicture userinfo.pPicture %} {% endif %}" class="profile-img img-responsive center-block">
+											{% else %}
+											<img alt="User Pic" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="profile-img img-responsive center-block">
+											{% endif %}
+											
+											
+											<!--<div class="profile-label">
+												<span class="label label-danger">Admin</span>
+											</div> -->
+											
+											<div class="profile-stars">
+												<div class="rating-stars" data-score="{{userinfo.rating}}"></div>
+												<span>{{userinfo.total_reviews}} reviews</span>
+											</div>
+											
+											<div class="profile-since">
+												Member since: {{userinfo.member_since}}
+											</div>
+											
+											<div class="profile-details">
+												<ul class="fa-ul">
+													<li><i class="fa-li fa fa-plane small"></i>AirDeals (Traveler): <span>{{userinfo.total_deliveries}}</span></li>
+													<li><i class="fa-li fa fa-cube small"></i>AirDeals (Buyer): <span>{{userinfo.total_orders}}</span></li>
+												</ul>
+											</div>
+											{% if not userinfo.is_cuser %}
+											<div class="profile-message-btn center-block text-center">
+												<a onclick="displayChat()" class="btn btn-success">
+													<i class="fa fa-envelope"></i>
+													Send message
+												</a>
+											</div>
+											{% endif %}
+										</div>

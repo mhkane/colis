@@ -1,0 +1,21 @@
+<script type="text/javascript">
+var ref = new Firebase("https://radiant-torch-2520.firebaseio.com/directMessaging/conversations/{{source_id}}"); 
+// Define Generated Token
+var AUTH_TOKEN = "{{firebase_token}}";
+
+// Authenticate with Token
+ref.unauth();
+ref.authWithCustomToken(AUTH_TOKEN, function(error, authData) {
+  if (error) {
+    console.log("Login Failed!", error);
+  } else {
+    console.log("Login Succeeded!", authData);
+  }
+});
+
+ref.on("child_added", function(snapshot) {
+
+
+
+});
+</script>

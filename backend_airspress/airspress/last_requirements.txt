@@ -1,0 +1,4 @@
+Pillow
+firebase-token-generator
+https://github.com/mikexstudios/python-firebase/archive/master.zip
+django-session-security

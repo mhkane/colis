@@ -1,0 +1,67 @@
+{% extends 'trips/account_base.html' %}
+{% load staticfiles %}
+{% load compress %}
+{% block jscript %} 
+	<script>
+		// Display Conversation On Profile Page											  
+								function displayChat() {document.getElementById("displayChat").click();
+														$('#navtab-chat').removeClass("hidden");
+														
+														document.getElementById("WrapperConversation1").scrollIntoView(false);
+								};
+								
+	</script>
+	
+	<!-- this page specific scripts -->
+	<script src="{% static 'account/js/jquery.slimscroll.min.js' %}"></script>
+	<script src="{% static 'account/js/jquery.magnific-popup.min.js' %}"></script>
+	{% compress js %}
+	<!-- scripts -->
+	{% include 'account/script_firebase.html' %} 
+	<script src="{% static 'account/js/scripts.js' %}"></script>
+	<script src="{% static 'account/js/pace.min.js' %}"></script>
+	
+	<script type="text/javascript">$('.rating-stars').raty({ starType: 'i', score: function() {
+																				return $(this).attr('data-score');
+																			  }, readOnly: true });
+	</script> 
+	{% endcompress %}
+ {% endblock jscript %}
+{% block head_jscript_uncomp %} <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script> {% endblock %}
+{% block title %} Conversation with {{userinfo.username}}{% endblock %}
+{% block content %}
+<div class="content-wrapper">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="row" id="user-profile">
+						<div style="margin:auto;" class="col-md-8">
+							<div style="width:100%;margin:auto;" class="main-box clearfix">
+								<header style="overflow:hidden" class="main-box-header clearfix">
+											<img class="img-circle img-responsive" style="width:60px;height:60px; float:right;" src="{{userinfo.pPicture}}"/>
+											<h2 style="  padding-bottom: 4em;text-align: center;"> Conversation with {{ userinfo.username }}</h2>
+								</header>
+								<div style="overflow:scroll;" class="conversation-wrapper" id="WrapperConversation1">
+									<div class="conversation-content">
+										<div class="conversation-inner" id="Conversation1">
+										
+										</div>
+									</div>	
+									<div class="conversation-new-message">
+										<form>
+											<div class="form-group">
+												<textarea class="form-control" onkeydown="return Shidori(event)" id="NewMessage1" rows="8" placeholder="Enter your message..."></textarea>
+											</div>
+											
+											<div class="clearfix">
+												<button type="submit" id="SendMessage1" class="btn btn-success pull-right">Send message</button>
+											</div>
+										</form>
+									</div>
+								</div>	
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+</div>
+{% endblock content %}

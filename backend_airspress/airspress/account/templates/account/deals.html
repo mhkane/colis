@@ -56,7 +56,7 @@
 									{% if dealInfo.istraveler and not dealInfo.ispayed %}
 									<a class="btn btn-success btn-embossed pull-right" href="{% url 'account:confirm_payment' rqkey %}">Confirm As Paid</a>
 									{% endif %}
-									{% if dealInfo.istraveler and not dealInfo.accepted %}
+									{% if dealInfo.istraveler and not dealInfo.isaccepted %}
 									<a class="btn btn-success pull-right" href="{% url 'account:accept_request' rqkey %}">Accept the request</a>
 									{% endif %}
 									<h1>

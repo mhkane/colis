@@ -5,9 +5,11 @@
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 	   </div>
       <div class="modal-body">
+	  {% if alert.type %}
 		{% include "trips/alerts.html" %}
+	{% endif %}
 		{% if loginView.non_field_errors %}<div class="alert alert-danger">{{ loginView.non_field_errors }}</div>{% endif %}
-		<form class="login-form" action="/login/student/" method="post">
+		<form class="login-form" modal="#loginModal" action="/login/student/" method="post">
 		{% csrf_token %}
 						
 							<div class="form-group">

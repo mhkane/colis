@@ -11,6 +11,7 @@ from django.core.urlresolvers import reverse
 from parse_rest.query import QueryResourceDoesNotExist
 from decimal import Decimal
 from signup.backend_parse import review, referral
+from parse_rest.installation import Push
 
 class request(ParseObject):
     pass
@@ -37,6 +38,7 @@ def getdeal(travelUser, reqUser, aRequest, aTrip):
     try:
         reqUser_pic = get_profile_pic(reqUser.objectId)
         traveler_pic = get_profile_pic(travelUser.objectId)
+        reqAccepted['isaccepted'] = False
         reqAccepted['isaccepted'] = aRequest.accepted
         reqAccepted['ispayed']= aRequest.paymentStatus
         reqAccepted['isdeliv']= aRequest.deliveryStatus
@@ -150,12 +152,17 @@ def get_user_info(cUser, request, user_id='',username=''):
         total_orders = 0
         is_verified = False
         is_cuser = False
+        member_since=''
         reviews_dict={}
         try:
             anyUser = User.Query.get(objectId=user_id) if user_id else User.Query.get(username=username)
+            user_id = anyUser.objectId
             pPicture = get_profile_pic(anyUser.objectId)
             anyName = anyUser.username
             anyMail = anyUser.email
+            member_since_month = anyUser.createdAt.strftime("%B")[:3]
+            member_since_year = anyUser.createdAt.year
+            member_since = '{} {}'.format(member_since_month, member_since_year)
             anyReviews = review.Query.filter(reviewedUser=anyUser)
             k=0
             for any_review in anyReviews:
@@ -164,12 +171,19 @@ def get_user_info(cUser, request, user_id='',username=''):
                                                            'picture':get_profile_pic(any_review.reviewer.objectId)},
                                                  'rating':any_review.rating,'text':any_review.reviewText, 'pub_date':any_review.createdAt.date()}
             is_verified = anyUser.emailVerified
-            anyRating = anyUser.userRating
-            total_reviews = anyUser.totalReviews
-            total_deliveries = anyUser.totalDeliveries
-            total_orders = anyUser.totalOrders
+            try:
+                anyRating = anyUser.userRating
+                total_reviews = anyUser.totalReviews
+                total_deliveries = anyUser.totalDeliveries
+                total_orders = anyUser.totalOrders
+            except AttributeError:
+                pass    
+            try:
+                screen_name = anyUser.screenName
+                
+            except AttributeError:
+                pass
             anyBio = anyUser.userBio
-            screen_name = anyUser.screenName
         except (AttributeError, QueryResourceDoesNotExist):
             pass
         if not anyRating:
@@ -178,15 +192,11 @@ def get_user_info(cUser, request, user_id='',username=''):
         if anyName == cUser.username :
             is_cuser = True
          
-        # crunch down the long usernames; this is the sick messy way
-        # we can implement the slick Messi way afterwards ;-)
-        for delim in ['.','@','_']:
-            if delim in anyName:
-                anyName = anyName.split(delim, 1)[0]
+       
         # let's get everything in a dict object
         proDict={'id':user_id,'username':anyName, 'screen_name':screen_name,'is_verified':is_verified, 'is_cuser':is_cuser, 'email':anyMail, 'Bio':anyBio, 
                  'rating':anyRating, 'total_deliveries':total_deliveries, 'total_orders':total_orders, 'pPicture':pPicture,
-                 'total_reviews':total_reviews, 'reviews':reviews_dict}
+                 'total_reviews':total_reviews, 'reviews':reviews_dict, 'member_since':member_since}
         if is_cuser:
             request.session['userinfo']=proDict
     return proDict
@@ -253,3 +263,27 @@ def ref_create(referralView, cUser, request):
     except KeyError:
         pass
     return alert
+def notify(source,origin,target, target_id, email):
+    template_name = 'notifications'
+    #  template variables
+
+    if source =='accept_request':
+        header = 'Request Accepted !'
+        info = origin + "accepted you request."
+        title="You made a request on " + origin + " trip earlier..."
+        user = target
+        action = 'Check Airdeal'
+        main = origin + "just accepted your request, you can now wrap up the details with the traveler and have your item delivered soon."
+        subject = header + ':' + origin
+        
+        send_mail(template_name=template_name,var_header=header, var_user = user, var_info=info, var_title=title,
+                  var_main = main, var_action=action, subject=subject, email = email, 
+                  from_name='Airspress',from_email = 'no-reply@airspress.com')
+        try:
+            push_alert = origin + ' accepted your request!'
+            Push.alert({"alert": push_alert,"badge": "Increment"}, 
+                   where={"appUser":{"__type":"Pointer","className":"_User","objectId":target_id}})
+        except:
+            pass
+        
+    

@@ -1,0 +1,53 @@
+{% extends 'signup/index.html' %}
+{% load staticfiles %}
+		{% block content %}
+			<!-- Banner -->
+				<section id="banner">
+					<div class="content">
+						<header>
+							 <div class="col-md-12">
+								<h3>Frequently</h3>
+								<h1 class="mb">Asked Questions</h1>
+								
+							</div>
+						</header>
+					</div>
+					<a href="#one" class="goto-next scrolly">Next</a>
+				</section>
+
+			<!-- One -->
+				<section id="one" class=" faqPage spotlight style1 bottom">
+					<span class="image fit main"><img src="{% static 'signup/images/pic02.jpg' %}" alt="" /></span>
+					<div style="background-color:#fff; color:#000" id="faqContent" class="content">
+						<div class="container">
+							<div class="row">
+								<div class="12u 12u$(medium)">
+									<header>
+										<h2>Pick your questions and get some answers</h2>
+										
+									</header>
+								</div>
+								<div class="12u 12u$(medium)">
+									{% include 'signup/faq_questions.html' %}
+								</div>
+							
+							</div>
+						</div>
+					</div>
+					<a href="#two" class="goto-next scrolly">Next</a>
+				</section>
+
+			
+
+			<!-- Five -->
+				<section id="two" class="wrapper style2 special fade-up">
+					<div class="container">
+						<header>
+							<h2>If you still got questions, feel free to contact us</h2>
+							<p>You can also find us on <a style="color:#fff;" target="_blank" href="https://twitter.com/airspress">Twitter(@airspress)</a></p>
+						</header>
+							<a href="#contactModal" data-toggle="modal" style="color:#fff;" class="button">Contact</a>
+					</div>
+				</section>
+
+		{% endblock content %}	
