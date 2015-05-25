@@ -269,6 +269,133 @@
 }
 
 
+.db-order-activity .order-gig-detail {
+     padding: 0px 20px 20px;
+}
+
+.db-order-activity .order-gig-detail table {
+     overflow: hidden;
+     table-layout: fixed;
+     width: 100%;
+}
+
+.db-order-activity .order-gig-detail table thead tr {
+     background-color: #f4f4f4;
+}
+
+.db-order-activity .order-gig-detail table thead tr td {
+     color: #b2b2b2;
+     font-size: 12px;
+     font-weight: 700;
+     padding: 2px 15px 2px 0px;
+     text-transform: uppercase;
+}
+
+.db-order-activity .order-gig-detail table thead tr td a {
+     color: #999999;
+}
+
+.db-order-activity .order-gig-detail table thead tr td a:hover {
+     color: #00b22d;
+}
+
+.db-order-activity .order-gig-detail table tr {
+     border-bottom: 1px solid #dddddd;
+}
+
+.db-order-activity .order-gig-detail table tr.total {
+     border-bottom: 0px none;
+}
+
+.db-order-activity .order-gig-detail table tr.total td {
+     font-size: 12px;
+     font-weight: 700;
+     text-align: right;
+}
+
+.db-order-activity .order-gig-detail table tr.total td em {
+     display: inline-block;
+     font-style: normal;
+     padding-left: 10px;
+}
+
+.db-order-activity .order-gig-detail table tr td {
+     color: #555555;
+     font-size: 14px;
+     line-height: 18px;
+     padding: 8px 15px 8px 0px;
+}
+
+.db-order-activity .order-gig-detail table tr td a {
+     color: #00698c;
+}
+
+.db-order-activity .order-gig-detail table tr td a:hover {
+     color: #00b22d;
+     text-decoration: none;
+}
+
+.db-order-activity .order-gig-detail table tr td a.asc::after, .db-order-activity .order-gig-detail table tr td a.desc::after {
+     content: "▲";
+     font-size: 9px;
+     margin-left: 5px;
+}
+
+.db-order-activity .order-gig-detail table tr td a.desc::after {
+     content: "▼";
+}
+
+.db-order-activity .order-gig-detail table tr td .status-bar {
+     height: 16px;
+     line-height: 16px;
+     margin-bottom: 0px;
+     margin-top: 0px;
+}
+
+.db-order-activity .order-gig-detail table tr td:first-child {
+     padding-left: 15px;
+}
+
+.db-order-activity .order-gig-detail table tr td.qty {
+     width: 70px;
+}
+
+.db-order-activity .order-gig-detail table tr td.qty strong {
+     color: #999999;
+     font-size: 13px;
+     padding-right: 1px;
+     vertical-align: middle;
+}
+
+.db-order-activity .order-gig-detail table tr td.amount {
+     text-align: right;
+     width: 70px;
+}
+
+.db-order-activity .order-gig-detail table tr td.date {
+     text-align: right;
+     width: 80px;
+}
+
+.db-order-activity .order-gig-detail table tr td.date em {
+     font-style: normal;
+     font-weight: 400;
+}
+
+.db-order-activity .order-gig-detail table tr td.date em.strikethrough {
+     text-decoration: line-through;
+}
+
+.db-order-activity .order-gig-detail table tr td.truncated {
+     overflow: hidden;
+     padding-right: 20px;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+}
+
+
+
+
 
 @media (max-width: 1147px) {
   .db-order-activity .order-is-completed { padding-left: 20px; padding-right: 20px; }
@@ -296,93 +423,10 @@
      box-sizing: border-box;
      margin-left: 202px;
      margin-top: 100px;
-     min-height: 100%;
+     min-height: 800px;
      position: relative;
 }
-@media (max-width:728px){
-.db-content.content-left {
-  margin-left: 0;
-  margin-right: 0;
-}
 
-}
-
-/*Comment List styles*/
-.comment-list .row {
-  margin-bottom: 0px;
-}
-.comment-list .panel .panel-heading {
-  padding: 4px 15px;
-  position: absolute;
-  border:none;
-  /*Panel-heading border radius*/
-  border-top-right-radius:0px;
-  top: 1px;
-}
-.comment-list .panel .panel-heading.right {
-  border-right-width: 0px;
-  /*Panel-heading border radius*/
-  border-top-left-radius:0px;
-  right: 16px;
-}
-.comment-list .panel .panel-heading .panel-body {
-  padding-top: 6px;
-}
-.comment-list figcaption {
-  /*For wrapping text in thumbnail*/
-  word-wrap: break-word;
-}
-/* Portrait tablets and medium desktops */
-@media (min-width: 768px) {
-  .comment-list .arrow:after, .comment-list .arrow:before {
-    content: "";
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-color: transparent;
-  }
-  .comment-list .panel.arrow.left:after, .comment-list .panel.arrow.left:before {
-    border-left: 0;
-  }
-  /*****Left Arrow*****/
-  /*Outline effect style*/
-  .comment-list .panel.arrow.left:before {
-    left: 0px;
-    top: 30px;
-    /*Use boarder color of panel*/
-    border-right-color: inherit;
-    border-width: 16px;
-  }
-  /*Background color effect*/
-  .comment-list .panel.arrow.left:after {
-    left: 1px;
-    top: 31px;
-    /*Change for different outline color*/
-    border-right-color: #FFFFFF;
-    border-width: 15px;
-  }
-  /*****Right Arrow*****/
-  /*Outline effect style*/
-  .comment-list .panel.arrow.right:before {
-    right: -16px;
-    top: 30px;
-    /*Use boarder color of panel*/
-    border-left-color: inherit;
-    border-width: 16px;
-  }
-  /*Background color effect*/
-  .comment-list .panel.arrow.right:after {
-    right: -14px;
-    top: 31px;
-    /*Change for different outline color*/
-    border-left-color: #FFFFFF;
-    border-width: 15px;
-  }
-}
-.comment-list .comment-post {
-  margin-top: 6px;
-}
 .img-responsive{max-width:100%;height:auto}
 /* reviews */
  .animated {
