@@ -43,7 +43,7 @@ class requestForm(forms.Form):
     item_quantity = forms.IntegerField()
     shop_name = forms.CharField()
     weightGood = forms.IntegerField()
-    comments = forms.CharField()
+    comments = forms.CharField(required=False)
     dimensions_1 = forms.IntegerField(required=False)
     dimensions_2 = forms.IntegerField(required=False)
     dimensions_3 = forms.IntegerField(required=False)
