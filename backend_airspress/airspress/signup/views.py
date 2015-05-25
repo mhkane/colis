@@ -13,6 +13,7 @@ from account.actions import referral, send_mail
 from parse_rest.query import QueryResourceDoesNotExist
 from signup.backend_parse import passRequest
 from django.contrib.sites.models import get_current_site
+import requests
 
 authomatic = Authomatic(CONFIG, 'a super secret random string about falconpress and his brethren')
 
@@ -319,19 +320,18 @@ def switch_pass(request):
             return render(request,'signup/password_change.html', {'alert':alert})
     return HttpResponseRedirect(reverse('signup:index'))
 def email_verification(request):
-    site = lambda: get_current_site(request)
+    site = lambda x: get_current_site(x)
     protocol = 'https' if request.is_secure() else 'http'
     url_part = request.build_absolute_uri()
-    domain_here = '{0}://{1}'.format(protocol,site)
-    url_part.replace(domain_here,'')
-    real_domain = "https://www.parse.com/apps/airspress--3/"
+    domain_here = '{0}://{1}'.format(protocol,site(request))
+    url_part= url_part[url_part.index('token'):]
+    real_domain = "https://www.parse.com/apps/airspress--3/verify_email?"
     real_domain += url_part
-    r = request(real_domain)
-    r.text.lower()
+    r = requests.get(real_domain)
     print site, url_part, real_domain
     email_verified = True
-    if not 'successfully' in r.text:
+    if not 'successfully' in r.text.lower():
         email_verified = False
-        r.text
+        
     return render(request,'signup/email_verified.html',{'email_verified':email_verified,'site':domain_here} )
     

@@ -2,14 +2,11 @@
 {% load staticfiles %}
 {% load compress %}
 {% block jscript %} 
-	<script>
-		// Display Conversation On Profile Page											  
-								function displayChat() {document.getElementById("displayChat").click();
-														$('#navtab-chat').removeClass("hidden");
-														
-														document.getElementById("WrapperConversation1").scrollIntoView(false);
-								};
+	<script>									
+			window.onload = function(){
+								document.getElementById("WrapperConversation1").scrollIntoView(false);
 								
+							};					
 	</script>
 	
 	<!-- this page specific scripts -->

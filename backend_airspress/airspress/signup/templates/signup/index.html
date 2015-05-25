@@ -60,7 +60,7 @@
 							<li><a href="/faq" class="{% block faq %} {% endblock faq %}">FAQ </a></li>
 							
 							<li>{% if not greetings %}
-							<a href="#" class="button special" id="login" data-toggle="modal" data-target=".bs-modal-sm" >Login</a>
+							<a href="/login/student" class="button special" id="login" data-toggle="modal" data-target=".bs-modal-sm" >Login</a>
 								{% else %}
 								<a href="{% url 'account:profile' greetings %}"><img src="{{myPicture}}" style=" width:60px ; height: 60px; "" class="img-responsive img-circle"></a>
 								{% endif %}
@@ -219,7 +219,7 @@
 					</div>
 					</div>	
 					<ul class="copyright">
-						<li>&copy; Airspress 2015</li><li>Credits Image: <a href="http://visibleearth.nasa.gov/view.php?id=55167">NASA</a></li>
+						<li>&copy; Airspress 2015</li><li>Credits Image: <a target="_blank" href="http://visibleearth.nasa.gov/view.php?id=55167">NASA</a></li>
 					</ul>
 				</footer>
 
@@ -265,7 +265,11 @@
 				}
 				$('document').ready(function(){
 					// anything you need to initialize goes here
-					$('#login').click(function(){$('#loginModal').modal()});
+					$('#login').click(function(){
+											event.preventDefault();
+											$('#loginModal').modal()
+					});
+					
 					calForce();
 				})
 			 </script> 

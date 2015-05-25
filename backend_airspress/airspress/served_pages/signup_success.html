@@ -11,15 +11,10 @@
     <title>Registration Success</title>
 
     <!-- Core -->
-	{% load staticfiles %}
-	{% load compress %}
-
-	{% compress css %}
+	
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/bootstrap.min.css' %}" />
-	{% endcompress %}
-	{% compress css %}
 	<link rel="stylesheet" type="text/css" href="{% static 'account/css/flat-ui.min.css' %}" />
-	{% endcompress %}
+
 
 		<!-- JScript -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -30,12 +25,12 @@
   <body class="bg-white">
 	<div style="position:relative;" class="row">
 	<div style="position:absolute; top:50%; margin:0; margin-right:-50%; left:50%; transform:translate(-50%,-50%)" class="col-md-8">
-		{% if alert %}
-		  <div style="display:block; margin:auto;" class="alert alert-{{alert.type}} alert-dismissable">
+	
+		  <div style="display:block; margin:auto;" class="alert alert-success alert-dismissable">
 			<button type="button" data-dismiss="alert" class="close" aria-hidden="true">&times;</button>
-			<strong>{{ alert.text }} {{alert.message}}</strong> {% if alert.link %} <a href="{{alert.url}}">{{alert.link}}</a> {% endif %}
+			<strong>Successfully registered !</strong>  <a href="/">Go back to homepage</a>
 		  </div>
-		{% endif %}
+
 	</div>	
 	</div>	
 	</body>

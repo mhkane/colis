@@ -5,7 +5,7 @@ function distance_havesin(lat1, lon1, lat2, lon2) {
      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
      (1 - Math.cos((lon2 - lon1) * Math.PI / 180))/2;
 
-  return priceComp(abs(R * 2 * Math.asin(Math.sqrt(a)) * 1000));
+  return priceComp(Math.abs(R * 2 * Math.asin(Math.sqrt(a)) * 1000));
 };
 function distancePrice(){
 	// Get the two locations geographical constants

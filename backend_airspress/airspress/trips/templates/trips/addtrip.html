@@ -226,7 +226,7 @@
 											<a class="btn btn-lg btn-success pull-right {% if addForm.errors %} hidden {% endif %}" step-toggle="next" step-display="step2" step-disable="step1" > Next </a>
 											
 										</div>
-										<div id="backtrip" class="col-md-6 {% if not addForm.arrivDate2.errors and not addForm.depDate2.errors %} hidden {% endif %}">
+										<div id="backtrip" class="col-md-6 {% if addForm.arrivDate2.errors or addForm.depDate2.errors %}  {% else %} hidden {% endif %}">
 											<div class="form-group">
 											  <label class="control-label" for="departure">Return Trip: Departure Date</label>
 											  <div class="controls">

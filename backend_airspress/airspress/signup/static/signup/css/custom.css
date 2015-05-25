@@ -144,14 +144,14 @@ p .btn.btn-primary:hover,p .btn.btn-primary:active, p .btn.btn-primary:focus, p 
 /* Headers*/
 h1,h2,h3,h4,h6,header{font-family:'Museo-500'}
 /* text blocks */
-.conversation-body .name{font-size:0.7em;}
+.conversation-wrapper .conversation-body > .name{font-size:0.7em;}
 
 /* ICONS */
 ul.dropdown-menu i.fa{font-size:1.1em;}
 .fa.small{font-size:83%}
 .fa.fa-times{font: 14px/1 FontAwesome; color:white;}
 .input-group .input-group-addon i{color:#e81}
-
+.form-control-feedback{opacity:0.6}
 /* images */
 #user-profile  .main-box-body .profile-img{max-width:80%;}
 

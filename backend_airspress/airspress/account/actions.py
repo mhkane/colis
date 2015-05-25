@@ -27,7 +27,6 @@ def getdeal(travelUser, reqUser, aRequest, aTrip):
         #priceDeal = aRequest.priceUsd
         pub_date = aRequest.createdAt
         departDate = aTrip.departureDate.date()
-        arriDate = aTrip.arrivalDate.date()
         destLocation = aTrip.toLocation
         oriLocation = aTrip.fromLocation
         
@@ -56,7 +55,7 @@ def getdeal(travelUser, reqUser, aRequest, aTrip):
         traveler_reviewed = False
     
            
-    reqAccepted.update({'pubdate':pub_date, 'arrDate':arriDate,
+    reqAccepted.update({'pubdate':pub_date,
              'depDate':departDate, 'cityDep':oriLocation, 
              'cityArr':destLocation,
              'traveler':{'username':travelUser.username,'picture':traveler_pic,'isreviewed':traveler_reviewed},

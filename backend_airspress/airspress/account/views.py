@@ -18,6 +18,8 @@ from signup.backend_parse import review, Item
 from parse_rest.core import ResourceRequestNotFound
 from texto_airspress.schemes import auth_client, create_conversation,\
     retrieve_conversation
+from django.utils.datastructures import MultiValueDictKeyError
+from django.views.decorators.csrf import ensure_csrf_cookie
 # Create your views here.
 def addTrip(request):
     '''
@@ -31,8 +33,10 @@ def addTrip(request):
             if addView.is_valid():
                 alert = tripCreate(request, cUser, addView)
                 print alert
-                alert['type']='success'
-                alert['text']='Trip has been successfuly registered. Requests will be coming in no time!'
+                if alert:
+                    alert = {}
+                    alert['type']='success'
+                    alert['text']='Trip has been successfuly registered. Requests will be coming in no time!'
         #Preparing search form on page
             else:
                 print addView.errors
@@ -395,7 +399,8 @@ def reviewTrip(request,key):
 # This is the User Profile related zone.
 # Profile Edition, Profile Display and Referral are dealt with here
 # Have a nice time playing with that !
-#    
+# 
+@ensure_csrf_cookie   
 def profileView(request, key):
     cUser = is_logged_in(request)
     if cUser:
@@ -454,7 +459,10 @@ def edit_profile(request, section):#todo last man standing
                 else:
                     print general_form.errors  
                 if profile_picture_form.is_valid():
-                    profile_picture = handle_uploaded_file(profile_picture_form.cleaned_data.get('profile_picture', False), cUser)
+                    try:
+                        profile_picture = handle_uploaded_file(profile_picture_form.cleaned_data.get('profile_picture', False), cUser)
+                    except MultiValueDictKeyError:
+                        pass
                 else:
                     print profile_picture_form.errors
                     
@@ -517,7 +525,8 @@ def inbox(request):
                         'conversations':conversations}
         return render(request, 'account/inbox.html', context_dic)
     return HttpResponseRedirect(reverse('signup:index'))
-  
+
+@ensure_csrf_cookie  
 def instant_messaging(request,key):
     #key is here the username of the other party in the conversation
     #that's about how the url for instant messaging view is formatted    

@@ -153,7 +153,7 @@ def sign_in(request, login_dic=None, loginView=None, provider_name='student'):
             alert={'type':'warning','text':'Wrong Password !','link':'Forgot your password ?','url':'/password_reset/'}
         else:
             # hmm.. trying to plays us !?
-            alert={'type':'danger','text':'This user does not exist','link':'Sign up here','url':'/login/student'}
+            alert={'type':'danger','text':'This user does not exist','link':'Sign up here','url':'/register/student'}
         return alert
     #create a secure session server-side and a little cookie client side
     

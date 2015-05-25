@@ -1,7 +1,5 @@
 /*
-	Landed by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	Airspress homepage, faq, and about
 */
 
 (function($) {
@@ -85,10 +83,7 @@
 						visibleClass: 'navPanel-visible'
 					});
 
-			// Fix: Remove navPanel transitions on WP<10 (poor/buggy performance).
-				if (skel.vars.os == 'wp' && skel.vars.osVersion < 10)
-					$('#titleBar, #navPanel, #page-wrapper')
-						.css('transition', 'none');
+			
 
 		// Parallax.
 		// Disabled on IE (choppy scrolling) and mobile platforms (poor performance).
@@ -171,7 +166,7 @@
 
 					on = function() {
 
-						// Use main <img>'s src as this spotlight's background.
+						// Use main <img>'s src as this row's background.
 							$this.css('background-image', 'url("' + $this.find('.image.main > img').attr('src') + '")');
 
 						// Enable transitions (if supported).
@@ -192,6 +187,11 @@
 										mode = 'bottom-only';
 										top = 0;
 										bottom = '20%';
+										if ($this.hasClass('faqPage') ) {
+
+											
+											bottom = '50%';
+										}
 
 									}
 									else {
@@ -267,7 +267,7 @@
 								terminate:	function(t) { $this.removeClass('inactive'); },
 								enter:		function(t) { $this.removeClass('inactive'); },
 
-								// Uncomment the line below to "rewind" when this wrapper scrolls out of view.
+								//  "rewind" when this wrapper scrolls out of view.
 
 								//leave:	function(t) { $this.addClass('inactive'); },
 
@@ -300,6 +300,20 @@
 
 			$banner
 				._parallax();
+			
+		// panel-collapse
+			var $panels = $('.panel-collapse');
+
+			$panels
+				
+				.each(function() {
+					var $this = $(this);
+					if ($this.hasClass('in') && $this.attr('id') != 'collapseOne'){
+						$this[0].scrollIntoView();
+					
+					}
+				
+				});
 
 	});
 

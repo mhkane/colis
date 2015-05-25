@@ -147,35 +147,45 @@ def tripCreate(request, cUser, addView):
     if is_coming_back:
         depart = datetime.datetime.combine(addView.cleaned_data['depDate2'], datetime.time.min)
         dep_dates = []
-        dep_dates.append(depart)
         dep_dates.append(depDate)
+        dep_dates.append(depart)
         weight = addView.cleaned_data['weightGood2']
         weight_goods = []
         weight_goods.append(weightGood)
         weight_goods.append(weight)
+        city_arr = []
+        city_dep = []
+        city_dep.append(cityDep)
+        city_dep.append(cityArr)
+        city_arr.append(cityArr)
+        city_arr.append(cityDep)
         new_trips = []
-        for k in range(len(dep_dates)-1):
+        for k in range(len(dep_dates)):
             try:
                 dep_date = dep_dates[k]
                 weight_good = weight_goods[k]
             except:
                 pass     
             try:
-                city_dep_tokens = process_for_search(cityDep)
-                city_arr_tokens = process_for_search(cityArr)
+                city_dep_tokens = process_for_search(city_dep[k])
+                city_arr_tokens = process_for_search(city_arr[k])
                 # the form provided values contains states long and short names
                 # We want to keep both for search engine but we don't want to store
                 # the whole thing as a location so we strip the long name to only keep it
                 # the tokens
-                cityArr = cityArr.split(',')
+                cityArr = city_arr[k].split(',')
+                cityDep = city_dep[k].split(',')
                 if len(cityArr) == 4:
-                    cityArr.remove(2)
+                    cityArr.pop(2)
+                if len(cityDep) == 4:
+                    cityDep.pop(2)
                 cityArr = ', '.join(cityArr)
-                new_trips[k] = trip(departureDate = dep_date, fromLocation = cityDep, 
+                cityDep = ', '.join(cityDep)
+                new_trips.append(trip(departureDate = dep_date, fromLocation = cityDep, 
                             toLocation = cityArr, availCapacity = weight_good, totalCapacity=weight_good, unitPriceUsd = unitPrice,
-                            toLocationTokens = city_arr_tokens, fromLocationTokens = city_dep_tokens)
+                            toLocationTokens = city_arr_tokens, fromLocationTokens = city_dep_tokens))
                 new_trips[k].traveler = User.Query.get(objectId=cUser.objectId)
-                new_trips[k].save()
+                
             except (AttributeError, KeyError, IndexError):
                 pass
         batcher = ParseBatcher()
@@ -184,9 +194,23 @@ def tripCreate(request, cUser, addView):
             return True
         return False
     try:
-        
+        city_dep_tokens = process_for_search(cityDep)
+        city_arr_tokens = process_for_search(cityArr)
+        # the form provided values contains states long and short names
+        # We want to keep both for search engine but we don't want to store
+        # the whole thing as a location so we strip the long name to only keep it
+        # the tokens
+        cityArr = cityArr.split(',')
+        cityDep = cityDep.split(',')
+        if len(cityArr) == 4:
+            cityArr.pop(2)
+        if len(cityDep) == 4:
+            cityDep.pop(2)
+        cityArr = ', '.join(cityArr)
+        cityDep = ', '.join(cityDep)
         newTrip = trip(departureDate = depDate, fromLocation = cityDep, 
-                    toLocation = cityArr, availCapacity = weightGood, totalCapacity=weightGood, unitPriceUsd = unitPrice)
+                    toLocation = cityArr, availCapacity = weightGood, totalCapacity=weightGood, unitPriceUsd = unitPrice,
+                    toLocationTokens = city_arr_tokens, fromLocationTokens = city_dep_tokens)
         newTrip.traveler = User.Query.get(objectId=cUser.objectId)
     except AttributeError:
         pass
@@ -297,7 +321,7 @@ def unit_price_calc(distance):
     try:
         price = Decimal(price)
     except:
-        price = 0        
+        price = 7        
     return str(price)
 def price_format(price, currency="USD"):
     price = str(Money(amount=price,currency=currency))
