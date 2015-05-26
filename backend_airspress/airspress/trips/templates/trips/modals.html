@@ -1,3 +1,6 @@
+ {% if alert.type == 'success' %}
+		{% include 'trips/alerts.html' %}
+ {% else %}
  <div class="modal-dialog {% block size %} modal-lg {% endblock %}">
     <div class="modal-content">
 <div class='modal-header'>
@@ -7,14 +10,14 @@
   <h3>{% block modal-title %} Make a request{% endblock %}</h3>
 	<small class="help-block">Fill the form to the best of your ability. Providing these informations
 						will make it a lot easier for our traveler </small>
-	{% if requestForm.erros and not alert.type %} <div class="alert alert-danger">{% firstof requestForm.non_field_errors "Errors have been displayed... Check on next steps" %} </div>	{% endif %}				
+	{% if requestForm.errors and not alert.type %} <div class="alert alert-danger">{% firstof requestForm.non_field_errors "Errors have been displayed... Check on next steps" %} </div>	{% endif %}				
   </div>
   {% block content %}
   <form id='modal-form' class="form-req-trip" action="{% url 'trips:request' key %}" method="POST">
   <div class='modal-body'>
-		  {% if alert.type %}
+	{% if alert.type %}
 			{% include 'trips/alerts.html' %}
-		 {% endif %}
+	{% endif %}	  
     {% csrf_token %}
 	{% block form-content %}
 	<div class="row">
@@ -113,7 +116,7 @@
 				  <input type="number" min="0" class="input-sm text-center form-control" name="{{ requestForm.dimensions_1.name}}" /> 
 				  <span style="color:#e81;border:none;font-size:0.8em;" class="input-group-addon">&times;</span>
 				  <input type="number" min="0" class="input-sm text-center form-control" name="{{ requestForm.dimensions_2.name}}" />
-				  <span style="color:#e81;" class="input-group-addon">&times;</span>
+				  <span style="color:#e81;border:none;" class="input-group-addon">&times;</span>
 				  <input type="number" min="0" class="input-sm text-center form-control" name="{{ requestForm.dimensions_3.name}}" />
 				</div>
 					{{requestForm.dimensions_1.errors}} {{requestForm.dimensions_2.errors}} {{requestForm.dimensions_3.errors}}
@@ -136,4 +139,5 @@
 </form>
 {% endif %}
 </div> <!--- modal-content -->
-</div> <!--- modal -->
+</div> <!--- modal-dialog -->
+{% endif %}
