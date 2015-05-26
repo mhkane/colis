@@ -14,6 +14,12 @@ class review(ParseObject):
     pass
 class Item(ParseObject):
     pass
+# request class is renamed as trequests so that to avoid
+# redondance of the name with the request objet of views
+class request(ParseObject):
+    pass
+class trequests(request):
+    pass
 # we have a referral class which is useful for retaining information between the referred and the referrer
 # And there is the secret-word the referred enter at signup, best way to store that
 class referral(ParseObject):

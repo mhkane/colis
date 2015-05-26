@@ -5,17 +5,16 @@ and also edit profile information
 '''
 from signup.schemes import User
 from parse_rest.datatypes import Object as ParseObject, Function
-from email.mime.image import MIMEImage
-from airspress.settings import FILE_UPLOAD_DIR
 from django.core.urlresolvers import reverse
 from parse_rest.query import QueryResourceDoesNotExist
 from decimal import Decimal
 from signup.backend_parse import review, referral
 from parse_rest.installation import Push
+from trips.crtrips import priceCalc, price_format
+from moneyed.classes import Money
 
 class request(ParseObject):
     pass
-
 #Cloud function for mail sending
 send_mail = Function("email")
 
@@ -29,7 +28,7 @@ def getdeal(travelUser, reqUser, aRequest, aTrip):
         departDate = aTrip.departureDate.date()
         destLocation = aTrip.toLocation
         oriLocation = aTrip.fromLocation
-        
+        reqAccepted['commission'] = priceCalc(getattr(aTrip,'unitPriceUsd',0.00),getattr(aRequest,'weightRequested',1))
     except AttributeError:
         pass
     reqUser_pic = ''
@@ -37,8 +36,7 @@ def getdeal(travelUser, reqUser, aRequest, aTrip):
     try:
         reqUser_pic = get_profile_pic(reqUser.objectId)
         traveler_pic = get_profile_pic(travelUser.objectId)
-        reqAccepted['isaccepted'] = False
-        reqAccepted['isaccepted'] = aRequest.accepted
+        reqAccepted['isaccepted'] = getattr(aRequest,'accepted',False)
         reqAccepted['ispayed']= aRequest.paymentStatus
         reqAccepted['isdeliv']= aRequest.deliveryStatus
     except AttributeError:
@@ -63,59 +61,19 @@ def getdeal(travelUser, reqUser, aRequest, aTrip):
     # send notification
     print reqAccepted
     return reqAccepted
-# TRASH we don't use this as we've configuring a cloud function to send the emails
-def notif_mail(recipient_email, msg_a, msg_b):
-    import smtplib
 
-    from email.mime.multipart import MIMEMultipart
-    from email.mime.text import MIMEText
-    
-    # me == my email address
-    # you == recipient's email address
-    me = "team@airspress.com"
-    you = recipient_email
-    
-    # Create message container - the correct MIME type is multipart/alternative.
-    msg = MIMEMultipart('alternative')
-    msg['Subject'] = "Notification"
-    msg['From'] = me
-    msg['To'] = you
-    
-    # Create the body of the message (a plain-text and an HTML version).
-    text = "Hi!\n{0} {1}".format(msg_a, msg_b)
-    fp = open(FILE_UPLOAD_DIR+'notif.html', 'rb')
-    html = fp.read()
-    fp.close()
-    html.format(msg_a, msg_b)
-    
-    # Record the MIME types of both parts - text/plain and text/html.
-    part1 = MIMEText(text, 'plain')
-    part2 = MIMEText(html, 'html')
-    
-    # Attach parts into message container.
-    # According to RFC 2046, the last part of a multipart message, in this case
-    # the HTML message, is best and preferred.
-    msg.attach(part1)
-    msg.attach(part2)
-    # This example assumes the image is in the current directory
-    fp = open(FILE_UPLOAD_DIR+'im(1).jpg', 'rb')
-    msgImage = MIMEImage(fp.read())
-    fp.close()
-    
-    # Define the image's ID as referenced above
-    msgImage.add_header('Content-ID', '<image1>')
-    msg.attach(msgImage)
-    # Send the message via local SMTP server.
-    s = smtplib.SMTP("mail.airspress.com", 26)
-    #
-    #s.connect('mail.airspress.com')
-    s.ehlo()
-    s.login('team@airspress.com', '@1rm@r$i@')
-    # sendmail function takes 3 arguments: sender's address, recipient's address
-    # and message to send - here it is sent as one string.
-    s.sendmail(me, you, msg.as_string())
-    s.close()
-    return 0
+def total_deal_price(items_dict, commission):
+    all_items_price = 0
+    for item, content in items_dict.items():
+        price = content.get('price','0.00')
+        price = price_deformat(price)
+        all_items_price += Decimal(price)
+    total = str(Money(all_items_price + Decimal(price_deformat(commission)), currency="USD"))
+    return total
+def price_deformat(str_money):
+    digit_list = [digit for digit in str_money if digit.isdigit() or digit == '.']
+    str_price = ''.join(digit_list)
+    return str_price
 # i don't know why i made this a function in the first place
 # Well now it's useful. Some users might lack profile pic
 # i don't want to be overwhelmed by a ton of "try..except" and what-not... 
@@ -284,5 +242,7 @@ def notify(source,origin,target, target_id, email):
                    where={"appUser":{"__type":"Pointer","className":"_User","objectId":target_id}})
         except:
             pass
+    elif source=="message":
+        pass    
         
     

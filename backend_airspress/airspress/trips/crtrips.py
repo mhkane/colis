@@ -12,7 +12,8 @@ from parse_rest.query import QueryResourceDoesNotExist
 register(settings.APPLICATION_ID, settings.REST_API_KEY)#settings.REST_API_KEY
 from parse_rest.datatypes import Object as ParseObject
 from parse_rest.user import User
-from account.actions import request as trequests, get_profile_pic
+from account.schemes import get_profile_pic
+from signup.backend_parse import request as trequests
 
 class trip(ParseObject):
     pass

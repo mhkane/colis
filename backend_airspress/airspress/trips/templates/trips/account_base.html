@@ -187,8 +187,14 @@
   $('body').on('click', '.modal-trigger', displayModal);
   // $('body').on('click', '.deleter', deleteObject);
    $('body').on('submit', '#modal-form', saveForm);
+   // alerts timeout
+   window.setTimeout(function() {
+    $(".alert-success").fadeTo(1500, 0).slideUp(500, function(){
+        $(this).remove(); 
+    });
+}, 5000);
  });
- 
+
  </script>
 
 </body>

@@ -85,12 +85,12 @@
 											</thead>
 										{% if requested_items %}	
 											<tbody>
-											{% for item in requested_items %}
+											{% for item, content in requested_items.items %}
 												<tr>
-													<td class="truncated">{{item.name}}</td>
-													<td class="qty"><strong>×</strong>{{item.quantity}}</td>
+													<td class="truncated">{{content.name}}</td>
+													<td class="qty"><strong>×</strong>{{content.quantity}}</td>
 													<td class="date" style=""></td>
-													<td class="amount">{{ item.price }}</td>
+													<td class="amount">{{ content.price }}</td>
 												</tr>
 											{% endfor %}	
 												 <tr>
@@ -105,7 +105,7 @@
 													<td class="amount">{{ dealInfo.commission}}</td>
 												</tr>														
 												<tr class="total">
-													<td colspan="4">Total <em>{{ dealInfo.totalPrice }}</em></td>
+													<td colspan="4">Total <em>{{ dealInfo.total_price }}</em></td>
 												</tr>
 											</tbody>
 										{% endif %}	

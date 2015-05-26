@@ -9,8 +9,7 @@ from trips.forms import addForm, reviewForm
 from trips.crtrips import tripCreate
 from trips.crtrips import trip
 from account.actions import request as trequests, getdeal, ref_create,\
-    tripReview, get_profile_pic, get_user_info, notify
-from parse_rest.installation import Push
+    tripReview, get_profile_pic, get_user_info, notify, total_deal_price
 from account.forms import referralForm, settings_form_general,\
     settings_form_picture, settings_form_password
 from parse_rest.query import QueryResourceDoesNotExist
@@ -263,11 +262,20 @@ def deals(request, key, external_alert={}, external_context=False):
             for wanted_item in wanted_items:
                 try:
                     k=k+1
+<<<<<<< Updated upstream
                     items_dict['item'+str(k)]= {'name':wanted_item.name or '','type':wanted_item.type or '',
                                            'unitPrice':wanted_item.unitPrice or '0.00','quantity':wanted_item.quantity or 0, 
                                            'price':wanted_item.price or '0'}
+=======
+                    items_dict['item'+str(k)]= {'name':getattr(wanted_item,'name',''),'type':getattr(wanted_item,'type','None'),
+                                           'unitPrice':getattr(wanted_item, 'unitPrice',0.00),'quantity':getattr(wanted_item,'quantity',1), 
+                                           'price':getattr(wanted_item,'price','0.00')}
+                    print items_dict
+>>>>>>> Stashed changes
                 except (AttributeError,QueryResourceDoesNotExist):
                     pass
+            total = total_deal_price(items_dict,reqAccepted.get('commission',0.00))
+            reqAccepted['total_price'] = total
             # reviews on this deal
             deal_reviews = review.Query.filter(reviewedRequest=aRequest)
             reviews_dict = {}
@@ -533,34 +541,37 @@ def instant_messaging(request,key):
     cUser = is_logged_in(request)
     
     if cUser:
-        any_user_id = ''
-        pPicture = ''
-        try:
-            any_user = User.Query.get(username=key)
-            any_user_id = any_user.objectId
-            pPicture = any_user.profilePicture.url   
-        except (AttributeError, QueryResourceDoesNotExist):
+        if request.method == 'POST':
             pass
-        source_id = request.GET.get('source',False)
-        # Bring in the instant chat
-        # source_id is used as a unique identifier of conversation
-        # hence the use of sorting is an obvious attempt to maintain same source_id
-        # disregarding which one of the two parties is the current user.
-        # we virtually create conversation everytime even after first creation
-        # so that we don't have to check for existence
-        
-        if not source_id:
-            source_id = ''.join(sorted(cUser.objectId + "-"+any_user_id))
-        chat_token = auth_client(cUser.objectId, "chat", source_id)
-        chat_node = create_conversation(source_id, [cUser.objectId, any_user_id], "direct_messaging")
-        context_dic={'greetings':cUser.username,'myPicture':get_profile_pic(cUser.objectId),
-                     'userinfo':{'username':key,'pPicture':pPicture}}
-        if chat_node:
-            context_dic['firebase_token']=chat_token
-            context_dic['source_id'] = source_id
-            context_dic['firebase_node']=chat_node+"/"+source_id
-            context_dic['current_user_id'] = cUser.objectId
-        return render(request, 'account/messaging.html', context_dic)
+        else:   
+            any_user_id = ''
+            pPicture = ''
+            try:
+                any_user = User.Query.get(username=key)
+                any_user_id = any_user.objectId
+                pPicture = any_user.profilePicture.url   
+            except (AttributeError, QueryResourceDoesNotExist):
+                pass
+            source_id = request.GET.get('source',False)
+            # Bring in the instant chat
+            # source_id is used as a unique identifier of conversation
+            # hence the use of sorting is an obvious attempt to maintain same source_id
+            # disregarding which one of the two parties is the current user.
+            # we virtually create conversation everytime even after first creation
+            # so that we don't have to check for existence
+            
+            if not source_id:
+                source_id = ''.join(sorted(cUser.objectId + "-"+any_user_id))
+            chat_token = auth_client(cUser.objectId, "chat", source_id)
+            chat_node = create_conversation(source_id, [cUser.objectId, any_user_id], "direct_messaging")
+            context_dic={'greetings':cUser.username,'myPicture':get_profile_pic(cUser.objectId),
+                         'userinfo':{'username':key,'pPicture':pPicture}}
+            if chat_node:
+                context_dic['firebase_token']=chat_token
+                context_dic['source_id'] = source_id
+                context_dic['firebase_node']=chat_node+"/"+source_id
+                context_dic['current_user_id'] = cUser.objectId
+            return render(request, 'account/messaging.html', context_dic)
     return HttpResponseRedirect(reverse('signup:index'))      
 def referral(request):
     cUser = is_logged_in(request)
