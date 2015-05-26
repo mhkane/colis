@@ -263,9 +263,9 @@ def deals(request, key, external_alert={}, external_context=False):
             for wanted_item in wanted_items:
                 try:
                     k=k+1
-                    items_dict['item'+str(k)]= {'name':wanted_item.name,'type':wanted_item.type,
-                                           'unitPrice':wanted_item.unitPrice,'quantity':wanted_item.quantity, 
-                                           'price':wanted_item.price}
+                    items_dict['item'+str(k)]= {'name':wanted_item.name or '','type':wanted_item.type or '',
+                                           'unitPrice':wanted_item.unitPrice or '0.00','quantity':wanted_item.quantity or 0, 
+                                           'price':wanted_item.price or '0'}
                 except (AttributeError,QueryResourceDoesNotExist):
                     pass
             # reviews on this deal
