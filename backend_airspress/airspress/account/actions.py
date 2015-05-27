@@ -230,12 +230,13 @@ def notify(source,origin,target, target_id, email):
     #  template variables
 
     if source =='accept_request':
-        header = 'Request Accepted !'
+        header = 'Request Accepted by ' + origin
         info = origin + "accepted you request."
-        title="You made a request on " + origin + " trip earlier..."
+        title="You made a request on " + origin + "'s trip earlier..."
         user = target
         action = 'Check Airdeal'
-        main = origin + "just accepted your request, you can now wrap up the details with the traveler and have your item delivered soon."
+        link = ''
+        main = origin + " just accepted your request, you can now wrap up the details with the traveler and have your item delivered soon."
         subject = header + ':' + origin
         
         send_mail(template_name=template_name,var_header=header, var_user = user, var_info=info, var_title=title,

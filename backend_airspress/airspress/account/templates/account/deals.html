@@ -54,11 +54,14 @@
 								<header class="order-header with-star cf">
 									<span class="order-price">{{ dealInfo.totalPrice }}</span>
 									{% if not dealInfo.istraveler and not dealInfo.isdeliv %}
+										{% if dealInfo.isaccepted %}
 									<!-- Payment triggers
 									<a class="btn btn-primary btn-embossed" href="{% url 'payment:paypal_create' rqkey %}">Pay with Paypal</a>
 									<!-- Payment triggers-->
 									<a class="btn btn-success btn-embossed pull-right" href="{% url 'account:confirm_delivery' rqkey %}">Confirm Delivery</a>
-									
+										{% else %}
+									<a class="btn btn-success btn-embossed disabled pull-right" >Not accepted yet</a>	
+										{% endif %}
 									{% elif dealInfo.istraveler and not dealInfo.isaccepted %}
 									<a class="btn btn-success pull-right" id="accept-request" href="{% url 'account:accept_request' rqkey %}">Accept the request</a>
 									{% elif dealInfo.istraveler and not dealInfo.ispayed %}
