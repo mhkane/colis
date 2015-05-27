@@ -4,12 +4,12 @@
 			<div class="row-fluid">
 			  <div class="col-md-2 col-sm-2 hidden-xs">               
 				  <figure style="max-height:100%;" class="thumbnail">
-						<img style="height:100%; width:80%;" class="img-responsive" src="{{ review.sender.picture }}" />
+						<img style="height:2em; width:2em;" class="img-responsive img-circle" src="{{ review.sender.picture }}" />
 						<figcaption class="text-center"></figcaption>
 				  </figure>
 			 </div>
 			  <div class="span9"> {{ review.text }} <br>
-				<strong>{{ review.sender.name }} </strong>
+				<strong style="font-size:0.7em">{{ review.sender.name }} </strong>
 			  </div>
 			  <div class="span2 muted mycenter" style="text-align: right;"><div class="rating-stars" data-rating="{{review.rating}}" ></div></div>
 			</div>

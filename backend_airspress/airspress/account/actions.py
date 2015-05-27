@@ -164,7 +164,11 @@ def tripReview(cUser, review_form, key):
     # 'request' variable used here is a ParseObject, not to confuse with a view request 
     dealer = ''
     try:
+        
         reviewedRequest = request.Query.get(objectId=key)
+        had_reviewed = review.Query.filter(reviewedRequest=reviewedRequest)
+        if had_reviewed:
+            return False
         traveler = reviewedRequest.tripId.traveler
         requester = reviewedRequest.Requester
         is_accepted = reviewedRequest.accepted

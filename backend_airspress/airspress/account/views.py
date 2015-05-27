@@ -278,7 +278,7 @@ def deals(request, key, external_alert={}, external_context=False):
                 try:
                     k=k+1
                     reviews_dict['review'+str(k)] = {'sender':{'name':deal_review.reviewer.username,
-                                'picture':deal_review.reviewer.profilePicture},'text':deal_review.reviewText,
+                                'picture':get_profile_pic(deal_review.reviewer.objectId)},'text':deal_review.reviewText,
                                 'rating':deal_review.rating,'pubDate':deal_review.createdAt.date()}  
                 except (AttributeError, QueryResourceDoesNotExist):
                     pass  
@@ -350,8 +350,9 @@ def confirm_payment(request, key):
     if cUser:
         try:
             this_deal = trequests.Query.get(objectId = key)
-            traveler = this_deal.traveler
+            traveler = this_deal.tripId.traveler
             if cUser.username == traveler.username:
+                print 'not here'
                 this_deal.paymentStatus = True
                 this_deal.save()
                 alert = {'type':'success', 'text':'This Airdeal is marked as paid. Please leave a review for the buyer.'}
@@ -372,16 +373,33 @@ def reviewTrip(request,key):
                 new_review = tripReview(cUser, review_form, key)
                 if new_review:
                     context_dic['review']=new_review
-                    cUser.totalReviews.increment()
+                    if getattr(cUser,'totalReview',False):
+                        cUser.totalReviews.increment()
+                    else:
+                        cUser.totalReviews = 1
+                    print 'reviews work'  
+                    cUser.save()
                 try:
                     this_deal = trequests.Query.get(objectId=key)
                     if this_deal.purchaserReview and this_deal.travelerReview:
                         this_deal.completeStatus = True
                         this_deal.save()
-                        this_deal.traveler.totalDeliveries.increment()
-                        this_deal.Requester.totalOrders.increment()
-                        this_deal.traveler.save()
-                        this_deal.Requester.save()
+                        traveler = this_deal.tripId.traveler
+                        print 'traveler works'
+                        if getattr(traveler,'totalDeliveries',False):
+                            traveler.totalDeliveries.increment()
+                        else:
+                            traveler.totalDeliveries = 1
+                        
+                        print 'increment works'
+                        requester = this_deal.Requester
+                        if getattr(requester,'totalOrders',False):
+                            requester.totalOrders.increment()
+                        else:
+                            requester.totalOrders = 1
+                        requester.totalOrders.increment()
+                        traveler.save()
+                        requester.save()
                 except AttributeError:
                     pass        
             else:

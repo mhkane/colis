@@ -26,7 +26,7 @@
             </div>
         </div> 
 	{% else %}
-		{% for review in reviews %}
+		{% for review in reviews.values %}
 			{% include 'account/reviews_readonly.html' %}
 		{% endfor %}
    {% endif %}
