@@ -262,16 +262,10 @@ def deals(request, key, external_alert={}, external_context=False):
             for wanted_item in wanted_items:
                 try:
                     k=k+1
-<<<<<<< Updated upstream
-                    items_dict['item'+str(k)]= {'name':wanted_item.name or '','type':wanted_item.type or '',
-                                           'unitPrice':wanted_item.unitPrice or '0.00','quantity':wanted_item.quantity or 0, 
-                                           'price':wanted_item.price or '0'}
-=======
                     items_dict['item'+str(k)]= {'name':getattr(wanted_item,'name',''),'type':getattr(wanted_item,'type','None'),
                                            'unitPrice':getattr(wanted_item, 'unitPrice',0.00),'quantity':getattr(wanted_item,'quantity',1), 
                                            'price':getattr(wanted_item,'price','0.00')}
                     print items_dict
->>>>>>> Stashed changes
                 except (AttributeError,QueryResourceDoesNotExist):
                     pass
             total = total_deal_price(items_dict,reqAccepted.get('commission',0.00))
@@ -308,30 +302,30 @@ def accept_request(request, key):
     if cUser:
         try:
             this_deal = trequests.Query.get(objectId = key)
-            traveler = this_deal.traveler
+            print this_deal
+            traveler = this_deal.tripId.traveler
+            print traveler
             if cUser.username == traveler.username:
-                try:
-                    if not this_deal.accepted:
-                        this_deal.accepted= True
-                        
-                        this_deal.tripId.availCapacity =  this_deal.tripId.availCapacity - this_deal.tripId.weightRequested
-                        this_deal.save()
-                except AttributeError:
-                    this_deal.accepted= True
-                    this_deal.tripId.availCapacity =  this_deal.tripId.availCapacity - this_deal.tripId.weightRequested
-                    this_deal.save()
-                    
-                origin = traveler.name
-                target = this_deal.Requester.name
-                target_id = this_deal.Requester.objectId
-                email = this_deal.Requester.email
-                alert = {'type':'success', 'text':'Deal is accepted. Now it''s an Airdeal!'}
                 
-                notify("accept_request",origin,target,target_id,email)
+                if not getattr(this_deal,'accepted',False):
+                    
+                    this_deal.accepted= True
+                    this_trip = this_deal.tripId
+                    this_trip.availCapacity =  this_trip.availCapacity - this_deal.weightRequested
+                    print 'not here'
+                    this_trip.save()
+                    this_deal.save()  
+                    origin = traveler.Name
+                    target = this_deal.Requester.Name
+                    target_id = this_deal.Requester.objectId
+                    email = this_deal.Requester.email
+                    alert = {'type':'success', 'text':'Deal is accepted. Now it''s an Airdeal!'}
+                        
+                    notify("accept_request",origin,target,target_id,email)
         except AttributeError:
             alert = {'type':'danger', 'text':'There was an error with the server ...'}
         print alert    
-        return deals(request, key, external_alert=alert)
+        return render(request, 'trips/alerts.html', {'alert':alert})
     return HttpResponseRedirect(reverse('signup:index'))
 def confirm_delivery(request, key):
     alert={}

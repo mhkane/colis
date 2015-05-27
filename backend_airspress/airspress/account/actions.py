@@ -179,10 +179,11 @@ def tripReview(cUser, review_form, key):
        
         try:
             new_review_obj = review( reviewText=review_form.cleaned_data['text'], rating=review_form.cleaned_data['rating'])
-            new_review_obj.save()
+            print reviewedRequest
             new_review_obj.reviewedRequest = reviewedRequest 
             new_review_obj.reviewer = cUser
             new_review_obj.reviewedUser = dealer
+            
             new_review_obj.save()
             if requester.username == cUser.username:
                 reviewedRequest.purchaserReview = new_review_obj
@@ -245,4 +246,4 @@ def notify(source,origin,target, target_id, email):
     elif source=="message":
         pass    
         
-    
+    return True

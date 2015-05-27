@@ -193,6 +193,11 @@
         $(this).remove(); 
     });
 }, 5000);
+	window.setTimeout(function() {
+    $("#notification-modal").fadeTo(1500, 0).slideUp(500, function(){
+        $(this).modal('hide'); 
+    });
+}, 5000);
  });
 
  </script>
