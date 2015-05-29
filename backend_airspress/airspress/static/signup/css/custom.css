@@ -117,7 +117,7 @@ margin-right: -0.5em;
 .modal-body .footer{text-align:center}
 .btn.btn-signup{background-color:#E89C39;border-color:#e58811;color:#f9f9f9; display:block; margin-left:auto; margin-right:auto;}
 .alert{padding:5px;margin-top:5px;padding-left:15px;padding-right:25px;}
-
+#notification{max-width:60%;opacity:0.7;}
 /* tables */
 
 .table-responsive .table tbody > tr > td {
@@ -126,7 +126,8 @@ margin-right: -0.5em;
 .table-responsive  .table tbody > tr > td:first-child {
 font-size: 0.9em;
 }
-  
+/* Conversation */
+#Conversation1{overflow-y:auto;max-height:50vh;}  
 /* tabs */
 .nav.nav-tabs > li > a{color:#fff;}
 .nav.nav-tabs > li.active > a{color:#555;}

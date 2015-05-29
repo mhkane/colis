@@ -3,7 +3,7 @@ from signup.schemes import is_logged_in, User, handle_uploaded_file, sign_in,\
     change_password
     
 from django.http.response import HttpResponseRedirect, HttpResponseForbidden,\
-    HttpResponseBadRequest, HttpResponseNotFound
+    HttpResponseBadRequest, HttpResponseNotFound, HttpResponse
 from django.core.urlresolvers import reverse
 from trips.forms import addForm, reviewForm
 from trips.crtrips import tripCreate
@@ -19,6 +19,7 @@ from texto_airspress.schemes import auth_client, create_conversation,\
     retrieve_conversation
 from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.csrf import ensure_csrf_cookie
+from account.schemes import get_notifications
 # Create your views here.
 def addTrip(request):
     '''
@@ -27,6 +28,9 @@ def addTrip(request):
     alert={}
     cUser = is_logged_in(request)
     if cUser:
+        context_dict = {}
+        notif_dict = get_notifications(cUser.objectId)
+        context_dict['notifications'] = notif_dict
         if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
             addView = addForm(request.POST)
             if addView.is_valid():
@@ -41,13 +45,14 @@ def addTrip(request):
                 print addView.errors
                 alert['type']='danger'
                 alert['text']='Correct the information you entered. Some fields have errors..'
-            return render(request, 'trips/addtrip.html', {'alert':alert,'greetings':cUser.username, 'addForm':addView})             
+            context_dict.update({'alert':alert,'greetings':cUser.username, 'addForm':addView})    
+            return render(request, 'trips/addtrip.html', context_dict)             
         else:
             addView = addForm()
     else:
         return HttpResponseRedirect(reverse('signup:index'))
-            
-    return render(request, 'trips/addtrip.html', {'greetings':cUser.username, 'addForm':addView})
+    context_dict.update({'greetings':cUser.username, 'addForm':addView})        
+    return render(request, 'trips/addtrip.html', context_dict)
 
 def myTrips(request, key):
     '''
@@ -85,8 +90,14 @@ def myTrips(request, key):
                  'depDate':departDate, 'cityDep':destLocation, 
                  'cityArr':oriLocation, 'availCap':availCap, 'totalCap':totalCap}
                 print ownTrips
-        return render(request, 'trips/mytrips.html', {'ownTrips':ownTrips,'greetings':cUser.username,
-                                                      'myPciture':get_profile_pic(cUser.objectId)})
+        
+        context_dict = {'ownTrips':ownTrips,'greetings':cUser.username,
+                         'myPciture':get_profile_pic(cUser.objectId)}
+        
+        notif_dict = get_notifications(cUser.objectId)
+        context_dict['notifications'] = notif_dict
+        
+        return render(request, 'trips/mytrips.html', context_dict)
     return HttpResponseRedirect(reverse('signup:index'))
 
 def requestedTrips(request):
@@ -134,9 +145,14 @@ def requestedTrips(request):
                      'availCap':availCap, 'traveler':traveler, 'reqId':reqIdo,
                       'optionBtn':optionBtn, 'status':status}
         except: 
-            pass            
-        return render(request, 'trips/in_out_requests.html', {'traveler':False,'request_trips':reqTrips,'greetings':cUser.username,
-                                                      'myPicture':get_profile_pic(cUser.objectId)})
+            pass
+        
+        context_dict = {'traveler':False,'request_trips':reqTrips,'greetings':cUser.username,
+        'myPicture':get_profile_pic(cUser.objectId)}
+        
+        notif_dict = get_notifications(cUser.objectId)
+        context_dict['notifications'] = notif_dict            
+        return render(request, 'trips/in_out_requests.html', context_dict)
     return HttpResponseRedirect(reverse('signup:index'))    
 
 def otRequests(request):
@@ -186,9 +202,13 @@ def otRequests(request):
                          'optionBtn':optionBtn, 'status':status}
                     print reqTrips
         except (AttributeError, QueryResourceDoesNotExist):
-            pass            
-        return render(request, 'trips/in_out_requests.html', {'traveler':True,'request_trips':reqTrips,'greetings':cUser.username,
-                                                      'myPicture':get_profile_pic(cUser.objectId)})
+            pass
+        context_dict = {'traveler':True,'request_trips':reqTrips,'greetings':cUser.username,
+                         'myPicture':get_profile_pic(cUser.objectId)}
+        
+        notif_dict = get_notifications(cUser.objectId)
+        context_dict['notifications'] = notif_dict
+        return render(request, 'trips/in_out_requests.html', context_dict)
     return HttpResponseRedirect(reverse('signup:index'))
 
 #some views share a lot of context with this one
@@ -233,17 +253,36 @@ def deals(request, key, external_alert={}, external_context=False):
             
             # who is visiting the deal page ?
             if travelUser.objectId == cUser.objectId :
-                #if it is traveler it means:
-                #we must push a notification he clicks on "accept the request" button
-                
                 
                 reqAccepted['istraveler']=True
                 # reqAccepted dict contains all specific info for the deal 
-                print reqAccepted         
+                print reqAccepted 
                 
+                # decrement notifications counter 
+                notif_traveler = getattr(aRequest,'notifTraveler',False)
+                if notif_traveler:
+                    aRequest.notifTraveler = 0
+                    aRequest.save()       
+                    try:
+                        if cUser.notifInDeals:
+                            cUser.notifInDeals -= 1
+                            cUser.save()
+                    except AttributeError:
+                        pass
             elif reqUser.objectId == cUser.objectId:
-                reqAccepted['istraveler']= False
                 
+                reqAccepted['istraveler']= False
+                # decrement notifications counter
+                notif_requester = getattr(aRequest,'notifRequester',False)
+                if notif_requester:
+                    aRequest.notifRequester = 0
+                    aRequest.save()
+                    try:
+                        if cUser.notifInDeals:
+                            cUser.notifOutDeals -= 1
+                            cUser.save()
+                    except AttributeError:
+                        pass
                 
             else:
                 return HttpResponseForbidden()
@@ -287,9 +326,12 @@ def deals(request, key, external_alert={}, external_context=False):
             review_form = reviewForm()
             #if not reqAccepted:
             #     return Http404()
+            #decrement on deal
+            notif_dict = get_notifications(cUser.objectId)
             context_dic = {'alert':external_alert,'dealInfo':reqAccepted,'reqUser':req_user_dic, 
                            'firebase_node':chat_node+"/"+key,'travelUser':travel_user_dic,'review_form':review_form,
-                        'myPicture':get_profile_pic(cUser.objectId),'greetings':cUser.username,'current_user_id':cUser.objectId,
+                        'myPicture':get_profile_pic(cUser.objectId),'greetings':cUser.username,
+                        'current_user_id':cUser.objectId, 'notifications':notif_dict,
                         'firebase_token':messaging_token,'reviews':reviews_dict,'requested_items':items_dict, 'rqkey':key}
             
             return render(request, 'account/deals.html', context_dic)
@@ -321,7 +363,7 @@ def accept_request(request, key):
                     email = this_deal.Requester.email
                     alert = {'type':'success', 'text':'Deal is accepted. Now it''s an Airdeal!'}
                         
-                    notify("accept_request",origin,target,target_id,email)
+                    notify(request, "accept_request",origin,target,target_id,email, link=reverse('account:deals', args=[key]))
         except AttributeError:
             alert = {'type':'danger', 'text':'There was an error with the server ...'}
         print alert    
@@ -554,7 +596,24 @@ def instant_messaging(request,key):
     
     if cUser:
         if request.method == 'POST':
-            pass
+            origin = request.POST.get('origin', "")
+            if origin:
+                text = request.POST.get('text', "")
+                action = request.POST.get('action', "")
+                target = request.POST.get('target', "")
+                isdeal = request.POST.get('isdeal', "")
+                activity_id = request.POST.get('activityId','')
+                target = User.Query.get(username=target)
+                origin = User.Query.get(username=origin)
+                email = target.email
+                if isdeal:
+                    notify(request, "message_deal", origin.Name, target.Name, target.objectId, email, 
+                           text = text, link = action, activity_id=activity_id)
+                else:
+                    notify(request, "message", origin.Name, target.Name, target.objectId, email, text = text, link = action)
+                return HttpResponse('success')
+            return HttpResponseNotFound()
+                
         else:   
             any_user_id = ''
             pPicture = ''

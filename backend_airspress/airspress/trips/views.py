@@ -6,9 +6,10 @@ from trips.crtrips import trip, tripFind, tripRequest
 from signup.schemes import is_logged_in
 from trips.forms import searchForm, requestForm
 from string import split
-from account.actions import get_profile_pic
+from account.actions import get_profile_pic, notify
 from datetime import datetime
 from django.utils import timezone
+from account.schemes import get_notifications
 
 
 def fbPicture(request):
@@ -85,9 +86,12 @@ def activeTrips(request):
                 
         else:
             searchView = searchForm()
+        context_dict = {'tripDict':tripDict,'greetings':cUser.username, 
+                        'myPicture':get_profile_pic(cUser.objectId),'searchForm':searchView}
+        notif_dict = get_notifications(cUser.objectId)
+        context_dict['notifications'] = notif_dict
             
-        return render(request, 'trips/voyage.html', {'tripDict':tripDict,'greetings':cUser.username, 
-                                                     'myPicture':get_profile_pic(cUser.objectId),'searchForm':searchView})
+        return render(request, 'trips/voyage.html', context_dict )
     return HttpResponseRedirect(reverse('signup:index'))
 
 def searchTrips(request):
@@ -107,8 +111,13 @@ def searchTrips(request):
         #Preparing search form on page
             else:
                 print searchView.errors
-            return render(request, 'trips/voyage.html', {'tripDict':tripDict,'greetings':cUser.username, 
-                                                         'searchForm':searchView,'myPicture':myPicture})             
+                
+            context_dict = {'tripDict':tripDict,'greetings':cUser.username, 
+                            'myPicture':get_profile_pic(cUser.objectId),'searchForm':searchView}
+            notif_dict = get_notifications(cUser.objectId)
+            context_dict['notifications'] = notif_dict
+            
+            return render(request, 'trips/voyage.html', context_dict )
         else:
             searchView = searchForm()
     else:
@@ -125,8 +134,16 @@ def requestTrip(request, key):
             reqView = requestForm(request.POST)
             if reqView.is_valid():
                 alert = tripRequest(cUser, reqView, key)
-                print alert
-        
+                # if alert is success, notify traveler;
+                try:
+                    if alert['type'] == 'success':
+                        tripnow = trip.Query.get(objectId=key)
+                        
+                        notify(request, "new_request", cUser.Name, tripnow.traveler.Name, tripnow.traveler.objectId, tripnow.traveler.email)
+                        
+                except (KeyError,AttributeError):
+                    pass
+                print alert              
             else:
                 print reqView.errors
             return render(request, 'trips/modals.html', {'key':key,'alert':alert,'greetings':cUser.username, 'requestForm':reqView, 'pPicture':myPicture})             

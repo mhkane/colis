@@ -86,7 +86,7 @@
 						<div class="row firstin">
 							<div class="row">
 								<div class="col-sm-12 col-md-4 col-lg-4 travelUser">
-									<a href="{% url 'account:profile' v.travelerUser %}"> <img class="img-circle" alt="" src="{{v.pPicture}}" style="width: 80px; height: 80px;">
+									<a href="{% url 'account:profile' v.travelerUser %}"> <img class="img-circle" alt="" src="{% firstof v.pPicture 'http://placehold.it/80&text=No+Image' %}" style="width: 80px; height: 80px;">
 										  <span style="overflow:hidden;">{{ v.travelerUser|truncatechars:9 }}</span>
 									</a>
 									<div class="rating-stars" data-score="{{v.travelerRating}}" >
@@ -140,8 +140,7 @@
 								<div class="col-sm-12 col-md-12">
 											<p>
 											<a href="{% url 'trips:request' v.tripId %}" data-target="#modal" class="btn btn-primary btn-embossed btn-sm btn-block modal-trigger">Request</a>
-											</p>
-														
+											</p>				
 								</div>
 
 							</div>

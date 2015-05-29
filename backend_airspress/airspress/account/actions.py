@@ -8,7 +8,7 @@ from parse_rest.datatypes import Object as ParseObject, Function
 from django.core.urlresolvers import reverse
 from parse_rest.query import QueryResourceDoesNotExist
 from decimal import Decimal
-from signup.backend_parse import review, referral
+from signup.backend_parse import review, referral, trequests
 from parse_rest.installation import Push
 from trips.crtrips import priceCalc, price_format
 from moneyed.classes import Money
@@ -17,7 +17,7 @@ class request(ParseObject):
     pass
 #Cloud function for mail sending
 send_mail = Function("email")
-
+send_template = Function("emailTemplate")
 # function to recover information for a given deal 
 def getdeal(travelUser, reqUser, aRequest, aTrip):
     reqAccepted = {}
@@ -225,21 +225,23 @@ def ref_create(referralView, cUser, request):
     except KeyError:
         pass
     return alert
-def notify(source,origin,target, target_id, email):
+
+
+def notify(request, source, origin, target, target_id, email, text="", link="", activity_id=""):
     template_name = 'notifications'
     #  template variables
 
     if source =='accept_request':
         header = 'Request Accepted by ' + origin
-        info = origin + "accepted you request."
+        info = origin + " accepted you request."
         title="You made a request on " + origin + "'s trip earlier..."
         user = target
         action = 'Check Airdeal'
-        link = ''
+        link = request.build_absolute_uri(link)
         main = origin + " just accepted your request, you can now wrap up the details with the traveler and have your item delivered soon."
         subject = header + ':' + origin
         
-        send_mail(template_name=template_name,var_header=header, var_user = user, var_info=info, var_title=title,
+        send_template(template_name=template_name,var_header=header, var_user = user, var_info=info, var_title=title,
                   var_main = main, var_action=action, subject=subject, email = email, 
                   from_name='Airspress',from_email = 'no-reply@airspress.com')
         try:
@@ -248,7 +250,79 @@ def notify(source,origin,target, target_id, email):
                    where={"appUser":{"__type":"Pointer","className":"_User","objectId":target_id}})
         except:
             pass
-    elif source=="message":
-        pass    
+        target_user = User.Query.get(objectId = target_id)
+        if getattr(target_user,'notifOutDeals',False):
+            target_user.notifOutDeals.increment()
+        else:
+            target_user.notifOutDeals = 1
+        target_user.save()
+    elif source.startswith("message"):
+        header = 'New Message from ' + origin
+        info = origin + " sent you a message."
+        title="This is " + origin + "'s message :"
+        user = target
+        action = 'Check your deal' if source.endswith('deal') else "Check your inbox"
+        link = request.build_absolute_uri(link)
+        main = text
+        subject = header + ':' + origin
         
+        # email alert
+        send_template(template_name=template_name,var_header=header, var_user = user, var_info=info, var_title=title,
+                  var_main = main, var_action=action, subject=subject, email = email, 
+                  from_name='Airspress',from_email = 'no-reply@airspress.com')
+        # Push to smartphone
+        try:
+            push_alert = origin + ' sent you a message!'
+            Push.alert({"alert": push_alert,"badge": "Increment"}, 
+                   where={"appUser":{"__type":"Pointer","className":"_User","objectId":target_id}})
+        except:
+            pass   
+        # update User notifications counter
+        target_user = User.Query.get(objectId = target_id)
+        if not source.endswith('deal'):
+            if getattr(target_user,'notifInbox',False):
+                target_user.notifInbox.increment()
+            else:
+                target_user.notifInbox = 1
+        else:
+            this_deal = trequests.Query.get(objectId=activity_id)
+            try:
+                if this_deal.tripId.traveler.username == target_user.username:
+                    if getattr(target_user,'notifInDeals',False):
+                        target_user.notifInDeals.increment()
+                    else:
+                        target_user.notifInDeals = 1
+                elif this_deal.Requester.username == target_user.username:
+                    if getattr(target_user,'notifOutDeals',False):
+                        target_user.notifOutDeals.increment()
+                    else:
+                        target_user.notifOutDeals = 1
+            except AttributeError:
+                pass        
+        target_user.save()
+    elif source=="new_request":
+        header = 'Request Sent '
+        info = origin + " sent you a request."
+        title= origin + " made a request on your trip ..."
+        user = target
+        action = 'Check incoming requests'
+        link = request.build_absolute_uri(link)
+        main = origin + " just sent you a request, you can accept, check request details and carry on with the process."
+        subject = header + ': ' + origin
+        
+        send_template(template_name=template_name,var_header=header, var_user = user, var_info=info, var_title=title,
+                  var_main = main, var_action=action, subject=subject, email = email, 
+                  from_name='Airspress',from_email = 'no-reply@airspress.com')
+        try:
+            push_alert = origin + ' sent you a request!'
+            Push.alert({"alert": push_alert,"badge": "Increment"}, 
+                   where={"appUser":{"__type":"Pointer","className":"_User","objectId":target_id}})
+        except:
+            pass
+        target_user = User.Query.get(objectId = target_id)
+        if getattr(target_user,'notifInDeals',False):
+            target_user.notifInDeals.increment()
+        else:
+            target_user.notifInDeals = 1
+        target_user.save()
     return True

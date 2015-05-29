@@ -1,5 +1,45 @@
+{% load staticfiles %}
+<script src="{% static 'signup/js/jquery.cookie.js' %}"></script>
 <script type="text/javascript">
+var csrftoken = $.cookie('csrftoken');
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+$.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+    }
+});
 // Notification
+function notify(messageText){
+var sender = "{{greetings}}";
+{% if dealInfo.istraveler %}
+var receiver = "{{ travelUser.username }}"
+{% else %}
+var receiver = "{% firstof reqUser.username userinfo.username %}"
+{% endif %}
+{% if rqkey %}
+var urlAction = "{% url 'account:deals' rqkey %}"
+var dealCheck = true;
+{% else %}
+var urlAction = "{% url 'account:inbox' %}"
+var dealCheck = false;
+{% endif %}
+var payload = {text:messageText, origin:sender, target:receiver, action:urlAction, isdeal:dealCheck, activityId:"{{rqkey}}"};
+$.ajax({ 
+    type: 'POST', 
+    url: "{% url 'account:talk' 'anyone' %}", 
+    data: payload,
+    success: function(data, status, xhr) {
+	  console.log('Notification sent !');
+		
+    }
+    });
+
+}
 // datetime
  function getDateTime() {
     var now     = new Date(); 
@@ -53,8 +93,7 @@ ref2.authWithCustomToken(AUTH_TOKEN, function(error, authData) {
   }
 });
 // Conversation kept on viewport
-document.getElementById("WrapperConversation1").style.maxHeight = (this.innerHeight - 80) + 'px';
-this.onresize = function(){document.getElementById("WrapperConversation1").style.maxHeight = (this.innerHeight - 80) + 'px';};
+
 // Send Messages on event Click or ENTER Keypress
 document.getElementById('SendMessage1').onclick = function(e){
 	// Catch Submit and Halt it
@@ -65,8 +104,12 @@ document.getElementById('SendMessage1').onclick = function(e){
 	ref.push({"sender":"{{current_user_id}}", "text": newMessageText, "pub_date":getDateTime()});
 	// update last message alias inbox
 	ref2.update({"inbox":{"senderId":"{{current_user_id}}", "senderName":"{{greetings}}","text": newMessageText, "pub_date":Firebase.ServerValue.TIMESTAMP}});
+	// Message Writing area kept on viewport
+	document.getElementById('WrapperConversation1').scrollIntoView(false);
 	// Empty Textarea
 	document.getElementById('NewMessage1').value = '';
+	//notification
+	notify(newMessageText);
 	}
 };
 document.getElementById('NewMessage1').onkeydown = function Shidori(e) {
@@ -79,8 +122,13 @@ document.getElementById('NewMessage1').onkeydown = function Shidori(e) {
 	ref.push({"sender":"{{current_user_id}}", "text": newMessageText, "pub_date":getDateTime()});
 	// update last message alias inbox
 	ref2.update({"inbox":{"senderId":"{{current_user_id}}", "senderName":"{{greetings}}","text": newMessageText, "pub_date":Firebase.ServerValue.TIMESTAMP}});
+	
+	// Message Writing area kept on viewport
+	document.getElementById('WrapperConversation1').scrollIntoView(false);
 	// Empty Textarea
 	document.getElementById('NewMessage1').value = '';
+	//notification
+	notify(newMessageText);
 	}
 	
 	}

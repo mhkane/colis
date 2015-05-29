@@ -5,10 +5,10 @@ from trips.forms import searchForm
 from parse_rest.user import User
 import airspress
 from parse_rest.installation import Push
-from account.actions import notif_mail
 from signup.schemes import change_password
 from parse_rest.connection import ParseBatcher
 from texto_airspress.schemes import retrieve_conversation
+from airspress import settings
 cityDep = 'The bottom'
 cityArr = 'The top'
 depDate1=timezone.now()
@@ -59,23 +59,45 @@ depDate2=adata
 # from trips.crtrips import priceCalc
 # 
 # print priceCalc(5,25)
-import re
- 
-tokenize = lambda x: [i for i in re.findall(r'\w+', unicode(x).lower(), flags= re.UNICODE) if i]
- 
-list=[]
-alltrips = trip.Query.all()
-for atrip in alltrips:
-    citydep = unicode(atrip.fromLocation)
-    cityarr = unicode(atrip.toLocation)
-    atrip.toLocationTokens = tokenize(cityarr)
-    atrip.fromLocationTokens = tokenize(citydep)
-    list.append(atrip)
-    print atrip.fromLocationTokens, atrip.toLocationTokens
-       
-s = ParseBatcher().batch_save(list)
-print s
+
+# import re
+#  
+# tokenize = lambda x: [i for i in re.findall(r'\w+', unicode(x).lower(), flags= re.UNICODE) if i]
+#  
+# list=[]
+# alltrips = trip.Query.all()
+# for atrip in alltrips:
+#     citydep = unicode(atrip.fromLocation)
+#     cityarr = unicode(atrip.toLocation)
+#     atrip.toLocationTokens = tokenize(cityarr)
+#     atrip.fromLocationTokens = tokenize(citydep)
+#     list.append(atrip)
+#     print atrip.fromLocationTokens, atrip.toLocationTokens
+#        
+# s = ParseBatcher().batch_save(list)
+# print s
+
 # convos = retrieve_conversation('9lTLf3GPg1')  
 # print convos
+#
+
+import json
+import httplib
+filepath = 'C:\logo-bright.png'
+filext = 'png'
+connection = httplib.HTTPSConnection('api.parse.com', 443)
+connection.connect()
+connection.request('POST', '/1/files/logo-airspress.'+str(filext), 
+open(str(filepath),'rb').read(), 
+{
+ "X-Parse-Application-Id": settings.APPLICATION_ID,
+   "X-Parse-REST-API-Key": settings.REST_API_KEY, 
+    "Content-Type": 'image/png'
+ })
+picture = json.loads(connection.getresponse().read())
+print picture
+with open('c:\logo_url.txt','w') as f :
+    f.write(picture['url'])
+
 
 

@@ -289,7 +289,7 @@ def tripRequest(cUser, reqView, key):
         pass
     if newRequest:
         alert = {'text':'Request submitted with success. You will be notified as soon as Traveler accept it.','type':'success'}
- 
+        
     return alert
 
 def isodate_to_tz_datetime(isodate):

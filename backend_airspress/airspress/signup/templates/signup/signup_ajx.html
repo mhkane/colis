@@ -7,6 +7,30 @@
       <div class="modal-body">
 	  {% if alert.type %}
 		{% include "trips/alerts.html" %}
+		{% if alert.type == "success" %}
+			<script type="text/javascript">
+				var thismodal = document.getElementById('signupModal')
+				var alertBox = thismodal.querySelector(".alert-success");
+				var countHtml = document.createElement('span');
+				countHtml.innerHTML = 'You will be redirected to Trips in 10 seconds.';
+				alertBox.appendChild(countHtml);
+				var counter = 10;
+				var id;
+
+				
+				id = setInterval(function() {
+					counter--;
+					if(counter < 0) {
+						window.location.replace("{% url 'trips:index' %}");
+						clearInterval(id);
+					} else {
+						countHtml.innerHTML ='You will be redirected to Trips in '+ counter.toString() + " seconds.";
+						
+					}
+				}, 1000);
+			
+			</script>
+		{% endif %}
 	  {% endif %}
 		{% if not ref_regView %}
 		{% if registerView.non_field_errors or registerView.errors and not alert.type %}<div class="alert alert-danger">{% firstof registerView.non_field_errors " Correct errors on next page.." %}</div> {% endif %}

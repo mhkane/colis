@@ -73,7 +73,7 @@ def signup(request, provider_name):
                 registerView = registerForm(request.POST)
                 if registerView.is_valid() and registerView.clean_login_password_conf():
                     #Sometimes there's no obvious errors but there are still errors...
-                    alert = re_validation(registerView, provider_name)
+                    alert = re_validation(request, registerView, provider_name)
                     
                     print alert
                     if alert['type']=='success':
@@ -111,7 +111,7 @@ def signup(request, provider_name):
                 referral_id = request.POST.get('referral_id','')
                 #Sometimes there's no obvious errors but there are still errors...
                 
-                alert = re_validation(ref_regView, provider_name, referral_id=referral_id)
+                alert = re_validation(request, ref_regView, provider_name, referral_id=referral_id)
                 
                 print alert
                 if alert['type']=='success':

@@ -4,8 +4,6 @@ from parse_rest.query import QueryResourceDoesNotExist
 from parse_rest.core import ResourceRequestNotFound
 from signup.backend_parse import passRequest, referral
 from string import split
-from datetime import timedelta
-from django.utils import timezone
 #register to Parse
 register(settings.APPLICATION_ID, settings.REST_API_KEY, master_key=settings.MASTER_KEY)#settings.REST_API_KEY
 #from parse_rest.connection import ParseBatcher
@@ -52,14 +50,14 @@ def is_logged_in(request):# return the current user if User is still logged in.
     
     return False
 
-def re_validation(registerView, provider_name, referral_id=''):
+def re_validation(request, registerView, provider_name, referral_id=''):
     '''
     This is the signup scheme which handles the two types of signup
     and make the proper verifications
     '''
     from signup.backend_parse import Institutions
     user_name = registerView.cleaned_data['login_name']
-    user_email = registerView.cleaned_data['login_email']
+    user_email = registerView.cleaned_data['login_email'].lower()
     user_password = registerView.cleaned_data['login_password']
     user_password_conf = registerView.cleaned_data['login_password_conf']
     try:
@@ -111,6 +109,8 @@ def re_validation(registerView, provider_name, referral_id=''):
         new_user = User.signup(user_email, user_password, email=user_email, Name=user_name)
         alert={'type':'success', 'text':'''Nearly done ! Please confirm
          your email address by following the link we sent you.'''}
+        # We can login the user
+        sign_in(request, login_dic={'username':user_email,'password':user_password})
         
     else:
         alert={'type':'warning','text':'You should use an "'+domain_mail+'" email address'}
