@@ -13,7 +13,7 @@ from account.actions import request as trequests, getdeal, ref_create,\
 from account.forms import referralForm, settings_form_general,\
     settings_form_picture, settings_form_password
 from parse_rest.query import QueryResourceDoesNotExist
-from signup.backend_parse import review, Item
+from signup.backend_parse import review, Item, Notifications
 from parse_rest.core import ResourceRequestNotFound
 from texto_airspress.schemes import auth_client, create_conversation,\
     retrieve_conversation
@@ -29,8 +29,6 @@ def addTrip(request):
     cUser = is_logged_in(request)
     if cUser:
         context_dict = {}
-        notif_dict = get_notifications(cUser.objectId)
-        context_dict['notifications'] = notif_dict
         if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
             addView = addForm(request.POST)
             if addView.is_valid():
@@ -94,8 +92,7 @@ def myTrips(request, key):
         context_dict = {'ownTrips':ownTrips,'greetings':cUser.username,
                          'myPciture':get_profile_pic(cUser.objectId)}
         
-        notif_dict = get_notifications(cUser.objectId)
-        context_dict['notifications'] = notif_dict
+        
         
         return render(request, 'trips/mytrips.html', context_dict)
     return HttpResponseRedirect(reverse('signup:index'))
@@ -150,8 +147,7 @@ def requestedTrips(request):
         context_dict = {'traveler':False,'request_trips':reqTrips,'greetings':cUser.username,
         'myPicture':get_profile_pic(cUser.objectId)}
         
-        notif_dict = get_notifications(cUser.objectId)
-        context_dict['notifications'] = notif_dict            
+                  
         return render(request, 'trips/in_out_requests.html', context_dict)
     return HttpResponseRedirect(reverse('signup:index'))    
 
@@ -206,8 +202,7 @@ def otRequests(request):
         context_dict = {'traveler':True,'request_trips':reqTrips,'greetings':cUser.username,
                          'myPicture':get_profile_pic(cUser.objectId)}
         
-        notif_dict = get_notifications(cUser.objectId)
-        context_dict['notifications'] = notif_dict
+        
         return render(request, 'trips/in_out_requests.html', context_dict)
     return HttpResponseRedirect(reverse('signup:index'))
 
@@ -264,9 +259,10 @@ def deals(request, key, external_alert={}, external_context=False):
                     aRequest.notifTraveler = 0
                     aRequest.save()       
                     try:
-                        if cUser.notifInDeals:
-                            cUser.notifInDeals -= 1
-                            cUser.save()
+                        if cUser.notifications:
+                            cUser_notif = Notifications.Query.get(targetUser = cUser.objectId)
+                            cUser_notif.notifInDeals -= 1
+                            cUser_notif.save()
                     except AttributeError:
                         pass
             elif reqUser.objectId == cUser.objectId:
@@ -279,8 +275,9 @@ def deals(request, key, external_alert={}, external_context=False):
                     aRequest.save()
                     try:
                         if cUser.notifInDeals:
-                            cUser.notifOutDeals -= 1
-                            cUser.save()
+                            cUser_notif = Notifications.Query.get(targetUser = cUser.objectId)
+                            cUser_notif.notifOutDeals -= 1
+                            cUser_notif.save()
                     except AttributeError:
                         pass
                 
@@ -331,7 +328,7 @@ def deals(request, key, external_alert={}, external_context=False):
             context_dic = {'alert':external_alert,'dealInfo':reqAccepted,'reqUser':req_user_dic, 
                            'firebase_node':chat_node+"/"+key,'travelUser':travel_user_dic,'review_form':review_form,
                         'myPicture':get_profile_pic(cUser.objectId),'greetings':cUser.username,
-                        'current_user_id':cUser.objectId, 'notifications':notif_dict,
+                        'current_user_id':cUser.objectId,
                         'firebase_token':messaging_token,'reviews':reviews_dict,'requested_items':items_dict, 'rqkey':key}
             
             return render(request, 'account/deals.html', context_dic)
@@ -581,7 +578,14 @@ def inbox(request):
     cUser = is_logged_in(request)
     if cUser:
         conversations = retrieve_conversation(cUser.objectId) 
-
+        # Nullify all inbox notifications; That's the way to do it
+        #  until we choose to have message-wise status
+        try:
+            cUser_notif = Notifications.Query.get(targetUser=cUser.objectId)
+            cUser_notif.notifInbox = 0
+            cUser_notif.save()
+        except (AttributeError):
+            pass
         context_dic = { 'greetings':cUser.username,
                         'myPicture':get_profile_pic(cUser.objectId),
                         'conversations':conversations}
@@ -606,7 +610,7 @@ def instant_messaging(request,key):
                 target = User.Query.get(username=target)
                 origin = User.Query.get(username=origin)
                 email = target.email
-                if isdeal:
+                if str(isdeal.lower()) == 'true':
                     notify(request, "message_deal", origin.Name, target.Name, target.objectId, email, 
                            text = text, link = action, activity_id=activity_id)
                 else:

@@ -8,10 +8,11 @@ from parse_rest.datatypes import Object as ParseObject, Function
 from django.core.urlresolvers import reverse
 from parse_rest.query import QueryResourceDoesNotExist
 from decimal import Decimal
-from signup.backend_parse import review, referral, trequests
+from signup.backend_parse import review, referral, trequests, Notifications
 from parse_rest.installation import Push
-from trips.crtrips import priceCalc, price_format
+from trips.crtrips import priceCalc
 from moneyed.classes import Money
+from parse_rest.connection import master_key_required
 
 class request(ParseObject):
     pass
@@ -230,7 +231,8 @@ def ref_create(referralView, cUser, request):
 def notify(request, source, origin, target, target_id, email, text="", link="", activity_id=""):
     template_name = 'notifications'
     #  template variables
-
+    target_user = User.Query.get(objectId = target_id)
+    target_user_notif = Notifications.Query.filter(target_user = target_id)
     if source =='accept_request':
         header = 'Request Accepted by ' + origin
         info = origin + " accepted you request."
@@ -250,12 +252,18 @@ def notify(request, source, origin, target, target_id, email, text="", link="", 
                    where={"appUser":{"__type":"Pointer","className":"_User","objectId":target_id}})
         except:
             pass
-        target_user = User.Query.get(objectId = target_id)
-        if getattr(target_user,'notifOutDeals',False):
-            target_user.notifOutDeals.increment()
+        
+        if target_user_notif:
+            try:
+                
+                target_user_notif.notifOutDeals.increment()
+            except AttributeError:
+                target_user.notifications.notifOutDeals = 1    
         else:
-            target_user.notifOutDeals = 1
-        target_user.save()
+            target_user_notif = Notifications(notifInDeals = 0, notifOutDeals = 1, notifInbox = 0, targetUser = target_user.objectId)
+            
+        target_user_notif.save()
+
     elif source.startswith("message"):
         header = 'New Message from ' + origin
         info = origin + " sent you a message."
@@ -278,29 +286,59 @@ def notify(request, source, origin, target, target_id, email, text="", link="", 
         except:
             pass   
         # update User notifications counter
-        target_user = User.Query.get(objectId = target_id)
+        print 'target_id : '+ target_id
+        print target_user
         if not source.endswith('deal'):
-            if getattr(target_user,'notifInbox',False):
-                target_user.notifInbox.increment()
+            
+            if target_user_notif:
+                try:
+                    
+                    target_user_notif.notifInbox.increment()
+                except AttributeError:
+                    target_user_notif.notifInbox = 1    
             else:
-                target_user.notifInbox = 1
+                target_user_notif = Notifications(notifInDeals = 0, notifOutDeals = 0, notifInbox = 1, targetUser = target_user.objectId)
+            target_user_notif.save()
+            
         else:
             this_deal = trequests.Query.get(objectId=activity_id)
             try:
                 if this_deal.tripId.traveler.username == target_user.username:
-                    if getattr(target_user,'notifInDeals',False):
-                        target_user.notifInDeals.increment()
+                    if getattr(this_deal,'notifTraveler',False):
+                        this_deal.notifTraveler.increment()
                     else:
-                        target_user.notifInDeals = 1
+                        this_deal.notifTraveler = 1
+                    this_deal.save()    
+                    if target_user_notif:
+                        try:
+                            
+                            target_user_notif.notifInDeals.increment()
+                        except AttributeError:
+                            target_user_notif.notifInDeals = 1    
+                    else:
+                        target_user_notif = Notifications(notifInDeals = 1, notifOutDeals = 0, notifInbox = 0, targetUser = target_user.objectId)
+                    target_user_notif.save()
+                    
                 elif this_deal.Requester.username == target_user.username:
-                    if getattr(target_user,'notifOutDeals',False):
-                        target_user.notifOutDeals.increment()
+                    if getattr(this_deal,'notifRequester',False):
+                        this_deal.notifRequester.increment()
                     else:
-                        target_user.notifOutDeals = 1
+                        this_deal.notifRequester = 1
+                    this_deal.save()
+                    if target_user_notif:
+                        try:
+                            
+                            target_user_notif.notifOutDeals.increment()
+                        except AttributeError:
+                            target_user_notif.notifOutDeals = 1    
+                    else:
+                        target_user_notif = Notifications(notifInDeals = 0, notifOutDeals = 1, notifInbox = 0, targetUser = target_user.objectId)
+                    target_user_notif.save()
             except AttributeError:
                 pass        
-        target_user.save()
+            
     elif source=="new_request":
+        
         header = 'Request Sent '
         info = origin + " sent you a request."
         title= origin + " made a request on your trip ..."
@@ -320,9 +358,13 @@ def notify(request, source, origin, target, target_id, email, text="", link="", 
         except:
             pass
         target_user = User.Query.get(objectId = target_id)
-        if getattr(target_user,'notifInDeals',False):
-            target_user.notifInDeals.increment()
+        if target_user_notif:
+            try:
+                target_user_notif.notifInDeals.increment()
+            except AttributeError:
+                target_user_notif.notifInDeals = 1    
         else:
-            target_user.notifInDeals = 1
-        target_user.save()
+            target_user_notif = Notifications(notifInDeals = 1, notifOutDeals = 0, notifInbox = 0, targetUser = target_user.objectId)
+        target_user_notif.save()
+        
     return True

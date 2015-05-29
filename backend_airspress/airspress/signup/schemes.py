@@ -2,7 +2,7 @@ from parse_rest.connection import register
 from airspress import settings
 from parse_rest.query import QueryResourceDoesNotExist
 from parse_rest.core import ResourceRequestNotFound
-from signup.backend_parse import passRequest, referral
+from signup.backend_parse import passRequest, referral, Notifications
 from string import split
 #register to Parse
 register(settings.APPLICATION_ID, settings.REST_API_KEY, master_key=settings.MASTER_KEY)#settings.REST_API_KEY
@@ -36,17 +36,20 @@ def is_logged_in(request):# return the current user if User is still logged in.
     except KeyError:
         return False
     if cUser:
-        red_level = 300 # 5 mins is red level
-        expiration_in = request.session.get_expiry_age()
         
-        if expiration_in <= red_level:
-            print "Timeout in less than five"
-            request.session.set_expiry(3600)
         objID = cUser['objectId']
         if objID:
             cUserin = User.Query.get(objectId = objID) # unless we do that we can't operate it as a ParseUser
             cUserin.sessionToken = saken
+            request.user_id = objID
+            try:
+                if not getattr(cUserin, 'notifications', False):
+                    cUserin.notifications = Notifications.Query.get(targetUser = cUserin.objectId)
+                    cUserin.save()
+            except QueryResourceDoesNotExist:
+                pass
             return cUserin
+            
     
     return False
 
@@ -158,7 +161,12 @@ def sign_in(request, login_dic=None, loginView=None, provider_name='student'):
     #create a secure session server-side and a little cookie client side
     
     request.session['lsten']=cUser.sessionToken
-    
+    try:
+        if not getattr(cUser, 'notifications', False):
+            cUser.notifications = Notifications.Query.get(targetUser = cUser.objectId)
+            cUser.save()
+    except QueryResourceDoesNotExist:
+        pass
     return cUser
 
 def request_password(email):
