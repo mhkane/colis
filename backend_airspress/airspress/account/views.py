@@ -19,7 +19,6 @@ from texto_airspress.schemes import auth_client, create_conversation,\
     retrieve_conversation
 from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.csrf import ensure_csrf_cookie
-from account.schemes import get_notifications
 # Create your views here.
 def addTrip(request):
     '''
@@ -324,7 +323,7 @@ def deals(request, key, external_alert={}, external_context=False):
             #if not reqAccepted:
             #     return Http404()
             #decrement on deal
-            notif_dict = get_notifications(cUser.objectId)
+            
             context_dic = {'alert':external_alert,'dealInfo':reqAccepted,'reqUser':req_user_dic, 
                            'firebase_node':chat_node+"/"+key,'travelUser':travel_user_dic,'review_form':review_form,
                         'myPicture':get_profile_pic(cUser.objectId),'greetings':cUser.username,

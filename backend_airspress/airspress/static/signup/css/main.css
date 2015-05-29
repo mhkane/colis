@@ -4023,6 +4023,54 @@ color:#000;
 .modal .alert-success strong{color:#3c763d}
 .well p{color:#000;}
 .well h3{color:#000;}
+.form-control-feedback{opacity:0.6;}
+
+	/* PASSWORD METER */
+#pwindicator {
+  margin-top: 15px;
+  margin-bottom: 5px;
+  width: 150px;
+}
+
+.pwdindicator .bar {
+  height: 4px;
+}
+.pwdindicator.pw-very-weak .bar {
+  background: #fb241f;
+  width: 30px;
+}
+.pwdindicator.pw-very-weak .pwdstrength-label {
+  color: #fb241f;
+}
+.pwdindicator.pw-weak .bar {
+  background: #e74c3c;
+  width: 60px;
+}
+.pwdindicator.pw-weak .pwdstrength-label {
+  color: #e74c3c;
+}
+.pwdindicator.pw-mediocre .bar {
+  background: #f1c40f;
+  width: 90px;
+}
+.pwdindicator.pw-mediocre .pwdstrength-label {
+  color: #f1c40f;
+}
+.pwdindicator.pw-strong .bar {
+  background: #f3b31a;
+  width: 120px;
+}
+.pwdindicator.pw-strong .pwdstrength-label {
+  color: #f3b31a;
+}
+.pwdindicator.pw-very-strong .bar {
+  background: #2ecc71;
+  width: 150px;
+}
+.pwdindicator.pw-very-strong .pwdstrength-label {
+  color: #2ecc71;
+}
+
 /* text blocks */
 
 h1,h2,h3,h4,h6{font-family:'Museo-500'}

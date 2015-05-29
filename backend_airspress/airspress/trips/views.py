@@ -9,7 +9,7 @@ from string import split
 from account.actions import get_profile_pic, notify
 from datetime import datetime
 from django.utils import timezone
-from account.schemes import get_notifications
+
 
 
 def fbPicture(request):
@@ -21,7 +21,7 @@ def fbPicture(request):
 def activeTrips(request):
     cUser = is_logged_in(request)
     if cUser:
-        myPicture = fbPicture(request) or get_profile_pic(cUser.objectId)
+        
         allTrips = trip.Query.filter(departureDate__gte=timezone.now()).order_by("-createdAt")
         page_one = allTrips.limit(10)
         k = 0
@@ -88,8 +88,7 @@ def activeTrips(request):
             searchView = searchForm()
         context_dict = {'tripDict':tripDict,'greetings':cUser.username, 
                         'myPicture':get_profile_pic(cUser.objectId),'searchForm':searchView}
-        notif_dict = get_notifications(cUser.objectId)
-        context_dict['notifications'] = notif_dict
+       
             
         return render(request, 'trips/voyage.html', context_dict )
     return HttpResponseRedirect(reverse('signup:index'))
@@ -114,8 +113,7 @@ def searchTrips(request):
                 
             context_dict = {'tripDict':tripDict,'greetings':cUser.username, 
                             'myPicture':get_profile_pic(cUser.objectId),'searchForm':searchView}
-            notif_dict = get_notifications(cUser.objectId)
-            context_dict['notifications'] = notif_dict
+            
             
             return render(request, 'trips/voyage.html', context_dict )
         else:
