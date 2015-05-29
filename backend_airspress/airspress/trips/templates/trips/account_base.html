@@ -95,7 +95,7 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								<img src="{{myPicture}}" alt="" />
 								<span class="hidden-xs">{{greetings}}</span> 
-								<span class="label label-primary pull-right">{{notifications.total}}</span>
+								<span class="label label-danger pull-right">{{notifications.total}}</span>
 								<b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu brand-color">
@@ -105,7 +105,7 @@
 										</a>
 									</li>
 									<li><a href="{%  url 'account:otRequest' %}">Buyer Requests 
-											<span class="label label-primary pull-right">{{notifications.in_deals}}</span>
+											<span class="label label-danger pull-right">{{notifications.in_deals}}</span>
 										</a>
 									</li>
 									<li><a href="{% url 'account:myTrip' greetings %}">My Trips
@@ -113,12 +113,12 @@
 									</li>
 									<li>
 										<a href="/account/mytrips/requested_trips/">Requested Trips
-											<span class="label label-primary pull-right">{{notifications.out_deals}}</span>
+											<span class="label label-danger pull-right">{{notifications.out_deals}}</span>
 										</a>
 									</li>
 									<li><a href="/account/mytrips/add">Add a trip</a></li>
 									<li><a href="{% url 'account:inbox' %}">Inbox
-											<span class="label label-primary pull-right">{{notifications.inbox}}</span>
+											<span class="label label-danger pull-right">{% firstof notifications.inbox %}</span>
 										</a>
 									</li>
 									<li class='logout-btn'> 
