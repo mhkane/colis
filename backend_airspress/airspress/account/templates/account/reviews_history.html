@@ -1,15 +1,15 @@
-{% for review in userinfo.reviews %}
+{% for review in userinfo.reviews.values %}
 	<div class="story">
 		<div class="story-user">
 			<a href="#">
-				<img src="{{review.sender.pPicture}}" alt=""/>
+				<img style="min-height:100%; min-width:100%;" src="{{review.sender.picture}}" alt=""/>
 			</a>
 		</div>
 		
 		<div class="story-content">
 			<header class="story-header">
 				<div class="story-author">
-					<a href="#" class="story-author-link">
+					<a href="{% url 'account:profile' review.sender.name %} " class="story-author-link">
 					
 					{{review.sender.name}}
 					</a>
@@ -20,21 +20,17 @@
 				</div>
 			</header>
 			<div class="story-inner-content">
-				{{review.text}}
-				<div class="story-images clearfix">
-					<a href="img/samples/tahiti-1.jpg" class="story-image-link">
-						<img src="img/samples/tahiti-1.jpg" alt="" class="img-responsive"/>
-					</a>
-				</div>
+				" {{review.text}} "
 			</div>
-			<footer class="story-footer">
+			<!-- when we go eventbrite style -->
+			<!-- <footer class="story-footer">
 				<a href="#" class="story-comments-link">
-					<i class="fa fa-comment fa-lg"></i> 8320 Comments
+					<i class="fa fa-comment fa-lg"></i>  Comments
 				</a>
 				<a href="#" class="story-likes-link">
-					<i class="fa fa-heart fa-lg"></i> 82k Likes
+					<i class="fa fa-heart fa-lg"></i> Likes
 				</a>
-			</footer>
+			</footer> -->
 		</div>
 	</div>
 	{% endfor %}
