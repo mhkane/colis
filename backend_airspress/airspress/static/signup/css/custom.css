@@ -155,6 +155,11 @@ margin-right: -0.5em;
 .table-responsive  .table tbody > tr > td:first-child {
 font-size: 0.9em;
 }
+		/* search table */
+#table1_filter{
+	display:none !important;
+	visibility: hidden !important;
+}
 /* Conversation */
 #Conversation1{overflow-y:auto;max-height:50vh;}  
 .conversation-user img{width:100%}

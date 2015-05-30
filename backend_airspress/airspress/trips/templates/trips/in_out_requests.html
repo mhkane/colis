@@ -26,7 +26,25 @@
 {% endblock stylesheet_uncomp %}
 
 {% block jscript %} 
+	<script	src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 	<script src="{% static 'account/js/jquery.nanoscroller.min.js' %}"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#table1').dataTable( {
+				"paging":true,
+				"ordering":true,
+				"info":true,
+				"order": [[ 3, "desc" ]],
+			});
+			oTable = $('#table1').dataTable();
+			$('#table1_search').keyup(function(){
+				  
+				   oTable.fnFilter($(this).val());
+			})
+		} );
+	
+	</script>
 {% endblock jscript %}	
 
 {% block content %}							
@@ -39,7 +57,7 @@
 											
 											<div class="filter-block pull-right">
 												<div class="form-group pull-left">
-													<input type="text" class="form-control" placeholder="Search...">
+													<input type="text" id="table1_search" class="form-control" placeholder="Search...">
 													<i class="fa fa-search small search-icon"></i>
 												</div>
 												
@@ -48,17 +66,17 @@
 										
 										<div class="main-box-body clearfix">
 											<div class="table-responsive">
-												<table class="table">
+												<table id="table1" class="table">
 													<thead>
 														<tr>
-															<th><a href="#"><span>Publication Date</span></a></th>
-															<th><span>{% if traveler %} Requester {% else %} Traveler {% endif %}</span></th>
-															<th class="text-center"><a href="#" class="asc"><span>Departure Date</span></a></th>
-															<th class="text-right"><a href="#" class="asc"><span>From</span></a></th>
-															<th class="text-right"><a href="#" class="asc"><span>To</span></a></th>
-															<th class="text-right"><a href="#" class="asc"><span>Requested Capacity</span></a></th>
-															<th class="text-right"><a href="#" class="asc"><span>Traveler Capacity</span></a></th>
-															<th class="text-center"><span>Status</span></th>
+															<th><a href="#">Publication Date</a></th>
+															<th>{% if traveler %} Requester {% else %} Traveler {% endif %}</th>
+															<th class="text-center"><a href="#" >Departure Date</a></th>
+															<th class="text-right"><a href="#" >From</a></th>
+															<th class="text-right"><a href="#" >To</a></th>
+															<th class="text-right"><a href="#">Requested Capacity</a></th>
+															<th class="text-right"><a href="#" >Traveler Capacity</a></th>
+															<th class="text-center">Status</th>
 															<th>&nbsp;</th>
 														</tr>
 													</thead>
