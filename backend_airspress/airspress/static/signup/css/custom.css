@@ -5,12 +5,39 @@ html,body
 {
     height:100%;
 	min-width:100%;
-	overflow-x:hidden;
+}
+html{
+overflow-x:hidden;
 }
 body{background-color: rgba(0,0,0,0.03);}
+/* background image*/
+img#bg-inline {
+  /* fill background */
+  min-height: 100%;
+  min-width: 1024px;
+	
+  /* proportionate scaling */
+  width: 100%;
+  height: auto;
+	
+  /* fixed positioning */
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+@media screen and (max-width: 1024px) { /* Specific to this particular image */
+  img#bg-inline {
+    left: 50%;
+    margin-left: -512px;   /* 50% */
+  }
+}
+/* Default Text Blocks*/
 h1{font-size:2.2em;}
 h2{font-size:1.8em}
 h3{font-size:1.6em}
+
+/* static navbar */
 .navbar-static-top{position:fixed;right:0;left:0; background-color:#e7962e; height:50px;border-bottom: 1px solid #ddd;
 box-shadow: 0 3px 2px -2px rgba(200,200,200,0.3);
 }

@@ -184,7 +184,9 @@
 															}
 														}};
 						};
-						document.getElementById("changePrice").onclick = function(){document.getElementById(this.getAttribute('input-enable')).disabled = false;};	
+						document.getElementById("changePrice").onclick = function(){document.getElementById(this.getAttribute('input-enable')).disabled = false;
+																			document.getElementById(this.getAttribute('input-enable')).focus();
+																		};	
 						
 					};
 </script>
