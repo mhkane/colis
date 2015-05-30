@@ -100,7 +100,7 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								<img src="{{myPicture}}" alt="" />
 								<span class="hidden-xs">{{greetings}}</span> 
-								<span class="label label-danger pull-right">{{notifications.total}}</span>
+								{% if notifications.total %} <span class="label label-danger pull-right">notifications.total  </span>{% endif %}
 								<b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu brand-color">
