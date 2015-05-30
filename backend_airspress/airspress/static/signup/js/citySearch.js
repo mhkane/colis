@@ -38,6 +38,8 @@ function priceComp(distance_meters){
 			price = 15;
 		} else if (distance_meters < 6000000) {
 			price = 17;
+		} else if (distance_meters > 6000000) {
+			price = 20;
 		};
 	};	
 	return price
