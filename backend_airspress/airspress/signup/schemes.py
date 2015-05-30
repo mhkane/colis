@@ -112,7 +112,14 @@ def re_validation(request, registerView, provider_name, referral_id=''):
         new_user = User.signup(user_email, user_password, email=user_email, Name=user_name)
         alert={'type':'success', 'text':'''Nearly done ! Please confirm
          your email address by following the link we sent you.'''}
-        # We can login the user
+        # set up some default values on User object
+        new_user.totalReviews = 0
+        new_user.totalOrders = 0
+        new_user.totalDeliveries = 0
+        new_user.userRating = 0
+        new_user.userPoints = 0
+        new_user.save()
+        # We can login the user in a session
         sign_in(request, login_dic={'username':user_email,'password':user_password})
         
     else:

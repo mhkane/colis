@@ -53,7 +53,10 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'account/css/compiled/theme_styles.css' %}" />
 	
 	{% endblock stylesheet_bottom %}
+	
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom.css' %}" />
+	<link type="text/css" href="{% static 'signup/css/custom-animations.css' %}" rel="stylesheet"/>
+    <link type="text/css" href="{% static 'signup/css/style.css' %}" rel="stylesheet"/>
 	{% endcompress %}
 	{% block stylesheet_uncomp %}
 	
@@ -70,8 +73,8 @@
 </head>
 
 <body {% block onloader %} {% endblock %}>
-<!-- Background image-->
-<img id="bg-inline" src="/static/admin/img/bg-lg.png"></img>
+<!-- Background image
+<img id="bg-inline" src="/static/admin/img/bg-lg.png"></img> -->
 <div id="theme-wrapper">
     <header style="background-color:#e82;" class="navbar" id="header-navbar">
 			<div class="container">
@@ -155,12 +158,38 @@
 			<hr class="prettyline">
         </div>
         <!-- /#page-content-wrapper -->
-    </div>
+    </div>  <!-- /#wrapper -->
 		<!-- Modal --> <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> 
 
 					</div><!-- /.modal --> 
-	<footer> </footer>
-</div>   <!-- /#wrapper -->
+	
+
+ 	<footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <span class="copyright">Copyright © Airspress 2015</span>
+					
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline social-buttons">
+                        <li><a href="https://www.twitter.com/airspress" target="_blank"><i class="fa fa-twitter" ></i></a>
+                        </li>
+                        <li><a href="https://www.facebook.com/Airspress" target="_blank"><i class="fa fa-facebook"></i></a>
+                        </li>
+                        <li><a href="#" target="_blank"><i class="fa fa-linkedin"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <ul class="list-inline quicklinks">
+                        <li><a href="#">Terms of Use</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- jQuery -->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

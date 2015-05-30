@@ -10,7 +10,7 @@ from parse_rest.query import QueryResourceDoesNotExist
 from decimal import Decimal
 from signup.backend_parse import review, referral, trequests, Notifications
 from parse_rest.installation import Push
-from trips.crtrips import priceCalc
+from trips.crtrips import priceCalc, trip
 from moneyed.classes import Money
 from parse_rest.connection import master_key_required
 
@@ -122,6 +122,7 @@ def get_user_info(cUser, request, user_id='',username=''):
             member_since_year = anyUser.createdAt.year
             member_since = '{} {}'.format(member_since_month, member_since_year)
             anyReviews = review.Query.filter(reviewedUser=anyUser)
+            
             k=0
             for any_review in anyReviews:
                 k = k+1
@@ -129,6 +130,28 @@ def get_user_info(cUser, request, user_id='',username=''):
                                                            'picture':get_profile_pic(any_review.reviewer.objectId)},
                                                  'rating':any_review.rating,'text':any_review.reviewText, 'pub_date':any_review.createdAt.date()}
             is_verified = anyUser.emailVerified
+            anyTrips = trip.Query.filter(traveler= anyUser)
+            user_trips = {}
+            for anyTrip in anyTrips :
+                k = k + 1
+                
+                departDate = ''
+                destLocation = ''
+                oriLocation = ''
+                availCap = ''
+                
+                try:
+                    departDate = anyTrip.departureDate.date()
+                    destLocation = anyTrip.toLocation
+                    oriLocation = anyTrip.fromLocation
+                    tripId = anyTrip.objectId
+                    availCap = anyTrip.availCapacity
+                except AttributeError:
+                    pass
+            
+                user_trips['objTrip'+str(k)] = {
+                 'depDate':departDate, 'cityDep':destLocation, 
+                 'cityArr':oriLocation, 'availCap':availCap}
             try:
                 anyRating = anyUser.userRating
                 total_reviews = anyUser.totalReviews
@@ -154,14 +177,14 @@ def get_user_info(cUser, request, user_id='',username=''):
         # let's get everything in a dict object
         proDict={'id':user_id,'username':anyName, 'screen_name':screen_name,'is_verified':is_verified, 'is_cuser':is_cuser, 'email':anyMail, 'Bio':anyBio, 
                  'rating':anyRating, 'total_deliveries':total_deliveries, 'total_orders':total_orders, 'pPicture':pPicture,
-                 'total_reviews':total_reviews, 'reviews':reviews_dict, 'member_since':member_since}
+                 'total_reviews':total_reviews, 'reviews':reviews_dict, 'member_since':member_since,'trips':user_trips}
         if is_cuser:
             request.session['userinfo']=proDict
     return proDict
 
 # A function to handle review and save them to Parse
 def tripReview(cUser, review_form, key):
-    ''' Takes every review and saves relevent information'''
+    ''' Takes every review submitted and saves relevent information'''
     # 'request' variable used here is a ParseObject, not to confuse with a view request 
     dealer = ''
     try:

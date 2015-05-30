@@ -15,6 +15,8 @@ class review(ParseObject):
     pass
 class Item(ParseObject):
     pass
+class trip(ParseObject):
+    pass
 # request class is renamed as trequests so that to avoid
 # redondance of the name with the request objet of views
 class request(ParseObject):
