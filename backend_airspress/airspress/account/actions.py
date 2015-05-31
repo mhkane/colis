@@ -29,7 +29,13 @@ def getdeal(travelUser, reqUser, aRequest, aTrip):
         departDate = aTrip.departureDate.date()
         destLocation = aTrip.toLocation
         oriLocation = aTrip.fromLocation
-        reqAccepted['commission'] = priceCalc(getattr(aTrip,'unitPriceUsd',0.00),getattr(aRequest,'weightRequested',1))
+        # custom total commission price set (or not) by traveler
+        commission = getattr(aRequest,'commisPrice',False)
+        if commission:
+            reqAccepted['commission'] = commission
+        else:
+            # traveler did not set a custom total commission price
+            reqAccepted['commission'] = priceCalc(getattr(aTrip,'unitPriceUsd',0.00),getattr(aRequest,'weightRequested',1))
     except AttributeError:
         pass
     reqUser_pic = ''
@@ -150,7 +156,7 @@ def get_user_info(cUser, request, user_id='',username=''):
                     pass
             
                 user_trips['objTrip'+str(k)] = {
-                 'depDate':departDate, 'cityDep':destLocation, 
+                 'depDate':str(departDate), 'cityDep':destLocation, 
                  'cityArr':oriLocation, 'availCap':availCap}
             try:
                 anyRating = anyUser.userRating
@@ -254,8 +260,14 @@ def ref_create(referralView, cUser, request):
 def notify(request, source, origin, target, target_id, email, text="", link="", activity_id=""):
     template_name = 'notifications'
     #  template variables
+    
     target_user = User.Query.get(objectId = target_id)
-    target_user_notif = Notifications.Query.filter(target_user = target_id)
+    target_user_notif = ''
+    try:
+        target_user_notif = Notifications.Query.get(targetUser = target_id)
+    except (QueryResourceDoesNotExist):
+        pass
+    print target_user_notif
     if source =='accept_request':
         header = 'Request Accepted by ' + origin
         info = origin + " accepted you request."
@@ -275,17 +287,21 @@ def notify(request, source, origin, target, target_id, email, text="", link="", 
                    where={"appUser":{"__type":"Pointer","className":"_User","objectId":target_id}})
         except:
             pass
-        
-        if target_user_notif:
-            try:
+        try:
+            if target_user_notif:
+                try:
+                    
+                    target_user_notif.increment("notifOutDeals")
+                except AttributeError:
+                    target_user.notifications.notifOutDeals = 1    
+            else:
                 
-                target_user_notif.notifOutDeals.increment()
-            except AttributeError:
-                target_user.notifications.notifOutDeals = 1    
-        else:
-            target_user_notif = Notifications(notifInDeals = 0, notifOutDeals = 1, notifInbox = 0, targetUser = target_user.objectId)
-            
-        target_user_notif.save()
+                    target_user_notif = Notifications(notifInDeals = 0, notifOutDeals = 1, notifInbox = 0, targetUser = target_user.objectId)
+               
+                    
+            target_user_notif.save()
+        except AttributeError:
+            pass
 
     elif source.startswith("message"):
         header = 'New Message from ' + origin
@@ -312,30 +328,37 @@ def notify(request, source, origin, target, target_id, email, text="", link="", 
         print 'target_id : '+ target_id
         print target_user
         if not source.endswith('deal'):
-            
-            if target_user_notif:
-                try:
-                    
-                    target_user_notif.notifInbox.increment()
-                except AttributeError:
-                    target_user_notif.notifInbox = 1    
-            else:
-                target_user_notif = Notifications(notifInDeals = 0, notifOutDeals = 0, notifInbox = 1, targetUser = target_user.objectId)
-            target_user_notif.save()
+         
+            try:    
+                if target_user_notif:
+                    print 'notif exist'
+                    try:
+                        print 'should work'
+                        target_user_notif.notifInbox += 1
+                        print 'it works', target_user_notif.notifInbox
+                    except AttributeError:
+                        target_user_notif.notifInbox = 1    
+                else:
+                    target_user_notif = Notifications(notifInDeals = 0, notifOutDeals = 0, notifInbox = 1, targetUser = target_user.objectId)
+                print 'it''s out'
+                target_user_notif.save()
+            except AttributeError:
+                pass
             
         else:
             this_deal = trequests.Query.get(objectId=activity_id)
             try:
                 if this_deal.tripId.traveler.username == target_user.username:
                     if getattr(this_deal,'notifTraveler',False):
-                        this_deal.notifTraveler.increment()
+                        this_deal.increment("notifTraveler")
                     else:
                         this_deal.notifTraveler = 1
-                    this_deal.save()    
+                    this_deal.save()
+                        
                     if target_user_notif:
                         try:
                             
-                            target_user_notif.notifInDeals.increment()
+                            target_user_notif.increment("notifInDeals")
                         except AttributeError:
                             target_user_notif.notifInDeals = 1    
                     else:
@@ -344,14 +367,14 @@ def notify(request, source, origin, target, target_id, email, text="", link="", 
                     
                 elif this_deal.Requester.username == target_user.username:
                     if getattr(this_deal,'notifRequester',False):
-                        this_deal.notifRequester.increment()
+                        this_deal.increment("notifRequester")
                     else:
                         this_deal.notifRequester = 1
                     this_deal.save()
                     if target_user_notif:
                         try:
                             
-                            target_user_notif.notifOutDeals.increment()
+                            target_user_notif.increment("notifOutDeals")
                         except AttributeError:
                             target_user_notif.notifOutDeals = 1    
                     else:
@@ -381,13 +404,15 @@ def notify(request, source, origin, target, target_id, email, text="", link="", 
         except:
             pass
         target_user = User.Query.get(objectId = target_id)
-        if target_user_notif:
-            try:
-                target_user_notif.notifInDeals.increment()
-            except AttributeError:
-                target_user_notif.notifInDeals = 1    
-        else:
-            target_user_notif = Notifications(notifInDeals = 1, notifOutDeals = 0, notifInbox = 0, targetUser = target_user.objectId)
-        target_user_notif.save()
-        
+        try:
+            if target_user_notif:
+                try:
+                    target_user_notif.increment("notifInDeals")
+                except AttributeError:
+                    target_user_notif.notifInDeals = 1    
+            else:
+                target_user_notif = Notifications(notifInDeals = 1, notifOutDeals = 0, notifInbox = 0, targetUser = target_user.objectId)
+            target_user_notif.save()
+        except AttributeError:
+            pass
     return True

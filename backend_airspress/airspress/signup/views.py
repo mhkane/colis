@@ -9,7 +9,7 @@ from signup.schemes import save_user_pic, is_logged_in, re_validation, sign_in,\
     request_password, change_password, verify_email
 from signup.forms import loginForm, registerForm, ref_regForm, change_passForm,\
     email_askForm
-from account.actions import referral, send_mail
+from account.actions import referral, send_mail, get_profile_pic
 from parse_rest.query import QueryResourceDoesNotExist
 from signup.backend_parse import passRequest
 from django.contrib.sites.models import get_current_site
@@ -39,7 +39,7 @@ def home(request):
         return render(request, 'signup/index.html', 
                     {'loginView':loginView,'registerView':registerView,})
     
-    if cUser is not None: 
+    if cUser: 
         #This is basically the sole instance where cUser is a dict object and not a ParseObject
         # This part(next 7 lines) is absolutely unnecessary, we should just redirect to Trip view
         # Question is : So why the f**ck am i writing that ?
@@ -48,7 +48,7 @@ def home(request):
         if objID:
             try:
                 cUser = User.Query.get(objectId=objID)
-                pPicture = cUser.profilePicture.url
+                pPicture = get_profile_pic(objID)
             except (AttributeError, QueryResourceDoesNotExist):
                 pass
             return HttpResponseRedirect(reverse('trips:index')) 
@@ -84,7 +84,9 @@ def signup(request, provider_name):
                         return render(request,'signup/signup_ajx.html',{'loginView':loginView,'registerView':registerView,
                                                          'alert':alert})
                     else:
-                        return HttpResponseRedirect(reverse('signup:register_success'))
+                        return render(request,'signup/signup_ajx.html',
+                                {'loginView':loginView,'registerView':registerView,
+                                 'alert':alert})
      
             #Throwing back form on page with errors, alerts
                 else:

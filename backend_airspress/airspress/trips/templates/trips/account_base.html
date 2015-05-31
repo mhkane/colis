@@ -98,9 +98,9 @@
 						</li>
 						<li class="dropdown profile-dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								<img src="{{myPicture}}" alt="" />
+								<img src="{% firstof myPicture 'http://placehold.it/80&text=No+Image' %}" alt="" />
 								<span class="hidden-xs">{{greetings}}</span> 
-								{% if notifications.total %} <span class="label label-danger pull-right">notifications.total  </span>{% endif %}
+								{% if notifications.total %} <span class="label label-danger pull-right">{{notifications.total}}</span> {% endif %}
 								<b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu brand-color">
@@ -109,8 +109,8 @@
 											
 										</a>
 									</li>
-									<li><a href="{%  url 'account:otRequest' %}">Incoming Requests 
-											<span class="label label-danger pull-right">{{notifications.in_deals}}</span>
+									<li><a href="{%  url 'account:otRequest' %}">Incoming Requests  
+											<span class="label label-danger pull-right">{% firstof notifications.in_deals %}</span>
 										</a>
 									</li>
 									<li><a href="{% url 'account:myTrip' greetings %}">My Trips
@@ -118,7 +118,7 @@
 									</li>
 									<li>
 										<a href="/account/mytrips/requested_trips/">My Requests
-											<span class="label label-danger pull-right">{{notifications.out_deals}}</span>
+											<span class="label label-danger pull-right">{% firstof notifications.out_deals %}</span>
 										</a>
 									</li>
 									<li><a href="/account/mytrips/add">Add a trip</a></li>
@@ -194,6 +194,7 @@
     <!-- jQuery -->
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+	<script type="text/javascript" src="{% static 'admin/js/JScustom.js' %}"></script>
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAo_PT60oc_CGiUYJcI4gsYYa5UGZSBxp8&libraries=geometry,places&sensor=false&language=en-US"></script>
 
 	<script type="text/javascript" src="{% static 'account/js/flat-ui.min.js' %}"></script>
@@ -211,13 +212,14 @@
 	{% include 'signup/session_security.html' %}
 	<script type="text/javascript" src="{% static 'signup/js/bootstrap-datepicker.js' %}"></script>
 	<script type="text/javascript" src="{% static 'account/js/jquery.raty.js' %}"></script>
-	
-	<script> $('.datepicker').datepicker({
-      format: 'mm-dd-yyyy',
-	  autoclose:true,
-	  orientation: 'top'
-    });
-	</script>
+	{% block datepicker %}
+		<script> $('.datepicker').datepicker({
+		  format: 'mm-dd-yyyy',
+		  autoclose:true,
+		  orientation: 'top'
+		});
+		</script>
+	{% endblock datepicker %}
 	{% block jscript %} 
 	
 		<!-- scripts -->

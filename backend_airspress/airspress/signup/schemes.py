@@ -4,6 +4,7 @@ from parse_rest.query import QueryResourceDoesNotExist
 from parse_rest.core import ResourceRequestNotFound
 from signup.backend_parse import passRequest, referral, Notifications
 from string import split
+from django.core.urlresolvers import reverse
 #register to Parse
 register(settings.APPLICATION_ID, settings.REST_API_KEY, master_key=settings.MASTER_KEY)#settings.REST_API_KEY
 #from parse_rest.connection import ParseBatcher
@@ -26,6 +27,8 @@ def currentUser(saken):
        "X-Parse-Session-Token": saken
      })
     result = json.loads(connection.getresponse().read())
+    if unicode('error') in result.keys():
+        result = ''
     return result
 
 
@@ -160,7 +163,7 @@ def sign_in(request, login_dic=None, loginView=None, provider_name='student'):
             is_user=''
         if is_user:
             # match! so must have lost her keys 
-            alert={'type':'warning','text':'Wrong Password !','link':'Forgot your password ?','url':'/password_reset/'}
+            alert={'type':'warning','text':'Wrong Password !','link':'Forgot your password ?','url':reverse('signup:forgot_pass')}
         else:
             # hmm.. trying to plays us !?
             alert={'type':'danger','text':'This user does not exist','link':'Sign up here','url':'/register/student'}

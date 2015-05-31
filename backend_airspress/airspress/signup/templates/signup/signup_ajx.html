@@ -12,9 +12,9 @@
 				var thismodal = document.getElementById('signupModal')
 				var alertBox = thismodal.querySelector(".alert-success");
 				var countHtml = document.createElement('span');
-				countHtml.innerHTML = 'You will be redirected to Trips in 10 seconds.';
+				countHtml.innerHTML = 'You will be redirected to Trips in 5 seconds.';
 				alertBox.appendChild(countHtml);
-				var counter = 10;
+				var counter = 5;
 				var id;
 
 				
@@ -93,7 +93,7 @@
 									  <input name="{{registerView.tos_check.name}}" type="checkbox" data-toggle="checkbox" value="" id="checkbox1" required="true" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
 									  <span style="padding-left:1.9em;">I agree with the Terms of Services</span>
 								</label>
-								<button type="submit" id="signupButton" class="btn btn-signup btn-lg">Sign me up</button>
+								<button type="submit" id="signupButton" class="btn btn-success btn-lg">Sign me up</button>
 								<a href="#signup2" data-toggle="tab" class="btn btn-danger btn-lg">Back</a>
 								
 							</div>

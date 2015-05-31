@@ -9,7 +9,7 @@ class regForm(forms.Form):
     login_email=forms.EmailField()
     login_password = forms.CharField(min_length=8)
     login_password_conf = forms.CharField()
-    tos_check = forms.BooleanField()
+    tos_check = forms.BooleanField(required=False)
     def clean_login_password_conf(self):
         # Check that the two password entries match
         password1 = self.cleaned_data.get("login_password")

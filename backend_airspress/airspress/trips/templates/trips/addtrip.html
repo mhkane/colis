@@ -29,6 +29,46 @@
 	<!-- scripts -->
 	<script src="{% static 'account/js/scripts.js' %}"></script>
 	<script src="{% static 'account/js/pace.min.js' %}"></script>
+{% block datepicker %}	
+	<script>
+		function returnAdapt(){
+			$('#departure2').datepicker('startDate', document.getElementById('departure').value);
+			$('#departure2').datepicker('update', document.getElementById('departure').value);
+		}
+		function depAdapt(){
+			$('#departure').datepicker('startDate', document.getElementById('departure2').value);
+			$('#departure').datepicker('update', document.getElementById('departure2').value);
+		}
+		$(document).ready(function(){
+			$('#departure2').datepicker({
+			  format: 'mm-dd-yyyy',
+			  autoclose:true,
+			  orientation: 'top',
+			  startDate: "today",
+			  
+			});
+			$('#departure').datepicker({
+			  format: 'mm-dd-yyyy',
+			  autoclose:true,
+			  orientation: 'top',
+			  startDate: "today",
+			  
+			});
+			
+			$('#departure').datepicker().on('changeDate',function(){
+				if (hasClass(document.getElementById('backtrip'),'hidden') == false) {
+					returnAdapt();
+				}
+			});
+			$('#departure2').datepicker().on('changeDate',function(){
+				if (hasClass(document.getElementById('backtrip'),'hidden') == false) {
+					depAdapt();
+				}
+			});
+		});
+		
+	</script>
+{% endblock datepicker %}	
 <script> 
 
 	// Form Avoid Submit on Return keypress when not appropriate
@@ -230,11 +270,11 @@
 										</div>
 										<div id="backtrip" class="col-md-6 {% if addForm.arrivDate2.errors or addForm.depDate2.errors %}  {% else %} hidden {% endif %}">
 											<div class="form-group">
-											  <label class="control-label" for="departure">Return Trip: Departure Date</label>
+											  <label class="control-label" for="departure2">Return Trip: Departure Date</label>
 											  <div class="controls">
 												<div class="input-group add-trip-dates">
 												  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-												  <input step="step1" tabindex="2" id="departure" placeholder="Select a departure date" type="text" name="{{ addForm.depDate2.name }}" class=" datepicker form-control">
+												  <input step="step1" tabindex="2" id="departure2" placeholder="Select a departure date" type="text" name="{{ addForm.depDate2.name }}" class=" datepicker form-control">
 												</div>
 												<div class="help-block">
 													 {{addForm.depDate2.errors}}
@@ -298,7 +338,7 @@
 												  <div class="controls">
 													<div class="input-group col-sm-4">
 													  <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
-													  <input id="unitPrice" step="step4" type="text" name="{{addForm.custom_price.name}}" value="{% if not addForm.custom_price.errors and addForm.custom_price.value %} {{addForm.custom_price.value}} {% endif %}" class="form-control" disabled="true">
+													  <input id="unitPrice" step="step4" type="number" min="0" name="{{addForm.custom_price.name}}" value="{% if not addForm.custom_price.errors and addForm.custom_price.value %} {{addForm.custom_price.value}} {% endif %}" class="form-control" disabled="true">
 													  <input type="hidden" name="{{addForm.unit_price.name}}" value="{% if not addForm.unit_price.errors and addForm.unit_price.value %} {{addForm.unit_price.value}} {% endif %}">
 													</div>
 													<span class="help-block col-sm-8">{{addForm.custom_price.errors}}</span>

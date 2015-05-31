@@ -262,7 +262,7 @@ def deals(request, key, external_alert={}, external_context=False):
                             cUser_notif = Notifications.Query.get(targetUser = cUser.objectId)
                             cUser_notif.notifInDeals -= 1
                             cUser_notif.save()
-                    except AttributeError:
+                    except (AttributeError, QueryResourceDoesNotExist):
                         pass
             elif reqUser.objectId == cUser.objectId:
                 
@@ -277,7 +277,7 @@ def deals(request, key, external_alert={}, external_context=False):
                             cUser_notif = Notifications.Query.get(targetUser = cUser.objectId)
                             cUser_notif.notifOutDeals -= 1
                             cUser_notif.save()
-                    except AttributeError:
+                    except (AttributeError, QueryResourceDoesNotExist):
                         pass
                 
             else:
@@ -344,9 +344,10 @@ def accept_request(request, key):
             traveler = this_deal.tripId.traveler
             print traveler
             if cUser.username == traveler.username:
-                
+                commission = request.POST.get('commisDeal', False)
                 if not getattr(this_deal,'accepted',False):
-                    
+                    if commission:
+                        this_deal.commisPrice = commission
                     this_deal.accepted= True
                     this_trip = this_deal.tripId
                     this_trip.availCapacity =  this_trip.availCapacity - this_deal.weightRequested
@@ -583,7 +584,7 @@ def inbox(request):
             cUser_notif = Notifications.Query.get(targetUser=cUser.objectId)
             cUser_notif.notifInbox = 0
             cUser_notif.save()
-        except (AttributeError):
+        except (AttributeError, QueryResourceDoesNotExist):
             pass
         context_dic = { 'greetings':cUser.username,
                         'myPicture':get_profile_pic(cUser.objectId),

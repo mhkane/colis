@@ -1,6 +1,7 @@
  
 from signup.schemes import User
 from parse_rest.query import QueryResourceDoesNotExist
+from parse_rest.core import ResourceRequestNotFound
 
 # Some users might lack profile pic
 # i don't want to be overwhelmed by a ton of "try..except" and what-not... 
@@ -27,6 +28,6 @@ def get_notifications(request):
                                            'in_deals':notif_in_deals,'total':total}
                           }
             return notif_dict
-    except QueryResourceDoesNotExist:
+    except QueryResourceDoesNotExist, ResourceRequestNotFound:
         pass 
     return {}
