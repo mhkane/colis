@@ -16,7 +16,7 @@ $.ajaxSetup({
 // Notification
 function notify(messageText){
 var sender = "{{greetings}}";
-{% if dealInfo.istraveler %}
+{% if not dealInfo.istraveler %}
 var receiver = "{{ travelUser.username }}"
 {% else %}
 var receiver = "{% firstof reqUser.username userinfo.username %}"

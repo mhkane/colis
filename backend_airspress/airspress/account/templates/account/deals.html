@@ -23,19 +23,10 @@
 {% endblock stylesheet_bottom %}
 {% block head_jscript %} 	
 
-{% include 'account/script_firebase.html' %} 
 
 {% endblock %}
 {% block head_jscript_uncomp %} <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script> {% endblock %}
-{% block jscript %} 
-	<script type="text/javascript">
-		$(document).ready(function(){
-			$('[data-toggle="popover"]').popover({
-				placement : 'top'
-			});
-		});
-	</script>
-{% endblock jscript %}
+
 {% block content %}
 		<!--  HYBRIDE  ---> 
 <div id="notification"></div>
@@ -71,7 +62,7 @@
 									<a class="btn btn-success btn-embossed disabled pull-right" >Not accepted yet</a>	
 										{% endif %}
 									{% elif dealInfo.istraveler and not dealInfo.isaccepted %}
-									<a class="btn btn-success pull-right" id="accept-request" data-toggle="popover" data-content="{% include 'account/set_commission.html' %}">Accept the request</a>
+									<a class="btn btn-success pull-right" data-toggle="popover" data-content="{% include 'account/set_commission.html' %}">Accept the request</a>
 									{% elif dealInfo.istraveler and not dealInfo.ispayed %}
 									<a class="btn btn-success btn-embossed pull-right"  href="{% url 'account:confirm_payment' rqkey %}">Confirm As Paid</a>
 									{% endif %}
@@ -165,6 +156,7 @@
 
 {% endblock content %}
 {% block jscript %} 
+{% include 'account/script_firebase.html' %} 
 <script src="{% static 'account/js/jquery.nanoscroller.min.js' %}"></script>
 	
 	<!-- this page specific scripts -->
@@ -176,7 +168,8 @@
 	<script src="{% static 'account/js/pace.min.js' %}"></script>
 	
 <script type="text/javascript" src=" {% static 'account/js/order-review.js' %}"></script>
-<script type="text/javascript">//score should depend on data-rating attribute
+<script type="text/javascript">
+//score should depend on data-rating attribute
  function showStars(){ $('.rating-stars').raty({ starType: 'i', score: function() { return $(this).attr('data-rating');}, 
 						   readOnly: true });
 }
@@ -211,6 +204,12 @@ $(document).ready(function(){
 		$('#accept-request').click(function(){
 			event.preventDefault();
 			$('#notification').load($('#accept-request').attr('href'))
+		});
+});
+
+$(document).ready(function(){
+		$('[data-toggle="popover"]').popover({
+			placement : 'top'
 		});
 });
 </script>

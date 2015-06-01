@@ -28,6 +28,6 @@ def get_notifications(request):
                                            'in_deals':notif_in_deals,'total':total}
                           }
             return notif_dict
-    except QueryResourceDoesNotExist, ResourceRequestNotFound:
+    except (QueryResourceDoesNotExist, ResourceRequestNotFound):
         pass 
     return {}
