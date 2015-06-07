@@ -19,181 +19,181 @@ msgstr ""
 
 #: .\account\actions.py:251
 msgid "This user has already been referred."
-msgstr ""
+msgstr "Cet utilisateur a déjà été invité."
 
 #: .\account\actions.py:263
 msgid "There was an error attempting to send the invitation, try again later."
-msgstr ""
+msgstr "Il y a eu une erreur lors de la tentative d'invitation. Essayez encore plus tard."
 
 #: .\account\actions.py:266
 msgid "The invitation was succesfully sent !"
-msgstr ""
+msgstr "L'invitation a été envoyée avec succès!"
 
 #: .\account\views.py:133 .\account\views.py:187
 msgid "In Progress"
-msgstr ""
+msgstr "En cours"
 
 #: .\account\views.py:135
 msgid "Completed"
-msgstr ""
+msgstr "Terminé"
 
 #: .\account\views.py:363
 msgid "Deal is accepted. Now its an Airdeal!"
-msgstr ""
+msgstr "Le deal a été accepté. C'est maintenant un Airdeal !"
 
 #: .\account\views.py:367 .\account\views.py:384 .\account\views.py:402
 msgid "There was an error with the server ..."
-msgstr ""
+msgstr "Il y a une erreur avec le serveur ..."
 
 #: .\account\views.py:381
 msgid ""
 "This Airdeal is marked as delivered. Please leave a review for the traveler."
-msgstr ""
+msgstr "Cet Airdeal est maintenant terminé. Veuillez noter le voyageur."
 
 #: .\account\views.py:399
 msgid "This Airdeal is marked as paid. Please leave a review for the buyer."
-msgstr ""
+msgstr "Cet Airdeal a été payé.Veuillez noter l'acheteur."
 
 #: .\airspress\settings.py:133
 msgid "French"
-msgstr ""
+msgstr "Français"
 
 #: .\airspress\settings.py:134
 msgid "English"
-msgstr ""
+msgstr "Anglais"
 
 #: .\signup\schemes.py:79
 msgid "Hmmm... Passwords dont match..."
-msgstr ""
+msgstr "Hmmm... veuillez verifier le mot de passe encore"
 
 #: .\signup\schemes.py:90
 msgid "An error occured. Try again later..."
-msgstr ""
+msgstr "Une erreur est survenue. Veuillez essayer plus tard ..."
 
 #: .\signup\schemes.py:101
 msgid "This email is already in use..."
-msgstr ""
+msgstr "Cet email est déjà utilisé..."
 
 #: .\signup\schemes.py:114
 msgid "This referral link is not valid !"
-msgstr ""
+msgstr "Ce lien d'invitation n'est pas valable !"
 
 #: .\signup\schemes.py:130
 msgid ""
 "Nearly done ! Please confirm\n"
 "             your email address by following the link we sent you."
-msgstr ""
+msgstr "On y est presque ! Veuillez confirmer votre adresse mail en cliquant sur le lien qui vous a été envoyé"
 
 #: .\signup\schemes.py:136
 msgid "You should use an \""
-msgstr ""
+msgstr "Vous devrez utiliser un \"
 
 #: .\signup\schemes.py:136
 msgid "\" email address"
-msgstr ""
+msgstr "\"addresse mail"
 
 #: .\signup\schemes.py:173
 msgid "Wrong Password !"
-msgstr ""
+msgstr "Mauvais mot de passe !"
 
 #: .\signup\schemes.py:176
 msgid "This user does not exist"
-msgstr ""
+msgstr "Cet utilisateur n'existe pas"
 
 #: .\signup\views.py:185
 msgid "Some errors apparently..."
-msgstr ""
+msgstr "Erreur ..."
 
 #: .\signup\views.py:251
 msgid ""
 "Your email address has been verified! Go on, add your trips and make your "
 "requests"
-msgstr ""
+msgstr "Votre addresse mail a été verifiée ! Vous pouvez desormais créer vos voyages et passer des commandes !"
 
 #: .\signup\views.py:318
 msgid "Check your inbox, we sent out a link to reset your password"
-msgstr ""
+msgstr "Verifiez votre mail, nous venons de vous envoyer un lien pour reinitialiser votre mot de passe"
 
 #: .\signup\views.py:321
-msgid "There seem to be a problem. Try again later."
-msgstr ""
+msgid "There seems to be a problem. Try again later."
+msgstr "Il y a apparemment un problème. Veuillez reessayer plus tard."
 
 #: .\signup\templates\signup\index.html:33
 msgid "Peer-to-Peer Delivery Service"
-msgstr ""
+msgstr "Service de commande et livraison entre particuliers"
 
 #: .\signup\templates\signup\index.html:58
 msgid "Home"
-msgstr ""
+msgstr "Accueil"
 
 #: .\signup\templates\signup\index.html:60
 msgid "About Us"
-msgstr ""
+msgstr "À propos de nous"
 
 #: .\signup\templates\signup\index.html:62
 msgid "FAQ"
-msgstr ""
+msgstr "FAQ"
 
 #: .\signup\templates\signup\index.html:65
 msgid "Login"
-msgstr ""
+msgstr "Connexion"
 
 #: .\signup\templates\signup\index.html:81
 msgid "Sign Up"
-msgstr ""
+msgstr "Inscription"
 
 #: .\signup\templates\signup\index.html:96
 msgid "The end of high shipping costs"
-msgstr ""
+msgstr "La fin des couts élevés de livraison internationale"
 
 #: .\signup\templates\signup\index.html:122
 msgid "Simple and effective"
-msgstr ""
+msgstr "Simple et efficiace"
 
 #: .\signup\templates\signup\index.html:128
 msgid ""
 "And with a real-time text messaging, you can easily wrap up the details."
-msgstr ""
+msgstr "Avec la messagerie instantanée, vous pouvez coordonner les détails logistiques"
 
 #: .\signup\templates\signup\index.html:139
 msgid "A whole opportunity..."
-msgstr ""
+msgstr "Une opportunité"
 
 #: .\signup\templates\signup\index.html:194
 msgid "This is a pilot version. Invite us to your school..."
-msgstr ""
+msgstr "Il s'agit d'un projet pilote. Invitez nous dans votre établissement"
 
 #: .\signup\templates\signup\index.html:195
 msgid "Or let's talk about Airspress"
-msgstr ""
+msgstr "Parlons d'Airspress"
 
 #: .\signup\templates\signup\session_security.html:27
 msgid "You have unsaved changes in a form of this page."
-msgstr ""
+msgstr "Vous avez des changements non sauvegardés sur le formulaire présent."
 
 #: .\templates\admin\base_site.html:4
-msgid "AirSpress site admin"
-msgstr ""
+msgid "Airspress site admin"
+msgstr "Administrateur du site Airpsress"
 
 #: .\templates\admin\base_site.html:7
-msgid "AirSpress administration"
-msgstr ""
+msgid "Airspress administration"
+msgstr "Administration Airspress"
 
 #: .\trips\crtrips.py:258
 msgid ""
 "Buddy, you can't own the penthouse and lease it to yourself, yeah ? =D !"
-msgstr ""
+msgstr "On ne peut pas avoir le beurre et l'argent du beurre"
 
 #: .\trips\crtrips.py:262
 msgid "You can't request more than once ;)"
-msgstr ""
+msgstr "Vous ne pouvez pas envoyer plus d'une commande"
 
 #: .\trips\crtrips.py:292
 msgid "Request not submitted. Try again..."
-msgstr ""
+msgstr "La demande n'as pas pu aboutir. Veuillez reessayer"
 
 #: .\trips\crtrips.py:296
 msgid ""
 "Request submitted with success. You will be notified as soon as Traveler "
 "accept it."
-msgstr ""
+msgstr "Commande enregistrée avec succès. Vous recevrez une notification aussitot que le voyageur l'acceptera"
