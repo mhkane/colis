@@ -14,6 +14,7 @@ from parse_rest.query import QueryResourceDoesNotExist
 from signup.backend_parse import passRequest
 from django.contrib.sites.models import get_current_site
 import requests
+from django.utils.translation import ugettext as _
 
 authomatic = Authomatic(CONFIG, 'a super secret random string about falconpress and his brethren')
 
@@ -65,7 +66,7 @@ def signup(request, provider_name):
     is going on. Once we catch it we route the signup form to the proper handler.
     """
     if provider_name == 'student':
-        alert={'type':'','text':''} # dict type object to carry warnings or notifications to the front
+        alert={'type':'','text':_('')} # dict type object to carry warnings or notifications to the front
         loginView=loginForm()
         cUser = is_logged_in(request)
         if not cUser:
@@ -111,8 +112,7 @@ def signup(request, provider_name):
             ref_regView = ref_regForm(request.POST)
             if ref_regView.is_valid():
                 referral_id = request.POST.get('referral_id','')
-                #Sometimes there's no obvious errors but there are still errors...
-                
+                #Sometimes there's no obvious errors but there could be still errors...
                 alert = re_validation(request, ref_regView, provider_name, referral_id=referral_id)
                 
                 print alert
@@ -144,7 +144,7 @@ def signup(request, provider_name):
                     #if we're still here, existing referral is confirmed, we can signup the user
                     #signup routine should create referralInfo column to store a pointer to the referral object
                     #which contains the referrer, and other userful info. Other than that it's the same as previous
-                    return render(request,'signup/signup.html',{'ref_regView':ref_regView,'loginView':loginView, 'referral_id':referral_obj})
+                    return render(request,'signup/signup.html',{'ref_regView':ref_regView,'loginView':loginView, 'referral_id':referral_obj.objectId})
                 except (AttributeError, QueryResourceDoesNotExist):
                     pass
     return HttpResponseRedirect(reverse('signup:index'))#home page
@@ -158,7 +158,7 @@ def login(request, provider_name):
     registerView=registerForm()
     loginView=loginForm()
 
-    alert={'type':'','text':''} # dict type object to carry warnings or notifications to the front
+    alert={'type':'','text':_('')} # dict type object to carry warnings or notifications to the front
     cUser = is_logged_in(request)
     if not cUser:
         if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
@@ -182,7 +182,7 @@ def login(request, provider_name):
         #Throwing back form on page with errors, alerts
             else:
                 print loginView.errors
-                alert={'type':'danger', 'text':'Some errors apparently...'}
+                alert={'type':'danger', 'text':_('Some errors apparently...')}
                 if request.is_ajax():
                     return render(request,'signup/signin_ajx.html',
                         {'loginView':loginView,'registerView':registerView,
@@ -248,7 +248,7 @@ def mail_confirmation(request):
             userid = User.Query.get(username=username).objectId
             result = verify_email(userid)
             alert={'type':'success', 
-                   'text':'Your email address has been verified! Go on, add your trips and make your requests',
+                   'text':_('Your email address has been verified! Go on, add your trips and make your requests'),
                    'link':'/login/student/'}
             return render(request,'signup/ask_email.html',{'alert':alert})
 
@@ -315,10 +315,10 @@ def switch_pass(request):
             email = cUser.email
             cUser.request_password_reset(email=email) # we can't use that, we customize process
             alert['type']='success'
-            alert['text']='Check your inbox, we sent out a link to reset your password'
+            alert['text']=_('Check your inbox, we sent out a link to reset your password')
             return render(request,'signup/password_change.html', {'alert':alert})
         except (AttributeError, QueryResourceDoesNotExist):
-            alert={'type':'danger','text':'There seem to be a problem. Try again later.'}
+            alert={'type':'danger','text':_('There seem to be a problem. Try again later.')}
             return render(request,'signup/password_change.html', {'alert':alert})
     return HttpResponseRedirect(reverse('signup:index'))
 def email_verification(request):

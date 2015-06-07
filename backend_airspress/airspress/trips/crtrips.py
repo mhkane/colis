@@ -14,6 +14,7 @@ from parse_rest.datatypes import Object as ParseObject
 from parse_rest.user import User
 from account.schemes import get_profile_pic
 from signup.backend_parse import request as trequests
+from django.utils.translation import ugettext as _
 
 class trip(ParseObject):
     pass
@@ -92,11 +93,15 @@ def tripFind(request, cUser, searchView):
             traveler = User.Query.get(objectId=travelerId)
             unit_price = anyTrip.unitPriceUsd
             user_rating = traveler.userRating
-        except AttributeError:
+        except (AttributeError, QueryResourceDoesNotExist):
             pass
         
         if travelerId:#use travelerId to access traveler info
-            travelerUser = User.Query.get(objectId=travelerId).username.split('@')[0]
+            travelerUser = ''
+            try:
+                travelerUser = User.Query.get(objectId=travelerId).username.split('@')[0]
+            except (AttributeError, QueryResourceDoesNotExist):
+                pass
             
             if travelerUser == '':
                 pass
@@ -250,11 +255,11 @@ def tripRequest(cUser, reqView, key):
     print had_requested#remove
     try:
         if cUser.objectId == tripnow.traveler.objectId:
-            alert['text'] = "Buddy, you can't own the penthouse and lease it to yourself, yeah ? =D !"
+            alert['text'] = _("Buddy, you can't own the penthouse and lease it to yourself, yeah ? =D !")
             alert['type'] = "warning"
             return alert
         elif had_requested:
-            alert['text'] = "You can't request more than once ;)"
+            alert['text'] = _("You can't request more than once ;)")
             alert['type'] = "warning"
             return alert     
     except AttributeError:
@@ -284,11 +289,11 @@ def tripRequest(cUser, reqView, key):
     except AttributeError:
         newRequest=''
         # alerts in case try does not go true
-        alert['text'] = 'Request not submitted. Try again...'
+        alert['text'] = _('Request not submitted. Try again...')
         alert['type'] = 'warning'
         pass
     if newRequest:
-        alert = {'text':'Request submitted with success. You will be notified as soon as Traveler accept it.','type':'success'}
+        alert = {'text':_('Request submitted with success. You will be notified as soon as Traveler accept it.'),'type':'success'}
         
     return alert
 

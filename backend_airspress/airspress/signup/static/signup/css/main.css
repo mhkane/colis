@@ -2,9 +2,7 @@
 @import url("http://fonts.googleapis.com/css?family=Roboto:100,300,100italic,300italic");
 
 /*
-	Landed by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+	Partly reuse Landed by HTML5 UP (Free for personal and commercial use under the CCA 3.0 license (html5up.net/license))
 */
 
 /* Reset */
@@ -4022,7 +4020,7 @@ color:#000;
 .modal strong,.modal p{color:inherit}
 .modal .alert-success strong{color:#3c763d}
 .well p{color:#000;}
-.well h3{color:#000;}
+.well h3, .well h4{color:#000;}
 .form-control-feedback{opacity:0.6;}
 
 	/* PASSWORD METER */
@@ -4077,6 +4075,7 @@ h1,h2,h3,h4,h6{font-family:'Museo-500'}
 h1{font-size:4.7em}
 h3{font-size:2.7em; line-height:0.8}
 p{font-size:1.25em}
+section#one.well{min-height:300vh;}
 .accordion .panel-title > a {
   display: block;
   position: relative;
@@ -4104,5 +4103,7 @@ p{font-size:1.25em}
 
 /* section finalist yeah */
 section#four{background-color:#fff, color:#e81}
-section#four h1, section#four h2,section#four h3,section#four p{color:#e81}
+section#four h1, section#four h2,section#four h3,section#four p, section#four a{color:#e81}
 section#four img{max-width:6em;}
+
+section#four a:hover, section#four a:active, section#four a:focus{color:#16a085}

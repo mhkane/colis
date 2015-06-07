@@ -14,11 +14,11 @@ from account.forms import referralForm, settings_form_general,\
     settings_form_picture, settings_form_password
 from parse_rest.query import QueryResourceDoesNotExist
 from signup.backend_parse import review, Item, Notifications
-from parse_rest.core import ResourceRequestNotFound
 from texto_airspress.schemes import auth_client, create_conversation,\
     retrieve_conversation
 from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.utils.translation import ugettext as _
 # Create your views here.
 def addTrip(request):
     '''
@@ -84,8 +84,8 @@ def myTrips(request, key):
                     pass
             
                 ownTrips['objTrip'+str(k)] = {'pubdate':pub_date, 
-                 'depDate':departDate, 'cityDep':destLocation, 
-                 'cityArr':oriLocation, 'availCap':availCap, 'totalCap':totalCap}
+                 'depDate':departDate, 'cityDep':oriLocation, 
+                 'cityArr':destLocation, 'availCap':availCap, 'totalCap':totalCap}
                 print ownTrips
         
         context_dict = {'ownTrips':ownTrips,'greetings':cUser.username,
@@ -130,14 +130,14 @@ def requestedTrips(request):
                         availCap = anyReq.tripId.availCapacity
                         if anyReq.accepted:
                             optionBtn='View AirDeal'
-                            status = {'type':'success','text':'In Progress'}
+                            status = {'type':'success','text':_('In Progress')}
                         if anyReq.completed:
-                            status = status = {'type':'success','text':"Completed"}   
+                            status = status = {'type':'success','text':_("Completed")}   
                     except AttributeError:
                         pass
                     reqTrips['objTrip'+str(k)] = {'pubdate':pub_date, 
-                     'depDate':departDate, 'cityDep':destLocation, 
-                     'cityArr':oriLocation,'requestWeight':reqWeight, 
+                     'depDate':departDate, 'cityDep':oriLocation, 
+                     'cityArr':destLocation,'requestWeight':reqWeight, 
                      'availCap':availCap, 'traveler':traveler, 'reqId':reqIdo,
                       'optionBtn':optionBtn, 'status':status}
         except: 
@@ -184,15 +184,15 @@ def otRequests(request):
                         reqId= anyReq.objectId
                         if anyReq.accepted:
                             optionBtn='View AirDeal'
-                            status = {'type':'success','text':'In Progress'}
+                            status = {'type':'success','text':_('In Progress')}
                         if anyReq.completed:
                             status = status = {'type':'success','text':"Completed"}     
                     except AttributeError:
                         pass
                     if reqId:
                         reqTrips['objTrip'+str(k)] = {'pubdate':pub_date, 
-                         'depDate':departDate, 'cityDep':destLocation, 
-                         'cityArr':oriLocation,'requestWeight':reqWeight, 
+                         'depDate':departDate, 'cityDep':oriLocation, 
+                         'cityArr':destLocation,'requestWeight':reqWeight, 
                          'availCap':availCap, 'requester':requester, 'reqId':reqId, 
                          'optionBtn':optionBtn, 'status':status}
                     print reqTrips
@@ -257,13 +257,14 @@ def deals(request, key, external_alert={}, external_context=False):
                 if notif_traveler:
                     aRequest.notifTraveler = 0
                     aRequest.save()       
-                    try:
-                        if cUser.notifications:
-                            cUser_notif = Notifications.Query.get(targetUser = cUser.objectId)
+                try:
+                    if cUser.notifications:
+                        cUser_notif = Notifications.Query.get(targetUser = cUser.objectId)
+                        if cUser_notif.notifInDeals > 0 :
                             cUser_notif.notifInDeals -= 1
                             cUser_notif.save()
-                    except (AttributeError, QueryResourceDoesNotExist):
-                        pass
+                except (AttributeError, QueryResourceDoesNotExist):
+                    pass
             elif reqUser.objectId == cUser.objectId:
                 
                 reqAccepted['istraveler']= False
@@ -272,13 +273,14 @@ def deals(request, key, external_alert={}, external_context=False):
                 if notif_requester:
                     aRequest.notifRequester = 0
                     aRequest.save()
-                    try:
-                        if cUser.notifInDeals:
-                            cUser_notif = Notifications.Query.get(targetUser = cUser.objectId)
+                try:
+                    if cUser.notifications:
+                        cUser_notif = Notifications.Query.get(targetUser = cUser.objectId)
+                        if cUser_notif.notifOutDeals > 0 :
                             cUser_notif.notifOutDeals -= 1
                             cUser_notif.save()
-                    except (AttributeError, QueryResourceDoesNotExist):
-                        pass
+                except (AttributeError, QueryResourceDoesNotExist):
+                    pass
                 
             else:
                 return HttpResponseForbidden()
@@ -358,11 +360,11 @@ def accept_request(request, key):
                     target = this_deal.Requester.Name
                     target_id = this_deal.Requester.objectId
                     email = this_deal.Requester.email
-                    alert = {'type':'success', 'text':'Deal is accepted. Now it''s an Airdeal!'}
+                    alert = {'type':'success', 'text':_('Deal is accepted. Now it''s an Airdeal!')}
                         
                     notify(request, "accept_request",origin,target,target_id,email, link=reverse('account:deals', args=[key]))
         except AttributeError:
-            alert = {'type':'danger', 'text':'There was an error with the server ...'}
+            alert = {'type':'danger', 'text':_('There was an error with the server ...')}
         print alert    
         return render(request, 'trips/alerts.html', {'alert':alert})
     return HttpResponseRedirect(reverse('signup:index'))
@@ -376,10 +378,10 @@ def confirm_delivery(request, key):
             if cUser.username == requester.username:
                 this_deal.deliveryStatus = True
                 this_deal.save()
-                alert = {'type':'success', 'text':'This Airdeal is marked as delivered. Please leave a review for the traveler.'}
+                alert = {'type':'success', 'text':_('This Airdeal is marked as delivered. Please leave a review for the traveler.')}
                 
         except AttributeError:
-            alert = {'type':'danger', 'text':'There was an error with the server ...'}
+            alert = {'type':'danger', 'text':_('There was an error with the server ...')}
         print alert    
         return deals(request, key, external_alert=alert)
     return HttpResponseRedirect(reverse('signup:index'))
@@ -394,10 +396,10 @@ def confirm_payment(request, key):
                 print 'not here'
                 this_deal.paymentStatus = True
                 this_deal.save()
-                alert = {'type':'success', 'text':'This Airdeal is marked as paid. Please leave a review for the buyer.'}
+                alert = {'type':'success', 'text':_('This Airdeal is marked as paid. Please leave a review for the buyer.')}
                 
         except AttributeError:
-            alert = {'type':'danger', 'text':'There was an error with the server ...'}
+            alert = {'type':'danger', 'text':_('There was an error with the server ...')}
         print alert    
         return deals(request, key, external_alert=alert)
     return HttpResponseRedirect(reverse('signup:index'))            

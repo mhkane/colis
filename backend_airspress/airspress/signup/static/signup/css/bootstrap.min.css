@@ -1,6 +1,13 @@
 @font-face {
-font-family : 'Museo-500';
-src : url('http://www.fontsaddict.com/fontface/museo-500.otf');
+    font-family: 'Museo-500';
+    src: url('/static/signup/fonts/museo-500-webfont.eot');
+    src: url('/static/signup/fonts/museo-500-webfont.eot?iefix') format('eot'),
+         url('/static/signup/fonts/museo-500-webfont.woff') format('woff'),
+		 url('/static/signup/fonts/museo-500-webfont.ttf') format('truetype'),
+         url('/static/signup/fonts/museo-500-webfont.svg#webfontkQkWxTED') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
 }
 html {
 font-family : 'Open Sans', sans-serif;

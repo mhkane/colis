@@ -15,9 +15,10 @@ urlpatterns = patterns('',
     url(r'^trips/', include('trips.urls',namespace='trips')),
     url(r'^account/', include('account.urls',namespace='account')),
     url(r'^payment/', include('asp_payment.urls',namespace='payment')),
-    url(r'^contact/',views.contact,name='contact'),
-    url(r'^faq/',views.faq,name='faq'),
-    url(r'^about/',views.about,name='about'),
+    url(r'^contact/',views.contact, name='contact'),
+    url(r'^faq/',views.faq, name='faq'),
+    url(r'^about/',views.about, name='about'),
+    url(r'^terms/',views.terms, name='terms'),
     )
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns += staticfiles_urlpatterns()

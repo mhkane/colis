@@ -1,10 +1,11 @@
 from parse_rest.connection import register
 from airspress import settings
 from parse_rest.query import QueryResourceDoesNotExist
-from parse_rest.core import ResourceRequestNotFound
+from parse_rest.core import ResourceRequestNotFound, ResourceRequestBadRequest
 from signup.backend_parse import passRequest, referral, Notifications
 from string import split
 from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext as _
 #register to Parse
 register(settings.APPLICATION_ID, settings.REST_API_KEY, master_key=settings.MASTER_KEY)#settings.REST_API_KEY
 #from parse_rest.connection import ParseBatcher
@@ -75,7 +76,7 @@ def re_validation(request, registerView, provider_name, referral_id=''):
     # to create subclass validation right now; TODO 
     # UPDATE: we created subclass validation, we should trash this one mwahahaha
     if not user_password == user_password_conf:
-        alert={'type':'danger', 'text':'Hmmm... Passwords don''t match...'}
+        alert={'type':'danger', 'text':_('Hmmm... Passwords don''t match...')}
         return alert
     domain_mail = "@"
     if provider_name == 'student':
@@ -86,21 +87,22 @@ def re_validation(request, registerView, provider_name, referral_id=''):
         try:
             domain_mail = Institutions.Query.get(name=accepted_institution).mailDomain
         except (AttributeError, QueryResourceDoesNotExist):
-            alert={'type':'danger', 'text':'An error occured. Try again later...'}
+            alert={'type':'danger', 'text':_('An error occured. Try again later...')}
             return alert
     # This alert dict will be returned with relevant notes 
     alert={} # alert["type"] and alert["text"] are mandatory, we can add other keywords
     email_existing='' 
     # verifying existence of another user associated with this email address
     try:
-        email_existing=User.Query.get(email=user_email).objectId
+        email_existing=User.Query.get(email=user_email)
     except (AttributeError, QueryResourceDoesNotExist):
         pass
     if email_existing:
-        alert={'type':'danger', 'text':'This email is already in use...', 'link':'Did you forget your password ?'}
+        alert={'type':'danger', 'text':_('This email is already in use...'), 'link':'Did you forget your password ?'}
         return alert
     
     if domain_mail in user_email:
+        new_user = ''
         if provider_name=='referral':
             try:
                 this_referral = referral.Query.get(objectId=referral_id)
@@ -109,24 +111,29 @@ def re_validation(request, registerView, provider_name, referral_id=''):
                 new_user.referralInfo = this_referral
                 new_user.save()
             except (QueryResourceDoesNotExist, ResourceRequestNotFound):
-                alert={'type':'danger', 'text':'This referral link is not valid !'}
-                return alert
-           
-        new_user = User.signup(user_email, user_password, email=user_email, Name=user_name)
-        alert={'type':'success', 'text':'''Nearly done ! Please confirm
-         your email address by following the link we sent you.'''}
+                alert={'type':'danger', 'text':_('This referral link is not valid !')}
+                
+        if not new_user:
+            try:
+                new_user = User.signup(user_email, user_password, email=user_email, Name=user_name)
+            except (ResourceRequestBadRequest):
+                pass
+            
         # set up some default values on User object
-        new_user.totalReviews = 0
-        new_user.totalOrders = 0
-        new_user.totalDeliveries = 0
-        new_user.userRating = 0
-        new_user.userPoints = 0
-        new_user.save()
-        # We can login the user in a session
-        sign_in(request, login_dic={'username':user_email,'password':user_password})
+        if new_user:
+            new_user.totalReviews = 0
+            new_user.totalOrders = 0
+            new_user.totalDeliveries = 0
+            new_user.userRating = 0
+            new_user.userPoints = 0
+            new_user.save()
+            alert={'type':'success', 'text':_('''Nearly done ! Please confirm
+             your email address by following the link we sent you.''')} 
+            # We can login the user in a session
+            sign_in(request, login_dic={'username':user_email,'password':user_password})
         
     else:
-        alert={'type':'warning','text':'You should use an "'+domain_mail+'" email address'}
+        alert={'type':'warning','text':_('You should use an "'+domain_mail+'" email address')}
     print alert    
     return alert
 
@@ -163,10 +170,10 @@ def sign_in(request, login_dic=None, loginView=None, provider_name='student'):
             is_user=''
         if is_user:
             # match! so must have lost her keys 
-            alert={'type':'warning','text':'Wrong Password !','link':'Forgot your password ?','url':reverse('signup:forgot_pass')}
+            alert={'type':'warning','text':_('Wrong Password !'),'link':'Forgot your password ?','url':reverse('signup:forgot_pass')}
         else:
             # hmm.. trying to plays us !?
-            alert={'type':'danger','text':'This user does not exist','link':'Sign up here','url':'/register/student'}
+            alert={'type':'danger','text':_('This user does not exist'),'link':'Sign up here','url':'/register/student'}
         return alert
     #create a secure session server-side and a little cookie client side
     

@@ -9,6 +9,7 @@ from string import split
 from account.actions import get_profile_pic, notify
 from datetime import datetime
 from django.utils import timezone
+from parse_rest.query import QueryResourceDoesNotExist
 
 
 
@@ -22,8 +23,8 @@ def activeTrips(request):
     cUser = is_logged_in(request)
     if cUser:
         
-        allTrips = trip.Query.filter(departureDate__gte=timezone.now()).order_by("-createdAt")
-        page_one = allTrips.limit(10)
+        allTrips = trip.Query.filter(departureDate__gte=timezone.now()).order_by("-departureDate")
+        page_one = allTrips.limit(25)
         k = 0
         tripDict = {}
         for anyTrip in page_one :
@@ -52,11 +53,15 @@ def activeTrips(request):
                 traveler = User.Query.get(objectId=travelerId)
                 unit_price = anyTrip.unitPriceUsd
                 user_rating = traveler.userRating
-            except AttributeError:
+            except (AttributeError, QueryResourceDoesNotExist):
                 pass
             
             if travelerId:#use travelerId to access traveler info
-                travelerUser = User.Query.get(objectId=travelerId).username
+                travelerUser = ''
+                try:
+                    travelerUser = User.Query.get(objectId=travelerId).username
+                except (AttributeError, QueryResourceDoesNotExist):
+                    pass
                 if travelerUser == '':
                     pass
                 else:

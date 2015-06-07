@@ -36,8 +36,7 @@
 			$('#departure2').datepicker('update', document.getElementById('departure').value);
 		}
 		function depAdapt(){
-			$('#departure').datepicker('startDate', document.getElementById('departure2').value);
-			$('#departure').datepicker('update', document.getElementById('departure2').value);
+			$('#departure').datepicker('endDate', document.getElementById('departure2').value);	
 		}
 		$(document).ready(function(){
 			$('#departure2').datepicker({

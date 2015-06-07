@@ -29,11 +29,11 @@
 
 {% block content %}
 		<!--  HYBRIDE  ---> 
-<div id="notification"></div>
+<div style="margin:auto; opacity:1;" id="notification"></div>
 	{% if dealInfo.traveler.isreviewed and dealInfo.reqUser.isreviewed %}	
 	<div class="row" >
 		<div class="col-lg-12">
-			<div style="height:10em; background-color:#e81" class="main-box clearfix">	
+			<div style="height:10em; background-color:#2ecc71" class="main-box clearfix">	
 				<h2 style="font-size:2.5em; color:#fff; position:absolute; top:50%; left:50%; margin:0;margin-right:-50%; transform:translate(-50%,-50%);">This Airdeal is Completed ! <i class="fa fa-check-circle"></i></h2>
 			</div>
 		</div>
@@ -62,7 +62,8 @@
 									<a class="btn btn-success btn-embossed disabled pull-right" >Not accepted yet</a>	
 										{% endif %}
 									{% elif dealInfo.istraveler and not dealInfo.isaccepted %}
-									<a class="btn btn-success pull-right" data-toggle="popover" data-content="{% include 'account/set_commission.html' %}">Accept the request</a>
+									<a class="btn btn-success pull-right" data-toggle="popover" >Accept the request</a>
+									{% include "account/set_commission.html" %}
 									{% elif dealInfo.istraveler and not dealInfo.ispayed %}
 									<a class="btn btn-success btn-embossed pull-right"  href="{% url 'account:confirm_payment' rqkey %}">Confirm As Paid</a>
 									{% endif %}
@@ -123,6 +124,16 @@
 								</div> 
 <!-- hybride --> 
 								<div class="content-wrapper">
+									{% if dealInfo.more_info %}
+									<div class="row">
+										<div class="col-lg-12">
+											<blockquote>
+												<p style="font-size:1em;">{{dealInfo.more_info}}</p>
+												<footer>Additional information from <cite><a href="{% url 'account:profile' reqUser.username %}">{{reqUser.username}}</a></cite></footer>
+											</blockquote>
+										</div>
+									</div>
+									{% endif %}
 									<div class="row">
 										<div class="col-lg-12">
 											<div style="min-height:100%" class="conversation-wrapper" id="WrapperConversation1">
@@ -163,6 +174,7 @@
 	<script src="{% static 'account/js/jquery.slimscroll.min.js' %}"></script>
 	<script src="{% static 'account/js/jquery.magnific-popup.min.js' %}"></script>
 	<script src="{% static 'signup/js/jquery.pwstrength.js' %}"></script>
+	<script src="{% static 'account/js/deal-ajax.js' %}"></script>
 	<!-- scripts -->
 	<script src="{% static 'account/js/scripts.js' %}"></script>
 	<script src="{% static 'account/js/pace.min.js' %}"></script>
@@ -200,16 +212,17 @@ $(document).ready(function(){
 
 <script type="text/javascript"> 
 
-$(document).ready(function(){
-		$('#accept-request').click(function(){
-			event.preventDefault();
-			$('#notification').load($('#accept-request').attr('href'))
-		});
-});
 
 $(document).ready(function(){
 		$('[data-toggle="popover"]').popover({
-			placement : 'top'
+			placement : 'top',
+			html : true,
+			title: function() {
+			  return $("#popover-head").html();
+			},
+			content: function() {
+			  return $("#popover-content").html();
+			}
 		});
 });
 </script>

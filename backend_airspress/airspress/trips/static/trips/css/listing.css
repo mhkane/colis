@@ -81,6 +81,9 @@ li .calendar .day {
 .star-on-png:before {
     font-size: 0.5em;
 }
+.star-half-png:before {
+    font-size: 0.5em;
+}
 .travelUser .cancel-on-png, .travelUser .cancel-off-png,.travelUser  .star-on-png, .travelUser .star-off-png,.travelUser  .star-half-png {
 font-size: 1.3em;
 }

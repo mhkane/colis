@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'Museo-500';
-    src: url('/static/signup/fonts/museo-500-webfont.eot');
-    src: url('/static/signup/fonts/museo-500-webfont.eot?iefix') format('eot'),
-         url('/static/signup/fonts/museo-500-webfont.woff') format('woff'),
-		 url('/static/signup/fonts/museo-500-webfont.ttf') format('truetype'),
-         url('/static/signup/fonts/museo-500-webfont.svg#webfontkQkWxTED') format('svg');
+    src: url('/static/signup/fonts/museo-500-webfont.eot?8e230535e0cd');
+    src: url('/static/signup/fonts/museo-500-webfont.eot?iefix&8e230535e0cd') format('eot'),
+         url('/static/signup/fonts/museo-500-webfont.woff?8e230535e0cd') format('woff'),
+		 url('/static/signup/fonts/museo-500-webfont.ttf?8e230535e0cd') format('truetype'),
+         url('/static/signup/fonts/museo-500-webfont.svg?8e230535e0cd#webfontkQkWxTED') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -208,8 +208,8 @@ border : #ddd solid 1px !important ;
 }
 @font-face {
 font-family : 'Glyphicons Halflings';
-src : url(../fonts/glyphicons-halflings-regular.eot);
-src : url(../fonts/glyphicons-halflings-regular.eot?#iefix) format('embedded-opentype'), url(../fonts/glyphicons-halflings-regular.woff) format('woff'), url(../fonts/glyphicons-halflings-regular.ttf) format('truetype'), url(../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format('svg');
+src : url('/static/signup/fonts/glyphicons-halflings-regular.eot?3fc951b48aa9');
+src : url('/static/signup/fonts/glyphicons-halflings-regular.eot?&3fc951b48aa9#iefix') format('embedded-opentype'), url('/static/signup/fonts/glyphicons-halflings-regular.woff?3fc951b48aa9') format('woff'), url('/static/signup/fonts/glyphicons-halflings-regular.ttf?3fc951b48aa9') format('truetype'), url('/static/signup/fonts/glyphicons-halflings-regular.svg?3fc951b48aa9#glyphicons_halflingsregular') format('svg');
 }
 .glyphicon {
 position : relative;
@@ -5191,7 +5191,7 @@ font-family : 'Open Sans', Helvetica, Arial, sans-serif;
 line-height : 30px;
 }
 body {
-background : url("../img/cream_dust.png") 0 0 repeat;
+background : url('/static/signup/img/cream_dust.png') 0 0 repeat;
 }
 h1 {
 text-shadow : 1px 1px 1px #ccc;

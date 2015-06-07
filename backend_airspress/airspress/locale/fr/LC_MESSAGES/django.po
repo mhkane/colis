@@ -1,0 +1,199 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-07 05:45-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\account\actions.py:251
+msgid "This user has already been referred."
+msgstr ""
+
+#: .\account\actions.py:263
+msgid "There was an error attempting to send the invitation, try again later."
+msgstr ""
+
+#: .\account\actions.py:266
+msgid "The invitation was succesfully sent !"
+msgstr ""
+
+#: .\account\views.py:133 .\account\views.py:187
+msgid "In Progress"
+msgstr ""
+
+#: .\account\views.py:135
+msgid "Completed"
+msgstr ""
+
+#: .\account\views.py:363
+msgid "Deal is accepted. Now its an Airdeal!"
+msgstr ""
+
+#: .\account\views.py:367 .\account\views.py:384 .\account\views.py:402
+msgid "There was an error with the server ..."
+msgstr ""
+
+#: .\account\views.py:381
+msgid ""
+"This Airdeal is marked as delivered. Please leave a review for the traveler."
+msgstr ""
+
+#: .\account\views.py:399
+msgid "This Airdeal is marked as paid. Please leave a review for the buyer."
+msgstr ""
+
+#: .\airspress\settings.py:133
+msgid "French"
+msgstr ""
+
+#: .\airspress\settings.py:134
+msgid "English"
+msgstr ""
+
+#: .\signup\schemes.py:79
+msgid "Hmmm... Passwords dont match..."
+msgstr ""
+
+#: .\signup\schemes.py:90
+msgid "An error occured. Try again later..."
+msgstr ""
+
+#: .\signup\schemes.py:101
+msgid "This email is already in use..."
+msgstr ""
+
+#: .\signup\schemes.py:114
+msgid "This referral link is not valid !"
+msgstr ""
+
+#: .\signup\schemes.py:130
+msgid ""
+"Nearly done ! Please confirm\n"
+"             your email address by following the link we sent you."
+msgstr ""
+
+#: .\signup\schemes.py:136
+msgid "You should use an \""
+msgstr ""
+
+#: .\signup\schemes.py:136
+msgid "\" email address"
+msgstr ""
+
+#: .\signup\schemes.py:173
+msgid "Wrong Password !"
+msgstr ""
+
+#: .\signup\schemes.py:176
+msgid "This user does not exist"
+msgstr ""
+
+#: .\signup\views.py:185
+msgid "Some errors apparently..."
+msgstr ""
+
+#: .\signup\views.py:251
+msgid ""
+"Your email address has been verified! Go on, add your trips and make your "
+"requests"
+msgstr ""
+
+#: .\signup\views.py:318
+msgid "Check your inbox, we sent out a link to reset your password"
+msgstr ""
+
+#: .\signup\views.py:321
+msgid "There seem to be a problem. Try again later."
+msgstr ""
+
+#: .\signup\templates\signup\index.html:33
+msgid "Peer-to-Peer Delivery Service"
+msgstr ""
+
+#: .\signup\templates\signup\index.html:58
+msgid "Home"
+msgstr ""
+
+#: .\signup\templates\signup\index.html:60
+msgid "About Us"
+msgstr ""
+
+#: .\signup\templates\signup\index.html:62
+msgid "FAQ"
+msgstr ""
+
+#: .\signup\templates\signup\index.html:65
+msgid "Login"
+msgstr ""
+
+#: .\signup\templates\signup\index.html:81
+msgid "Sign Up"
+msgstr ""
+
+#: .\signup\templates\signup\index.html:96
+msgid "The end of high shipping costs"
+msgstr ""
+
+#: .\signup\templates\signup\index.html:122
+msgid "Simple and effective"
+msgstr ""
+
+#: .\signup\templates\signup\index.html:128
+msgid ""
+"And with a real-time text messaging, you can easily wrap up the details."
+msgstr ""
+
+#: .\signup\templates\signup\index.html:139
+msgid "A whole opportunity..."
+msgstr ""
+
+#: .\signup\templates\signup\index.html:194
+msgid "This is a pilot version. Invite us to your school..."
+msgstr ""
+
+#: .\signup\templates\signup\index.html:195
+msgid "Or let's talk about Airspress"
+msgstr ""
+
+#: .\signup\templates\signup\session_security.html:27
+msgid "You have unsaved changes in a form of this page."
+msgstr ""
+
+#: .\templates\admin\base_site.html:4
+msgid "AirSpress site admin"
+msgstr ""
+
+#: .\templates\admin\base_site.html:7
+msgid "AirSpress administration"
+msgstr ""
+
+#: .\trips\crtrips.py:258
+msgid ""
+"Buddy, you can't own the penthouse and lease it to yourself, yeah ? =D !"
+msgstr ""
+
+#: .\trips\crtrips.py:262
+msgid "You can't request more than once ;)"
+msgstr ""
+
+#: .\trips\crtrips.py:292
+msgid "Request not submitted. Try again..."
+msgstr ""
+
+#: .\trips\crtrips.py:296
+msgid ""
+"Request submitted with success. You will be notified as soon as Traveler "
+"accept it."
+msgstr ""

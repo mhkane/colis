@@ -8,14 +8,15 @@ from parse_rest.datatypes import Object as ParseObject, Function
 from django.core.urlresolvers import reverse
 from parse_rest.query import QueryResourceDoesNotExist
 from decimal import Decimal
-from signup.backend_parse import review, referral, trequests, Notifications
+from signup.backend_parse import review, referral, Notifications
 from parse_rest.installation import Push
-from trips.crtrips import priceCalc, trip
+from trips.crtrips import priceCalc, trip, price_format
 from moneyed.classes import Money
-from parse_rest.connection import master_key_required
+from django.utils.translation import ugettext as _
 
 class request(ParseObject):
     pass
+trequests = request()
 #Cloud function for mail sending
 send_mail = Function("email")
 send_template = Function("emailTemplate")
@@ -32,10 +33,13 @@ def getdeal(travelUser, reqUser, aRequest, aTrip):
         # custom total commission price set (or not) by traveler
         commission = getattr(aRequest,'commisPrice',False)
         if commission:
-            reqAccepted['commission'] = commission
+            reqAccepted['commission'] = price_format(commission, currency="USD")
         else:
             # traveler did not set a custom total commission price
             reqAccepted['commission'] = priceCalc(getattr(aTrip,'unitPriceUsd',0.00),getattr(aRequest,'weightRequested',1))
+        
+        more_info = aRequest.moreInfo
+    
     except AttributeError:
         pass
     reqUser_pic = ''
@@ -48,8 +52,8 @@ def getdeal(travelUser, reqUser, aRequest, aTrip):
         reqAccepted['isdeliv']= aRequest.deliveryStatus
     except AttributeError:
         pass
-    buyer_reviewed = True
-    traveler_reviewed = True
+    buyer_reviewed = False
+    traveler_reviewed = False
     try:
         try:
             buyer_reviewed = aRequest.purchaserReview
@@ -62,7 +66,7 @@ def getdeal(travelUser, reqUser, aRequest, aTrip):
            
     reqAccepted.update({'pubdate':pub_date,
              'depDate':departDate, 'cityDep':oriLocation, 
-             'cityArr':destLocation,
+             'cityArr':destLocation, 'more_info':more_info,
              'traveler':{'username':travelUser.username,'picture':traveler_pic,'isreviewed':traveler_reviewed},
              'reqUser':{'username':reqUser.username,'picture':reqUser_pic,'isreviewed':buyer_reviewed}})
     # send notification
@@ -134,7 +138,8 @@ def get_user_info(cUser, request, user_id='',username=''):
                 k = k+1
                 reviews_dict['review'+str(k)] = {'sender':{'name':any_review.reviewer.username,
                                                            'picture':get_profile_pic(any_review.reviewer.objectId)},
-                                                 'rating':any_review.rating,'text':any_review.reviewText, 'pub_date':any_review.createdAt.date()}
+                                                 'rating':any_review.rating,'text':any_review.reviewText, 
+                                                 'pub_date':any_review.createdAt.date().strftime('%b %d %Y')}
             is_verified = anyUser.emailVerified
             anyTrips = trip.Query.filter(traveler= anyUser)
             user_trips = {}
@@ -156,8 +161,8 @@ def get_user_info(cUser, request, user_id='',username=''):
                     pass
             
                 user_trips['objTrip'+str(k)] = {
-                 'depDate':str(departDate), 'cityDep':destLocation, 
-                 'cityArr':oriLocation, 'availCap':availCap}
+                 'depDate':str(departDate), 'cityDep':oriLocation, 
+                 'cityArr':destLocation, 'availCap':availCap}
             try:
                 anyRating = anyUser.userRating
                 total_reviews = anyUser.totalReviews
@@ -237,6 +242,13 @@ def tripReview(cUser, review_form, key):
     return False
 
 def ref_create(referralView, cUser, request):
+    had_referred = ''
+    try:
+        had_referred = User.Query.get(email = referralView.cleaned_data['referred_email'])
+    except:
+        pass
+    if had_referred:
+        return {'type':'danger', 'text':_('This user has already been referred.')}
     new_ref = referral(referrer=cUser)
     new_ref.save()
     #send a mail to the referred user with the "secret word" which will be used in referred signup, mandrill in play !
@@ -248,10 +260,10 @@ def ref_create(referralView, cUser, request):
             subject="{0} invited you to join Airspress".format(cUser.username), from_email="no-reply@airspress.com",
             from_name="Airspress", email=referralView.cleaned_data['referred_email'], to_name='')
     
-    alert = {'type':'warning', 'text':'There was an error attempting to send the invitation, try again later.'}
+    alert = {'type':'warning', 'text':_('There was an error attempting to send the invitation, try again later.')}
     try:
         if result["result"]=="email sent":
-            alert = {'type':'success', 'text':'The invitation was succesfully sent !'}
+            alert = {'type':'success', 'text':_('The invitation was succesfully sent !')}
     except KeyError:
         pass
     return alert
@@ -380,6 +392,7 @@ def notify(request, source, origin, target, target_id, email, text="", link="", 
                     else:
                         target_user_notif = Notifications(notifInDeals = 0, notifOutDeals = 1, notifInbox = 0, targetUser = target_user.objectId)
                     target_user_notif.save()
+                    
             except AttributeError:
                 pass        
             

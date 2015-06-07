@@ -1,3 +1,5 @@
+<!-- Translation machinery -->
+{% load i18n %}
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -28,7 +30,7 @@
 		<meta name="msapplication-config" content="{% static 'signup/img/favicons/browserconfig.xml' %}">
 		<!-- all favicons END -->
 
-        <title>{% block title %} AirSpress- Peer-to-Peer Delivery Service {% endblock title %}</title>
+        <title>{% block title %} AirSpress- {% trans "Peer-to-Peer Delivery Service" %} {% endblock title %}</title>
 				<!-- Core -->
 	
 		{% load compress %}
@@ -53,14 +55,14 @@
 					<h1 id="logo"><a class="navbar-brand page-scroll" href="#page-top"><img style="max-width:2.5em;" src="{% static 'signup/img/logo-bright.png' %}" alt="AirSpress"></a></h1>
 					<nav id="nav">
 						<ul>
-							<li><a href="/">Home</a></li>
+							<li><a href="/">{% trans "Home" %}</a></li>
 							<li>
-								<a href="/about" class="{% block about %} {% endblock about %}">About Us </a>
+								<a href="/about" class="{% block about %} {% endblock about %}">{% trans "About Us" %} </a>
 							</li>
-							<li><a href="/faq" class="{% block faq %} {% endblock faq %}">FAQ </a></li>
+							<li><a href="/faq" class="{% block faq %} {% endblock faq %}"> {% trans "FAQ" %} </a></li>
 							
 							<li>{% if not greetings %}
-							<a href="/login/student" class="button special" id="login" data-toggle="modal" data-target=".bs-modal-sm" >Login</a>
+							<a href="/login/student" class="button special" id="login" data-toggle="modal" data-target=".bs-modal-sm" >{% trans "Login" %}</a>
 								{% else %}
 								<a href="{% url 'account:profile' greetings %}"><img src="{{myPicture}}" style=" width:60px ; height: 60px; "" class="img-responsive img-circle"></a>
 								{% endif %}
@@ -74,9 +76,9 @@
 					<div class="content">
 						<header>
 							 <div class="col-md-10 col-md-offset-1 mt">
-								<h3>LET'S SHOP</h3>
-								<h1 class="mb">ANYTHING, ANYWHERE</h1>
-								<button class="btn btn-primary btn-lg" href="#signupModal" data-toggle="modal" style="font-weight:bold;">Sign Up</button>
+								{% trans "<h3> LET'S SHOP </h3>
+								<h1 class="mb">ANYTHING, ANYWHERE</h1>" %}
+								<button class="btn btn-primary btn-lg" href="#signupModal" data-toggle="modal" style="font-weight:bold;">{% trans "Sign Up" %}</button>
 							</div>
 						</header>
 					</div>
@@ -91,14 +93,14 @@
 							<div class="row">
 								<div class="4u 12u$(medium)">
 									<header>
-										<h2>The end of high shipping costs</h2>
+										<h2>{% trans "The end of high shipping costs" %}</h2>
 										
 									</header>
 								</div>
 								<div class="4u 12u$(medium)">
-									<p>Have you ever thought of acquiring any item which is hard to obtain in your country of residence ?
+									<p>{% trans "Have you ever thought of acquiring any item which is hard to obtain in your country of residence ?
 										You probably didn’t buy it given the high cost of international shipping.
-										With Airspress, we designed a platform which will enable us, together, to reduce the cost of international shipping.</p>
+										With Airspress, we designed a platform which will enable us, together, to reduce the cost of international shipping." %}</p>
 				
 								</div>
 								<div class="4u$ 12u$(medium)">
@@ -117,13 +119,13 @@
 					<span class="image fit main"><img src="{% static 'signup/images/pic03.jpg' %}" alt="" /></span>
 					<div class="content">
 						<header>
-							<h2>Simple and effective</h2>
+							<h2>{% trans "Simple and effective" %}</h2>
 							
 						</header>
-						<p>As a buyer, you can place orders with travelers. One click and tell them what you need.
+						<p>{% trans "As a buyer, you can place orders with travelers. One click and tell them what you need.
 									As a traveler, Airspress will allow you to publish your trip information and be put in touch 
-									with people interested in placing orders with you in order to monetize the free space in your luggage.</p>
-						<p>And with a real-time text messaging, you can easily wrap up the details.</p>			
+									with people interested in placing orders with you in order to monetize the free space in your luggage." %}</p>
+						<p>{% trans "And with a real-time text messaging, you can easily wrap up the details." %}</p>			
 						
 					</div>
 					<a href="#three" class="goto-next scrolly">Next</a>
@@ -134,14 +136,14 @@
 					<span class="image fit main bottom"><img src="{% static 'signup/images/pic04.jpg' %}" alt="" /></span>
 					<div class="content">
 						<header>
-							<h2>A whole opportunity...</h2>
+							<h2>{% trans "A whole opportunity..." %}</h2>
 							
 						</header>
-						<p>We are a peer-to-peer ordering platform harnessing the flow of travelers
+						<p>{% trans "We are a peer-to-peer ordering platform harnessing the flow of travelers
 							in order to simplify the process of acquiring any items unavailable where you live. Or just any item.
 							With Airspress, your trips visibility will increase and	you will be able to better organize any friends, relatives 
 							and now Airspress community people orders.
-							And shopping commodities sold in other countries will become far easier and less onerous.
+							And shopping commodities sold in other countries will become far easier and less onerous." %}
 						</p>
 						
 					</div>
@@ -172,7 +174,13 @@
 									<h4>Finalist of 2015 MIT Global Startup Workshop Elevator Pitch Competition in Guatemala</h4>
 									
 								</section>
-								
+							</div>	
+							<div class="row uniform">
+								<section class="12u$ 6u(medium) 12u$(xsmall)">
+									<span class="icon alt "><img src="{% static 'signup/img/logo-mit-news-b.png' %}"/></span>
+									<h4>Mentioned in MIT News article <a href="http://newsoffice.mit.edu/2015/mit-sloan-africa-innovate-conference-0407" target="_blank">"Taking Action In Africa"</a></h4>
+									
+								</section>
 							</div>
 						</div>
 						
@@ -183,8 +191,8 @@
 				<section id="five" class="wrapper style2 special fade-up">
 					<div class="container">
 						<header>
-							<h2>This is a pilot version. Invite us to your school...</h2>
-							<p>Or let's talk about Airspress</p>
+							<h2>{% trans "This is a pilot version. Invite us to your school..." %}</h2>
+							<p>{% trans "Or let's talk about Airspress" %}</p>
 						</header>
 							<a href="#contactModal" data-toggle="modal" style="color:#fff;" class="button">Contact</a>
 					</div>
@@ -206,7 +214,7 @@
 							<ul class="list-unstyled">
 								<li><a href="/about">About</a></li>
 								<li><a href="/faq">FAQ</a></li>
-								<li><a>Terms Of Service</a></li>
+								<li><a href="/terms">Terms Of Service</a></li>
 							</ul>
 						</div>	
 						<div class="col-md-4">

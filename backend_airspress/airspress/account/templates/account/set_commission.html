@@ -1,5 +1,10 @@
-<form method="POST" action="{% url 'account:accept_request' rqkey %}">
-	<label> Charge Custom Commission (optional)</label>
-	<input type="number" name="commisDeal" min="0" placeholder="$5.00"/>
-	<button type="submit" id="accept-request" class="btn btn-success" value="Submit"></button>
-</form>
+<div id="popover-head" class="hidden">
+Charge Custom Commission (optional)
+</div>
+<div id="popover-content" class="hidden">
+	<form id="popover-form" method="POST" action="{% url 'account:accept_request' rqkey %}">
+		{% csrf_token %}
+		<input type="number" name="commisDeal" min="0" placeholder="$5.00"/>
+		<button type="submit" id="accept-request" class="btn btn-success" value="Submit"><i style="color:#fff; font-size:0.7em" class="fa fa-check"></i></button>
+	</form>
+</div>

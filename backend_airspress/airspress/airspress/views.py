@@ -13,6 +13,11 @@ def about(request):
     if cUser:
         return render(request, 'airspress/about.html', {'greetings':cUser.username,'myPicture':get_profile_pic(cUser.objectId)})
     return render(request, 'airspress/about.html')
+def terms(request):
+    cUser = is_logged_in(request)
+    if cUser:
+        return render(request, 'airspress/terms_airspress.html', {'greetings':cUser.username,'myPicture':get_profile_pic(cUser.objectId)})
+    return render(request, 'airspress/terms_airspress.html')
 def contact(request):
     if request.method == 'POST' :
         new_contact = contact_form(request.POST)
