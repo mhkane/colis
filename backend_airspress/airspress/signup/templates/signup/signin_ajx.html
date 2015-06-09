@@ -1,7 +1,7 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
        <div class='modal-header header'>
-	        Login
+	        {% trans "Login" %}
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 	   </div>
       <div class="modal-body">
@@ -26,9 +26,9 @@
 
 						<div class="footer">
 
-							<button type="submit" class="btn btn-embossed btn-primary btn-large btn-block"><i class="fa fa-sign-in">&nbsp;</i>Login</button>
+							<button type="submit" class="btn btn-embossed btn-primary btn-large btn-block"><i class="fa fa-sign-in">&nbsp;</i>{% trans "Login" %}</button>
 
-							<a href="/forgot_password/"  style="display:block; color:blue; font-size:.7em;" class="text-center">Forgot your password ?</a>
+							<a href="/forgot_password/"  style="display:block; color:blue; font-size:.7em;" class="text-center">{% trans "Forgot your password ?" %}</a>
 						</div>
 	   </form>
             

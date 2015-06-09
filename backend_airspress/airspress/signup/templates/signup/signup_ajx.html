@@ -1,3 +1,4 @@
+{% load i18n %}
   <div class="modal-dialog modal-md">
     <div class="modal-content">
        <div class='modal-header header'>
@@ -40,7 +41,7 @@
 							<div class="tab-pane active" id="signup1">
 								<div class="form-group">
 								
-												<label>Select your institution in the list :</label>
+												<label>{% trans "Select your institution in the list" %} :</label>
 												<select name="{{registerView.login_institution.name}}" class="form-control">
 													{% for value, text in registerView.login_institution.field.choices %}
 														<option value="{{ value }}">{{ text }}</option>
@@ -49,8 +50,8 @@
 								{% if registerView.login_institution.errors %}<small class="help-block">{{ registerView.login_institution.errors }}</small>{% endif %}
 
 							   </div>
-								<a class="btn btn-lg btn-success" href="#signup2" data-toggle="tab"> Next </a>
-								<a href="#loginModal" data-toggle="modal" class="text-center">I already have a membership</a>
+								<a class="btn btn-lg btn-success" href="#signup2" data-toggle="tab"> {% trans "Next" %} </a>
+								<a href="#loginModal" data-toggle="modal" class="text-center">{% trans "I already have a membership" %}</a>
 						   </div>
 						   <div class="tab-pane fade" id="signup2">
 							<div class="form-group">
@@ -78,75 +79,27 @@
 								<span class="form-control-feedback fui-lock"></span>
 							{% if registerView.login_password_conf.errors %}<small class="help-block">{{ registerView.login_password_conf.errors }}</small>{% endif %}
 							</div>
-							<a class="btn btn-lg btn-success" id="signupBtn1" href="#signup3" data-toggle="tab"> Next </a>
-							<a href="#signup1" data-toggle="tab" class="btn btn-danger btn-lg">Back</a>
+							<a class="btn btn-lg btn-success" id="signupBtn1" href="#signup3" data-toggle="tab"> {% trans "Next" %} </a>
+							<a href="#signup1" data-toggle="tab" class="btn btn-danger btn-lg">{% trans "Back" %}</a>
 						</div>
 						<div class="tab-pane fade" id="signup3">
 							<div style="max-height:50vh; overflow:scroll;" class="well">
-								<h3> Airspress Terms of Services</h3>
+								<h3> {% trans "Airspress Terms of Services" %}</h3>
 								{% include 'signup/terms_service.html' %}
 							
 							</div>
 							<div class="footer">
 								<label class="checkbox" for="checkbox1" style=" display: inline-block; margin-right:auto;">
 									  <input name="{{registerView.tos_check.name}}" type="checkbox" data-toggle="checkbox" value="" id="checkbox1" required="true" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
-									  <span style="padding-left:1.9em; font-weight:bold;">I agree with the Terms of Services</span>
+									  <span style="padding-left:1.9em; font-weight:bold;">{% trans "I agree with the Terms of Services" %}</span>
 								</label>
-								<button type="submit" id="signupButton" class="btn btn-success btn-lg">Sign me up</button>
-								<a href="#signup2" data-toggle="tab" class="btn btn-danger btn-lg">Back</a>
+								<button type="submit" id="signupButton" class="btn btn-success btn-lg">{% trans "Sign me up" %}</button>
+								<a href="#signup2" data-toggle="tab" class="btn btn-danger btn-lg">{% trans "Back" %}</a>
 								
 							</div>
 						</div>
 					</div>
 	   </form>
-       {% else %}
-		{% if ref_regView.non_field_errors and not alert.type %}<div class="alert alert-danger">{{ ref_regView.non_field_errors }}</div>{% endif %}
-		<form class="auth-form" action="/register/referral/" method="post">
-		{% csrf_token %}
-						    
-							<div class="tab-pane fade" id="signup2">
-							<div class="form-group">
-								<input required type="text" name="{{ref_regView.login_name.name}}" {% if ref_regView.login_name.value %} value="{{ref_regView.login_name.value}}" {% endif %} class="form-control" placeholder="Full name">
-							{% if ref_regView.login_name.errors %}<small class="help-block">{{ ref_regView.login_name.errors }}</small>{% endif %}
-
-							</div>
-							<div class="form-group">
-								<input required type="text" name="{{ref_regView.login_email.name}}" {% if ref_regView.login_email.value %} value="{{ref_regView.login_email.value}}" {% endif %} class="form-control" placeholder="Email address">
-								<span class="form-control-feedback fui-user"></span>
-							{% if ref_regView.login_email.errors %}<small class="help-block">{{ ref_regView.login_email.errors }}</small>{% endif %}
-								
-							</div>
-							<div class="form-group">
-								<input  required type="password" name="{{ref_regView.login_password.name}}" {% if ref_regView.login_password.value %} value="{{ref_regView.login_password.value}}" {% endif %} class="form-control" placeholder="Password">
-								<span class="form-control-feedback fui-lock"></span>
-							{% if ref_regView.login_password.errors %}<small class="help-block">{{ ref_regView.login_password.errors }}</small>{% endif %}
-							</div>
-							<div class="form-group">
-								<input required type="password" name="{{ref_regView.login_password_conf.name}}" {% if ref_regView.login_password_conf.value %} value="{{ref_regView.login_password_conf.value}}" {% endif %} class="form-control" placeholder="Retype password">
-								<span class="form-control-feedback fui-lock"></span>
-							{% if ref_regView.login_password_conf.errors %}<small class="help-block">{{ ref_regView.login_password_conf.errors }}</small>{% endif %}
-							</div>
-							<a class="btn btn-lg btn-success" href="#signup3" data-toggle="tab"> Next </a>
-							<a href="#loginModal" data-toggle="modal" class="text-center">I already have a membership</a>
-						</div>
-						<div class="tab-pane fade" id="signup3">
-							<div class="well">
-								<h3> Airspress Terms of Services</h3>
-								<h4>Information</h4>
-								<p>Hola Boys, shut it first and second. <br> I don't know you i got nothing to tell you <br> Bye, bye...</p>
-							
-							</div>
-							<div class="footer">
-								<label class="checkbox" for="checkbox1">
-									  <input name="{{ref_regView.tos_check.name}}" type="checkbox" data-toggle="checkbox" value="" id="checkbox1" required class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
-									  I agree with the Terms of Services
-								</label>
-								<button type="submit" class="btn btn-success btn-lg">Sign me up</button>
-								<a href="#signup2" data-toggle="tab" class="btn btn-danger btn-lg">Back</a>
-								
-							</div>
-						</div>
-	   </form>		
 		{% endif %}
         </div>
 		</div>

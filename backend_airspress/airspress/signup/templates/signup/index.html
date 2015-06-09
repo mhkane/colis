@@ -64,7 +64,7 @@
 							<li>{% if not greetings %}
 							<a href="/login/student" class="button special" id="login" data-toggle="modal" data-target=".bs-modal-sm" >{% trans "Login" %}</a>
 								{% else %}
-								<a href="{% url 'account:profile' greetings %}"><img src="{{myPicture}}" style=" width:60px ; height: 60px; "" class="img-responsive img-circle"></a>
+								<a href="{% url 'account:profile' greetings %}"><img src="{{myPicture}}" style=" width:60px ; height: 60px; " class="img-responsive img-circle"></a>
 								{% endif %}
 							</li>
 						</ul>
