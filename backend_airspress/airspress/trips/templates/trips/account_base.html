@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static from staticfiles %}
 {% load compress %}
 <!DOCTYPE html>
@@ -88,7 +89,7 @@
 					<ul style="margin-bottom: 0;" class="nav navbar-nav pull-right">
 						<li>
 							<a href="/trips/">
-								<i class="fa fa-home"></i>&nbsp;Home
+								<i class="fa fa-home"></i>&nbsp;{% trans "Home" %}
 							</a>
 						</li>
 						<li>
@@ -105,29 +106,29 @@
 							</a>
 							<ul class="dropdown-menu brand-color">
 								
-									<li><a href=" {% url 'account:profile' greetings %} ">Profile <span><i class="fa fa-cog pull-right"></i></span>
+									<li><a href=" {% url 'account:profile' greetings %} ">{% trans "Profile" %} <span><i class="fa fa-cog pull-right"></i></span>
 											
 										</a>
 									</li>
-									<li><a href="{%  url 'account:otRequest' %}">Incoming Requests  
+									<li><a href="{%  url 'account:otRequest' %}">{% trans "Incoming Requests" %}  
 											<span class="label label-danger pull-right">{% firstof notifications.in_deals %}</span>
 										</a>
 									</li>
-									<li><a href="{% url 'account:myTrip' greetings %}">My Trips
+									<li><a href="{% url 'account:myTrip' greetings %}">{% trans "My Trips" %}
 										</a>
 									</li>
 									<li>
-										<a href="/account/mytrips/requested_trips/">My Requests
+										<a href="/account/mytrips/requested_trips/">{% trans "My Requests" %}
 											<span class="label label-danger pull-right">{% firstof notifications.out_deals %}</span>
 										</a>
 									</li>
-									<li><a href="/account/mytrips/add">Add a trip</a></li>
-									<li><a href="{% url 'account:inbox' %}">Inbox
+									<li><a href="/account/mytrips/add">{% trans "Add a trip" %}</a></li>
+									<li><a href="{% url 'account:inbox' %}">{% trans "Inbox" %}
 											<span class="label label-danger pull-right">{% firstof notifications.inbox %}</span>
 										</a>
 									</li>
 									<li class='logout-btn'> 
-									   <a href="/logout"> Logout <span class="glyphicon glyphicon-log-out pull-right"></span></a>
+									   <a href="/logout">  {% trans "Logout" %} <span class="glyphicon glyphicon-log-out pull-right"></span></a>
 									</li>
 								
 							</ul>
@@ -183,7 +184,7 @@
                 </div>
                 <div class="col-md-4">
                     <ul class="list-inline quicklinks">
-                        <li><a href="/terms">Terms of Use</a>
+                        <li><a href="/terms">{% trans "Terms of Use" %}</a>
                         </li>
                     </ul>
                 </div>

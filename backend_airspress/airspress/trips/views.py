@@ -23,7 +23,7 @@ def activeTrips(request):
     cUser = is_logged_in(request)
     if cUser:
         
-        allTrips = trip.Query.filter(departureDate__gte=timezone.now()).order_by("-departureDate")
+        allTrips = trip.Query.filter(departureDate__gte=timezone.now()).order_by("departureDate")
         page_one = allTrips.limit(25)
         k = 0
         tripDict = {}

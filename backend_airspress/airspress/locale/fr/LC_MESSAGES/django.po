@@ -1,21 +1,148 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# Airspress French Translation.
+# Copyright (C) 2015 Airspress
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
-#, fuzzy
+# Airspress <team@airspress.com>, 2015.
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-07 05:45-0400\n"
+"POT-Creation-Date: 2015-06-08 23:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: translation/views.py:5
+msgid "dummy"
+msgstr ""
+
+#: templates/index.html:33
+msgid "Peer-to-Peer Delivery Service"
+msgstr "Service de commande et livraison entre particuliers"
+
+#: templates/index.html:58
+msgid "Home"
+msgstr "Accueil"
+
+#: templates/index.html:60
+msgid "About Us"
+msgstr "À propos de nous"
+
+#: templates/index.html:62
+msgid "FAQ"
+msgstr "FAQ"
+
+#: templates/index.html:65
+msgid "Login"
+msgstr "Connexion"
+
+#: templates/index.html:80
+msgid "LET'S SHOP"
+msgstr ""
+
+#: templates/index.html:81
+msgid "ANYTHING, ANYWHERE"
+msgstr ""
+
+#: templates/index.html:83
+msgid "Sign Up"
+msgstr "Inscription"
+
+#: templates/index.html:98
+msgid " The end of high shipping costs "
+msgstr "La fin des couts élevés de livraison internationale"
+
+#: templates/index.html:103
+msgid ""
+"Have you ever thought of acquiring any item which is hard to obtain in your "
+"country of residence ?\n"
+"\t\t\t\t\t\t\t\t\t\tYou probably didn’t buy it given the high cost of "
+"international shipping.\n"
+"\t\t\t\t\t\t\t\t\t\tWith Airspress, we designed a platform which will enable "
+"us, together, to reduce the cost of international shipping."
+msgstr ""
+"Avez vous déja pensé à vous procurer un produit difficilement accessible dans votre lieu de résidence ?\n "
+"Vous y avez certainement renoncé à cause des coûts élévés des services de livraison internationaux.\n "
+"Avec Airspress nous avons conçu une plate-forme communautaire pour ensemble, réduire les coûts de livraisons."
+
+#: templates/index.html:126
+msgid "Simple and effective"
+msgstr "Simple et efficace"
+
+#: templates/index.html:129
+msgid ""
+"As a buyer, you can place orders with travelers. One click and tell them "
+"what you need.\n"
+"\t\t\t\t\t\t\t\t\tAs a traveler, Airspress will allow you to publish your "
+"trip information and be put in touch \n"
+"\t\t\t\t\t\t\t\t\twith people interested in placing orders with you in order "
+"to monetize the free space in your luggage."
+msgstr ""
+"En tant qu’acheteur, il vous sera facile de passer des commandes via des personnes qui voyagent.\n "
+"En tant que voyageur, Airspress vous permettra d’ameliorer la visibilité de vos voyages "
+"afin de rentabiliser l’espace disponible dans vos bagages et de vous assurer un revenu supplémentaire. " 
+"Intéressant non ? "
+
+#: templates/index.html:133
+msgid ""
+"And with a real-time text messaging, you can easily wrap up the details."
+msgstr ""
+"Avec la messagerie instantanée, vous pouvez discuter entre vous sur les "
+"détails de la commande"
+
+#: templates/index.html:144
+msgid "A whole opportunity..."
+msgstr "Une véritable opportunité"
+
+#: templates/index.html:147
+msgid ""
+"We are a peer-to-peer ordering platform harnessing the flow of travelers\n"
+"\t\t\t\t\t\t\t\tin order to simplify the process of acquiring any items "
+"unavailable where you live. Or just any item.\n"
+"\t\t\t\t\t\t\t\tWith Airspress, your trips visibility will increase and\tyou "
+"will be able to better organize any friends, relatives \n"
+"\t\t\t\t\t\t\t\tand now Airspress community people orders.\n"
+"\t\t\t\t\t\t\t\tAnd shopping commodities sold in other countries will become "
+"far easier and less onerous."
+msgstr ""
+"Nous vous proposons un service de commande d’articles entre particuliers, " 
+"profitable à tous, en misant sur les flux de voyageurs ! "
+"Avec notre plate-forme, la visibilité de vos voyages augmentera , vous pourrez mieux gérez vos commandes et vous procurez des produits plus vite et moins cher. "
+
+#: templates/index.html:169
+msgid "Finalist MIT Africa Innovate Business Plan Competition 2015"
+msgstr "Finaliste de la Compétition de Business Plan MIT Africa Innovate 2015"
+
+#: templates/index.html:174
+msgid "Finalist 2015 Best Student Entrepreneur Competition in Morocco"
+msgstr "Finaliste au Concours du Meilleur Étudiant Entrepreneur 2015 au Maroc"
+
+#: templates/index.html:179
+msgid ""
+"Finalist of 2015 MIT Global Startup Workshop Elevator Pitch Competition in "
+"Guatemala"
+msgstr "Finaliste de la Compétition d'Elevator Pitch du MIT Global Startup Workshop 2015 "
+
+#: templates/index.html:186
+msgid "Mentioned in MIT News article"
+msgstr "Mentionné dans un article du MIT News"
+
+#: templates/index.html:186
+msgid "Taking Action In Africa"
+msgstr "Taking Action In Africa"
+
+#: templates/index.html:199
+msgid "This is a pilot version. Invite us to your school..."
+msgstr "Il s'agit d'un projet pilote. Invitez nous dans votre établissement"
+
+#: templates/index.html:200
+msgid "Or let's talk about Airspress"
+msgstr "Parlons d'Airspress"
 
 #: .\account\actions.py:251
 msgid "This user has already been referred."
@@ -86,6 +213,7 @@ msgstr "On y est presque ! Veuillez confirmer votre adresse mail en cliquant sur
 
 #: .\signup\schemes.py:136
 msgid "You should use an \""
+<<<<<<< Updated upstream
 msgstr "Vous devrez utiliser un \"
 
 #: .\signup\schemes.py:136
@@ -95,6 +223,17 @@ msgstr "\"addresse mail"
 #: .\signup\schemes.py:173
 msgid "Wrong Password !"
 msgstr "Mauvais mot de passe !"
+=======
+msgstr "Vous devrez utiliser un "
+
+#: .\signup\schemes.py:136
+msgid "\" email address"
+msgstr "adresse mail"
+
+#: .\signup\schemes.py:173
+msgid "Wrong Password !"
+msgstr "Mot de passe erroné !"
+>>>>>>> Stashed changes
 
 #: .\signup\schemes.py:176
 msgid "This user does not exist"
@@ -117,6 +256,7 @@ msgstr "Verifiez votre mail, nous venons de vous envoyer un lien pour reinitiali
 #: .\signup\views.py:321
 msgid "There seems to be a problem. Try again later."
 msgstr "Il y a apparemment un problème. Veuillez reessayer plus tard."
+<<<<<<< Updated upstream
 
 #: .\signup\templates\signup\index.html:33
 msgid "Peer-to-Peer Delivery Service"
@@ -166,6 +306,8 @@ msgstr "Il s'agit d'un projet pilote. Invitez nous dans votre établissement"
 #: .\signup\templates\signup\index.html:195
 msgid "Or let's talk about Airspress"
 msgstr "Parlons d'Airspress"
+=======
+>>>>>>> Stashed changes
 
 #: .\signup\templates\signup\session_security.html:27
 msgid "You have unsaved changes in a form of this page."

@@ -66,7 +66,7 @@ def signup(request, provider_name):
     is going on. Once we catch it we route the signup form to the proper handler.
     """
     if provider_name == 'student':
-        alert={'type':'','text':_('')} # dict type object to carry warnings or notifications to the front
+        alert={'type':'','text':''} # dict type object to carry warnings or notifications to the front
         loginView=loginForm()
         cUser = is_logged_in(request)
         if not cUser:
@@ -158,7 +158,7 @@ def login(request, provider_name):
     registerView=registerForm()
     loginView=loginForm()
 
-    alert={'type':'','text':_('')} # dict type object to carry warnings or notifications to the front
+    alert={'type':'','text':''} # dict type object to carry warnings or notifications to the front
     cUser = is_logged_in(request)
     if not cUser:
         if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors

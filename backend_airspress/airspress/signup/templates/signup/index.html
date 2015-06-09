@@ -1,4 +1,4 @@
-<!-- Translation machinery -->
+﻿<!-- Translation machinery -->
 {% load i18n %}
 <!DOCTYPE HTML>
 <html>
@@ -76,8 +76,10 @@
 					<div class="content">
 						<header>
 							 <div class="col-md-10 col-md-offset-1 mt">
-								{% trans "<h3> LET'S SHOP </h3>
-								<h1 class="mb">ANYTHING, ANYWHERE</h1>" %}
+								
+								<h3> {% trans "LET'S SHOP" %} </h3>
+								<h1 class="mb">{% trans "ANYTHING, ANYWHERE" %}</h1>
+								
 								<button class="btn btn-primary btn-lg" href="#signupModal" data-toggle="modal" style="font-weight:bold;">{% trans "Sign Up" %}</button>
 							</div>
 						</header>
@@ -93,14 +95,16 @@
 							<div class="row">
 								<div class="4u 12u$(medium)">
 									<header>
-										<h2>{% trans "The end of high shipping costs" %}</h2>
+										<h2>{% blocktrans %} The end of high shipping costs {% endblocktrans %}</h2>
 										
 									</header>
 								</div>
 								<div class="4u 12u$(medium)">
-									<p>{% trans "Have you ever thought of acquiring any item which is hard to obtain in your country of residence ?
+									<p>{% blocktrans %}Have you ever thought of acquiring any item which is hard to obtain in your country of residence ?
 										You probably didn’t buy it given the high cost of international shipping.
-										With Airspress, we designed a platform which will enable us, together, to reduce the cost of international shipping." %}</p>
+										With Airspress, we designed a platform which will enable us, together, to reduce the cost of international shipping.{% endblocktrans %}
+										
+									</p>
 				
 								</div>
 								<div class="4u$ 12u$(medium)">
@@ -122,9 +126,10 @@
 							<h2>{% trans "Simple and effective" %}</h2>
 							
 						</header>
-						<p>{% trans "As a buyer, you can place orders with travelers. One click and tell them what you need.
+						<p>{% blocktrans %}As a buyer, you can place orders with travelers. One click and tell them what you need.
 									As a traveler, Airspress will allow you to publish your trip information and be put in touch 
-									with people interested in placing orders with you in order to monetize the free space in your luggage." %}</p>
+									with people interested in placing orders with you in order to monetize the free space in your luggage.{% endblocktrans %}
+						</p>
 						<p>{% trans "And with a real-time text messaging, you can easily wrap up the details." %}</p>			
 						
 					</div>
@@ -139,11 +144,11 @@
 							<h2>{% trans "A whole opportunity..." %}</h2>
 							
 						</header>
-						<p>{% trans "We are a peer-to-peer ordering platform harnessing the flow of travelers
-							in order to simplify the process of acquiring any items unavailable where you live. Or just any item.
-							With Airspress, your trips visibility will increase and	you will be able to better organize any friends, relatives 
-							and now Airspress community people orders.
-							And shopping commodities sold in other countries will become far easier and less onerous." %}
+						<p>{% blocktrans %}We are a peer-to-peer ordering platform harnessing the flow of travelers
+								in order to simplify the process of acquiring any items unavailable where you live. Or just any item.
+								With Airspress, your trips visibility will increase and	you will be able to better organize any friends, relatives 
+								and now Airspress community people orders.
+								And shopping commodities sold in other countries will become far easier and less onerous.{% endblocktrans %}
 						</p>
 						
 					</div>
@@ -161,24 +166,24 @@
 							<div class="row uniform">
 								<section class="4u 6u(medium) 12u$(xsmall)">
 									<span class="icon alt"><img src="{% static 'signup/img/MIT_logo.png' %}"/></span>
-									<h4>Finalist MIT Africa Innovate Business Plan Competition 2015</h4>
+									<h4>{% trans "Finalist MIT Africa Innovate Business Plan Competition 2015" %}</h4>
 									
 								</section>
 								<section class="4u 6u$(medium) 12u$(xsmall)">
 									<span class="icon alt "><img src="{% static 'signup/img/cmee_logo.png' %}"/></span>
-									<h4> Finalist 2015 Best Student Entrepreneur Competition in Morocco</h4>
+									<h4> {% trans "Finalist 2015 Best Student Entrepreneur Competition in Morocco" %}</h4>
 									
 								</section>
 								<section class="4u$ 6u(medium) 12u$(xsmall)">
 									<span class="icon alt "><img src="{% static 'signup/img/gsw_logo.png' %}"/></span>
-									<h4>Finalist of 2015 MIT Global Startup Workshop Elevator Pitch Competition in Guatemala</h4>
+									<h4>{% trans "Finalist of 2015 MIT Global Startup Workshop Elevator Pitch Competition in Guatemala" %}</h4>
 									
 								</section>
 							</div>	
 							<div class="row uniform">
 								<section class="12u$ 6u(medium) 12u$(xsmall)">
 									<span class="icon alt "><img src="{% static 'signup/img/logo-mit-news-b.png' %}"/></span>
-									<h4>Mentioned in MIT News article <a href="http://newsoffice.mit.edu/2015/mit-sloan-africa-innovate-conference-0407" target="_blank">"Taking Action In Africa"</a></h4>
+									<h4>{% trans "Mentioned in MIT News article" %} <a href="http://newsoffice.mit.edu/2015/mit-sloan-africa-innovate-conference-0407" target="_blank">"{% trans 'Taking Action In Africa' %}"</a></h4>
 									
 								</section>
 							</div>

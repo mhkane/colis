@@ -1,15 +1,19 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 import views
+from django.conf.urls.i18n import i18n_patterns
+
 admin.autodiscover()
 
-urlpatterns = patterns('',
+
+urlpatterns = patterns('', url(r'session_security/', include('session_security.urls')),)
+urlpatterns += i18n_patterns('',
     # Examples:
     #url(r'^$', 'airspress.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
-    url(r'session_security/', include('session_security.urls')),
+    
     url(r'^polls/', include('polls.urls',namespace='polls')),
     url(r'^', include('signup.urls',namespace='signup')),
     url(r'^trips/', include('trips.urls',namespace='trips')),

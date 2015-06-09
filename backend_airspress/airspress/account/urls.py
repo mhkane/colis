@@ -1,6 +1,6 @@
 from django.conf.urls import patterns, url
 
-from account import views, utils
+from account import views
 
 urlpatterns = patterns('',
 
@@ -18,7 +18,6 @@ urlpatterns = patterns('',
     url(ur'^(?P<key>.*)/deals/accept/$', views.accept_request, name='accept_request'),
     url(ur'^(?P<key>.*)/deals/$', views.deals, name='deals'),
     url(ur'^(?P<key>.*)/$', views.profileView, name='profile'),
-    url(r'^mix_manage/$',utils.mix_manage, name="parse_mix"),
     #url(r'^search', views.searchTrips, name='search'),
     
    )
