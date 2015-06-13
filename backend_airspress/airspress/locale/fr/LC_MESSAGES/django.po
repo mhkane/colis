@@ -233,7 +233,11 @@ msgid ""
 "As Africans, we think that this platform can also help to expose various "
 "African products which can be of interest to a global audience (Local and "
 "modern clothing, locally manufactured watch and Ivorian Chocolate).\n"
+<<<<<<< Updated upstream
 msgstr 
+=======
+msgstr ""
+>>>>>>> Stashed changes
 "Airspress est une initiative de 5  jeunes étudiants entrepreneurs (entre 18 et 20 ans) née d’une conversation de groupe.\n" 
 "À l’origine destinée à discuter de l’actualité industrielle et politique.\n" 
 "de certains pays Africains, cette conversation s’est rapidement orientée vers une réflexion" 
@@ -264,7 +268,12 @@ msgid ""
 "is to start with a small user base during the 2015 summer \n"
 "with the hope that their feedback will help design a better service and "
 "provide a seamless user experience when we welcome more people in our community. \n"
+<<<<<<< Updated upstream
 msgstr "Afin d’optimiser la qualité du service une phase de test est primordiale et \n"
+=======
+msgstr ""
+"Afin d’optimiser la qualité du service une phase de test est primordiale et \n"
+>>>>>>> Stashed changes
 "celle-ci s’effectuera durant l'été 2015 en suivant de près certains voyageur et clients, \n"
 "et recueillant leurs impressions et suggestions. Au départ, le site ne sera donc ouvert \n"
 "qu’aux étudiants de certaines universités et la famille Airspress s’agrandira au fur et a mesure . \n"
@@ -280,7 +289,11 @@ msgstr "Aux questions"
 
 #: templates/airspress/faq.html:27
 msgid "Pick your questions and get some answers"
+<<<<<<< Updated upstream
 msgstr "Cliquez sur une question et voyez la reponse"
+=======
+msgstr "Cliquez sur une question pour afficher la réponse"
+>>>>>>> Stashed changes
 
 #: trips/templates/trips/account_base.html:109
 msgid "Profile"
