@@ -1,5 +1,6 @@
 {% extends "trips/account_base.html" %}
 <!-- We included base template for account related pages. Now we fill the blocks -->
+{% load i18n %}
 {% load staticfiles %}
 {% block title %} My trips {% endblock title %}
 <!-- We load the Autocomplete widget by setting onload attribute -->
@@ -54,16 +55,16 @@
 								<div class="col-lg-12">
 									<div class="main-box clearfix">
 										<header class="main-box-header clearfix">
-											<h2 class="pull-left">My Trips</h2>
+											<h2 class="pull-left">{% trans "My Trips" %}</h2>
 											
 											<div class="filter-block pull-right">
 												<div class="form-group pull-left">
-													<input type="text" id="table1_search" class="form-control" placeholder="Search...">
+													<input type="text" id="table1_search" class="form-control" placeholder="{% trans 'Search...' %}">
 													<i class="fa fa-search small search-icon"></i>
 												</div>
 												
 												<a href="{% url 'account:addtrip' %}" class="btn btn-primary pull-right">
-													<i class="fa fa-plus-circle fa-lg"></i> Add a trip
+													<i class="fa fa-plus-circle fa-lg"></i> {% trans "Add a trip" %}
 												</a>
 											</div>
 										</header>
@@ -73,12 +74,12 @@
 												<table id="table1" class="table">
 													<thead>
 														<tr>
-															<th><a href="#">Publication Date</a></th>
-															<th class="text-center"><a href="#" >Departure Date</a></th>
-															<th class="text-right important"><a href="#" >From</a></th>
-															<th class="text-right"><a href="#" >To</a></th>
-															<th class="text-right"><a href="#" >Available</a></th>
-															<th class="text-right"><a href="#" >Total</a></th>
+															<th><a href="#">{% trans "Publication Date" %}</a></th>
+															<th class="text-center"><a href="#" >{% trans "Departure Date" %}</a></th>
+															<th class="text-right important"><a href="#" >{% trans "From" %}</a></th>
+															<th class="text-right"><a href="#" >{% trans "To" %}</a></th>
+															<th class="text-right"><a href="#" >{% trans "Available" %}</a></th>
+															<th class="text-right"><a href="#" >{% trans "Total" %}</a></th>
 															
 														</tr>
 													</thead>
@@ -98,7 +99,7 @@
 														<tr>
 														  <td style="height:15em;width:100%;margin:auto; overflow:auto; display:block;">
 															<h2 style="font-size: 0.7em; max-width:100%; position:absolute; top:50%; margin:0; margin-right:-50%; left:50%; transform:translate(-50%,-50%)">
-															  You have not added any trips yet.
+															  {% trans "You have not added any trips yet." %}
 															</h2>
 														  </td>
 														</tr>

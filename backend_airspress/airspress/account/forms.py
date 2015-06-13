@@ -1,5 +1,7 @@
 from django import forms
+from django.utils.translation import ugettext as _
 from signup.forms import change_passForm
+
 TIME_ZONE_CHOICES = (
      ('-12.0', '(GMT -12:00) Eniwetok, Kwajalein'),
      ('-11.0', '(GMT -11:00) Midway Island, Samoa'),
@@ -34,13 +36,13 @@ TIME_ZONE_CHOICES = (
      ('12.0', '(GMT +12:00) Auckland, Wellington, Fiji, Kamchatka')
 )
 class referralForm(forms.Form):
-    referred_email = forms.EmailField(help_text="Your friend email address")
+    referred_email = forms.EmailField(help_text=_("Your friend email address"))
     message = forms.CharField(required=False, 
-                              help_text="""Hello, I've been using Airspress and i think it's very useful, fun 
-                              and definitly worth trying.""")
+                              help_text=_("""Hello, I've been using Airspress and i think it's very useful, fun 
+                              and definitly worth trying.""".lstrip()))
 #change password in account settings
 class settings_form_password(change_passForm):
-    current_pass = forms.CharField(help_text="This old password you want to change...")
+    current_pass = forms.CharField(help_text=_("This old password you want to change..."))
 #change general settings
 class settings_form_general(forms.Form):
     screen_name = forms.CharField(max_length=10, required=False)

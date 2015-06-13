@@ -1,7 +1,7 @@
 {% extends "trips/account_base.html" %}
 <!-- We included base template for account related pages. Now we fill the blocks -->
 {% load staticfiles %}
-{% block title %} {% if traveler %} Incoming Requests {% else %} My Requests {% endif %} {% endblock title %}
+{% block title %} {% if traveler %} {% trans "Incoming Requests" %} {% else %} {% trans "My Requests" %} {% endif %} {% endblock title %}
 <!-- We load the Autocomplete widget by setting onload attribute -->
 {% block onloader %}  {% endblock onloader %}
 <!-- 'greetings' is always the username of the logged-in user  -->
@@ -57,11 +57,11 @@
 								<div class="col-lg-12">
 									<div class="main-box clearfix">
 										<header class="main-box-header clearfix">
-											<h2 class="pull-left">{% if traveler %} Incoming Requests {% else %} My Requests {% endif %}</h2>
+											<h2 class="pull-left">{% if traveler %} {% trans "Incoming Requests" %} {% else %} {% trans "My Requests" %} {% endif %}</h2>
 											
 											<div class="filter-block pull-right">
 												<div class="form-group pull-left">
-													<input type="text" id="table1_search" class="form-control" placeholder="Search...">
+													<input type="text" id="table1_search" class="form-control" placeholder="{% trans 'Search...' %}">
 													<i class="fa fa-search small search-icon"></i>
 												</div>
 												
@@ -73,14 +73,14 @@
 												<table id="table1" class="table">
 													<thead>
 														<tr>
-															<th><a href="#">Publication Date</a></th>
-															<th>{% if traveler %} Requester {% else %} Traveler {% endif %}</th>
-															<th class="text-center"><a href="#" >Departure Date</a></th>
-															<th class="text-right"><a href="#" >From</a></th>
-															<th class="text-right"><a href="#" >To</a></th>
-															<th class="text-right"><a href="#">Requested Capacity</a></th>
-															<th class="text-right"><a href="#" >Traveler Capacity</a></th>
-															<th class="text-center">Status</th>
+															<th><a href="#">{% trans "Publication Date" %}</a></th>
+															<th>{% if traveler %} {% trans "Requester" %} {% else %} {% trans "Traveler" %} {% endif %}</th>
+															<th class="text-center"><a href="#" >{% trans "Departure Date" %}</a></th>
+															<th class="text-right"><a href="#" >{% trans "From" %}</a></th>
+															<th class="text-right"><a href="#" >{% trans "To" %}</a></th>
+															<th class="text-right"><a href="#">{% trans "Requested Capacity" %}</a></th>
+															<th class="text-right"><a href="#" >{% trans "Traveler Capacity" %}</a></th>
+															<th class="text-center">{% trans "Status" %}</th>
 															<th>&nbsp;</th>
 														</tr>
 													</thead>
@@ -109,7 +109,7 @@
 														<tr>
 														  <td style="height:15em;width:100%;margin:auto; overflow:auto; display:block;">
 															<h2 style="font-size: 0.7em; max-width:100%; position:absolute; top:50%; margin:0; margin-right:-50%; left:50%; transform:translate(-50%,-50%)">
-															  {% if traveler %} You did not receive any requests yet. {% else %} You did not make any requests yet.{% endif %} 
+															  {% if traveler %} {% trans "You did not receive any requests yet." %} {% else %} {% trans "You did not make any requests yet." %} {% endif %} 
 															</h2>
 														  </td>
 														</tr>

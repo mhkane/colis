@@ -1,5 +1,6 @@
 {% extends 'signup/index.html' %}
-{% load staticfiles %}
+{% load i18n %}
+{% load static from staticfiles %}
 	{% block title %}  About Us {% endblock title %}
 	{% block about %} active {% endblock about %}
 		{% block content %}
@@ -9,7 +10,7 @@
 						<header>
 							 <div class="col-md-12">
 								
-								<h1 class="mb">About Us</h1>
+								<h1 class="mb">{% trans "About Us" %}</h1>
 								
 							</div>
 						</header>
@@ -23,7 +24,7 @@
 					<span class="image fit main"><img src="{% static 'signup/images/pic03.jpg' %}" alt="" /></span>
 					<div class="content">
 						<header>
-							<h2>Motivation</h2>
+							<h2>{% trans "Motivation" %}</h2>
 							
 						</header>
 						 		{% include 'airspress/about_motivation.html' %}
@@ -37,7 +38,7 @@
 					<span class="image fit main bottom"><img src="{% static 'signup/images/pic04.jpg' %}" alt="" /></span>
 					<div class="content">
 						<header>
-							<h2>Vision</h2>
+							<h2>{% trans "Vision" %}</h2>
 							
 						</header>
 						{% include 'airspress/about_vision.html' %}
@@ -51,10 +52,10 @@
 				<section id="three" class="wrapper style2 special fade-up">
 					<div class="container">
 						<header>
-							<h2>If you still got questions, feel free to contact us</h2>
-							<p>You can also find us on <a style="color:#fff;" href="https://twitter.com/airspress">Twitter(@airspress)</a></p>
+							<h2>{% trans "If you still got questions, feel free to contact us" %}</h2>
+							<p>{% trans "You can also find us on" %} <a style="color:#fff;" href="https://twitter.com/airspress">Twitter(@airspress)</a></p>
 						</header>
-							<a href="#contactModal" data-toggle="modal" style="color:#fff;" class="button">Contact</a>
+							<a href="#contactModal" data-toggle="modal" style="color:#fff;" class="button">{% trans "Contact" %}</a>
 					</div>
 				</section>
 

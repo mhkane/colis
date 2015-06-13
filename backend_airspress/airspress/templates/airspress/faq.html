@@ -1,13 +1,14 @@
 {% extends 'signup/index.html' %}
-{% load staticfiles %}
+{% load i18n %}
+{% load static from staticfiles %}
 		{% block content %}
 			<!-- Banner -->
 				<section id="banner">
 					<div class="content">
 						<header>
 							 <div class="col-md-12">
-								<h3>Frequently</h3>
-								<h1 class="mb">Asked Questions</h1>
+								<h3>{% trans "Frequently" %}</h3>
+								<h1 class="mb">{% trans "Asked Questions" %}</h1>
 								
 							</div>
 						</header>
@@ -23,7 +24,7 @@
 							<div class="row">
 								<div class="12u 12u$(medium)">
 									<header>
-										<h2>Pick your questions and get some answers</h2>
+										<h2>{% trans "Pick your questions and get some answers" %}</h2>
 										
 									</header>
 								</div>
@@ -43,10 +44,10 @@
 				<section id="two" class="wrapper style2 special fade-up">
 					<div class="container">
 						<header>
-							<h2>If you still got questions, feel free to contact us</h2>
-							<p>You can also find us on <a style="color:#fff;" target="_blank" href="https://twitter.com/airspress">Twitter(@airspress)</a></p>
+							<h2>{% trans "If you still got questions, feel free to contact us" %}</h2>
+							<p>{% trans "You can also find us on" %} <a style="color:#fff;" href="https://twitter.com/airspress">Twitter(@airspress)</a></p>
 						</header>
-							<a href="#contactModal" data-toggle="modal" style="color:#fff;" class="button">Contact</a>
+							<a href="#contactModal" data-toggle="modal" style="color:#fff;" class="button">{% trans "Contact" %}</a>
 					</div>
 				</section>
 

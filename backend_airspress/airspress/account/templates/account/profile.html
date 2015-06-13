@@ -1,6 +1,7 @@
 {% extends "trips/account_base.html" %}
-
+{% load i18n %}
 {% load static from staticfiles %}
+{% load strip from stringops %}
 {% load compress %}
 <!-- We include base template for account related pages. And we fill the blocks -->
 {% block title %} {% firstof userinfo.screen_name userinfo.username %}{% endblock title %}
@@ -73,12 +74,12 @@
 									<div class="main-box clearfix">
 										<div class="tabs-wrapper profile-tabs">
 											<ul class="nav nav-tabs">
-												<li class="active"><a href="#tab-newsfeed" data-toggle="tab">Reviews</a></li>
-												<li><a href="#tab-trips" data-toggle="tab">Trips</a></li>
-												<li id="navtab-chat" class="hidden"><a id="displayChat" href="#tab-chat" data-toggle="tab">Conversation</a></li>
+												<li class="active"><a href="#tab-newsfeed" data-toggle="tab">{% trans "Reviews" %}</a></li>
+												<li><a href="#tab-trips" data-toggle="tab">{% trans "Trips" %}</a></li>
+												<li id="navtab-chat" class="hidden"><a id="displayChat" href="#tab-chat" data-toggle="tab">{% trans "Conversation" %}</a></li>
 												{% if userinfo.is_cuser %}
-												<li><a href="#tab-friends" data-toggle="tab">Invite a Friend</a></li>
-												<li><a href="/account/edit/here/" >Edit Profile</a></li>
+												<li><a href="#tab-friends" data-toggle="tab">{% trans "Invite a Friend" %}</a></li>
+												<li><a href="/account/edit/here/" >{% trans "Edit Profile" %}</a></li>
 												{% endif %}
 											</ul>
 											<!--  Every section should have an html file of its own
@@ -112,7 +113,7 @@
 																<tr>
 																  <td style="height:15em;width:100%;margin:auto; display:block;">
 																	<h2 style="font-size: 1em; position:absolute; top:50%; margin:0; margin-right:-50%; left:50%; transform:translate(-50%,-50%)">
-																	   This user has not added any trips yet...
+																	   {% trans "This user has not added any trips yet..." %}
 																	</h2>
 																  </td>
 																</tr>
@@ -124,7 +125,7 @@
 													
 												</div>
 												<div class="tab-pane fade {{tab_friends}}" id="tab-friends">
-													<h2>Spread the word ! Invite your friends to use Airspress</h2>
+													<h2>{% trans "Spread the word ! Invite your friends to use Airspress" %}</h2>
 							
 													{% if alert %}
 														{% include 'trips/alerts.html' %}
@@ -135,21 +136,21 @@
 													<form accept-charset="utf-8" method="POST" action="/account/referral/">
 														{% csrf_token %}
 														<div class="form-group">
-															<label for="InputEmail1"><strong>Email Address</strong></label>
+															<label for="InputEmail1"><strong>{% trans "Email Address" %}</strong></label>
 															<input type="text" name="{{ referral_form.referred_email.name }}" class="form-control" id="InputEmail1" >
 															<p class="help-block">
 															{% firstof referral_form.referred_email.errors referral_form.referred_email.help_text %}
 															</p>
 														</div>
 														<div class="form-group">
-															<label for="InputMessage1"><strong>Personal Message</strong> (Optional)</label>
-															<textarea type="text" name="{{ referral_form.message.name }}" class="form-control" id="InputMessage1" placeholder="{{referral_form.message.help_text}}">
+															<label for="InputMessage1"><strong>{% trans "Personal Message" %}</strong> {% trans "(Optional)" %}</label>
+															<textarea type="text" name="{{ referral_form.message.name }}" class="form-control" id="InputMessage1" placeholder="{% strip %}{{referral_form.message.help_text}}{% endstrip %}">
 															</textarea>
 															<p class="help-block">
 															{% firstof referral_form.message.errors %}
 															</p>
 														</div>
-														<button type="submit" class="btn btn-primary btn-block">INVITE</button>
+														<button type="submit" class="btn btn-primary btn-block">{% trans "INVITE" %}</button>
 													</form>	
 												</div>
 												
@@ -163,11 +164,11 @@
 														<div class="conversation-new-message">
 															<form>
 																<div class="form-group">
-																	<textarea class="form-control" onkeydown="return Shidori(event)" id="NewMessage1" rows="8" placeholder="Enter your message..."></textarea>
+																	<textarea class="form-control" onkeydown="return Shidori(event)" id="NewMessage1" rows="8" placeholder="{% trans 'Enter your message...' %}"></textarea>
 																</div>
 																
 																<div class="clearfix">
-																	<button type="submit" id="SendMessage1" class="btn btn-success pull-right">Send message</button>
+																	<button type="submit" id="SendMessage1" class="btn btn-success pull-right">{% trans "Send message" %}</button>
 																</div>
 															</form>
 														</div>

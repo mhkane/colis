@@ -8,8 +8,8 @@
  
   {% if requestForm %}
   <h3>{% block modal-title %} Make a request{% endblock %}</h3>
-	<small class="help-block">Fill the form to the best of your ability. Providing these informations
-						will make it a lot easier for our traveler </small>
+	<small class="help-block">{% blocktrans %}Fill the form to the best of your ability. Providing these informations
+						will make it a lot easier for our traveler{% endblocktrans %} </small>
 	{% if requestForm.errors and not alert.type %} <div class="alert alert-danger">{% firstof requestForm.non_field_errors "Errors have been displayed... Check on next steps" %} </div>	{% endif %}				
   </div>
   {% block content %}
@@ -27,26 +27,26 @@
 			<div class="tab-pane active {% if requestForm.request1.errors %} in {% endif %}" id="request1">
 			<div class="col-md-4">
 				<div class="form-group">
-				  <label class="control-label" for="item_name"> <b>Name</b></label>
+				  <label class="control-label" for="item_name"> <b>{% trans "Name" %}</b></label>
 					  <input type="text" id="item_name" name="{{ requestForm.item_name.name }}" value="{% firstof requestForm.item_name.value %}" class="form-control" placeholder="Nike Air Jordan">
 					{{requestForm.item_name.errors}}
-					<span class="help-block col-sm-8">Name that best describe the item</span>
+					<span class="help-block col-sm-8">{% trans "Name that best describe the item" %}</span>
 				</div>
 			</div>
 			<div class="col-md-4">
 				<div class="form-group">
-				  <label class="control-label" for="quantity"> <b>Quantity</b></label>
+				  <label class="control-label" for="quantity"> <b>{% trans "Quantity" %}</b></label>
 
 					  <input type="number" min="0" id="quantity" name="{{ requestForm.item_quantity.name }}" value="{% firstof requestForm.item_quantity.value %}" class="form-control" placeholder="2">
 						
 					{{requestForm.item_quantity.errors}}
-					<span class="help-block col-sm-8">How many of this do you want ?</span>
+					<span class="help-block col-sm-8">{% trans "How many of this do you want ?" %}</span>
 				 
 				</div>
 			</div>	
 			<div class="col-md-4">
 				<div class="form-group">
-				  <label class="control-label" for="weight"> <b>Weight</b></label>
+				  <label class="control-label" for="weight"> <b>{% trans "Weight" %}</b></label>
 
 					  <input type="number" min="0" id="weight" placeholder="Amount in kilograms" value="{% firstof requestForm.weightGood.value %}" name="{{ requestForm.weightGood.name }}" class="form-control" >
 						
@@ -54,7 +54,7 @@
 					<span class="help-block col-sm-8"></span>
 				 
 				</div>
-				<a class="btn btn-lg btn-success" id="requestBtn1" href="#request2" data-toggle="tab"> Next </a>
+				<a class="btn btn-lg btn-success" id="requestBtn1" href="#request2" data-toggle="tab"> {% trans "Next" %} </a>
 				
 			</div>
 		</div>
@@ -63,24 +63,24 @@
 				<div class="col-md-12">
 					<div class="col-md-6">
 						<div class="form-group">
-						  <label class="control-label" for="price"> <b>Unit Price</b></label>
+						  <label class="control-label" for="price"> <b>{% trans "Unit Price" %}</b></label>
 						   <div class="controls">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
 									<input type="number" min="0" id="price" name="{{ requestForm.item_price.name }}" value="{% firstof requestForm.item_price.value %}" class="form-control" placeholder="60 $">
 								</div>	
-								<span class="help-block col-sm-8">Price of a unit of this article</span>
+								<span class="help-block col-sm-8">{% trans "Price of a unit of this article" %}</span>
 									{{requestForm.item_price.errors}}
 							</div>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
-						  <label class="control-label" for="shop"> <b>Shop Name</b></label>
+						  <label class="control-label" for="shop"> <b>{% trans "Shop Name" %}</b></label>
 
 							  <input type="text" id="shop" name="{{ requestForm.shop_name.name }}" value="{% firstof requestForm.shop_name.value %}" class="form-control">
 							{{requestForm.shop_name.errors}}
-							<span class="help-block col-sm-8">Name of a shop selling this item</span>
+							<span class="help-block col-sm-8">{% trans "Name of a shop selling this item" %}</span>
 				 
 						</div>
 					</div>
@@ -89,28 +89,28 @@
 			<div class="row">
 				<div class="col-md-8">
 					<div class="form-group">
-					  <label class="control-label" for="comment"><b>Comments</b></label>
+					  <label class="control-label" for="comment"><b>{% trans "Comments" %}</b></label>
 					  <div class="controls">
 						<div class="input-group input-field comment">
 						  <textarea rows="5" id="comment" maxlength="200" value="{% firstof requestForm.comments.value %}" class="materialize-textarea" length="200" name="{{ requestForm.comments.name }}" class="form-control"></textarea>
 							
 						</div>
 							{{requestForm.comments.errors}}
-						<span class="help-block col-sm-12">Put a link to a picture of this item or to a website displaying this item. Any special instructions ?</span>
+						<span class="help-block col-sm-12">{% trans "Put a link to a picture of this item or to a website displaying this item. Any special instructions ?" %}</span>
 					  </div>
 					</div>
 					
 				</div>
 				<div class="col-md-4">
-					<a class="btn btn-lg btn-success pull-right" id="requestBtn2" style="display:inline-block;" href="#request3" data-toggle="tab"> Next </a>
-					<a href="#request1" data-toggle="tab" style="display:inline-block;" class="btn btn-danger btn-lg">Back</a>
+					<a class="btn btn-lg btn-success pull-right" id="requestBtn2" style="display:inline-block;" href="#request3" data-toggle="tab"> {% trans "Next" %} </a>
+					<a href="#request1" data-toggle="tab" style="display:inline-block;" class="btn btn-danger btn-lg">{% trans "Back" %}</a>
 				</div>`	
 		</div>	
 		
 	   </div>
 	   <div class="tab-pane fade" id="request3">
 			<div class="form-group col-md-offset-3 col-md-3">
-			  <label class="control-label"><b>Dimensions of item (optional)</b></label>
+			  <label class="control-label"><b>{% trans "Dimensions of item (optional)" %}</b></label>
 			  <div class="controls">
 				<div class="input-group ">
 				  <input type="number" min="0" class="input-sm text-center form-control" name="{{ requestForm.dimensions_1.name}}" /> 
@@ -120,12 +120,12 @@
 				  <input type="number" min="0" class="input-sm text-center form-control" name="{{ requestForm.dimensions_3.name}}" />
 				</div>
 					{{requestForm.dimensions_1.errors}} {{requestForm.dimensions_2.errors}} {{requestForm.dimensions_3.errors}}
-				<span class="help-block col-sm-8">Values in centimeters in any order</span>
+				<span class="help-block col-sm-8">{% trans "Values in centimeters in any order" %}</span>
 			  </div>
 			</div>
 			
 			<div class="col-md-12">
-				<a href="#request2" data-toggle="tab" class="btn btn-danger btn-lg">Back</a>
+				<a href="#request2" data-toggle="tab" class="btn btn-danger btn-lg">{% trans "Back" %}</a>
 				<input type="submit" style="display:block; margin:auto;" class="btn btn-primary noborder" value="Send" />
 			</div>
 	   </div>

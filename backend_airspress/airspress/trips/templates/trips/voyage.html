@@ -1,5 +1,6 @@
 {% extends "trips/account_base.html" %}
-{% load staticfiles %}
+{% load i18n %}
+{% load static from staticfiles %}
 {% load stringops %}
 <!-- We include base template for account related pages. And we fill the blocks -->
 {% block title %} Trips {% endblock title %}
@@ -30,12 +31,12 @@
 		 <form id="search_Form" class="row main-box" method="post" action="/trips/search/">
             {% csrf_token %}	
 			<div class="col-sm-4"> 
-			<label class="form-label"><h2>Departures Range</h2></label>
+			<label class="form-label"><h2>{% trans "Departures Range" %}</h2></label>
 			<div class="form-inline">
 			  <fieldset class="form-group">
 				<div class="input-daterange input-group datepicker">
 					  <input type="text" class="input-sm form-control" name="{{ searchForm.depDate1.name}}" id="id_{{ searchForm.depDate1.name }}" /> 
-				       <span style="color:#e81;background-color: transparent;border-color:#5aa;font-size: 0.8em;" class="input-group-addon">to</span>
+				       <span style="color:#e81;background-color: transparent;border-color:#5aa;font-size: 0.8em;" class="input-group-addon">{% trans "to" %}</span>
 								<input type="text" class="input-sm form-control" name="{{ searchForm.depDate2.name}}" />
 						
 				</div>
@@ -45,9 +46,9 @@
 			</div>
 			<div class="col-sm-4">
 				<div class="control-group col-md-12">
-				   <label class="control-label"><h2>From</h2></label>
+				   <label class="control-label"><h2>{% trans "From" %}</h2></label>
 				   <div class="controls">
-					 <input class="col-md-12" id="location1" name="location1" type="text" placeholder="City, State, Country" value=""> 
+					 <input class="col-md-12" id="location1" name="location1" type="text" placeholder="{% trans 'City, State, Country' %}" value=""> 
 					 <input name="{{searchForm.cityDep.name}}" type="hidden" value="">
 					 <input name="location_state" type="hidden" value="">
 					 <input name="location_country" type="hidden" value="">
@@ -59,10 +60,10 @@
 			</div>
 			<div class="col-sm-4">
 				<div class="control-group col-md-12">
-				   <label class="control-label"><h2>To</h2></label>
+				   <label class="control-label"><h2>{% trans "To" %}</h2></label>
 				   <div class="controls">
 				   	
-					 <input class="col-md-12" id="location2" name="location2" type="text" placeholder="City, State, Country" value=""> 
+					 <input class="col-md-12" id="location2" name="location2" type="text" placeholder="{% trans 'City, State, Country' %}" value=""> 
 					 <input name="{{searchForm.cityArr.name}}" type="hidden" value="">
 					 <input name="location_state" type="hidden" value="">
 					 <input name="location_country" type="hidden" value="">
@@ -71,7 +72,7 @@
 					</div>
 					{{searchForm.cityArr.errors}}
 				</div>
-            <input type="submit" class="btn btn-primary pull-right btn-search noborder" value="Find a traveler" />
+            <input type="submit" class="btn btn-primary pull-right btn-search noborder" value="{% trans 'Find a traveler' %}" />
 			</div>
         </form>
 	</div>	
@@ -118,18 +119,18 @@
 										<div style="" class="col-xs-4 col-sm-4 col-md-4">
 											<li style="list-style:none; " class="date">
 												 <div class="calendar event_date"> 
-												<span class="month">{{ v.departDate.month|nodottruncatechars:3 }}</span> 
+												<span class="month">{% blocktrans with month=v.departDate.month|nodottruncatechars:3 context 'month name' %}{{ month }}{% endblocktrans %}</span> 
 												<span class="day">{{ v.departDate.day }}</span> 
 												</div>
 										   </li>
 										</div>
 										<div class="col-xs-4 col-sm-4 col-md-4 price-details"> 
-															<p class="unit-price"> <strong><span class="greater">{{ v.unit_price }} $</span> per Kg</strong> <i class="fa fa-cube"></i></p>
+															<p class="unit-price"> <strong><span class="greater">{{ v.unit_price }} $</span> {% trans "per" %} Kg</strong> <i class="fa fa-cube"></i></p>
 										</div>
 									<!-- Prices and buttons -->
 										<div class="col-xs-4 col-md-4">		
 											<p style="font-size:small;" class=" col-md-12 available" ">
-												<i class="fa fa-suitcase">&nbsp;</i> <strong class="greater">{{v.available}}</strong> /{{v.total}} Available
+												<i class="fa fa-suitcase">&nbsp;</i> <strong class="greater">{{v.available}}</strong> /{{v.total}} {% trans "Available" %}
 											</p>
 										
 										</div>	
@@ -139,7 +140,7 @@
 							<div class="row">
 								<div class="col-sm-12 col-md-12">
 											<p>
-											<a href="{% url 'trips:request' v.tripId %}" data-target="#modal" class="btn btn-primary btn-embossed btn-sm btn-block modal-trigger">Request</a>
+											<a href="{% url 'trips:request' v.tripId %}" data-target="#modal" class="btn btn-primary btn-embossed btn-sm btn-block modal-trigger">{% trans "Request" %}</a>
 											</p>				
 								</div>
 
@@ -151,7 +152,7 @@
 			
 		{% if forloop.counter|divisibleby:3 %} 
 			</div>
-			<div>	
+			<div class="row">	
 		{% endif %}
 		
 {% endfor %}
@@ -161,7 +162,7 @@
 <div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
-        <br>
+        <!-- <br>
         <div class="bs-example bs-example-tabs">
             <ul id="myTab" class="nav nav-tabs">
               <li class="active"><a href="#signin" data-toggle="tab">Sign In</a></li>
@@ -172,7 +173,7 @@
         <div class="tab-pane fade active in" id="signin">
             <fieldset>
             <!-- Sign In Button -->
-            <div >
+        <!--    <div >
 			<center>
               <label ></label>
               <div >
@@ -184,7 +185,7 @@
             
         </div>
 		</div>
-	  </div>
+	  </div> -->
 	 </div>
 	</div>
 </div>

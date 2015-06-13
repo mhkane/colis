@@ -1,6 +1,7 @@
 {% extends "trips/account_base.html" %}
 <!-- We include base template for account related pages. And we fill the blocks -->
-{% load staticfiles %}
+{% load i18n %}
+{% load static from staticfiles %}
 {% block title %} AirDeal {% endblock title %}
 {% block stylesheet %} 
 		<link rel="stylesheet" type="text/css" href="{% static 'account/css/orders.css' %}" />
@@ -129,7 +130,7 @@
 										<div class="col-lg-12">
 											<blockquote>
 												<p style="font-size:1em;">{{dealInfo.more_info}}</p>
-												<footer>Additional information from <cite><a href="{% url 'account:profile' reqUser.username %}">{{reqUser.username}}</a></cite></footer>
+												<footer>{% trans "Additional information from" %} <cite><a href="{% url 'account:profile' reqUser.username %}">{{reqUser.username}}</a></cite></footer>
 											</blockquote>
 										</div>
 									</div>

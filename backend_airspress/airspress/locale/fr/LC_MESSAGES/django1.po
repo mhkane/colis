@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-10 02:00+0000\n"
+"POT-Creation-Date: 2015-06-10 05:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,108 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: account/templates/account/deals.html:133
+msgid "Additional information from"
+msgstr ""
+
+#: account/templates/account/profile.html:76
+msgid "Reviews"
+msgstr ""
+
+#: account/templates/account/profile.html:77
+#, fuzzy
+msgid "Trips"
+msgstr "Mes Voyages"
+
+#: account/templates/account/profile.html:78
+msgid "Conversation"
+msgstr ""
+
+#: account/templates/account/profile.html:80
+msgid "Invite a Friend"
+msgstr ""
+
+#: account/templates/account/profile.html:81
+#, fuzzy
+msgid "Edit Profile"
+msgstr "Profil"
+
+#: account/templates/account/profile.html:115
+#, fuzzy
+msgid "This user has not added any trips yet..."
+msgstr "Cet utilisateur n'existe pas"
+
+#: account/templates/account/profile.html:127
+msgid "Spread the word ! Invite your friends to use Airspress"
+msgstr ""
+
+#: account/templates/account/profile.html:138
+#, fuzzy
+msgid "Email Address"
+msgstr "addresse mail "
+
+#: account/templates/account/profile.html:145
+msgid "Personal Message"
+msgstr ""
+
+#: account/templates/account/profile.html:145
+msgid "(Optional)"
+msgstr ""
+
+#: account/templates/account/profile.html:146
+#, python-format
+msgid "%(referral_holder)s"
+msgstr ""
+
+#: account/templates/account/profile.html:152
+msgid "INVITE"
+msgstr ""
+
+#: account/templates/account/profile.html:166
+msgid "Enter your message..."
+msgstr ""
+
+#: account/templates/account/profile.html:170
+#: account/templates/account/profile_main.html:40
+msgid "Send message"
+msgstr ""
+
+#: account/templates/account/profile_main.html:8
+msgid "Verified"
+msgstr ""
+
+#: account/templates/account/profile_main.html:8
+msgid "Not Verified"
+msgstr ""
+
+#: account/templates/account/profile_main.html:23
+msgid "reviews"
+msgstr ""
+
+#: account/templates/account/profile_main.html:27
+msgid "Member since:"
+msgstr ""
+
+#: account/templates/account/profile_main.html:32
+msgid "(Traveler):"
+msgstr ""
+
+#: account/templates/account/profile_main.html:33
+msgid "(Buyer):"
+msgstr ""
+
+#: account/templates/account/reviews_history.html:17
+msgid "posted a review"
+msgstr ""
+
+#: account/templates/account/set_commission.html:2
+msgid "Charge Custom Commission"
+msgstr ""
+
+#: account/templates/account/set_commission.html:2
+msgid "(optional)"
+msgstr ""
 
 #: signup/templates/signup/signin_ajx.html:4
 #: signup/templates/signup/signin_ajx.html:29 templates/index.html:65
@@ -138,7 +240,7 @@ msgstr ""
 msgid ""
 "And with a real-time text messaging, you can easily wrap up the details."
 msgstr ""
-"Avec la messagerie instantanée à votre disposition, vous pouvez régler entre vous les "
+"Avec la messagerie instantanée, vous pouvez discuter entre vous sur les "
 "détails de la commande"
 
 #: templates/index.html:144
@@ -193,68 +295,8 @@ msgstr "Il s'agit d'un projet pilote. Invitez nous dans votre établissement"
 msgid "Or let's talk about Airspress"
 msgstr "Parlons d'Airspress"
 
-#: templates/airspress/about.html:27
-msgid "Motivation"
-msgstr "Motivation"
-
-#: templates/airspress/about.html:41
-msgid "Vision"
-msgstr "Vision"
-
-#: templates/airspress/about.html:55 templates/airspress/faq.html:47
-msgid "If you still got questions, feel free to contact us"
-msgstr "Si vous avez des questions, n'hésitez pas à nous contacter"
-
-#: templates/airspress/about.html:56 templates/airspress/faq.html:48
-msgid "You can also find us on"
-msgstr "Vous pouvez nous trouvez également sur"
-
-#: templates/airspress/about.html:58 templates/airspress/faq.html:50
-msgid "Contact"
-msgstr "Contactez-nous"
-
-#: templates/airspress/about_motivation.html:3
-msgid ""
-"Airspress is an initiative driven by 5 student entrepreneurs which started "
-"in a group discussion focusing on African news.\n"
-"After reviewing the political situation in different countries, we quickly "
-"started to wonder what initiatives we could take as African students living "
-"abroad to contribute to the economy and cultural growth of our continent. \n"
-"One problem we were all facing was the lack of easy way to access goods from "
-"our country in quantity and quality. \n"
-"We decided to move beyond noticing that problem by devising a solution to "
-"it.\n"
-"The solution we thought of is a web and mobile marketplace where purchasers "
-"willing to acquire some goods can ask travelers to buy them on their behalf "
-"and ship it to them in exchange of an emotional and financial reward.\n"
-"In the process of developing this idea, we realized that this solution could "
-"be of use to almost anyone willing to acquire products sold outside of his "
-"country of residence provided that an Airspress traveler buys it.\n"
-"As Africans, we think that this platform can also help to expose various "
-"African products which can be of interest to a global audience (Local and "
-"modern clothing, locally manufactured watch and Ivorian Chocolate).\n"
-msgstr ""
-
-#: templates/airspress/about_vision.html:3
-msgid ""
-"\n"
-"In order to improve the service quality, testing it is crucial and our plan "
-"is to start with a small user base during the 2015 summer \n"
-"with the hope that their feedback will help design a better service and "
-"provide a seamless user experience when we welcome more people in our "
-"community.\n"
-msgstr ""
-
-#: templates/airspress/faq.html:10
-msgid "Frequently"
-msgstr ""
-
-#: templates/airspress/faq.html:11
-msgid "Asked Questions"
-msgstr ""
-
-#: templates/airspress/faq.html:27
-msgid "Pick your questions and get some answers"
+#: translation/views.py:5
+msgid "dummy"
 msgstr ""
 
 #: trips/templates/trips/account_base.html:109
@@ -297,206 +339,203 @@ msgstr "Conditions d'Utilisation"
 
 #: trips/templates/trips/addtrip.html:242
 msgid "Trip information"
-msgstr "Informations sur Votre Voyage"
+msgstr ""
 
 #: trips/templates/trips/addtrip.html:253
 #: trips/templates/trips/in_out_requests.html:78
 #: trips/templates/trips/mytrips.html:78
 msgid "Departure Date"
-msgstr "Date de Départ"
+msgstr ""
 
 #: trips/templates/trips/addtrip.html:257
 #: trips/templates/trips/addtrip.html:276
 msgid "Select a departure Date"
-msgstr "Choisissez votre date de départ"
+msgstr ""
 
 #: trips/templates/trips/addtrip.html:265
 msgid "I also want to add my return trip"
-msgstr "Je veux également ajouter mon voyage retour"
+msgstr ""
 
 #: trips/templates/trips/addtrip.html:272
 msgid "Return Trip: Departure Date"
-msgstr "Voyage Retour: Date de départ"
+msgstr ""
 
 #: trips/templates/trips/addtrip.html:288
 #: trips/templates/trips/in_out_requests.html:79
 #: trips/templates/trips/mytrips.html:79 trips/templates/trips/voyage.html:48
 msgid "From"
-msgstr "Ville de départ"
+msgstr ""
 
 #: trips/templates/trips/addtrip.html:298
 #: trips/templates/trips/addtrip.html:315
 msgid "Start typing in and select the city"
-msgstr "Commencer à écrire et choisissez une ville"
+msgstr ""
 
 #: trips/templates/trips/addtrip.html:304
 #: trips/templates/trips/in_out_requests.html:80
 #: trips/templates/trips/mytrips.html:80 trips/templates/trips/voyage.html:62
 msgid "To"
-msgstr "Ville d'arrivée"
+msgstr ""
 
 #: trips/templates/trips/addtrip.html:324
 msgid "Available Weight for Buyers(kg)"
-msgstr "Poids Disponible pour les Commandes"
+msgstr ""
 
 #: trips/templates/trips/addtrip.html:331
 #: trips/templates/trips/addtrip.html:356
 msgid "Give a round amount in kilograms"
-msgstr "Donnez une valeur en kilogrammes"
+msgstr ""
 
 #: trips/templates/trips/addtrip.html:336
 msgid "Commission"
-msgstr "Commission"
+msgstr ""
 
 #: trips/templates/trips/addtrip.html:350
 msgid "Return Trip: Available Weight for Buyers(kg)"
-msgstr "Voyage Retour: Poids disponible pour les Commandes"
+msgstr ""
 
 #: trips/templates/trips/addtrip.html:367
 msgid "Done"
-msgstr "Terminé"
+msgstr ""
 
 #: trips/templates/trips/addtrip.html:368
 msgid "Cancel"
-msgstr "Réinitialiser"
+msgstr ""
 
 #: trips/templates/trips/addtrip.html:369
 msgid "Change commission"
-msgstr "Changer la commission"
+msgstr ""
 
 #: trips/templates/trips/addtrip.html:381
 msgid "Calculated Commission"
-msgstr "Commission Calculée"
+msgstr ""
 
 #: trips/templates/trips/in_out_requests.html:64
 #: trips/templates/trips/mytrips.html:62
 msgid "Search..."
-msgstr "Recherche..."
+msgstr ""
 
 #: trips/templates/trips/in_out_requests.html:76
 #: trips/templates/trips/mytrips.html:77
 msgid "Publication Date"
-msgstr "Date de Publication"
+msgstr ""
 
 #: trips/templates/trips/in_out_requests.html:77
+#, fuzzy
 msgid "Requester"
-msgstr "Acheteur"
+msgstr "Mes Commandes"
 
 #: trips/templates/trips/in_out_requests.html:77
 msgid "Traveler"
-msgstr "Voyageur"
+msgstr ""
 
 #: trips/templates/trips/in_out_requests.html:81
 msgid "Requested Capacity"
-msgstr "Poids de Commande"
+msgstr ""
 
 #: trips/templates/trips/in_out_requests.html:82
 msgid "Traveler Capacity"
-msgstr "Capacité du Voyageur"
+msgstr ""
 
 #: trips/templates/trips/in_out_requests.html:83
 msgid "Status"
-msgstr "Statut"
+msgstr ""
 
 #: trips/templates/trips/in_out_requests.html:112
 msgid "You did not receive any requests yet."
-msgstr "Vous n'avez reçu aucune commande pour le moment."
+msgstr ""
 
 #: trips/templates/trips/in_out_requests.html:112
 msgid "You did not make any requests yet."
-msgstr "Vous n'avez rien commander pour l'instant."
+msgstr ""
 
 #: trips/templates/trips/modals.html:11
 msgid ""
 "Fill the form to the best of your ability. Providing these informations\n"
 "\t\t\t\t\t\twill make it a lot easier for our traveler"
 msgstr ""
-"Renseignez ce formulaire avec le plus de précision possible.\n"
-"Fournir ces informations simplifiera grandement les choses pour le voyageur"
 
 #: trips/templates/trips/modals.html:30
 msgid "Name"
-msgstr "Nom de l'article"
+msgstr ""
 
 #: trips/templates/trips/modals.html:33
 msgid "Name that best describe the item"
-msgstr "Nom qui décrit le mieux l'article"
+msgstr ""
 
 #: trips/templates/trips/modals.html:38
 msgid "Quantity"
-msgstr "Quantité"
+msgstr ""
 
 #: trips/templates/trips/modals.html:43
 msgid "How many of this do you want ?"
-msgstr "Combien en voulez-vous ?"
+msgstr ""
 
 #: trips/templates/trips/modals.html:49
 msgid "Weight"
-msgstr "Poids"
+msgstr ""
 
 #: trips/templates/trips/modals.html:66
 msgid "Unit Price"
-msgstr "Prix Unitaire"
+msgstr ""
 
 #: trips/templates/trips/modals.html:72
 msgid "Price of a unit of this article"
-msgstr "Prix d'une unité de cet article"
+msgstr ""
 
 #: trips/templates/trips/modals.html:79
 msgid "Shop Name"
-msgstr "Nom de Magasin"
+msgstr ""
 
 #: trips/templates/trips/modals.html:83
 msgid "Name of a shop selling this item"
-msgstr "Nom d'un magasin offrant cet article"
+msgstr ""
 
 #: trips/templates/trips/modals.html:92
 msgid "Comments"
-msgstr "Commentaires"
+msgstr ""
 
 #: trips/templates/trips/modals.html:99
 msgid ""
 "Put a link to a picture of this item or to a website displaying this item. "
 "Any special instructions ?"
 msgstr ""
-"Mettez un lien vers une image de l'article ou vers un site qui montre l'article. "
-"Autre chose à ajouter ? Allez-y."
 
 #: trips/templates/trips/modals.html:113
 msgid "Dimensions of item (optional)"
-msgstr "Dimensions de l'article (optionnel)"
+msgstr ""
 
 #: trips/templates/trips/modals.html:123
 msgid "Values in centimeters in any order"
-msgstr "Valeurs en centimètres. L'ordre n'importe pas."
+msgstr ""
 
 #: trips/templates/trips/mytrips.html:81 trips/templates/trips/voyage.html:132
 msgid "Available"
-msgstr "Disponible"
+msgstr ""
 
 #: trips/templates/trips/mytrips.html:82
 msgid "Total"
-msgstr "Total"
+msgstr ""
 
 #: trips/templates/trips/mytrips.html:102
 msgid "You have not added any trips yet."
-msgstr "Vous n'avez pas ajouté de voyages pour le moment."
+msgstr ""
 
 #: trips/templates/trips/voyage.html:33
 msgid "Departures Range"
-msgstr "Intervalle de Départs"
+msgstr ""
 
 #: trips/templates/trips/voyage.html:38
 msgid "to"
-msgstr "à"
+msgstr ""
 
 #: trips/templates/trips/voyage.html:50 trips/templates/trips/voyage.html:65
 msgid "City, State, Country"
-msgstr "Ville, État, Pays"
+msgstr ""
 
 #: trips/templates/trips/voyage.html:74
 msgid "Find a traveler"
-msgstr "Trouver un voyageur"
+msgstr ""
 
 #: trips/templates/trips/voyage.html:121
 #, python-format
@@ -506,241 +545,117 @@ msgstr ""
 
 #: trips/templates/trips/voyage.html:127
 msgid "per"
-msgstr "par"
-
-#: trips/templates/trips/voyage.html:142
-msgid "Request"
-msgstr "Commander"
-
-#: account/templates/account/deals.html:133
-msgid "Additional information from"
-msgstr "Information supplémentaire soumise par"
-
-#: account/templates/account/profile.html:76
-msgid "Reviews"
-msgstr "Évaluations"
-
-#: account/templates/account/profile.html:77
-msgid "Trips"
-msgstr "Voyages"
-
-#: account/templates/account/profile.html:78
-msgid "Conversation"
-msgstr "Conversation"
-
-#: account/templates/account/profile.html:80
-msgid "Invite a Friend"
-msgstr "Inviter un Ami"
-
-#: account/templates/account/profile.html:81
-msgid "Edit Profile"
-msgstr "Editer Profil"
-
-#: account/templates/account/profile.html:115
-#, fuzzy
-msgid "This user has not added any trips yet..."
-msgstr "Cet utilisateur n'existe pas"
-
-#: account/templates/account/profile.html:127
-msgid "Spread the word ! Invite your friends to use Airspress"
-msgstr "Partagez la nouvelle ! Invitez vos amis à utiliser Airspres"
-
-#: account/templates/account/profile.html:138
-
-msgid "Email Address"
-msgstr "Adresse e-mail "
-
-#: account/templates/account/profile.html:145
-msgid "Personal Message"
-msgstr "Message Personnel"
-
-#: account/templates/account/profile.html:145
-msgid "(Optional)"
-msgstr "(Optionnel)"
-
-#: account/templates/account/profile.html:146
-#, python-format
-msgid "%(referral_holder)s"
 msgstr ""
 
-#: account/templates/account/profile.html:152
-msgid "INVITE"
-msgstr "INVITER"
+#: trips/templates/trips/voyage.html:142
+#, fuzzy
+msgid "Request"
+msgstr "Mes Commandes"
 
-#: account/templates/account/profile.html:166
-msgid "Enter your message..."
-msgstr "Écrivez votre message..."
+#~ msgid "This user has already been referred."
+#~ msgstr "Cet utilisateur a déjà été invité."
 
-#: account/templates/account/profile.html:170
-#: account/templates/account/profile_main.html:40
-msgid "Send message"
-msgstr "Envoyer"
+#~ msgid ""
+#~ "There was an error attempting to send the invitation, try again later."
+#~ msgstr ""
+#~ "Il y a eu une erreur lors de la tentative d'invitation. Essayez encore "
+#~ "plus tard."
 
-#: account/templates/account/profile_main.html:8
-msgid "Verified"
-msgstr "Vérifié"
+#~ msgid "The invitation was succesfully sent !"
+#~ msgstr "L'invitation a été envoyée avec succès!"
 
-#: account/templates/account/profile_main.html:8
-msgid "Not Verified"
-msgstr "Non Vérifié"
+#~ msgid "In Progress"
+#~ msgstr "En cours"
 
-#: account/templates/account/profile_main.html:23
-msgid "reviews"
-msgstr "évaluations"
+#~ msgid "Completed"
+#~ msgstr "Terminé"
 
-#: account/templates/account/profile_main.html:27
-msgid "Member since:"
-msgstr "Membre depuis:"
+#~ msgid "Deal is accepted. Now its an Airdeal!"
+#~ msgstr "Le deal a été accepté. C'est maintenant un Airdeal !"
 
-#: account/templates/account/profile_main.html:32
-msgid "(Traveler):"
-msgstr "(Voyageur):"
+#~ msgid "There was an error with the server ..."
+#~ msgstr "Il y a une erreur avec le serveur ..."
 
-#: account/templates/account/profile_main.html:33
-msgid "(Buyer):"
-msgstr "(Acheteur):"
+#~ msgid ""
+#~ "This Airdeal is marked as delivered. Please leave a review for the "
+#~ "traveler."
+#~ msgstr "Cet Airdeal est maintenant terminé. Veuillez évaluer le voyageur."
 
-#: account/templates/account/reviews_history.html:17
-msgid "posted a review"
-msgstr "a soumis une évaluation"
+#~ msgid "This Airdeal is marked as paid. Please leave a review for the buyer."
+#~ msgstr "Cet Airdeal a été payé. Veuillez évaluer l'acheteur."
 
-#: account/templates/account/set_commission.html:2
-msgid "Charge Custom Commission"
-msgstr "Fixer une commission vous-même"
+#~ msgid "French"
+#~ msgstr "Français"
 
-#: account/templates/account/set_commission.html:2
-msgid "(optional)"
-msgstr "(optionnel)"
+#~ msgid "English"
+#~ msgstr "Anglais"
 
-#: .\account\actions.py:251
-msgid "This user has already been referred."
-msgstr "Cet utilisateur a déjà été invité."
+#~ msgid "Hmmm... Passwords dont match..."
+#~ msgstr "Hmmm... veuillez vérifier le mot de passe encore"
 
-#: .\account\actions.py:263
-msgid "There was an error attempting to send the invitation, try again later."
-msgstr "Il y a eu une erreur lors de la tentative d'invitation. Essayez encore plus tard."
+#~ msgid "An error occured. Try again later..."
+#~ msgstr "Une erreur est survenue. Veuillez essayer plus tard ..."
 
-#: .\account\actions.py:266
-msgid "The invitation was succesfully sent !"
-msgstr "L'invitation a été envoyée avec succès!"
+#~ msgid "This email is already in use..."
+#~ msgstr "Cet email est déjà utilisé..."
 
-#: .\account\views.py:133 .\account\views.py:187
-msgid "In Progress"
-msgstr "En cours"
+#~ msgid "This referral link is not valid !"
+#~ msgstr "Ce lien d'invitation n'est pas valable !"
 
-#: .\account\views.py:135
-msgid "Completed"
-msgstr "Terminé"
+#~ msgid ""
+#~ "Nearly done ! Please confirm\n"
+#~ "             your email address by following the link we sent you."
+#~ msgstr ""
+#~ "On y est presque ! Veuillez confirmer votre adresse mail en cliquant sur "
+#~ "le lien qui vous a été envoyé"
 
-#: .\account\views.py:363
-msgid "Deal is accepted. Now its an Airdeal!"
-msgstr "Le deal a été accepté. C'est maintenant un Airdeal !"
+#~ msgid "You should use an \""
+#~ msgstr "Vous devrez utiliser un "
 
-#: .\account\views.py:367 .\account\views.py:384 .\account\views.py:402
-msgid "There was an error with the server ..."
-msgstr "Il y a une erreur avec le serveur ..."
+#~ msgid "Wrong Password !"
+#~ msgstr "Mauvais mot de passe !"
 
-#: .\account\views.py:381
-msgid ""
-"This Airdeal is marked as delivered. Please leave a review for the traveler."
-msgstr "Cet Airdeal est maintenant terminé. Veuillez évaluer le voyageur."
+#~ msgid "Some errors apparently..."
+#~ msgstr "Erreur ..."
 
-#: .\account\views.py:399
-msgid "This Airdeal is marked as paid. Please leave a review for the buyer."
-msgstr "Cet Airdeal a été payé. Veuillez évaluer l'acheteur."
+#~ msgid ""
+#~ "Your email address has been verified! Go on, add your trips and make your "
+#~ "requests"
+#~ msgstr ""
+#~ "Votre addresse mail a été verifiée ! Vous pouvez désormais créer vos "
+#~ "voyages et passer des commandes !"
 
-#: .\airspress\settings.py:133
-msgid "French"
-msgstr "Français"
+#~ msgid "Check your inbox, we sent out a link to reset your password"
+#~ msgstr ""
+#~ "Vérifiez votre mail, nous venons de vous envoyer un lien pour "
+#~ "réinitialiser votre mot de passe"
 
-#: .\airspress\settings.py:134
-msgid "English"
-msgstr "Anglais"
+#~ msgid "There seems to be a problem. Try again later."
+#~ msgstr "Il semble y avoir un problème. Veuillez réessayer plus tard."
 
-#: .\signup\schemes.py:79
-msgid "Hmmm... Passwords dont match..."
-msgstr "Hmmm... veuillez vérifier le mot de passe encore"
+#~ msgid "You have unsaved changes in a form of this page."
+#~ msgstr ""
+#~ "Vous avez des changements non sauvegardés sur le formulaire présent."
 
-#: .\signup\schemes.py:90
-msgid "An error occured. Try again later..."
-msgstr "Une erreur est survenue. Veuillez essayer plus tard ..."
+#~ msgid "Airspress site admin"
+#~ msgstr "Administrateur du site Airpsress"
 
-#: .\signup\schemes.py:101
-msgid "This email is already in use..."
-msgstr "Cet email est déjà utilisé..."
+#~ msgid "Airspress administration"
+#~ msgstr "Administration Airspress"
 
-#: .\signup\schemes.py:114
-msgid "This referral link is not valid !"
-msgstr "Ce lien d'invitation n'est pas valable !"
+#~ msgid ""
+#~ "Buddy, you can't own the penthouse and lease it to yourself, yeah ? =D !"
+#~ msgstr "On ne peut pas avoir le beurre et l'argent du beurre =D "
 
-#: .\signup\schemes.py:130
-msgid ""
-"Nearly done ! Please confirm\n"
-"             your email address by following the link we sent you."
-msgstr "On y est presque ! Veuillez confirmer votre adresse mail en cliquant sur le lien qui vous a été envoyé"
+#~ msgid "You can't request more than once ;)"
+#~ msgstr "Vous ne pouvez pas envoyer plus d'une commande"
 
-#: .\signup\schemes.py:136
-msgid "You should use an \""
-msgstr "Vous devrez utiliser un "
+#~ msgid "Request not submitted. Try again..."
+#~ msgstr "La demande n'as pas pu aboutir. Veuillez réessayer"
 
-#: .\signup\schemes.py:136
-msgid "\" email address"
-msgstr "addresse mail "
-
-#: .\signup\schemes.py:173
-msgid "Wrong Password !"
-msgstr "Mauvais mot de passe !"
-
-#: .\signup\schemes.py:176
-msgid "This user does not exist"
-msgstr "Cet utilisateur n'existe pas"
-
-#: .\signup\views.py:185
-msgid "Some errors apparently..."
-msgstr "Erreur ..."
-
-#: .\signup\views.py:251
-msgid ""
-"Your email address has been verified! Go on, add your trips and make your "
-"requests"
-msgstr "Votre addresse mail a été verifiée ! Vous pouvez désormais créer vos voyages et passer des commandes !"
-
-#: .\signup\views.py:318
-msgid "Check your inbox, we sent out a link to reset your password"
-msgstr "Vérifiez votre mail, nous venons de vous envoyer un lien pour réinitialiser votre mot de passe"
-
-#: .\signup\views.py:321
-msgid "There seems to be a problem. Try again later."
-msgstr "Il semble y avoir un problème. Veuillez réessayer plus tard."
-
-
-#: .\signup\templates\signup\session_security.html:27
-msgid "You have unsaved changes in a form of this page."
-msgstr "Vous avez des changements non sauvegardés sur le formulaire présent."
-
-#: .\templates\admin\base_site.html:4
-msgid "Airspress site admin"
-msgstr "Administrateur du site Airpsress"
-
-#: .\templates\admin\base_site.html:7
-msgid "Airspress administration"
-msgstr "Administration Airspress"
-
-#: .\trips\crtrips.py:258
-msgid ""
-"Buddy, you can't own the penthouse and lease it to yourself, yeah ? =D !"
-msgstr "On ne peut pas avoir le beurre et l'argent du beurre =D "
-
-#: .\trips\crtrips.py:262
-msgid "You can't request more than once ;)"
-msgstr "Vous ne pouvez pas envoyer plus d'une commande"
-
-#: .\trips\crtrips.py:292
-msgid "Request not submitted. Try again..."
-msgstr "La demande n'as pas pu aboutir. Veuillez réessayer"
-
-#: .\trips\crtrips.py:296
-msgid ""
-"Request submitted with success. You will be notified as soon as Traveler "
-"accept it."
-msgstr "Commande enregistrée avec succès. Vous recevrez une notification aussitôt que le voyageur l'acceptera"
+#~ msgid ""
+#~ "Request submitted with success. You will be notified as soon as Traveler "
+#~ "accept it."
+#~ msgstr ""
+#~ "Commande enregistrée avec succès. Vous recevrez une notification aussitôt "
+#~ "que le voyageur l'acceptera"

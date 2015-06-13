@@ -1,4 +1,5 @@
 {% extends "trips/account_base.html" %}
+{% load i18n %}
 {% load staticfiles %}
 <!-- We include base template for account related pages. And we fill the blocks -->
 {% block title %} Add a trip {% endblock title %}
@@ -170,12 +171,12 @@
 						// referencing all "NEXT" buttons
 						var triggerNext = document.querySelectorAll('a[step-toggle="next"]');
 						if (triggerNext) {
-						// Every button display the next step which is determined basing on step-display elements...
+						// Every button display the{% trans "Next" %} step which is determined basing on step-display elements...
 						for (var i = 0; i < triggerNext.length; i++) {
 							triggerNext[i].onclick = function(e){ 
-															// display next step row
+															// display{% trans "Next" %} step row
 															$('#' + this.getAttribute("step-display")).removeClass("hidden");
-															// display buttons which are on the next step row
+															// display buttons which are on the{% trans "Next" %} step row
 															document.querySelector('*[step-hide="'+this.getAttribute("step-display")+'"]').classList.remove("hidden");
 															if (this.getAttribute("step-display") != "step4") {
 															document.querySelector('*[step-disable="'+this.getAttribute("step-display")+'"]').classList.remove("hidden");
@@ -239,7 +240,7 @@
 				<div class="col-lg-9 col-md-8 col-sm-8">
 					<div class="main-box clearfix" id="tripAdd">
 							<div class="panel-heading">
-								<h2><i class="fa fa-edit"></i>Trip information</h2>
+								<h2><i class="fa fa-edit"></i>{% trans "Trip information" %}</h2>
 							</div>
 							<div class="main-box-body clearfix">
 								<form id="addTripForm" class="form-add-trip" method="POST" onsubmit="enableForm()" action="/account/mytrips/add/">
@@ -250,11 +251,11 @@
 									<div class = "row">
 										<div class="col-md-6">
 											<div class="form-group">
-											  <label class="control-label" for="departure">Departure Date</label>
+											  <label class="control-label" for="departure">{% trans "Departure Date" %}</label>
 											  <div class="controls">
 												<div class="input-group  add-trip-dates">
 												  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-												  <input step="step1" tabindex="1" id="departure" placeholder="Select a departure date" type="text" name="{{ addForm.depDate.name }}" class="form-control datepicker">
+												  <input step="step1" tabindex="1" id="departure" placeholder="{% trans 'Select a departure Date' %} " type="text" name="{{ addForm.depDate.name }}" class="form-control datepicker">
 												  
 												</div>
 												 {{addForm.depDate.errors}}
@@ -262,18 +263,18 @@
 											</div>
 											<label  class="checkbox" for="checkbox1" style=" display: inline-block; margin-right:auto;">
 												  <input step="step1" name="{{addForm.return_check.name}}" type="checkbox" data-toggle="checkbox" value="" id="checkbox1" onclick="returnTrip()" class="custom-checkbox"><span class="icons"><span class="icon-unchecked"></span><span class="icon-checked"></span></span>
-												  <span style="padding-left:1.9em;">I also want to add my return trip </span>
+												  <span style="padding-left:1.9em;">{% trans "I also want to add my return trip" %} </span>
 											</label>
-											<a class="btn btn-lg btn-success pull-right {% if addForm.errors %} hidden {% endif %}" step-toggle="next" step-display="step2" step-disable="step1" > Next </a>
+											<a class="btn btn-lg btn-success pull-right {% if addForm.errors %} hidden {% endif %}" step-toggle="next" step-display="step2" step-disable="step1" > {% trans "Next" %} </a>
 											
 										</div>
 										<div id="backtrip" class="col-md-6 {% if addForm.arrivDate2.errors or addForm.depDate2.errors %}  {% else %} hidden {% endif %}">
 											<div class="form-group">
-											  <label class="control-label" for="departure2">Return Trip: Departure Date</label>
+											  <label class="control-label" for="departure2">{% trans "Return Trip: Departure Date" %}</label>
 											  <div class="controls">
 												<div class="input-group add-trip-dates">
 												  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-												  <input step="step1" tabindex="2" id="departure2" placeholder="Select a departure date" type="text" name="{{ addForm.depDate2.name }}" class=" datepicker form-control">
+												  <input step="step1" tabindex="2" id="departure2" placeholder="{% trans 'Select a departure Date' %} " type="text" name="{{ addForm.depDate2.name }}" class=" datepicker form-control">
 												</div>
 												<div class="help-block">
 													 {{addForm.depDate2.errors}}
@@ -285,7 +286,7 @@
 									<div id="step2" class="row {% if not addForm.cityDep.errors and not addForm.cityArr.errors %} hidden {% endif %}">						
 										
 										<div class="form-group">
-										  <label class="control-label" for="location1">From</label>
+										  <label class="control-label" for="location1">{% trans "From" %}</label>
 										  <div class="controls">
 											<div class="input-group col-sm-4">
 											  <span class="input-group-addon"><i class="fa fa-plane"></i></span>
@@ -295,13 +296,13 @@
 												<input name="location_lng1" type="hidden">
 											  </div>
 											{{addForm.cityDep.errors}}
-											<span class="help-block col-sm-8">Start typing in and select the city</span>
+											<span class="help-block col-sm-8">{% trans "Start typing in and select the city" %}</span>
 										  </div>
 										</div>
 									
 										
 										<div class="form-group">
-										  <label class="control-label" for="location2">To</label>
+										  <label class="control-label" for="location2">{% trans "To" %}</label>
 										  <div class="controls">
 											<div class="input-group col-sm-4">
 											  <span class="input-group-addon"><i class="glyphicon glyphicon-plane"></i></span>
@@ -312,28 +313,28 @@
 												<input name="{{addForm.distance.name}}" type="hidden">
 											</div>
 											{{addForm.cityArr.errors}}
-											<span class="help-block col-sm-8">Start typing in and select the city</span>
+											<span class="help-block col-sm-8">{% trans "Start typing in and select the city" %}</span>
 										  </div>
 										</div>
-										<a class="btn btn-lg btn-success pull-right {% if addForm.errors %} hidden {% endif %}" step-toggle="next" step-display="step3" step-disable="step2" > Next </a>
-										<a class="btn btn-lg btn-danger {% if addForm.errors %} hidden {% endif %}" step-toggle="back" step-hide="step2" step-enable="step1" > Back </a>
+										<a class="btn btn-lg btn-success pull-right {% if addForm.errors %} hidden {% endif %}" step-toggle="next" step-display="step3" step-disable="step2" >{% trans "Next" %} </a>
+										<a class="btn btn-lg btn-danger {% if addForm.errors %} hidden {% endif %}" step-toggle="back" step-hide="step2" step-enable="step1" > {% trans "Back" %} </a>
 									</div>
 									<div id="step3" class="row {% if not addForm.weightGood2.errors and not addForm.weightGood.errors and not addForm.unit_price.errors and not addForm.custom_price.errors %} hidden {% endif %}">
 										<div class="row">
 											<div class="form-group col-md-6">
-											  <label class="control-label" for="weightGood"> Available Weight for Buyers(kg)</label>
+											  <label class="control-label" for="weightGood"> {% trans "Available Weight for Buyers(kg)" %}</label>
 											  <div class="controls">
 												<div class="input-group col-sm-4">
 												  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 												  <input id="weightGood" tabindex="5" step="step3" type="text" name="{{addForm.weightGood.name}}" value="{% if not addForm.weightGood.errors and addForm.weightGood.value %} {{addForm.weightGood.value}} {% endif %}" class="form-control">
 												</div>
 												<span class="help-block">{{addForm.weightGood.errors}}</span>
-												<span class="help-block col-sm-8">Give a round amount in kilograms</span>
+												<span class="help-block col-sm-8">{% trans 'Give a round amount in kilograms' %} </span>
 											  </div>
 											</div>
 											<div class="col-md-6">
 												<div id="step4b" class="form-group">
-												  <label class="control-label" for="unitPrice">Commission</label>
+												  <label class="control-label" for="unitPrice">{% trans 'Commission' %}</label>
 												  <div class="controls">
 													<div class="input-group col-sm-4">
 													  <span class="input-group-addon"><i class="fa fa-asterisk"></i></span>
@@ -347,26 +348,26 @@
 										</div>
 										<div id="weightGood2" class="row {% if not addForm.weightGood2.errors %} hidden {% endif %}">
 											<div class="form-group col-md-6 ">
-											  <label class="control-label" for=""> Return Trip: Available Weight for Buyers(kg)</label>
+											  <label class="control-label" for=""> {% trans "Return Trip: Available Weight for Buyers(kg)" %} </label>
 											  <div class="controls">
 												<div class="input-group col-sm-4">
 												  <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
 												  <input  step="step3" type="text" name="{{addForm.weightGood2.name}}" value="{% if not addForm.weightGood2.errors and addForm.weightGood2.value %} {{addForm.weightGood2.value}} {% endif %}" class="form-control">
 												</div>
-												<span class="help-block col-sm-8">Give a round amount in kilograms</span>
+												<span class="help-block col-sm-8">{% trans 'Give a round amount in kilograms' %} </span>
 												<span class="help-block">{{addForm.weightGood2.errors}}</span>
 											  </div>
 											</div>
 										</div>	
-										<a  step-toggle="next" step-display="step4" step-disable="step3" class="{% if not addForm.weightGood2.errors %} hidden {% endif %} btn btn-lg btn-success pull-right "> Next </a>
-										<a class="btn btn-lg btn-danger {% if addForm.errors %} hidden {% endif %}" step-toggle="back" step-hide="step3" step-enable="step2" > Back </a>
+										<a  step-toggle="next" step-display="step4" step-disable="step3" class="{% if not addForm.weightGood2.errors %} hidden {% endif %} btn btn-lg btn-success pull-right ">{% trans "Next" %} </a>
+										<a class="btn btn-lg btn-danger {% if addForm.errors %} hidden {% endif %}" step-toggle="back" step-hide="step3" step-enable="step2" >{% trans "Back" %} </a>
 									</div>
 									<div id="step4" class="row hidden">
-										<a class="btn btn-lg btn-danger pull-right" step-toggle="back" step-hide="step4" step-enable="step3" > Back </a>
+										<a class="btn btn-lg btn-danger pull-right" step-toggle="back" step-hide="step4" step-enable="step3" >{% trans "Back" %} </a>
 										<div class="form-actions">
-										  <button type="submit" class="btn btn-primary btn-success">Done !</button>
-										  <button type="reset" class="btn btn-default">Cancel</button>
-										  <button id="changePrice" type="button" input-enable="unitPrice" class="btn btn-info pull-right">Change commission ?</button>
+										  <button type="submit" class="btn btn-primary btn-success">{% trans "Done" %} !</button>
+										  <button type="reset" class="btn btn-default">{% trans "Cancel" %} </button>
+										  <button id="changePrice" type="button" input-enable="unitPrice" class="btn btn-info pull-right">{% trans "Change commission" %} ?</button>
 										</div>
 									</div>	
 								</form>   
@@ -378,7 +379,7 @@
 				<div class="col-lg-3 col-md-4 col-sm-4">
 					<div style="position:fixed;" class="main-box clearfix">
 						<header class="main-box-header clearfix">
-							<h2>Calculated Commission </h2>
+							<h2>{% trans "Calculated Commission" %} </h2>
 						</header>
 						
 						<div id="priceDisplay" class="main-box-body clearfix">

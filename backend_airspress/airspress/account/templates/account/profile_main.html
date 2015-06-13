@@ -1,10 +1,11 @@
-										<header style="overflow:hidden" class="main-box-header clearfix">
+{% load i18n %}								
+								<header style="overflow:hidden" class="main-box-header clearfix">
 											<h2>{% firstof userinfo.screen_name userinfo.username %}</h2>
 										</header>
 										
 										<div class="main-box-body clearfix">
 											<div class="profile-status">
-												{% if userinfo.is_verified %} <i class="fa fa-check small"></i> Verified {% else %} <i style="color:red;" class="fa fa-times small"></i>  Not Verified {% endif %}
+												{% if userinfo.is_verified %} <i class="fa fa-check small"></i> {% trans "Verified" %} {% else %} <i style="color:red;" class="fa fa-times small"></i>  {% trans "Not Verified" %} {% endif %}
 											</div>
 											{% if userinfo.pPicture %}
 											<img alt="User Pic" style="max-width:80%" src="{% if not userinfo.is_cuser %} {{ userinfo.pPicture }} {% else %} {% firstof myPicture userinfo.pPicture %} {% endif %}" class="profile-img img-responsive center-block">
@@ -19,24 +20,24 @@
 											
 											<div class="profile-stars">
 												<div class="rating-stars" data-score="{{userinfo.rating}}"></div>
-												<span>{{userinfo.total_reviews}} reviews</span>
+												<span>{{userinfo.total_reviews}} {% trans "reviews" %}</span>
 											</div>
 											
 											<div class="profile-since">
-												Member since: {{userinfo.member_since}}
+												{% trans "Member since:" %} {{userinfo.member_since}}
 											</div>
 											
 											<div class="profile-details">
 												<ul class="fa-ul">
-													<li><i class="fa-li fa fa-plane small"></i>AirDeals (Traveler): <span>{{userinfo.total_deliveries}}</span></li>
-													<li><i class="fa-li fa fa-cube small"></i>AirDeals (Buyer): <span>{{userinfo.total_orders}}</span></li>
+													<li><i class="fa-li fa fa-plane small"></i>AirDeals {% trans "(Traveler):" %} <span>{{userinfo.total_deliveries}}</span></li>
+													<li><i class="fa-li fa fa-cube small"></i>AirDeals {% trans "(Buyer):" %} <span>{{userinfo.total_orders}}</span></li>
 												</ul>
 											</div>
 											{% if not userinfo.is_cuser %}
 											<div class="profile-message-btn center-block text-center">
 												<a onclick="displayChat()" class="btn btn-success">
 													<i class="fa fa-envelope"></i>
-													Send message
+													{% trans "Send message" %}
 												</a>
 											</div>
 											{% endif %}
