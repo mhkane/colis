@@ -233,29 +233,54 @@ msgid ""
 "As Africans, we think that this platform can also help to expose various "
 "African products which can be of interest to a global audience (Local and "
 "modern clothing, locally manufactured watch and Ivorian Chocolate).\n"
-msgstr ""
+msgstr 
+"Airspress est une initiative de 5  jeunes étudiants entrepreneurs (entre 18 et 20 ans) née d’une conversation de groupe.\n" 
+"À l’origine destinée à discuter de l’actualité industrielle et politique.\n" 
+"de certains pays Africains, cette conversation s’est rapidement orientée vers une réflexion" 
+"sur les initiatives réalisables à notre échelle afin de contribuer à l’essor de la culture et \n"
+ "de l'économie Africaine. Un problème soulevé lors de cette discussion fut le suivant : \n" 
+ "‘’Pourquoi avons-nous autant de mal à nous procurer des produits issus de nos pays \n" 
+ "respectifs lorsque l’on vit à l’étranger ?’’ Nous avons décidé d’aller au delà du \n" 
+ "constat de ce problème et de réfléchir à une solution qui faciliterait l’obtention \n"
+ "de petites quantités de produits issus de différents pays pour des personnes résidant loin de ces derniers.\n"
+"La solution qui nous est venue à l’esprit est une plate-forme web et mobile,\n"
+"où les individus désireux d'acquérir certains produits peuvent demander à un voyageur \n"
+"de se les procurer et les transporter en échange de la satisfaction d’aider et d’une compensation monétaire. \n" 
+"À partir de cette idée nous avons réalisé que ce concept pouvait s’élargir à un \n" 
+"public allant au-delà des individus résidant hors de leur pays et que par \n" 
+"ce même système,Airspress, n’importe qui pouvait s’offrir n’importe quel \n" 
+"produit à travers le monde,pourvu qu’un utilisateur  d’Airspress effectue le trajet. \n"
+"En tant qu’Africains, nous pensons que la plate-forme pourra servir de vitrine à \n"
+ "des produits locaux prisés par bon nombre de gens à l’étranger, mais qui ne s’exportent pas \n" 
+ "assez notamment ceux issus du secteur de la mode africaine \n"
+ "ou encore de la gastronomie (Chocolat produit en Cote d’Ivoire). \n"
+ "D’un autre coté, Airspress pourra aussi servir a importer des marchandises issus de \n"
+  "différents pays a un coût moins élevé que par les moyens d'expédition classique. \n"
+
 
 #: templates/airspress/about_vision.html:3
 msgid ""
-"\n"
 "In order to improve the service quality, testing it is crucial and our plan "
 "is to start with a small user base during the 2015 summer \n"
 "with the hope that their feedback will help design a better service and "
-"provide a seamless user experience when we welcome more people in our "
-"community.\n"
-msgstr ""
+"provide a seamless user experience when we welcome more people in our community. \n"
+msgstr "Afin d’optimiser la qualité du service une phase de test est primordiale et \n"
+"celle-ci s’effectuera durant l'été 2015 en suivant de près certains voyageur et clients, \n"
+"et recueillant leurs impressions et suggestions. Au départ, le site ne sera donc ouvert \n"
+"qu’aux étudiants de certaines universités et la famille Airspress s’agrandira au fur et a mesure . \n"
+
 
 #: templates/airspress/faq.html:10
 msgid "Frequently"
-msgstr ""
+msgstr "Foire"
 
 #: templates/airspress/faq.html:11
 msgid "Asked Questions"
-msgstr ""
+msgstr "Aux questions"
 
 #: templates/airspress/faq.html:27
 msgid "Pick your questions and get some answers"
-msgstr ""
+msgstr "Cliquez sur une question et voyez la reponse"
 
 #: trips/templates/trips/account_base.html:109
 msgid "Profile"
@@ -512,106 +537,6 @@ msgstr "par"
 msgid "Request"
 msgstr "Commander"
 
-#: account/templates/account/deals.html:133
-msgid "Additional information from"
-msgstr "Information supplémentaire soumise par"
-
-#: account/templates/account/profile.html:76
-msgid "Reviews"
-msgstr "Évaluations"
-
-#: account/templates/account/profile.html:77
-msgid "Trips"
-msgstr "Voyages"
-
-#: account/templates/account/profile.html:78
-msgid "Conversation"
-msgstr "Conversation"
-
-#: account/templates/account/profile.html:80
-msgid "Invite a Friend"
-msgstr "Inviter un Ami"
-
-#: account/templates/account/profile.html:81
-msgid "Edit Profile"
-msgstr "Editer Profil"
-
-#: account/templates/account/profile.html:115
-#, fuzzy
-msgid "This user has not added any trips yet..."
-msgstr "Cet utilisateur n'existe pas"
-
-#: account/templates/account/profile.html:127
-msgid "Spread the word ! Invite your friends to use Airspress"
-msgstr "Partagez la nouvelle ! Invitez vos amis à utiliser Airspres"
-
-#: account/templates/account/profile.html:138
-
-msgid "Email Address"
-msgstr "Adresse e-mail "
-
-#: account/templates/account/profile.html:145
-msgid "Personal Message"
-msgstr "Message Personnel"
-
-#: account/templates/account/profile.html:145
-msgid "(Optional)"
-msgstr "(Optionnel)"
-
-#: account/templates/account/profile.html:146
-#, python-format
-msgid "%(referral_holder)s"
-msgstr ""
-
-#: account/templates/account/profile.html:152
-msgid "INVITE"
-msgstr "INVITER"
-
-#: account/templates/account/profile.html:166
-msgid "Enter your message..."
-msgstr "Écrivez votre message..."
-
-#: account/templates/account/profile.html:170
-#: account/templates/account/profile_main.html:40
-msgid "Send message"
-msgstr "Envoyer"
-
-#: account/templates/account/profile_main.html:8
-msgid "Verified"
-msgstr "Vérifié"
-
-#: account/templates/account/profile_main.html:8
-msgid "Not Verified"
-msgstr "Non Vérifié"
-
-#: account/templates/account/profile_main.html:23
-msgid "reviews"
-msgstr "évaluations"
-
-#: account/templates/account/profile_main.html:27
-msgid "Member since:"
-msgstr "Membre depuis:"
-
-#: account/templates/account/profile_main.html:32
-msgid "(Traveler):"
-msgstr "(Voyageur):"
-
-#: account/templates/account/profile_main.html:33
-msgid "(Buyer):"
-msgstr "(Acheteur):"
-
-#: account/templates/account/reviews_history.html:17
-msgid "posted a review"
-msgstr "a soumis une évaluation"
-
-#: account/templates/account/set_commission.html:2
-msgid "Charge Custom Commission"
-msgstr "Fixer une commission vous-même"
-
-#: account/templates/account/set_commission.html:2
-msgid "(optional)"
-msgstr "(optionnel)"
-
 #: .\account\actions.py:251
 msgid "This user has already been referred."
 msgstr "Cet utilisateur a déjà été invité."
@@ -712,7 +637,6 @@ msgstr "Vérifiez votre mail, nous venons de vous envoyer un lien pour réinitia
 #: .\signup\views.py:321
 msgid "There seems to be a problem. Try again later."
 msgstr "Il semble y avoir un problème. Veuillez réessayer plus tard."
-
 
 #: .\signup\templates\signup\session_security.html:27
 msgid "You have unsaved changes in a form of this page."
