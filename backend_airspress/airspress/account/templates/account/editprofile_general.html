@@ -1,17 +1,18 @@
-						<form style="padding-bottom:1em;" class="col-md-6 col-md-offset-2 col-sm-8 col-sm-offset-1" role="form" method="POST" action="/account/edit/general/" enctype="multipart/form-data">
+{% load i18n %}	
+	<form style="padding-bottom:1em;" class="col-md-6 col-md-offset-2 col-sm-8 col-sm-offset-1" role="form" method="POST" action="/account/edit/general/" enctype="multipart/form-data">
 							{% csrf_token %}
 							<div class="form-group">
 								<div>
 									<img alt="" id="uploadedFile" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100" class="profile-img img-responsive center-block">
 								</div>
-								<label for="InputPicture">Profile Picture</label>
+								<label for="InputPicture">{% trans "Profile Picture" %}</label>
 								<input name="{{pic_form.profile_picture.name}}" type="file" class="form-control" id="InputPicture" >
 								<p class="help-block">
 									{% firstof pic_form.profile_picture.errors pic_form.profile_picture.help_text %}
 								</p>
 							</div>
 							<div class="form-group">
-								<label for="screen_name">Screen Name</label>
+								<label for="screen_name">{% trans "Screen Name" %}</label>
 								<input type="text" name="{{general_form.screen_name.name}}" class="form-control" id="screen_name" placeholder="Name that shows up on you profile">
 								<p class="help-block">
 									{% firstof general_form.screen_name.errors general_form.screen_name.help_text %}
@@ -21,7 +22,7 @@
 			
 							
 							<div class="form-group">
-								<label for="timeZone">Time Zone</label>
+								<label for="timeZone">{% trans "Time Zone" %}</label>
 								<select id="timeZone" name="{{general_form.time_zone.name}}" class="form-control">
 													{% for value, text in general_form.time_zone.field.choices %}
 														<option value="{{ value }}">{{ text }}</option>
@@ -32,5 +33,5 @@
 									{% firstof general_form.time_zone.errors general_form.time_zone.help_text %}
 								</p>
 							</div>
-							<button type="submit" class="btn btn-large btn-block btn-success">Save</button>
+							<button type="submit" class="btn btn-large btn-block btn-success">{% trans "Save" %}</button>
 						</form>	
