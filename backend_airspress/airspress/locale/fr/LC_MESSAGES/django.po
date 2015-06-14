@@ -1059,7 +1059,7 @@ msgstr "Trouver un voyageur"
 #: trips/templates/trips/voyage.html:122
 #, python-format
 msgid "%(month)s"
-msgstr ""
+msgstr "%(month)s"
 
 #: trips/templates/trips/voyage.html:128
 msgid "per"
@@ -1068,3 +1068,40 @@ msgstr "par"
 #: trips/templates/trips/voyage.html:143
 msgid "Request"
 msgstr "Commander"
+
+# MONTHS NAMES
+msgid "May"
+msgstr "Mai"
+
+msgid "January"
+msgstr "Janvier"
+
+msgid "February"
+msgstr "Février"
+
+msgid "March"
+msgstr "Mars"
+
+msgid "April"
+msgstr "Avril"
+
+msgid "June"
+msgstr "Juin"
+
+msgid "July"
+msgstr "Juillet"
+
+msgid "August"
+msgstr "Août"
+
+msgid "September"
+msgstr "Septembre"
+
+msgid "October"
+msgstr "Octobre"
+
+msgid "November"
+msgstr "Novembre"
+
+msgid "December"
+msgstr "Décembre"

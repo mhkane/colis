@@ -1,6 +1,7 @@
 from django import forms
+from django.utils.translation import ugettext as _
 from airspress import settings
-import datetime
+
 class searchForm(forms.Form):
     depDate1 = forms.DateField(required=False, input_formats=settings.DATE_INPUT_FORMATS)
     depDate2 = forms.DateField(required=False, input_formats=settings.DATE_INPUT_FORMATS)
@@ -30,7 +31,7 @@ class addForm(forms.Form):
         depart = cleaned_data.get('depDate2')
         weight = cleaned_data.get('weightGood2')
         if is_coming_back:
-            msg = 'This field is required because you have roundtrip option selected'
+            msg = _('This field is required because you have roundtrip option selected')
             if not depart:
                 self._errors['depDate2'] =  self.error_class([msg])
             if not weight:
@@ -69,7 +70,8 @@ class editproForm(forms.Form):
     paypalMail = forms.EmailField()
     userBio = forms.CharField()
     timeZone = forms.CharField()
-    profilePic = forms.FileField(label='Select a picture', help_text ='max. 2mb' )
+    profilePic = forms.FileField(label=_('Select a picture'), help_text ='max. 2mb' )
+
 class reviewForm(forms.Form):
     text = forms.CharField(max_length=200)
     rating= forms.DecimalField()

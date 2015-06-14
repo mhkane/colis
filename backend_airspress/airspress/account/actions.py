@@ -128,9 +128,10 @@ def get_user_info(cUser, request, user_id='',username=''):
             pPicture = get_profile_pic(anyUser.objectId)
             anyName = anyUser.username
             anyMail = anyUser.email
-            member_since_month = anyUser.createdAt.strftime("%B")[:3]
+            member_since_month = anyUser.createdAt.strftime("%B")
             member_since_year = anyUser.createdAt.year
-            member_since = '{} {}'.format(member_since_month, member_since_year)
+            member_since = _('%(member_since_month)s %(member_since_year)s ') % (member_since_month, member_since_year)
+            
             anyReviews = review.Query.filter(reviewedUser=anyUser)
             
             k=0

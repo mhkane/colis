@@ -67,7 +67,7 @@ ul{list-style-type:none;}
 .travelUser span{display:inline-block; text-align:center}
 .firstin .travelUser img{background-image:url("../img/imgnofound.gif"); background-size:100% 100%;}
 .pull-right{margin-bottom:15px;}
-.errorlist{font-size:9px; margin:0;margin-top:5px;color:red;}
+.errorlist{font-size:9px; line-height:1;margin:0;margin-top:5px;color:red;}
 .twodates{overflow:hidden; padding-left:0;padding-right:0;}
 .twodates ul{padding-left:5px;}
 .twodates p{margin-bottom:0;}
