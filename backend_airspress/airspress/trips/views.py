@@ -7,10 +7,9 @@ from signup.schemes import is_logged_in
 from trips.forms import searchForm, requestForm
 from string import split
 from account.actions import get_profile_pic, notify
-from datetime import datetime
 from django.utils import timezone
 from parse_rest.query import QueryResourceDoesNotExist
-
+from django.forms.formsets import formset_factory
 
 
 def fbPicture(request):
@@ -133,10 +132,11 @@ def requestTrip(request, key):
     cUser = is_logged_in(request)
     if cUser:
         myPicture = get_profile_pic(cUser.objectId)
+        requestFormSet = formset_factory(requestForm, extra=2)
         if request.method == 'POST': #If it's POST we'll output results no matter what, results could be errors
-            reqView = requestForm(request.POST)
-            if reqView.is_valid():
-                alert = tripRequest(cUser, reqView, key)
+            request_set = requestFormSet(request.POST)
+            if request_set.is_valid():
+                alert = tripRequest(cUser, request_set, key)
                 # if alert is success, notify traveler;
                 try:
                     if alert['type'] == 'success':
@@ -148,10 +148,12 @@ def requestTrip(request, key):
                     pass
                 print alert              
             else:
-                print reqView.errors
-            return render(request, 'trips/modals.html', {'key':key,'alert':alert,'greetings':cUser.username, 'requestForm':reqView, 'pPicture':myPicture})             
+                
+                print request_set.errors
+            return render(request, 'trips/modals.html', {'key':key,'alert':alert,'greetings':cUser.username, 'request_set':request_set, 'pPicture':myPicture})             
         else:
-            reqView = requestForm()
+            request_set = requestFormSet()
+            
     else:
         return HttpResponseRedirect(reverse('signup:index'))
-    return render(request, 'trips/modals.html', {'key':key,'greetings':cUser.username, 'requestForm':reqView})
+    return render(request, 'trips/modals.html', {'key':key,'greetings':cUser.username, 'request_set':request_set})

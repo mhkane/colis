@@ -20,14 +20,15 @@
 		<!-- scripts -->
 <script type="text/javascript">$('.rating-stars').raty({ starType: 'i', score: function() {
     return $(this).attr('data-score');
-  }, readOnly: true });</script>		
+  }, readOnly: true });
+ </script>		
 <script src="{% static 'account/js/scripts.js' %}"></script>
 <script src="{% static 'account/js/pace.min.js' %}"></script>
 
  {% endblock jscript %}
 <!-- This block will contain everything that is not on the user sidebar: list of trips or trip details or other user profiles...etc -->
     {% block content %}
-	`<div class="row container" id="findRow">
+	<div class="row container" id="findRow">
 		 <form id="search_Form" class="row main-box" method="post" action="/trips/search/">
             {% csrf_token %}	
 			<div class="col-sm-4"> 
@@ -151,8 +152,7 @@
 					
 			
 		{% if forloop.counter|divisibleby:3 %} 
-			</div>
-			<div class="row">	
+			
 		{% endif %}
 		
 {% endfor %}

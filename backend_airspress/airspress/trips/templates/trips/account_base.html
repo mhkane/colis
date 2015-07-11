@@ -56,8 +56,9 @@
 	{% endblock stylesheet_bottom %}
 	
 	<link rel="stylesheet" type="text/css" href="{% static 'signup/css/custom.css' %}" />
-	<link type="text/css" href="{% static 'signup/css/custom-animations.css' %}" rel="stylesheet"/>
+	<!-- Footer Styles -->
     <link type="text/css" href="{% static 'signup/css/style.css' %}" rel="stylesheet"/>
+	<!-- END Footer Styles -->
 	{% endcompress %}
 	{% block stylesheet_uncomp %}
 	
@@ -199,7 +200,6 @@
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAo_PT60oc_CGiUYJcI4gsYYa5UGZSBxp8&libraries=geometry,places&sensor=false&language=en-US"></script>
 
 	<script type="text/javascript" src="{% static 'account/js/flat-ui.min.js' %}"></script>
-	<script src="{% static 'account/js/jquery.nanoscroller.min.js' %}"></script>
 	<script src="{% static 'signup/js/flowtype.js' %}"></script>
 	<script type="text/javascript">
 		$('body').flowtype({
@@ -210,7 +210,9 @@
 			 fontRatio : 30
 			});
 	</script>
+	
 	{% include 'signup/session_security.html' %}
+	
 	<script type="text/javascript" src="{% static 'signup/js/bootstrap-datepicker.js' %}"></script>
 	<script type="text/javascript" src="{% static 'account/js/jquery.raty.js' %}"></script>
 	{% block datepicker %}
@@ -221,6 +223,7 @@
 		});
 		</script>
 	{% endblock datepicker %}
+	
 	{% block jscript %} 
 	
 		<!-- scripts -->

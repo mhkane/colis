@@ -249,7 +249,7 @@ def tripRequest(cUser, reqView, key):
     had_requested = False
     try:
         tripnow = trip.Query.get(objectId=key)
-        had_requested = trequests.Query.get(Requester=cUser, tripId=tripnow)
+        had_requested = trequests.Query.filter(Requester=cUser, tripId=tripnow)
     except (QueryResourceDoesNotExist, AttributeError):
         pass
     print had_requested#remove
@@ -258,10 +258,10 @@ def tripRequest(cUser, reqView, key):
             alert['text'] = _("Buddy, you can't own the penthouse and lease it to yourself, yeah ? =D !")
             alert['type'] = "warning"
             return alert
-        elif had_requested:
-            alert['text'] = _("You can't request more than once ;)")
-            alert['type'] = "warning"
-            return alert     
+#         elif had_requested:
+#             alert['text'] = _("You can't request more than once ;)")
+#             alert['type'] = "warning"
+#             return alert     
     except AttributeError:
         pass
     try:
