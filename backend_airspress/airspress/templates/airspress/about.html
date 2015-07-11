@@ -11,7 +11,9 @@
 							 <div class="col-md-12">
 								
 								<h1 class="mb">{% trans "About Us" %}</h1>
-								
+								{% if not greetings %}
+								<button class="btn btn-primary btn-lg" href="#signupModal" data-toggle="modal" style="font-weight:bold;">{% trans "Sign Up" %}</button>
+								{% endif %}
 							</div>
 						</header>
 					</div>
@@ -22,7 +24,7 @@
 				
 				<section id="one" class="aboutPage spotlight style2 right">
 					<span class="image fit main"><img src="{% static 'signup/images/pic03.jpg' %}" alt="" /></span>
-					<div class="content">
+					<div style="overflow-y:auto" class="content">
 						<header>
 							<h2>{% trans "Motivation" %}</h2>
 							

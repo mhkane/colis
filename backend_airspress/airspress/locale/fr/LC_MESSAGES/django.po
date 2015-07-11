@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-06-13 22:22+0000\n"
+"POT-Creation-Date: 2015-06-14 06:57+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,17 +17,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: account/actions.py:251
+#: account/actions.py:133
+#, python-format
+msgid "%(member_since_month)s %(member_since_year)s "
+msgstr "%(member_since_month)s %(member_since_year)s"
+
+#: account/actions.py:252
 msgid "This user has already been referred."
 msgstr "Cet utilisateur a déjà été invité."
 
-#: account/actions.py:263
+#: account/actions.py:264
 msgid "There was an error attempting to send the invitation, try again later."
 msgstr ""
 "Il y a eu une erreur lors de la tentative d'invitation. Essayez encore plus "
 "tard."
 
-#: account/actions.py:266
+#: account/actions.py:267
 msgid "The invitation was succesfully sent !"
 msgstr "L'invitation a été envoyée avec succès!"
 
@@ -38,7 +43,7 @@ msgstr "L'addresse e-mail de votre invité "
 #: account/forms.py:41
 msgid ""
 "Hello, I've been using Airspress and i think it's very useful, fun \n"
-"                              and definitly worth trying."
+"                              and definitely worth trying."
 msgstr ""
 "Bonjour, j'utilise Airspress pour me faire livrer des achats par des "
 "voyageurs. \n"
@@ -89,6 +94,14 @@ msgstr "Pseudonyme"
 msgid "Time Zone"
 msgstr "Fuseau Horaire"
 
+#: account/templates/account/editprofile_general.html:97
+msgid "General"
+msgstr "Général"
+
+#: account/templates/account/editprofile_general.html:100
+msgid "Security"
+msgstr "Sécurité"
+
 #: account/templates/account/editprofile_general.html:36
 #: account/templates/account/editprofile_security.html:31
 msgid "Save"
@@ -138,15 +151,20 @@ msgstr "Message Personnel"
 msgid "(Optional)"
 msgstr "(Optionnel)"
 
-#: account/templates/account/profile.html:153
+#: account/templates/account/profile.html:147
+#, python-format
+msgid "%(placeholder)s"
+msgstr ""
+
+#: account/templates/account/profile.html:152
 msgid "INVITE"
 msgstr "INVITER"
 
-#: account/templates/account/profile.html:167
+#: account/templates/account/profile.html:166
 msgid "Enter your message..."
 msgstr "Écrivez votre message..."
 
-#: account/templates/account/profile.html:171
+#: account/templates/account/profile.html:170
 #: account/templates/account/profile_main.html:40
 msgid "Send message"
 msgstr "Envoyer"
@@ -195,13 +213,21 @@ msgstr "Français"
 msgid "English"
 msgstr "Anglais"
 
+#: signup/forms.py:33
+msgid "Your new password now... "
+msgstr "Votre nouveau mot de passe..."
+
+#: signup/forms.py:34
+msgid "Write again this all new password of yours and we're done"
+msgstr "Confirmez ce nouveau mot de passe pour finir"
+
 #: signup/schemes.py:79
-msgid "Hmmm... Passwords dont match..."
-msgstr "Hmmm... veuillez vérifier le mot de passe encore"
+msgid "Hmmm... Passwords don't match..."
+msgstr "Hmmm... vous avez entré des mots de passe différents"
 
 #: signup/schemes.py:90
 msgid "An error occured. Try again later..."
-msgstr "Une erreur est survenue. Veuillez essayer plus tard ..."
+msgstr "Une erreur est survenue. Veuillez réessayer plus tard ..."
 
 #: signup/schemes.py:101
 msgid "This email is already in use..."
@@ -250,13 +276,12 @@ msgstr ""
 "votre mot de passe"
 
 #: signup/views.py:321
-#, fuzzy
 msgid "There seem to be a problem. Try again later."
 msgstr "Il semble y avoir un problème. Veuillez réessayer plus tard."
 
 #: signup/templates/signup/faq_questions.html:7
 msgid "What is the point of Airspress?"
-msgstr ""
+msgstr "À quoi sert Airspress ?"
 
 #: signup/templates/signup/faq_questions.html:13
 msgid ""
@@ -267,6 +292,11 @@ msgid ""
 "them.\n"
 "\t\t\t\t\t"
 msgstr ""
+"Airspress a pour but de faciliter le transport rapide et à moindre coût d’articles ou de colis \n"
+"qui présentent un grand intérêt pour une personne donnée mais qui se trouvent inaccessibles \n"
+"ou difficilement accessibles dans son pays de résidence . \n"
+"Ainsi, Airspress sert de plate-forme permettant de mettre en contact un destinataire \n"
+"désirant un article et un expéditeur pouvant l’apporter jusqu'à lui."
 
 #: signup/templates/signup/faq_questions.html:24
 msgid "How does it work ?"
@@ -291,19 +321,25 @@ msgid ""
 "where travelers and purchasers will be able to give each other feedback.\n"
 "\t\t\t\t"
 msgstr ""
-"En tant  qu’expéditeur , vous pourrez renseignez la date de départ , la provenance, /n"
-"la destination, une estimation du nombre de kilogramme disponibles que vous pouvez mettre à la disposition /n"
-"d’un éventuel destinataire ainsi que votre marge par kilogramme. /n"
-"En tant que destinataire, vous aurez  accès à tous les expéditeurs provenant d’une multitude de pays, /n"
-"et plus particulièrement du pays où votre article est localisé. Lorsque l’expéditeur est choisi, /n"
-"vous pourrez lui envoyez une commande en spécifiant les différentes informations sur le produit qu’il devra acquérir. /n"
-"Il est important de noter que notre modèle d’utilisation recommande a l’acheteur /n"
-"de donner les spécifications du produit au voyageur qui pourra ensuite les acquérir au nom de l’acheteur. /n"
-"En tant qu’acheteur, gardez en tête que commander des articles faciles a acquérir /n"
-"(objets culturels vendus a l'aéroport ou au duty-free ou encore facile a acquérir en ligne dans le pays du voyageur) /n"
-"facilitera la tache au voyageur et le rendra plus susceptible de vous rendre ce service. /n"
-"Lors de la réception des articles commandés, les deux parties devront confirmer que la transaction a /n"
-"été effectuée et s’attribuer une note évaluant la qualité du processus à travers le site Web ou l’application afin de garder un service efficace. /n"
+"En tant  qu’expéditeur , vous pourrez renseigner la date de départ , la "
+"provenance, /nla destination, une estimation du nombre de kilogramme "
+"disponibles que vous pouvez mettre à la disposition /nd’un éventuel "
+"destinataire ainsi que votre marge par kilogramme. /nEn tant que "
+"destinataire, vous aurez  accès à tous les expéditeurs provenant d’une "
+"multitude de pays, /net plus particulièrement du pays où votre article est "
+"localisé. Lorsque l’expéditeur est choisi, /nvous pourrez lui envoyez une "
+"commande en spécifiant les différentes informations sur le produit qu’il "
+"devra acquérir. /nIl est important de noter que notre modèle d’utilisation "
+"recommande a l’acheteur /nde donner les spécifications du produit au "
+"voyageur qui pourra ensuite les acquérir au nom de l’acheteur. /nEn tant "
+"qu’acheteur, gardez en tête que commander des articles faciles a acquérir /"
+"n(objets culturels vendus a l'aéroport ou au duty-free ou encore facile a "
+"acquérir en ligne dans le pays du voyageur) /nfacilitera la tâche au "
+"voyageur et le rendra plus susceptible d'accepter la commande. /nLors de "
+"la réception des articles commandés, les deux parties devront confirmer que "
+"la transaction a /nété effectuée et s’attribuer une note évaluant la qualité "
+"du processus à travers le site Web afin de garder un "
+"service efficace. /n"
 
 #: signup/templates/signup/faq_questions.html:43
 msgid "Who is Airspress for ?"
@@ -318,10 +354,13 @@ msgid ""
 "community.\n"
 "\t\t\t\t"
 msgstr ""
-"Pour la première version, Airspress est destiné à servir les étudiants internationaux ou en echange et leur proches. \n"
-"Ce service peut leur permettre de récupérer des originaux de documents importants ou encore des vêtements \n"
+"Pour la première version, Airspress est destiné à servir les étudiants "
+"internationaux ou en echange et leur proches. \n"
+"Ce service peut leur permettre de récupérer des originaux de documents "
+"importants ou encore des vêtements \n"
 "ou d’autres produits typiques provenant des 4 coins du monde. \n"
-"Dans le futur, nous envisageons d'élargir notre communauté et d’y donner l'accès au plus de personnes possibles."
+"Dans le futur, nous envisageons d'élargir notre communauté et d’y donner "
+"l'accès au plus de personnes possibles."
 
 #: signup/templates/signup/faq_questions.html:59
 msgid "How is Airspress different from traditional postal services  ?"
@@ -343,12 +382,19 @@ msgid ""
 "to do with classical postal services.\n"
 "\t\t\t\t"
 msgstr ""
-"L’approche d’Airspress basée sur les interactions entre particuliers permet de pouvoir utiliser la richesse des voyages \n"
+"L’approche d’Airspress basée sur les interactions entre particuliers permet "
+"de pouvoir utiliser la richesse des voyages \n"
 "de la communauté pour acquérir divers produits avec plus de flexibilité. \n"
-"Par exemple, supposons que vous êtes un étudiant Ivoirien en Angleterre et que vous rentrez à Abidjan cet été. \n"
-"Supposons en plus qu’un de vos amis qui étudie à New-York retourne également à Abidjan pour les vacances d'été en faisant un détour de quelques jours en France. \n" 
-"Grâce a une seule commande Airspress, vous pouvez acquérir des objets de New-York et Paris. \n"
-"La richesse des itinéraires effectués lors des voyages fait la force d’Airspress et permet d’effectuer des schémas complexes d’achat a moindre coût."
+"Par exemple, supposons que vous êtes un étudiant Ivoirien en Angleterre et "
+"que vous rentrez à Abidjan cet été. \n"
+"Supposons en plus qu’un de vos amis qui étudie à New-York retourne également "
+"à Abidjan pour les vacances d'été en faisant un détour de quelques jours en "
+"France. \n"
+"Grâce a une seule commande Airspress, vous pouvez acquérir des objets de New-"
+"York et Paris. \n"
+"La richesse des itinéraires effectués lors des voyages fait la force "
+"d’Airspress et permet d’effectuer des schémas complexes d’achat a moindre "
+"coût."
 
 #: signup/templates/signup/faq_questions.html:78
 msgid "Why should I use Airspress to receive/ship anything ?"
@@ -362,10 +408,15 @@ msgid ""
 "and for a low cost.\n"
 "\t\t\t\t"
 msgstr ""
-"En tant qu’acheteur, il y a certains produits qui ne nous sont pas facilement accessibles, \n"
-"et lorsque nous nous décidons de les acheter malgré la distance, les moyens de livraison disponibles coûtent relativement cher et peuvent nous décourager. \n"
-"Airspress permet de commander et de recevoir des produits du monde entier, le temps d’un vol. \n"
-"Cela est réalisable grace aux flux de voyageurs quotidiens qu’Airspress met a votre disposition."
+"En tant qu’acheteur, il y a certains produits qui ne nous sont pas "
+"facilement accessibles, \n"
+"et lorsque nous nous décidons de les acheter malgré la distance, les moyens "
+"de livraison disponibles coûtent relativement cher et peuvent nous "
+"décourager. \n"
+"Airspress permet de commander et de recevoir des produits du monde entier, "
+"le temps d’un vol. \n"
+"Cela est réalisable grace aux flux de voyageurs quotidiens qu’Airspress met "
+"a votre disposition."
 
 #: signup/templates/signup/faq_questions.html:94
 msgid "Why, as a traveler, should I use Airspress ?"
@@ -379,8 +430,10 @@ msgid ""
 "community of people trying to spread the philosophy of the sharing economy.\n"
 "\t\t\t\t"
 msgstr ""
-"D’un autre point de vue, en tant que voyageur, nous sommes amenés a nous déplacer. \n"
-"La vraie question serait : Pourquoi ne pas en profiter pour rendre service à une autre personne et par la même occasion gagner de l’argent ? \n"
+"D’un autre point de vue, en tant que voyageur, nous sommes amenés a nous "
+"déplacer. \n"
+"La vraie question serait : Pourquoi ne pas en profiter pour rendre service à "
+"une autre personne et par la même occasion gagner de l’argent ? \n"
 "Vous n’avez vraiment aucune raison de ne pas profiter de Airspress."
 
 #: signup/templates/signup/faq_questions.html:110
@@ -403,13 +456,20 @@ msgid ""
 "service more reliable.\n"
 "\t\t\t\t "
 msgstr ""
-"Notre modèle recommandé d’utilisation dans lequel le voyageur acquiert le produit qui lui est spécifié par l’acheteur élimine les conflits de responsabilité. \n"
-"De plus, le système d'évaluation mutuelle sur la plate-forme ainsi que la vérification des comptes permet de juger de la fiabilité des acheteurs et voyageurs. \n"
-"Nous sommes ouverts a toute suggestion en vue d'améliorer la fiabilité et traçabilité du service."
+"Notre modèle recommandé d’utilisation dans lequel le voyageur acquiert le "
+"produit qui lui est spécifié par l’acheteur élimine les conflits de "
+"responsabilité. \n"
+"De plus, le système d'évaluation mutuelle sur la plate-forme ainsi que la "
+"vérification des comptes permet de juger de la fiabilité des acheteurs et "
+"voyageurs. \n"
+"Nous sommes ouverts a toute suggestion en vue d'améliorer la fiabilité et "
+"traçabilité du service."
 
 #: signup/templates/signup/faq_questions.html:128
 msgid "Which goods are allowed to be transported by an Airspress user ?"
-msgstr "Quelles marchandises sont autorisées à être livrées par un utilisateur de Airspress ?"
+msgstr ""
+"Quelles marchandises sont autorisées à être livrées par un utilisateur de "
+"Airspress ?"
 
 #: signup/templates/signup/faq_questions.html:134
 msgid ""
@@ -420,28 +480,32 @@ msgid ""
 "context specified by those laws.\n"
 "\t\t\t\t"
 msgstr ""
-" Airspress se soumet aux lois des pays dans lesquels elles elle octroie ses services. \n"
-"Toutes les marchandises(produits alimentaires, textiles, appareils électroniques ...etc.) \n"
-"sont donc autorisées au transport excepté celles qui sont explicitement interdites par les lois et dans la limite du cadre prévu par les lois."
+" Airspress se soumet aux lois des pays dans lesquels elles elle octroie ses "
+"services. \n"
+"Toutes les marchandises(produits alimentaires, textiles, appareils "
+"électroniques ...etc.) \n"
+"sont donc autorisées au transport excepté celles qui sont explicitement "
+"interdites par les lois et dans la limite du cadre prévu par les lois."
 
 #: signup/templates/signup/faq_questions.html:144
 msgid ""
 "How can you keep contact with the traveler and make sure he gets you your "
 "order ?"
 msgstr ""
-"Comment peut on garder le contact avec le voyageur et s'assurer qu'il recupère "
-"notre commande ?"
+"Comment peut on garder le contact avec le voyageur et s'assurer qu'il "
+"recupère notre commande ?"
 
 #: signup/templates/signup/faq_questions.html:150
 msgid ""
 "Airspress has a chat feature allowing you to reliably communicate with the "
 "traveler."
 msgstr ""
-"Lors de la mise en contact avec l’utilisateur , vous pouvez lui parler directement via la messagerie instantanée Airspress."
+"Lors de la mise en contact avec l’utilisateur , vous pouvez lui parler "
+"directement via la messagerie instantanée Airspress."
 
 #: signup/templates/signup/faq_questions.html:158
 msgid "How to make sure i'm meeting the right person when delivering ?"
-msgstr ""
+msgstr "Comment m'assurer que je livre à la bonne personne ?"
 
 #: signup/templates/signup/faq_questions.html:164
 msgid ""
@@ -451,8 +515,11 @@ msgid ""
 "you'd have devised with the buyer.\n"
 "\t\t\t\t"
 msgstr ""
-"En plus d’avoir les coordonnées de votre destinataire, chaque utilisateur peut avoir une photo de profil , ainsi vous pourrez directement l’identifier. \n"
-"Quoiqu'il en soit, vous pouvez utiliser toutes les informations mises à votre disposition.  "
+"En plus d’avoir les coordonnées de votre destinataire, chaque utilisateur "
+"peut avoir une photo de profil , ainsi vous pourrez directement "
+"l’identifier. \n"
+"Quoiqu'il en soit, vous pouvez utiliser toutes les informations mises à "
+"votre disposition.  "
 
 #: signup/templates/signup/faq_questions.html:174
 msgid "How much does it cost ?"
@@ -466,7 +533,8 @@ msgid ""
 "international shipping services.\n"
 "\t\t\t\t"
 msgstr ""
-"Lorsqu'une annonce est postée par un voyageur, la personne qui voyage fixe une marge bénéficiaire \n"
+"Lorsqu'une annonce est postée par un voyageur, la personne qui voyage fixe "
+"une marge bénéficiaire \n"
 "C'est donc au voyageur de fixer la commission qu'il veut recevoir \n"
 "et qui doit rester avantageuse pour les acheteurs."
 
@@ -616,8 +684,10 @@ msgid ""
 msgstr ""
 "Il a pour but d'offrir une nouvelle manière de livrer et d'expédier des \n"
 "articles en petites quantités sur de longues distances et permettre aux \n"
-"gens, aux professionnels et aux entreprises de profiter d'une plate-forme dynamique \n"
+"gens, aux professionnels et aux entreprises de profiter d'une plate-forme "
+"dynamique \n"
 "de voyages-livraisons."
+
 #: signup/templates/signup/index.html:220
 msgid "About"
 msgstr "À propos de nous"
@@ -633,6 +703,14 @@ msgstr "Vous avez des changements non sauvegardés sur le formulaire présent."
 #: signup/templates/signup/signin_ajx.html:32
 msgid "Forgot your password ?"
 msgstr "Mot de passe oublié ?"
+
+#: signup/templates/signup/signin_ajx.html:34
+msgid "Not registered yet ?"
+msgstr "Pas encore membre ?"
+
+#: signup/templates/signup/signin_ajx.html:23
+msgid "Password"
+msgstr "Mot de Passe"
 
 #: signup/templates/signup/signup_ajx.html:44
 msgid "Select your institution in the list"
@@ -749,8 +827,8 @@ msgstr ""
 "À partir de cette idée nous avons réalisé que ce concept pouvait s’élargir à "
 "un \n"
 "public allant au-delà des individus résidant hors de leur pays et que par \n"
-"ce même système,Airspress, n’importe qui pouvait s’offrir n’importe quel \n"
-"produit à travers le monde,pourvu qu’un utilisateur  d’Airspress effectue le "
+"ce même système, Airspress, n’importe pouvait s’offrir n’importe quel \n"
+"produit à travers le monde, pourvu qu’un utilisateur  d’Airspress effectue le "
 "trajet. \n"
 "En tant qu’Africains, nous pensons que la plate-forme pourra servir de "
 "vitrine à \n"
@@ -805,7 +883,7 @@ msgstr "Vous ne pouvez pas envoyer plus d'une commande sur le même voyage"
 
 #: trips/crtrips.py:292
 msgid "Request not submitted. Try again..."
-msgstr "La demande n'as pas pu aboutir. Veuillez réessayer"
+msgstr "La demande n'a pas pu aboutir. Veuillez réessayer..."
 
 #: trips/crtrips.py:296
 msgid ""
@@ -815,13 +893,21 @@ msgstr ""
 "Commande enregistrée avec succès. Vous recevrez une notification aussitôt "
 "que le voyageur l'acceptera"
 
+#: trips/forms.py:34
+msgid "This field is required because you have roundtrip option selected"
+msgstr "Ce champ est obligatoire car vous avez un voyage Retour"
+
+#: trips/forms.py:73
+msgid "Select a picture"
+msgstr "Choisissez une image"
+
 #: trips/templates/trips/account_base.html:109
 msgid "Profile"
 msgstr "Profil"
 
 #: trips/templates/trips/account_base.html:113
-#: trips/templates/trips/in_out_requests.html:4
-#: trips/templates/trips/in_out_requests.html:60
+#: trips/templates/trips/in_out_requests.html:5
+#: trips/templates/trips/in_out_requests.html:61
 msgid "Incoming Requests"
 msgstr "Commandes Reçues"
 
@@ -831,8 +917,8 @@ msgid "My Trips"
 msgstr "Mes Voyages"
 
 #: trips/templates/trips/account_base.html:121
-#: trips/templates/trips/in_out_requests.html:4
-#: trips/templates/trips/in_out_requests.html:60
+#: trips/templates/trips/in_out_requests.html:5
+#: trips/templates/trips/in_out_requests.html:61
 msgid "My Requests"
 msgstr "Mes Commandes"
 
@@ -858,7 +944,7 @@ msgid "Trip information"
 msgstr "Informations sur Votre Voyage"
 
 #: trips/templates/trips/addtrip.html:254
-#: trips/templates/trips/in_out_requests.html:78
+#: trips/templates/trips/in_out_requests.html:79
 #: trips/templates/trips/mytrips.html:78
 msgid "Departure Date"
 msgstr "Date de Départ"
@@ -877,7 +963,7 @@ msgid "Return Trip: Departure Date"
 msgstr "Voyage Retour: Date de départ"
 
 #: trips/templates/trips/addtrip.html:289
-#: trips/templates/trips/in_out_requests.html:79
+#: trips/templates/trips/in_out_requests.html:80
 #: trips/templates/trips/mytrips.html:79 trips/templates/trips/voyage.html:49
 msgid "From"
 msgstr "Ville de départ"
@@ -888,7 +974,7 @@ msgid "Start typing in and select the city"
 msgstr "Commencer à écrire et choisissez une ville"
 
 #: trips/templates/trips/addtrip.html:305
-#: trips/templates/trips/in_out_requests.html:80
+#: trips/templates/trips/in_out_requests.html:81
 #: trips/templates/trips/mytrips.html:80 trips/templates/trips/voyage.html:63
 msgid "To"
 msgstr "Ville d'arrivée"
@@ -926,41 +1012,41 @@ msgstr "Changer la commission"
 msgid "Calculated Commission"
 msgstr "Commission Calculée"
 
-#: trips/templates/trips/in_out_requests.html:64
+#: trips/templates/trips/in_out_requests.html:65
 #: trips/templates/trips/mytrips.html:62
 msgid "Search..."
 msgstr "Recherche..."
 
-#: trips/templates/trips/in_out_requests.html:76
+#: trips/templates/trips/in_out_requests.html:77
 #: trips/templates/trips/mytrips.html:77
 msgid "Publication Date"
 msgstr "Date de Publication"
 
-#: trips/templates/trips/in_out_requests.html:77
+#: trips/templates/trips/in_out_requests.html:78
 msgid "Requester"
 msgstr "Acheteur"
 
-#: trips/templates/trips/in_out_requests.html:77
+#: trips/templates/trips/in_out_requests.html:78
 msgid "Traveler"
 msgstr "Voyageur"
 
-#: trips/templates/trips/in_out_requests.html:81
+#: trips/templates/trips/in_out_requests.html:82
 msgid "Requested Capacity"
 msgstr "Poids de Commande"
 
-#: trips/templates/trips/in_out_requests.html:82
+#: trips/templates/trips/in_out_requests.html:83
 msgid "Traveler Capacity"
 msgstr "Capacité du Voyageur"
 
-#: trips/templates/trips/in_out_requests.html:83
+#: trips/templates/trips/in_out_requests.html:84
 msgid "Status"
 msgstr "Statut"
 
-#: trips/templates/trips/in_out_requests.html:112
+#: trips/templates/trips/in_out_requests.html:113
 msgid "You did not receive any requests yet."
 msgstr "Vous n'avez reçu aucune commande pour le moment."
 
-#: trips/templates/trips/in_out_requests.html:112
+#: trips/templates/trips/in_out_requests.html:113
 msgid "You did not make any requests yet."
 msgstr "Vous n'avez rien commander pour l'instant."
 
@@ -1057,7 +1143,8 @@ msgid "Find a traveler"
 msgstr "Trouver un voyageur"
 
 #: trips/templates/trips/voyage.html:122
-#, python-format
+#, fuzzy, python-format
+msgctxt "month name"
 msgid "%(month)s"
 msgstr "%(month)s"
 

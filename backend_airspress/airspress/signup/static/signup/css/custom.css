@@ -160,16 +160,20 @@ font-size: 0.9em;
 	display:none !important;
 	visibility: hidden !important;
 }
+
 /* Conversation */
 #Conversation1{overflow-y:auto;max-height:50vh;}  
 .conversation-user img{width:100%}
+
 /* tabs */
+
 .nav.nav-tabs > li > a{color:#fff;}
 .nav.nav-tabs > li.active > a{color:#555;}
 .nav.nav-tabs{background-color:#FC9D0B;}
 
 
 /* buttons */
+
 .tab-content .btn-primary{
 	background-color:#FA9309;
 	border-color:#E28409;
@@ -178,20 +182,27 @@ font-size: 0.9em;
 p .btn.btn-primary:hover,p .btn.btn-primary:active, p .btn.btn-primary:focus, p .btn.btn-primary:visited {background-color:#d28206; border-bottom-color:#e81}
 
 /* Headers*/
+
 h1,h2,h3,h4,h6,header{font-family:'Museo-500'}
+
 /* text blocks */
+
 .conversation-wrapper .conversation-body > .name{font-size:0.7em;}
 
 /* ICONS */
+
 ul.dropdown-menu i.fa{font-size:1.1em;}
 .fa.small{font-size:83%}
 .fa.fa-times{font: 14px/1 FontAwesome; color:white;}
 .input-group .input-group-addon i{color:#e81}
 .form-control-feedback{opacity:0.6}
+
 /* images */
+
 #user-profile  .main-box-body .profile-img{max-width:80%;}
 
 /* media queries */
+
 @media screen and (max-width: 950px) {
 ul.dropdown-menu i{font-size:1.1em;}
 ul.dropdown-menu i.fa{font-size:0.7em;}
@@ -199,6 +210,8 @@ ul.dropdown-menu span.glyphicon{font-size:0.7em}
 }
 @media (max-width: 768px) {
 .navbar-nav>li.open>.dropdown-menu{margin-left:-200%;}
+#content-wrapper .container-fluid{padding-left:0; padding-right:0;}
+#loginModal .footer a{font-size:1.7em !important}
 }
 @media screen and (max-width: 400px) {
 .navbar-nav>li.open>.dropdown-menu{margin-left:-200%;}

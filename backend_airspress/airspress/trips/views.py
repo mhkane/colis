@@ -7,7 +7,6 @@ from signup.schemes import is_logged_in
 from trips.forms import searchForm, requestForm
 from string import split
 from account.actions import get_profile_pic, notify
-from datetime import datetime
 from django.utils import timezone
 from parse_rest.query import QueryResourceDoesNotExist
 
