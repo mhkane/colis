@@ -122,6 +122,7 @@ def get_user_info(cUser, request, user_id='',username=''):
         is_cuser = False
         member_since=''
         reviews_dict={}
+        user_trips = {}
         try:
             anyUser = User.Query.get(objectId=user_id) if user_id else User.Query.get(username=username)
             user_id = anyUser.objectId
@@ -143,7 +144,6 @@ def get_user_info(cUser, request, user_id='',username=''):
                                                  'pub_date':any_review.createdAt.date().strftime('%b %d %Y')}
             is_verified = anyUser.emailVerified
             anyTrips = trip.Query.filter(traveler= anyUser)
-            user_trips = {}
             for anyTrip in anyTrips :
                 k = k + 1
                 
