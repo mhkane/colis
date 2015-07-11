@@ -510,6 +510,8 @@ def edit_profile(request, section):#todo last man standing
                     try:
                         #update on Parse
                         cUser.screenName = general_form.cleaned_data.get('screen_name', False) or cUser.screenName
+
+                        cUser.secondMail = general_form.cleaned_data.get('second_mail', False) or cUser.secondMail
                         
                         cUser.timeZone = general_form.cleaned_data.get('time_zone', False) or cUser.timeZone
                    
@@ -537,6 +539,7 @@ def edit_profile(request, section):#todo last man standing
                 try:
                     proDict.update({'pPicture':get_profile_pic(cUser.objectId)})
                     proDict.update({'screen_name':cUser.screenName}) 
+                    proDict.update({'second_mail':cUser.secondMail})
                 except AttributeError:
                     pass       
                 context_dic = {'greetings':cUser.username,'myPicture':get_profile_pic(cUser.objectId), 

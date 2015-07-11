@@ -110,6 +110,7 @@ def get_user_info(cUser, request, user_id='',username=''):
         pass
     if user_id or username:
         screen_name=''
+        second_mail=''
         pPicture=''
         anyName = '' if user_id else username
         anyMail = ''
@@ -128,6 +129,7 @@ def get_user_info(cUser, request, user_id='',username=''):
             pPicture = get_profile_pic(anyUser.objectId)
             anyName = anyUser.username
             anyMail = anyUser.email
+            second_mail = anyUser.secondMail
             member_since_month = anyUser.createdAt.strftime("%B")
             member_since_year = anyUser.createdAt.year
             member_since = _('%(member_since_month)s %(member_since_year)s ') % (member_since_month, member_since_year)
@@ -187,7 +189,7 @@ def get_user_info(cUser, request, user_id='',username=''):
          
        
         # let's get everything in a dict object
-        proDict={'id':user_id,'username':anyName, 'screen_name':screen_name,'is_verified':is_verified, 'is_cuser':is_cuser, 'email':anyMail, 'Bio':anyBio, 
+        proDict={'id':user_id,'username':anyName, 'screen_name':screen_name,'second_mail':second_mail, 'is_verified':is_verified, 'is_cuser':is_cuser, 'email':anyMail, 'Bio':anyBio, 
                  'rating':anyRating, 'total_deliveries':total_deliveries, 'total_orders':total_orders, 'pPicture':pPicture,
                  'total_reviews':total_reviews, 'reviews':reviews_dict, 'member_since':member_since,'trips':user_trips}
         if is_cuser:

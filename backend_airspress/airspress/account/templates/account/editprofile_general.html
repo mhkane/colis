@@ -19,6 +19,14 @@
 								</p>
 							</div>
 
+							<div class="form-group">
+								<label for="second_mail">{% trans "Favorite mail" %}</label>
+								<input type="text" name="{{general_form.second_mail.name}}" class="form-control" id="second_mail" placeholder="Your favorite email">
+								<p class="help-block">
+									{% firstof general_form.second_mail.errors general_form.second_mail.help_text %}
+								</p>
+							</div>	
+
 			
 							
 							<div class="form-group">
