@@ -12,7 +12,7 @@ from signup.backend_parse import review, referral, Notifications
 from parse_rest.installation import Push
 from trips.crtrips import priceCalc, trip, price_format
 from moneyed.classes import Money
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 class request(ParseObject):
     pass
@@ -110,7 +110,6 @@ def get_user_info(cUser, request, user_id='',username=''):
         pass
     if user_id or username:
         screen_name=''
-        second_mail=''
         pPicture=''
         anyName = '' if user_id else username
         anyMail = ''
@@ -123,16 +122,16 @@ def get_user_info(cUser, request, user_id='',username=''):
         is_cuser = False
         member_since=''
         reviews_dict={}
+        user_trips = {}
         try:
             anyUser = User.Query.get(objectId=user_id) if user_id else User.Query.get(username=username)
             user_id = anyUser.objectId
             pPicture = get_profile_pic(anyUser.objectId)
             anyName = anyUser.username
             anyMail = anyUser.email
-            second_mail = anyUser.secondMail
             member_since_month = anyUser.createdAt.strftime("%B")
             member_since_year = anyUser.createdAt.year
-            member_since = _('%(member_since_month)s %(member_since_year)s ') % (member_since_month, member_since_year)
+            member_since = {'month':member_since_month, 'year':member_since_year}#_('%(member_since_month)s %(member_since_year)s ') % (_(member_since_month), _(member_since_year))
             
             anyReviews = review.Query.filter(reviewedUser=anyUser)
             
@@ -145,7 +144,6 @@ def get_user_info(cUser, request, user_id='',username=''):
                                                  'pub_date':any_review.createdAt.date().strftime('%b %d %Y')}
             is_verified = anyUser.emailVerified
             anyTrips = trip.Query.filter(traveler= anyUser)
-            user_trips = {}
             for anyTrip in anyTrips :
                 k = k + 1
                 
@@ -189,7 +187,7 @@ def get_user_info(cUser, request, user_id='',username=''):
          
        
         # let's get everything in a dict object
-        proDict={'id':user_id,'username':anyName, 'screen_name':screen_name,'second_mail':second_mail, 'is_verified':is_verified, 'is_cuser':is_cuser, 'email':anyMail, 'Bio':anyBio, 
+        proDict={'id':user_id,'username':anyName, 'screen_name':screen_name,'is_verified':is_verified, 'is_cuser':is_cuser, 'email':anyMail, 'Bio':anyBio, 
                  'rating':anyRating, 'total_deliveries':total_deliveries, 'total_orders':total_orders, 'pPicture':pPicture,
                  'total_reviews':total_reviews, 'reviews':reviews_dict, 'member_since':member_since,'trips':user_trips}
         if is_cuser:
