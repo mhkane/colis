@@ -106,6 +106,7 @@ def signup(request, provider_name):
         registerView=registerForm()
         return render(request,'signup/signup.html',{'registerView':registerView,})
     elif provider_name == "referral":#referral
+        alert = {}
         if request.method == "POST":
             #referred user is already on the referral signup page
             #and he's signing up
@@ -120,11 +121,11 @@ def signup(request, provider_name):
                     # clear form only if success because...
                     # ...Not every one love filling forms a dozen time, unless you're a robot ;)
                     ref_regView=registerForm()
-                    return render(request, 'signup/register_success.html',{'alert':alert})
+                    return render(request, 'signup/register_success.html', {'alert':alert})
  
         #Throwing back form on page with errors, alerts
             else:
-                print registerView.errors
+                print ref_regView.errors
             if request.is_ajax():
                 return render(request,'signup/signup_ajx.html',
                     {'ref_regView':ref_regView,

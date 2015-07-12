@@ -24,7 +24,7 @@
 											</div>
 											
 											<div class="profile-since">
-												{% trans "Member since:" %} {{userinfo.member_since}}
+												{% trans "Member since:" %} {% trans userinfo.member_since.month %} {{userinfo.member_since.year}}
 											</div>
 											
 											<div class="profile-details">

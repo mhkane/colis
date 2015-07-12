@@ -12,9 +12,8 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 from django.conf import global_settings
 from authomatic.providers import oauth2
-from django.conf.global_settings import SESSION_ENGINE
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -24,19 +23,41 @@ SECRET_KEY = 'spb_fb$xf-vyc&*^n_^ur2#mgjk32!#+3cmvs&0mr70h!=_0@2'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 PRODUCTION = True
+
 try:
     from airspress.local_settings import PRODUCTION
 except:
     pass
 
-DEBUG = True
+DEBUG = False
+if not PRODUCTION:
+    DEBUG = True
 COMPRESS_ENABLED = True
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 
-ALLOWED_HOSTS = []
+# Web app admins which receive error logs
+ADMINS = (('Team','team@airspress.com'),('konoufo','konoufo1@gmail.com'),('hassan','hassanmohamed0407@gmail.com'))
+
+#Email Backend
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# Host for sending e-mail.
+EMAIL_HOST = 'mail.airspress.com'
+DEFAULT_FROM_EMAIL = 'bugs@airspress.com'
+# Port for sending e-mail.
+EMAIL_PORT = 26
+
+# Optional SMTP authentication information for EMAIL_HOST.
+EMAIL_HOST_USER = 'team@airspress.com'
+EMAIL_HOST_PASSWORD = '@1rm@r$i@'
+EMAIL_USE_TLS = False
+
+# Only Allowed HOSTs for the airspress webapp
+ALLOWED_HOSTS = ['.falconfake.com','.airspress.com','127.0.0.1']
 
 TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
     "django.core.context_processors.request",
+    "account.schemes.get_notifications"
 )
 STATICFILES_FINDERS = (
                        'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -70,6 +91,7 @@ INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -108,6 +130,15 @@ else:
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
+ugettext = lambda s : s
+
+LANGUAGES = [
+  ('fr', ugettext('French')),
+  ('en', ugettext('English')),
+]
+
+SITE_ROOT = os.path.dirname(os.path.realpath(__name__))
+LOCALE_PATHS = ( os.path.join(SITE_ROOT, 'locale'), '/home/konoufo/airspress/locale' )
 
 LANGUAGE_CODE = 'en-us'
 
@@ -132,9 +163,9 @@ PAYPAL_MODE='sandbox' #or 'live'
 PAYPAL_ID = 'AasK0xBGMLG8RARnY-SwXrdw_hCADnC2qCYjoPaNHDWIJSrcPvF0J10eyT4t'
 PAYPAL_SECRET ='EJqwBRDBF932t3jOO--kd23etAlxcFS-3Tys717xJkW7s1CPdU34ThvQo4bv'
 # PARSE APPLICATION KEYS
-APPLICATION_ID = ""
-REST_API_KEY = ""
-MASTER_KEY = ""
+APPLICATION_ID = "9GC4ybpn3PxuHyfCm3JKQZXyC1WBNuiTzhRcTHo6"
+REST_API_KEY = "asSPhJ5AV70NOyohcnRWLqXWtL5OrVNZV68yq6Tu"
+MASTER_KEY = "0LKTon71YDWkR0DFyf8yG67E6w19bQUIjlwn58t6"
 #FACEBOOK login CONFIG
 consumer_secret = '5f199d47d0bd5ea9f7f9a6c379a4d139'
 consumer_key = '1537229933223161'

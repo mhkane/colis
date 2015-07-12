@@ -150,9 +150,12 @@
 						target = event.target || event.srcTarget;
 						$(target.getAttribute('href')).tab('show');
 						console.log(target.getAttribute('href', 2));
-						list_item = '<li class="active"><a href="'+target.getAttribute('href',2)+'" data-toggle="tab">New Item</a></li>';
-						$('#itemList li').removeClass('active');
-						$('#itemList').append($(list_item));
+						var ItemAll = document.querySelectorAll('#itemList li').length
+						if (ItemAll < 3){
+							list_item = '<li class="active"><a href="'+target.getAttribute('href',2)+'" data-toggle="tab">New Item</a></li>';
+							$('#itemList li').removeClass('active');
+							$('#itemList').append($(list_item));
+						}
 					}
 					function deleteItem(ele){
 						$(ele).find(':input').each(function() {

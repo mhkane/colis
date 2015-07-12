@@ -1,6 +1,21 @@
 @import url('font-awesome.min.css');
 /* This contains additional customisations that are used for
 	the "real" website not the presentation website */
+
+/* Deprecated but delete with care */
+	.container{
+		height:100%;
+	}
+	.slogan{text-align:center;}
+	table {background-color:#fff}
+	li i{padding-right:2px;}
+	a.sidebar-brand{color:#fff}
+	.fb-signin{background-color:#3B5998; color:#fff}
+	div.modal-dialog.modal-sm{height:350px}
+
+	.board-right{float:right;width:20%;}
+/* End Deprecated */
+
 html,body
 {
     height:100%;
@@ -10,28 +25,32 @@ html{
 overflow-x:hidden;
 }
 body{background-color: rgba(0,0,0,0.03);}
-/* background image*/
-img#bg-inline {
-  /* fill background */
-  min-height: 100%;
-  min-width: 1024px;
-	
-  /* proportionate scaling */
-  width: 100%;
-  height: auto;
-	
-  /* fixed positioning */
-  position: fixed;
-  top: 0;
-  left: 0;
-}
 
-@media screen and (max-width: 1024px) { /* Specific to this particular image */
-  img#bg-inline {
-    left: 50%;
-    margin-left: -512px;   /* 50% */
-  }
-}
+ul{list-style-type:none;}
+
+/* background image*/
+	img#bg-inline {
+	  /* fill background */
+	  min-height: 100%;
+	  min-width: 1024px;
+		
+	  /* proportionate scaling */
+	  width: 100%;
+	  height: auto;
+		
+	  /* fixed positioning */
+	  position: fixed;
+	  top: 0;
+	  left: 0;
+	}
+
+	@media screen and (max-width: 1024px) { /* Specific to this particular image */
+	  img#bg-inline {
+		left: 50%;
+		margin-left: -512px;   /* 50% */
+	  }
+	}
+	
 /* Default Text Blocks*/
 h1{font-size:2.2em;}
 h2{font-size:1.8em}
@@ -42,25 +61,9 @@ h3{font-size:1.6em}
 box-shadow: 0 3px 2px -2px rgba(200,200,200,0.3);
 }
 
-/* logo */
+/* LOGO */
 .container .navbar-header .navbar-brand {padding-top:5px; margin-left:15px}
-.container{height:50px}
 .navbar-brand img{height:40px;}
-/* END -- logo */
-
-.container{
-    height:100%;
-}
-.slogan{text-align:center;}
-table {background-color:#fff}
-li i{padding-right:2px;}
-a.sidebar-brand{color:#fff}
-.fb-signin{background-color:#3B5998; color:#fff}
-div.modal-dialog.modal-sm{height:350px}
-
-.board-right{float:right;width:20%;}
-
-ul{list-style-type:none;}
 
 /* trip listings */
 .travelUser{text-align:center; }
@@ -79,32 +82,50 @@ ul{list-style-type:none;}
 .price-details{overflow:auto;}
 p.unit-price{text-align:center; font-family: Museo-500; font-size:14px; color:green;}
 div.caption{padding-right:5px;}
-/* forms */
-.help-block{font-size:0.5em;}
-/* form search trip */
-#findRow{width: 108%;
-margin-top: -5px;
-margin-left: -1.5em;
-/* margin-right: -65px; */
-padding-right: 5%;
-padding-left: 5%;
-padding-bottom: 2em;
-margin-bottom:1em;}
-#search_form{
-	padding-top: 1.9em;
-	padding-left: 0.9em;
-}
-.btn-search{margin-top:10px}
-.format-add-trip{margin-left:150px;}
-.form-add-trip .form-group {padding-top:30px;}
-.form-req-trip .help-block {margin-bottom:0;}
-.form-req-trip .form-group {padding-top:20px;}
-.form-req-trip>.input-group{ width:30%;}
-form .comment{width:80%;}
-.form-add-trip .form-group .input-group{width:90%;}
-.form-add-trip .fa {font-size:14px;}
-#search_form label h2{font-family:'Museo-500'; font-weight:bold; color:#e86}
 
+/* FORMS */
+.help-block{font-size:0.5em;}
+	
+	/* form search trip */
+	
+	#findRow{width: 108%;
+	margin-top: -5px;
+	margin-left: -1.5em;
+	padding-right: 5%;
+	padding-left: 5%;
+	padding-bottom: 2em;
+	margin-bottom:1em;}
+	#search_form{
+		padding-top: 1.9em;
+		padding-left: 0.9em;
+	}
+	.btn-search{margin-top:10px}
+	.format-add-trip{margin-left:150px;}
+	.form-add-trip .form-group {padding-top:30px;}
+	.form-req-trip .help-block {margin-bottom:0;}
+	.form-req-trip .form-group {padding-top:20px;}
+	.form-req-trip>.input-group{ width:30%;}
+	form .comment{width:80%;}
+	.form-add-trip .form-group .input-group{width:90%;}
+	.form-add-trip .fa {font-size:14px;}
+	#search_form label h2{font-family:'Museo-500'; font-weight:bold; color:#e86}
+
+	/* form request on trip */
+	#modal-form.form-req-trip label{
+		font-size: 0.75em;
+		line-height: .7;
+	}
+	#modal-form.form-req-trip .input-group{
+		margin-bottom: .2em;
+	}
+	#modal-form.form-req-trip input[type="text"], #modal-form.form-req-trip input[type="number"]{
+		line-height: .7;
+		margin-bottom: 0;
+	}
+	#modal-form.form-req-trip .help-block{
+		line-height: .8;
+		margin-top: 0;
+	}
 /* Navbar */
 a.navbar-brand{margin-left:50px;}
 nav.navbar-static-top .container{width:100%; margin-right:0; padding-left:0;}
@@ -147,8 +168,8 @@ margin-right: -0.5em;
 .btn.btn-signup{background-color:#E89C39;border-color:#e58811;color:#f9f9f9; display:block; margin-left:auto; margin-right:auto;}
 .alert{padding:5px;margin-top:5px;padding-left:15px;padding-right:25px;}
 #notification{max-width:60%;opacity:0.7;}
-/* tables */
 
+/* tables */
 .table-responsive .table tbody > tr > td {
   font-size: 0.65em;
  }
@@ -156,42 +177,63 @@ margin-right: -0.5em;
 font-size: 0.9em;
 }
 		/* search table */
-#table1_filter{
-	display:none !important;
-	visibility: hidden !important;
-}
+			#table1_filter{
+				display:none !important;
+				visibility: hidden !important;
+			}
+
 /* Conversation */
 #Conversation1{overflow-y:auto;max-height:50vh;}  
 .conversation-user img{width:100%}
-/* tabs */
+
+/* Tabs */
+
 .nav.nav-tabs > li > a{color:#fff;}
 .nav.nav-tabs > li.active > a{color:#555;}
 .nav.nav-tabs{background-color:#FC9D0B;}
 
+	/* tabs request modal */
+		.nav-pills > li {
+			display:inline-block;
+		}
+		.nav-pills > li > a {
+		  padding: 0.1em;
+		  padding-left: .4em;
+		  padding-right: .4em;
+		  border-radius: .1em;
+		}
 
-/* buttons */
-.tab-content .btn-primary{
-	background-color:#FA9309;
-	border-color:#E28409;
-}
-.noborder{border-bottom:none !important;}
-p .btn.btn-primary:hover,p .btn.btn-primary:active, p .btn.btn-primary:focus, p .btn.btn-primary:visited {background-color:#d28206; border-bottom-color:#e81}
+	/* tabs buttons */
+
+	.tab-content .btn-primary{
+		background-color:#FA9309;
+		border-color:#E28409;
+	}
+	.noborder{border-bottom:none !important;}
+	p .btn.btn-primary:hover,p .btn.btn-primary:active, p .btn.btn-primary:focus, p .btn.btn-primary:visited {background-color:#d28206; border-bottom-color:#e81}
 
 /* Headers*/
+
 h1,h2,h3,h4,h6,header{font-family:'Museo-500'}
+
 /* text blocks */
+
 .conversation-wrapper .conversation-body > .name{font-size:0.7em;}
 
 /* ICONS */
+
 ul.dropdown-menu i.fa{font-size:1.1em;}
 .fa.small{font-size:83%}
 .fa.fa-times{font: 14px/1 FontAwesome; color:white;}
 .input-group .input-group-addon i{color:#e81}
 .form-control-feedback{opacity:0.6}
+
 /* images */
+
 #user-profile  .main-box-body .profile-img{max-width:80%;}
 
 /* media queries */
+
 @media screen and (max-width: 950px) {
 ul.dropdown-menu i{font-size:1.1em;}
 ul.dropdown-menu i.fa{font-size:0.7em;}
@@ -199,6 +241,8 @@ ul.dropdown-menu span.glyphicon{font-size:0.7em}
 }
 @media (max-width: 768px) {
 .navbar-nav>li.open>.dropdown-menu{margin-left:-200%;}
+#content-wrapper .container-fluid{padding-left:0; padding-right:0;}
+#loginModal .footer a{font-size:1.7em !important}
 }
 @media screen and (max-width: 400px) {
 .navbar-nav>li.open>.dropdown-menu{margin-left:-200%;}

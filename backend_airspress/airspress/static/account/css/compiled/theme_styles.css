@@ -1383,7 +1383,7 @@ h3 .small {
 }
 
 /* BUTTONS */
-.btn:not(.btn-success) {
+.btn:not(.btn-success):not(.btn-info) {
   border: none;
   /*padding: 6px 12px; OVERRIDED*/
   border-bottom: 4px solid;

@@ -1,11 +1,11 @@
 function distance_havesin(lat1, lon1, lat2, lon2) {
-  var R = 6371; // Earth radius in kilometers
+  var R = 6371 * 1000; // Earth radius in meters
   var a = 
      0.5 - Math.cos((lat2 - lat1) * Math.PI / 180)/2 + 
      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
      (1 - Math.cos((lon2 - lon1) * Math.PI / 180))/2;
 
-  return priceComp(Math.abs(R * 2 * Math.asin(Math.sqrt(a)) * 1000));
+  return priceComp(Math.abs(R * 2 * Math.asin(Math.sqrt(a)) ));
 };
 function distancePrice(){
 	// Get the two locations geographical constants
@@ -31,19 +31,28 @@ function priceComp(distance_meters){
 	var price = 0;
 	if (distance_meters) {
 		if (distance_meters < 1000000) {
-			price = 7;
+			price = 5;
 		} else if (distance_meters < 2000000) {
-			price = 10;
+			price = 8;
 		} else if (distance_meters < 4000000) {
+			price = 12;
+		} else if (distance_meters < 8000000) {
 			price = 15;
-		} else if (distance_meters < 6000000) {
+		} else if (distance_meters > 8000000) {
 			price = 17;
-		} else if (distance_meters > 6000000) {
-			price = 20;
 		};
 	};	
 	return price
 };
+function getQuery(event) {
+	var target  = event.target;
+	var query = target.value;
+	if (target.id == "location1") {
+		$('input[name="cityDep"]').val(query);
+	} else if (target.id == "location2") {
+		$('input[name="cityArr"]').val(query);
+	}
+}
 function findComponent(result, type) {
   var component = _.find(result.address_components, function(component) {
     return _.include(component.types, type);
@@ -85,4 +94,9 @@ $(document).ready(function() {
 					$('input[name="cityArr"]').val(city + ", " + state + ", " + country)
 			} else { $('input[name="cityArr"]').val(city + ", " + country );};
 		});
+		
+		// This part of the code give more usability to search feature
+		// User should be able to query for any word without selecting one of Google Api propositions
+		$('#location1').on('change', getQuery);
+		$('#location2').on('change', getQuery);
 		});

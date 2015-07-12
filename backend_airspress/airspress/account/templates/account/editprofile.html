@@ -1,7 +1,8 @@
 {% extends "trips/account_base.html" %}
 <!-- We include base template for account related pages. And we fill the blocks -->
+{% load i18n %}
 {% load staticfiles %}
-{% block title %} Add a trip {% endblock title %}
+{% block title %} {{greetings}} {% endblock title %}
 <!-- Stylesheets -->
 	{% block stylesheet %}
 		
@@ -94,10 +95,10 @@ $("#InputPicture").change(function(){
 									<div class="main-box clearfix">
 										<div class="tabs-wrapper profile-tabs">
 											<ul class="nav nav-tabs">
-												<li class="active"><a href="#tab-general" data-toggle="tab">General</a></li>
+												<li class="active"><a href="#tab-general" data-toggle="tab">{% trans "General" %}</a></li>
 												<!-- <li><a href="#tab-social" data-toggle="tab">Social</a></li> -->
 												
-												<li><a href="#tab-security" data-toggle="tab">Security</a></li>
+												<li><a href="#tab-security" data-toggle="tab">{% trans "Security" %}</a></li>
 												<!-- <li><a href="#tab-payment" data-toggle="tab">Payment</a></li> -->
 												
 											</ul>

@@ -70,7 +70,7 @@ $.ajax({
 
 window.onload = function(){
 // Get a reference to messages
-var ref = new Firebase("https://radiant-torch-2520.firebaseio.com/{% firstof firebase_node %}");
+var ref = new Firebase("https://radiant-torch-2520.firebaseio.com/{% firstof firebase_node %}"); // Deal Page messaging
 var ref2 = new Firebase("https://radiant-torch-2520.firebaseio.com/data/directMessaging/conversations/{{source_id}}"); 
 // Define Generated Token
 var AUTH_TOKEN = "{{firebase_token}}";
@@ -133,7 +133,7 @@ document.getElementById('NewMessage1').onkeydown = function Shidori(e) {
 	
 	}
 };
-// Get the data on current messages and on new messages
+// Get the data on current messages and on new messages; Limited to last 10 messages
 ref.limitToLast(10).on("child_added", function(snapshot) {
   var newMessage = snapshot.val();
   // Conversation list of messages 
@@ -141,25 +141,14 @@ ref.limitToLast(10).on("child_added", function(snapshot) {
   var wrapper = document.getElementById('WrapperConversation1');
   // new Message element
   var snippet = '';
-  var part1 = '<div class="conversation-item item-left clearfix">\
-						<div class="conversation-user">\
-							<img class="hidden-xs" src=" {% if dealInfo.istraveler %} {{reqUser.picture}} {% else %} {% firstof travelUser.picture userinfo.pPicture %} {% endif %} " alt=""/>\
-						</div>\
-						<div class="conversation-body">\
-							<div class="name hidden-xs"> {% if dealInfo.istraveler %} {{reqUser.username}} {% else %} {% firstof travelUser.username userinfo.username %} {% endif %} </div>\
-							<div class="time hidden-xs">';
-  var part11 = '<div class="conversation-item item-right clearfix">\
-						<div class="conversation-user">\
-							<img class="hidden-xs" src=" {% if not dealInfo.istraveler %} {% firstof reqUser.picture myPicture %} {% else %} {{travelUser.picture}} {% endif %} " alt=""/>\
-						</div>\
-						<div class="conversation-body">\
-							<div class="name hidden-xs"> {% if not dealInfo.istraveler %} {% firstof reqUser.username greetings %} {% else %}  {{travelUser.username }} {% endif %} </div>\
-							<div class="time hidden-xs">';	
+  var part1 = {% include 'account/snippet_convo_remote.html' %};
+  var part11 = {% include 'account/snippet_convo_current.html' %};	
   var part2 = '</div>\
-							<div class="text">';
-  var part3 = 	'</div>\
-						</div>\
-					</div>';
+				<div class="text">';
+							
+  var part3 = 	'		</div>\
+					</div>\
+				</div>';
   if (newMessage.sender == "{{current_user_id}}"){
 		snippet = part11 + newMessage.pub_date + part2 + newMessage.text + part3;
   } else {

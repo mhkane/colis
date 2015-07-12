@@ -144,8 +144,7 @@
 														</div>
 														<div class="form-group">
 															<label for="InputMessage1"><strong>{% trans "Personal Message" %}</strong> {% trans "(Optional)" %}</label>
-															<textarea type="text" name="{{ referral_form.message.name }}" class="form-control" id="InputMessage1" placeholder="{% strip %}{{referral_form.message.help_text}}{% endstrip %}">
-															</textarea>
+															<textarea type="text" name="{{ referral_form.message.name }}" class="form-control" id="InputMessage1" placeholder="{% trans referral_form.message.help_text %}"></textarea>
 															<p class="help-block">
 															{% firstof referral_form.message.errors %}
 															</p>

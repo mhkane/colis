@@ -1,5 +1,5 @@
 from django import forms
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from signup.forms import change_passForm
 
 TIME_ZONE_CHOICES = (
@@ -39,7 +39,7 @@ class referralForm(forms.Form):
     referred_email = forms.EmailField(help_text=_("Your friend email address"))
     message = forms.CharField(required=False, 
                               help_text=_("""Hello, I've been using Airspress and i think it's very useful, fun 
-                              and definitly worth trying.""".lstrip()))
+                              and definitely worth trying.""".lstrip()))
 #change password in account settings
 class settings_form_password(change_passForm):
     current_pass = forms.CharField(help_text=_("This old password you want to change..."))
@@ -47,7 +47,6 @@ class settings_form_password(change_passForm):
 class settings_form_general(forms.Form):
     screen_name = forms.CharField(max_length=10, required=False)
     time_zone = forms.ChoiceField(required=False, choices=TIME_ZONE_CHOICES)
-    second_email = forms.CharField(required=False)
 # profile picture setting
 class settings_form_picture(forms.Form):
     profile_picture = forms.ImageField(help_text="2mb max.", required=False)

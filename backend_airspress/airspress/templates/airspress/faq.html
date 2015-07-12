@@ -9,7 +9,9 @@
 							 <div class="col-md-12">
 								<h3>{% trans "Frequently" %}</h3>
 								<h1 class="mb">{% trans "Asked Questions" %}</h1>
-								
+								{% if not greetings %}
+								<button class="btn btn-primary btn-lg" href="#signupModal" data-toggle="modal" style="font-weight:bold;">{% trans "Sign Up" %}</button>
+								{% endif %}
 							</div>
 						</header>
 					</div>

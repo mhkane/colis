@@ -18,7 +18,7 @@ from texto_airspress.schemes import auth_client, create_conversation,\
     retrieve_conversation
 from django.utils.datastructures import MultiValueDictKeyError
 from django.views.decorators.csrf import ensure_csrf_cookie
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 # Create your views here.
 def addTrip(request):
     '''
@@ -510,8 +510,6 @@ def edit_profile(request, section):#todo last man standing
                     try:
                         #update on Parse
                         cUser.screenName = general_form.cleaned_data.get('screen_name', False) or cUser.screenName
-
-                        cUser.secondMail = general_form.cleaned_data.get('second_mail', False) or cUser.secondMail
                         
                         cUser.timeZone = general_form.cleaned_data.get('time_zone', False) or cUser.timeZone
                    
@@ -539,7 +537,6 @@ def edit_profile(request, section):#todo last man standing
                 try:
                     proDict.update({'pPicture':get_profile_pic(cUser.objectId)})
                     proDict.update({'screen_name':cUser.screenName}) 
-                    proDict.update({'second_mail':cUser.secondMail})
                 except AttributeError:
                     pass       
                 context_dic = {'greetings':cUser.username,'myPicture':get_profile_pic(cUser.objectId), 
