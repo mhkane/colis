@@ -2,7 +2,7 @@
 var client = require('twilio')('ACaf4280d3ec4f919c4e6615071a051620', '95b47b527b742f7cb9ef16ea051e57b9' );
 
 
-Parse.Cloud.define("email", function(request, response) {
+Parse.Cloud.define("sms", function(request, response) {
 // Require and initialize the Twilio module with your credentials
 var client = require('twilio')('ACCOUNT_SID', 'AUTH_TOKEN');
 
