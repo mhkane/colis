@@ -30,10 +30,10 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<ul id="itemList" class="nav nav-pills hidden-xs">
-				<li class="active"><a href="#item1" data-toggle="tab">Item 1</a></li>
+				<li id="firstItem" class="active"><a href="#item1" data-toggle="tab">Item 1</a></li>
 				
 			</ul>
-		<div class="tab-content">
+		<div id="itemTabs" class="tab-content">
 			
 			{% for requestForm in request_set.forms %}
 				<div class="tab-pane {% if not forloop.first %} fade {% else %} active {% endif %} {% if requestForm.errors %} in {% endif %}" id="item{{forloop.counter}}">
@@ -88,7 +88,7 @@
 								
 								<div class="clearfix"></div>
 								<div class="col-md-12">
-									<a class="btn btn-success pull-right" data-toggle="tab" href="#item{{forloop.counter}}_end"></a>
+									<a class="btn btn-success pull-right" data-toggle="tab" href="#item{{forloop.counter}}_end">{% trans "Next" %}</a>
 								</div>
 							</div> <!-- nested row -->
 						</div> <!-- nested tab-pane-->
@@ -138,9 +138,9 @@
 					</div>
 					
 					<div class="row">
-						<a style="margin:auto;" href="#item{{forloop.counter|add:'1'}}" data-toggle="tab" onclick="return addNewItem(event)" class="btn btn-info" >{% trans "Add new item" %}</a>
+						<a style="margin:auto;" onclick="return addNewItem(event)" class="btn btn-info" >{% trans "Add new item" %}</a>
 						<input type="submit"  class="btn btn-primary noborder" value="{% trans 'Done' %}" />
-						<a href="#item{{forloop.counter|add:'-1'}}" data-toggle="tab" onclick="return deleteItem('#item{{forloop.counter}}')" class="btn btn-info pull-right" >{% trans "Cancel" %}</a>
+						<a href="#item1" data-toggle="tab" onclick="return deleteItem('#item{{forloop.counter}}')" class="btn btn-info pull-right" >{% trans "Cancel" %}</a>
 					</div>
 				</div>
 				
@@ -148,13 +148,24 @@
 				<script>
 					function addNewItem(event){
 						target = event.target || event.srcTarget;
-						$(target.getAttribute('href')).tab('show');
-						console.log(target.getAttribute('href', 2));
-						var ItemAll = document.querySelectorAll('#itemList li').length
-						if (ItemAll < 3){
-							list_item = '<li class="active"><a href="'+target.getAttribute('href',2)+'" data-toggle="tab">New Item</a></li>';
-							$('#itemList li').removeClass('active');
-							$('#itemList').append($(list_item));
+						//$(target.getAttribute('href')).tab('show');
+						var maxNItem = 2;
+						var ItemAll = document.querySelectorAll('#itemList li').length;
+						var newItem;
+						for (var i=1; i <= maxNItem; i++){
+							newItem = '#item'+i;
+							if ($('#itemList').find('li').has('a[href='+newItem+']').length){
+								console.log('item'+i+' already added')
+								
+							} else {
+								$('#itemTabs').children('.tab-pane').removeClass('active').addClass('fade');
+								$(newItem).addClass('active').removeClass('fade');
+								list_item = '<li class="active"><a href="'+newItem+'" data-toggle="tab">Item'+i+'</a></li>';
+								$('#itemList li').removeClass('active');
+								$(list_item).appendTo($('#itemList')).find('a').click();
+								console.log('New item'+i+' added!');
+								break;
+							};
 						}
 					}
 					function deleteItem(ele){
@@ -172,8 +183,12 @@
 									this.checked = false;
 							}
 						});
+						if (ele == '#item0'){
+							return False;
+						};
 						list_element = $('#itemList').find('li').has('a[href="'+ele+'"]');
-						list_element.prev().addClass('active');
+						$('#itemList').find('li').removeClass('active');
+						document.getElementById("firstItem").classList.add('active');
 						list_element.remove();
 					}
 				</script>
