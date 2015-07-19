@@ -194,3 +194,6 @@ SESSION_SECURITY_EXPIRE_AFTER = 1380
 if not PRODUCTION:
     FILE_UPLOAD_DIR = 'C:/Users/-/Downloads/Poject/backend/airspress/media'
     STATIC_ROOT = 'c:/Users/-/Downloads/Poject/backend/airspress/static'
+#TWILIO Settings
+TWILIO_ACCOUNT_SID = "ACaf4280d3ec4f919c4e6615071a051620" 
+TWILIO_AUTH_TOKEN = "95b47b527b742f7cb9ef16ea051e57b9" 

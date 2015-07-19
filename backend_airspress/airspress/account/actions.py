@@ -407,7 +407,6 @@ def notify(request, source, origin, target, target_id, email, text="", link="", 
         link = request.build_absolute_uri(link)
         main = origin + " just sent you a request, you can accept, check request details and carry on with the process."
         subject = header + ': ' + origin
-        
         send_template(template_name=template_name,var_header=header, var_user = user, var_info=info, var_title=title,
                   var_main = main, var_action=action, subject=subject, email = email, 
                   from_name='Airspress',from_email = 'no-reply@airspress.com')
