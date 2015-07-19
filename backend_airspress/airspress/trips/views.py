@@ -19,9 +19,6 @@ def fbPicture(request):
 def activeTrips(request):
     cUser = is_logged_in(request)
     if cUser:
-        send_message = Function("sms")
-        print send_message
-        sms_result= send_message(sms_body="Hello World",to_number="+15618185988")
         allTrips = trip.Query.filter(departureDate__gte=timezone.now()).order_by("departureDate")
         page_one = allTrips.limit(25)
         k = 0

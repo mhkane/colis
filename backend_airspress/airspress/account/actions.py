@@ -251,7 +251,7 @@ def tripReview(cUser, review_form, key):
 def send_sms(to_number,message,twilio_client=twilio_client,from_number=settings.TWILIO_NUMBER):
     twilio_client.messages.create(
         to=to_number, 
-        from_=from_number
+        from_=from_number,
         body=message,  
     )
 
@@ -431,9 +431,10 @@ def notify(request, source, origin, target, target_id, email, text="", link="", 
         if(target_user.phone):
             #sms_result= send_message(sms_body=main,to_number=target_user.phone)
             send_sms(target_user.phone,main)
-        push_alert = origin + ' sent you a request!'
-        Push.alert({"alert": push_alert,"badge": "Increment"}, 
-               where={"appUser":{"__type":"Pointer","className":"_User","objectId":target_id}})
+        try:
+            push_alert = origin + ' sent you a request!'
+            Push.alert({"alert": push_alert,"badge": "Increment"}, 
+                   where={"appUser":{"__type":"Pointer","className":"_User","objectId":target_id}})
         except:
             pass
         target_user = User.Query.get(objectId = target_id)
