@@ -60,10 +60,10 @@ class requestForm(forms.Form):
         weight = cleaned_data.get('weightGood')
         comment = cleaned_data.get('comments')
         msg = 'Error'
-        if not (weight or name or quantity):
-            self._errors['request1'] = self.error_class([msg])
-        elif not(price or comment or shop):
-            self._errors['request2'] = self.error_class([msg]) 
+#         if not (weight or name or quantity):
+#             self._errors['request1'] = self.error_class([msg])
+#         elif not(price or comment or shop):
+#             self._errors['request2'] = self.error_class([msg]) 
         return cleaned_data
     
 class editproForm(forms.Form):

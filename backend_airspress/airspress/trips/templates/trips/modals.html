@@ -30,20 +30,41 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<ul id="itemList" class="nav nav-pills hidden-xs">
-				<li id="firstItem" class="active"><a href="#item1" data-toggle="tab">Item 1</a></li>
-				
+				{% if request_set.errors %}
+						{% for requestForm in request_set.forms %}
+							{% if requestForm.errors %}
+								<li {% if forloop.first %} class="active" id="firstItem"{% endif %}><a href="#item{{forloop.counter}}" data-toggle="tab">Item {{forloop.counter}}</a></li>
+							{% endif %}
+						{% endfor %}
+				{% else %}
+					<li id="firstItem" class="active"><a href="#item1" data-toggle="tab">Item 1</a></li>
+				{% endif %}
 			</ul>
 		<div id="itemTabs" class="tab-content">
-			
+			{% if request_set.errors %}
+				<div class="tab-pane active in" id="formError">
+					<div class="alert alert-warning alert-block">
+						<h4 class="alert-heading">{% trans "We found errors." %}</h4>
+						<strong style="font-family:Lato;">{% trans "Correct these errors and submit again:" %}</strong>
+						<ul>
+							{% for requestForm in request_set.forms %}
+								{% if requestForm.errors %}
+									<li> - Invalid information on item "Item {{forloop.counter}}" </li>
+								{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			{% endif %}
 			{% for requestForm in request_set.forms %}
-				<div class="tab-pane {% if not forloop.first %} fade {% else %} active {% endif %} {% if requestForm.errors %} in {% endif %}" id="item{{forloop.counter}}">
+				<div class="tab-pane {% if not forloop.first or request_set.errors %} fade {% else %} active {% endif %}" id="item{{forloop.counter}}">
 					<div class="row tab-content">
 						<div class="tab-pane active" id="item{{forloop.counter}}_start">
 							<div class="row">
 								<div class="col-sm-6 col-md-4">
 									<div class="form-group">
 									  <label class="control-label" for="item_name"> <b>{% trans "Name" %}</b></label>
-										  <input required type="text" id="item_name" name="{{ requestForm.item_name.name }}" value="{% firstof requestForm.item_name.value %}" class="form-control" placeholder="Nike Air Jordan">
+										  <input {% if forloop.first %} required {% endif %} type="text" id="id_form-{{forloop.counter|add:-1}}-item_name" name="form-{{forloop.counter|add:-1}}-{{ requestForm.item_name.name }}" value="{% firstof requestForm.item_name.value %}" class="form-control" placeholder="Nike Air Jordan">
 										{{requestForm.item_name.errors}}
 										<span class="help-block col-sm-8">{% trans "Name that best describe the item" %}</span>
 									</div>
@@ -53,7 +74,7 @@
 									<div class="form-group">
 									  <label class="control-label" for="quantity"> <b>{% trans "Quantity" %}</b></label>
 
-										  <input required type="number" min="0" id="quantity" name="{{ requestForm.item_quantity.name }}" value="{% firstof requestForm.item_quantity.value %}" class="form-control" placeholder="2">
+										  <input {% if forloop.first %} required {% endif %} type="number" min="0" id="id_form-{{forloop.counter|add:-1}}-quantity" name="form-{{forloop.counter|add:-1}}-{{ requestForm.item_quantity.name }}" value="{% firstof requestForm.item_quantity.value %}" class="form-control" placeholder="2">
 											
 										{{requestForm.item_quantity.errors}}
 										<span class="help-block col-sm-8">{% trans "How many of this do you want ?" %}</span>
@@ -65,7 +86,7 @@
 									<div class="form-group">
 										<label class="control-label" for="weight"> <b>{% trans "Weight" %}</b></label>
 
-										  <input required type="number" min="0" id="weight" placeholder="Amount in kilograms" value="{% firstof requestForm.weightGood.value %}" name="{{ requestForm.weightGood.name }}" class="form-control" >
+										  <input {% if forloop.first %} required {% endif %} type="number" min="0" id="id_form-{{forloop.counter|add:-1}}-weight" placeholder="Amount in kilograms" value="{% firstof requestForm.weightGood.value %}" name="form-{{forloop.counter|add:-1}}-{{ requestForm.weightGood.name }}" class="form-control" >
 											
 										{{requestForm.weightGood.errors}}
 										<span class="help-block col-sm-8"></span>
@@ -78,7 +99,7 @@
 									   <div class="controls">
 											<div class="input-group">
 												<span class="input-group-addon"><i class="glyphicon glyphicon-usd"></i></span>
-												<input required type="number" min="0" id="price" name="{{ requestForm.item_price.name }}" value="{% firstof requestForm.item_price.value %}" class="form-control" placeholder="60 $">
+												<input {% if forloop.first %} required {% endif %} type="number" min="0" id="id_form-{{forloop.counter|add:-1}}-price" name="form-{{forloop.counter|add:-1}}-{{ requestForm.item_price.name }}" value="{% firstof requestForm.item_price.value %}" class="form-control" placeholder="60 $">
 											</div>	
 											<span class="help-block col-sm-8">{% trans "Price of a unit of this article" %}</span>
 												{{requestForm.item_price.errors}}
@@ -110,18 +131,18 @@
 								</div>
 								<div class="col-sm-6 col-md-8">
 									<div class="form-group">
-									  <label class="control-label" for="shop"> <b>{% trans "Shop Name" %}</b></label>
+									  <label class="control-label" for="id_form-{{forloop.counter|add:-1}}-shop"> <b>{% trans "Shop Name" %}</b></label>
 
-										  <input required type="text" id="shop" name="{{ requestForm.shop_name.name }}" value="{% firstof requestForm.shop_name.value %}" class="form-control">
+										  <input {% if forloop.first %} required {% endif %} type="text" id="id_form-{{forloop.counter|add:-1}}-shop" name="form-{{forloop.counter|add:-1}}-{{ requestForm.shop_name.name }}" value="{% firstof requestForm.shop_name.value %}" class="form-control">
 										{{requestForm.shop_name.errors}}
 										<span class="help-block col-sm-8">{% trans "Name of a shop selling this item" %}</span>
 									</div>
 								</div>
 								<div class="col-sm-8 col-md-8 form-group">
-								  <label class="control-label" for="comment"><b>{% trans "Comments" %}</b></label>
+								  <label class="control-label" for="id_form-{{forloop.counter|add:-1}}-comment"><b>{% trans "Comments" %}</b></label>
 								  <div class="controls">
 									<div class="input-group comment">
-									  <textarea rows="2" id="comment" maxlength="200" value="{% firstof requestForm.comments.value %}" name="{{ requestForm.comments.name }}" class="form-control"></textarea>
+									  <textarea rows="2" id="id_form-{{forloop.counter|add:-1}}comment" maxlength="200" value="{% firstof requestForm.comments.value %}" name="form-{{forloop.counter|add:-1}}-{{ requestForm.comments.name }}" class="form-control"></textarea>
 										
 									</div>
 										{{requestForm.comments.errors}}

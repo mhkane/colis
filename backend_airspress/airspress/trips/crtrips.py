@@ -9,6 +9,7 @@ from string import split
 from signup.backend_parse import Item
 from decimal import Decimal
 from parse_rest.query import QueryResourceDoesNotExist
+import traceback
 register(settings.APPLICATION_ID, settings.REST_API_KEY)#settings.REST_API_KEY
 from parse_rest.datatypes import Object as ParseObject
 from parse_rest.user import User
@@ -244,7 +245,7 @@ def tripCreate(request, cUser, addView):
                 'destLocation':destLocation, 'oriLocation':oriLocation,}
     return newtripDict
 
-def tripRequest(cUser, reqView, key):
+def tripRequest(cUser, request_set, key):
     alert={}
     had_requested = False
     try:
@@ -258,42 +259,58 @@ def tripRequest(cUser, reqView, key):
             alert['text'] = _("Buddy, you can't own the penthouse and lease it to yourself, yeah ? =D !")
             alert['type'] = "warning"
             return alert
-#         elif had_requested:
-#             alert['text'] = _("You can't request more than once ;)")
-#             alert['type'] = "warning"
-#             return alert     
     except AttributeError:
         pass
+    
+    for request_item in request_set:
+        if not request_item.is_valid():
+            alert['text'] = _("Some of your entries are invalid, please correct them.")
+            alert['type'] = "warning"
+            print "not valid"
+            break
+            return alert
+            
+       
     try:
-
-        deliveryCity = tripnow.toLocation
-        item_name = reqView.cleaned_data['item_name']
-        item_price = price_format(reqView.cleaned_data['item_price'])
-        item_quantity = reqView.cleaned_data['item_quantity']
-        shop_name = reqView.cleaned_data['shop_name']
-        weightGood = reqView.cleaned_data['weightGood']
-        item_description = reqView.cleaned_data['comments']
-
-        newRequest = trequests(moreInfo=item_description, weightRequested=weightGood, deliveryCity=deliveryCity, accepted=False,
-                        paymentStatus=False, deliveryStatus=False)
         
+        new_items = []
+        weights = 0
+        deliveryCity = tripnow.toLocation
+        for request_item in request_set:
+            if getattr(request_item, 'cleaned_data'):
+                item_name = request_item.cleaned_data['item_name']
+                item_price = price_format(request_item.cleaned_data['item_price'])
+                item_quantity = request_item.cleaned_data['item_quantity']
+                shop_name = request_item.cleaned_data['shop_name']
+                weightGood = request_item.cleaned_data['weightGood']
+                item_description = request_item.cleaned_data['comments']
+                items_total_price = priceCalc(item_quantity, item_price) 
+                new_items.append(Item(name=item_name, quantity=item_quantity, description=item_description, 
+                                unitPrice=item_price, price=items_total_price, weight=weightGood))
+                weights += weightGood
+            
+        descriptions = " | ".join(["{}: {}".format(new_item.name, new_item.description) for new_item in new_items])
+
+        newRequest = trequests(moreInfo=descriptions, weightRequested=weights, deliveryCity=deliveryCity, accepted=False,
+                        paymentStatus=False, deliveryStatus=False)
         newRequest.tripId = tripnow
         newRequest.Requester = cUser
-        items_total_price = priceCalc(item_quantity, item_price) 
-        new_item = Item(name=item_name, quantity=item_quantity, description=item_description, unitPrice=item_price, price=items_total_price)
         newRequest.save()
-        new_item.request = newRequest
-        new_item.save()
+        
+        for new_item in new_items:
+            new_item.request = newRequest
+            new_item.save()
         print newRequest
 
     except AttributeError:
+        print traceback.format_exc()
         newRequest=''
         # alerts in case try does not go true
         alert['text'] = _('Request not submitted. Try again...')
         alert['type'] = 'warning'
         pass
     if newRequest:
-        alert = {'text':_('Request submitted with success. You will be notified as soon as Traveler accept it.'),'type':'success'}
+        alert = {'text':_('Request submitted with success. You will be notified as soon as the Traveler accepts it.'),'type':'success'}
         
     return alert
 

@@ -148,12 +148,12 @@ def requestTrip(request, key):
                     pass
                 print alert              
             else:
-                
+               
                 print request_set.errors
             return render(request, 'trips/modals.html', {'key':key,'alert':alert,'greetings':cUser.username, 'request_set':request_set, 'pPicture':myPicture})             
         else:
             request_set = requestFormSet()
-            
+            print request_set
     else:
         return HttpResponseRedirect(reverse('signup:index'))
     return render(request, 'trips/modals.html', {'key':key,'greetings':cUser.username, 'request_set':request_set})
