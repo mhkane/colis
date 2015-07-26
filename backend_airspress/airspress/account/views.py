@@ -652,7 +652,8 @@ def instant_messaging(request,key):
                 context_dic['firebase_node']=chat_node+"/"+source_id
                 context_dic['current_user_id'] = cUser.objectId
             return render(request, 'account/messaging.html', context_dic)
-    return HttpResponseRedirect(reverse('signup:index'))      
+    return HttpResponseRedirect(reverse('signup:index'))
+      
 def referral(request):
     cUser = is_logged_in(request)
     alert = {}

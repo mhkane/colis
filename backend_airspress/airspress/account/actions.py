@@ -14,12 +14,14 @@ from trips.crtrips import priceCalc, trip, price_format
 from moneyed.classes import Money
 from django.utils.translation import ugettext as _
 
-class request(ParseObject):
-    pass
-trequests = request()
 #Cloud function for mail sending
 send_mail = Function("email")
 send_template = Function("emailTemplate")
+
+class request(ParseObject):
+    pass
+trequests = request()
+
 # function to recover information for a given deal 
 def getdeal(travelUser, reqUser, aRequest, aTrip):
     reqAccepted = {}
@@ -431,4 +433,10 @@ def notify(request, source, origin, target, target_id, email, text="", link="", 
             target_user_notif.save()
         except AttributeError:
             pass
+    return True
+
+def notify_sms(to=None, body=None):
+    send_sms = Function("sms")
+    if to:
+        send_sms(to_number=to, body=body)
     return True
