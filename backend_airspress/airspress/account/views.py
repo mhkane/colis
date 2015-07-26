@@ -512,6 +512,8 @@ def edit_profile(request, section):#todo last man standing
                         cUser.screenName = general_form.cleaned_data.get('screen_name', False) or cUser.screenName
 
                         cUser.secondMail = general_form.cleaned_data.get('second_mail', False) or cUser.secondMail
+
+                        cUser.phone = general_form.cleaned_data.get('phone', False) or cUser.phone
                         
                         cUser.timeZone = general_form.cleaned_data.get('time_zone', False) or cUser.timeZone
                    
@@ -540,6 +542,7 @@ def edit_profile(request, section):#todo last man standing
                     proDict.update({'pPicture':get_profile_pic(cUser.objectId)})
                     proDict.update({'screen_name':cUser.screenName}) 
                     proDict.update({'second_mail':cUser.secondMail})
+                    proDict.update({'phone':cUser.phone})
                 except AttributeError:
                     pass       
                 context_dic = {'greetings':cUser.username,'myPicture':get_profile_pic(cUser.objectId), 

@@ -12,10 +12,13 @@ from signup.backend_parse import review, referral, Notifications
 from parse_rest.installation import Push
 from trips.crtrips import priceCalc, trip, price_format
 from moneyed.classes import Money
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
+from twilio.rest import TwilioRestClient
+from airspress import settings
 
 #Cloud function for mail sending
 send_mail = Function("email")
+#send_message = Function("sms") Not using cloud code now. Have some issues
 send_template = Function("emailTemplate")
 
 class request(ParseObject):
@@ -23,6 +26,10 @@ class request(ParseObject):
 trequests = request()
 
 # function to recover information for a given deal 
+
+account_sid = settings.TWILIO_ACCOUNT_SID
+auth_token = settings.TWILIO_AUTH_TOKEN
+twilio_client = TwilioRestClient(account_sid, auth_token)
 def getdeal(travelUser, reqUser, aRequest, aTrip):
     reqAccepted = {}
     try:
@@ -112,7 +119,6 @@ def get_user_info(cUser, request, user_id='',username=''):
         pass
     if user_id or username:
         screen_name=''
-        second_mail=''
         pPicture=''
         anyName = '' if user_id else username
         anyMail = ''
@@ -125,16 +131,16 @@ def get_user_info(cUser, request, user_id='',username=''):
         is_cuser = False
         member_since=''
         reviews_dict={}
+        user_trips = {}
         try:
             anyUser = User.Query.get(objectId=user_id) if user_id else User.Query.get(username=username)
             user_id = anyUser.objectId
             pPicture = get_profile_pic(anyUser.objectId)
             anyName = anyUser.username
             anyMail = anyUser.email
-            second_mail = anyUser.secondMail
             member_since_month = anyUser.createdAt.strftime("%B")
             member_since_year = anyUser.createdAt.year
-            member_since = _('%(member_since_month)s %(member_since_year)s ') % (member_since_month, member_since_year)
+            member_since = {'month':member_since_month, 'year':member_since_year}#_('%(member_since_month)s %(member_since_year)s ') % (_(member_since_month), _(member_since_year))
             
             anyReviews = review.Query.filter(reviewedUser=anyUser)
             
@@ -147,7 +153,6 @@ def get_user_info(cUser, request, user_id='',username=''):
                                                  'pub_date':any_review.createdAt.date().strftime('%b %d %Y')}
             is_verified = anyUser.emailVerified
             anyTrips = trip.Query.filter(traveler= anyUser)
-            user_trips = {}
             for anyTrip in anyTrips :
                 k = k + 1
                 
@@ -191,7 +196,7 @@ def get_user_info(cUser, request, user_id='',username=''):
          
        
         # let's get everything in a dict object
-        proDict={'id':user_id,'username':anyName, 'screen_name':screen_name,'second_mail':second_mail, 'is_verified':is_verified, 'is_cuser':is_cuser, 'email':anyMail, 'Bio':anyBio, 
+        proDict={'id':user_id,'username':anyName, 'screen_name':screen_name,'is_verified':is_verified, 'is_cuser':is_cuser, 'email':anyMail, 'Bio':anyBio, 
                  'rating':anyRating, 'total_deliveries':total_deliveries, 'total_orders':total_orders, 'pPicture':pPicture,
                  'total_reviews':total_reviews, 'reviews':reviews_dict, 'member_since':member_since,'trips':user_trips}
         if is_cuser:
@@ -245,6 +250,12 @@ def tripReview(cUser, review_form, key):
         pass
     
     return False
+def send_sms(to_number,message,twilio_client=twilio_client,from_number=settings.TWILIO_NUMBER):
+    twilio_client.messages.create(
+        to=to_number, 
+        from_=from_number,
+        body=message,  
+    )
 
 def ref_create(referralView, cUser, request):
     had_referred = ''
@@ -264,6 +275,7 @@ def ref_create(referralView, cUser, request):
     result = send_mail(text='Your friend want to invite you in the amazing Airspress community.\n\n'+personal_message+'\n\nLink: '+link,
             subject="{0} invited you to join Airspress".format(cUser.username), from_email="no-reply@airspress.com",
             from_name="Airspress", email=referralView.cleaned_data['referred_email'], to_name='')
+
     
     alert = {'type':'warning', 'text':_('There was an error attempting to send the invitation, try again later.')}
     try:
@@ -275,6 +287,7 @@ def ref_create(referralView, cUser, request):
 
 
 def notify(request, source, origin, target, target_id, email, text="", link="", activity_id=""):
+
     template_name = 'notifications'
     #  template variables
     
@@ -294,10 +307,13 @@ def notify(request, source, origin, target, target_id, email, text="", link="", 
         link = request.build_absolute_uri(link)
         main = origin + " just accepted your request, you can now wrap up the details with the traveler and have your item delivered soon."
         subject = header + ':' + origin
-        
+
         send_template(template_name=template_name,var_header=header, var_user = user, var_info=info, var_title=title,
                   var_main = main, var_action=action, subject=subject, email = email, 
                   from_name='Airspress',from_email = 'no-reply@airspress.com')
+        if(target_user.phone):
+            #sms_result= send_message(sms_body=main,to_number=target_user.phone)
+            send_sms(target_user.phone,main)
         try:
             push_alert = origin + ' accepted your request!'
             Push.alert({"alert": push_alert,"badge": "Increment"}, 
@@ -411,10 +427,12 @@ def notify(request, source, origin, target, target_id, email, text="", link="", 
         link = request.build_absolute_uri(link)
         main = origin + " just sent you a request, you can accept, check request details and carry on with the process."
         subject = header + ': ' + origin
-        
         send_template(template_name=template_name,var_header=header, var_user = user, var_info=info, var_title=title,
                   var_main = main, var_action=action, subject=subject, email = email, 
                   from_name='Airspress',from_email = 'no-reply@airspress.com')
+        if(target_user.phone):
+            #sms_result= send_message(sms_body=main,to_number=target_user.phone)
+            send_sms(target_user.phone,main)
         try:
             push_alert = origin + ' sent you a request!'
             Push.alert({"alert": push_alert,"badge": "Increment"}, 

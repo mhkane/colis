@@ -18,7 +18,6 @@
 									{% firstof general_form.screen_name.errors general_form.screen_name.help_text %}
 								</p>
 							</div>
-
 							<div class="form-group">
 								<label for="second_mail">{% trans "Favorite mail" %}</label>
 								<input type="text" name="{{general_form.second_mail.name}}" class="form-control" id="second_mail" placeholder="Your favorite email">
@@ -26,9 +25,13 @@
 									{% firstof general_form.second_mail.errors general_form.second_mail.help_text %}
 								</p>
 							</div>	
-
-			
-							
+							<div class="form-group">
+								<label for="phone">{% trans "Phone" %}</label>
+								<input type="text" name="{{general_form.phone.name}}" class="form-control" id="phone" placeholder="Your phone number with + and your country id and your phone number">
+								<p class="help-block">
+									{% firstof general_form.phone.errors general_form.phone.help_text %}
+								</p>
+							</div>	
 							<div class="form-group">
 								<label for="timeZone">{% trans "Time Zone" %}</label>
 								<select id="timeZone" name="{{general_form.time_zone.name}}" class="form-control">

@@ -7,11 +7,8 @@ from signup.schemes import is_logged_in
 from trips.forms import searchForm, requestForm
 from string import split
 from account.actions import get_profile_pic, notify
-from datetime import datetime
 from django.utils import timezone
 from parse_rest.query import QueryResourceDoesNotExist
-
-
 
 def fbPicture(request):
     try:
@@ -22,7 +19,6 @@ def fbPicture(request):
 def activeTrips(request):
     cUser = is_logged_in(request)
     if cUser:
-        
         allTrips = trip.Query.filter(departureDate__gte=timezone.now()).order_by("departureDate")
         page_one = allTrips.limit(25)
         k = 0
@@ -79,8 +75,7 @@ def activeTrips(request):
                                 'available':available_weight,'total':total_weight,
                                 'unit_price':unit_price,'tripId':tripId, 'pPicture':pPicture,}
                     #once the context dict created we can use render()
-                    print(tripDict)
-                    print k
+                    
         #Preparing search form on page
         if request.method == 'POST':
             searchView = searchForm(request.POST)
@@ -111,7 +106,7 @@ def searchTrips(request):
             searchView = searchForm(request.POST)
             if searchView.is_valid():
                 tripDict = tripFind(request, cUser, searchView)
-                print tripDict
+                
         #Preparing search form on page
             else:
                 print searchView.errors

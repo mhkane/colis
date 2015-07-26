@@ -5,7 +5,7 @@ from parse_rest.core import ResourceRequestNotFound, ResourceRequestBadRequest
 from signup.backend_parse import passRequest, referral, Notifications
 from string import split
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 #register to Parse
 register(settings.APPLICATION_ID, settings.REST_API_KEY, master_key=settings.MASTER_KEY)#settings.REST_API_KEY
 #from parse_rest.connection import ParseBatcher
@@ -76,7 +76,7 @@ def re_validation(request, registerView, provider_name, referral_id=''):
     # to create subclass validation right now; TODO 
     # UPDATE: we created subclass validation, we should trash this one mwahahaha
     if not user_password == user_password_conf:
-        alert={'type':'danger', 'text':_('Hmmm... Passwords don''t match...')}
+        alert={'type':'danger', 'text':_("Hmmm... Passwords don't match...")}
         return alert
     domain_mail = "@"
     if provider_name == 'student':

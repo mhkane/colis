@@ -48,6 +48,7 @@ class settings_form_general(forms.Form):
     screen_name = forms.CharField(max_length=10, required=False)
     time_zone = forms.ChoiceField(required=False, choices=TIME_ZONE_CHOICES)
     second_email = forms.EmailField(required=False)
+    phone = forms.CharField(required=False, help_text= "Please include your country id for example +<country id><phone number>")
 # profile picture setting
 class settings_form_picture(forms.Form):
     profile_picture = forms.ImageField(help_text="2mb max.", required=False)
